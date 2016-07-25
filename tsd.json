@@ -1,0 +1,18 @@
+{
+  "version": "v4",
+  "repo": "borisyankov/DefinitelyTyped",
+  "ref": "master",
+  "path": "typings",
+  "bundle": "typings/tsd.d.ts",
+  "installed": {
+    "filewriter/filewriter.d.ts": {
+      "commit": "c42b2ba16cc7f06869be1934ae829861296c2323"
+    },
+    "filesystem/filesystem.d.ts": {
+      "commit": "c42b2ba16cc7f06869be1934ae829861296c2323"
+    },
+    "webrtc/MediaStream.d.ts": {
+      "commit": "c42b2ba16cc7f06869be1934ae829861296c2323"
+    }
+  }
+}

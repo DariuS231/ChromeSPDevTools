@@ -1,0 +1,13 @@
+{
+     "files": [
+        "src/scripts/background.ts",
+        "src/scripts/spModalLauncher.ts"
+    ],
+    "compilerOptions": {
+        "outDir": "./dist/scripts",
+        "sourceMap": true,
+        "noImplicitAny": true,
+        "module": "commonjs",
+        "target": "es6"
+    }
+}
