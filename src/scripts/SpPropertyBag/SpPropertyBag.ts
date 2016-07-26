@@ -14,11 +14,37 @@ class SpPropertyBag{
 	refreshTableRequired:boolean;
 	divContainerId:string = "divSpPropertyBag";
 	divBlockContainerId:string = "divBlockSpPropertyBag";
+	per:any;
     constructor(){
         this.reloadRequired = false;
 		this.refreshTableRequired = false;
         
-        this.ctx = SP.ClientContext.get_current();
+		this.ctx = SP.ClientContext.get_current();
+        this.web = this.ctx.get_web();
+
+		if (typeof this.web.doesUserHavePermissions !== "function") {
+            this.showMessageOnDialog("Unable to check permissions","Cannot check permissions against a non-securable object.");
+            return;
+        }
+		let ob:SP.BasePermissions = new SP.BasePermissions();
+        ob.set(SP.PermissionKind.manageWeb);
+		this.per = this.web.doesUserHavePermissions(ob);
+
+		let onSuccess:Function = Function.createDelegate(this,function(sender:any, err:any){
+			var hasPermissions = this.per.get_value();
+                if (hasPermissions) {
+                    this.getWebProperties();
+                }
+                else {
+                    this.showMessageOnDialog("No required permissions","Current user does not have the required permissions");
+                }
+		});
+        let onError:Function = Function.createDelegate(this,function(sender:any, err:any){SP.UI.Notify.addNotification("Failed to check the current user permissions...<br>" + err.get_message(), false);});
+        this.ctx.executeQueryAsync(onSuccess, onError);
+
+    };
+	private getWebProperties(){
+		this.ctx = SP.ClientContext.get_current();
         this.web = this.ctx.get_web();
         this.allProperties = this.web.get_allProperties();
         this.ctx.load(this.web);
@@ -28,7 +54,7 @@ class SpPropertyBag{
         let onSuccess:Function = Function.createDelegate(this,function(sender:any, err:any){this.showPropertiesDialog(this.allProperties.get_fieldValues());});
         let onError:Function = Function.createDelegate(this,function(sender:any, err:any){SP.UI.Notify.addNotification("Failed to get web properties...<br>" + err.get_message(), false);});
         this.ctx.executeQueryAsync(onSuccess, onError);
-    };
+	}
 	private toggleBlockModal(blockModal:Boolean){
 		let html:HTMLElement = document.getElementById(this.divBlockContainerId);
 		html.style.display = blockModal ? 'block' : 'none';
@@ -148,6 +174,18 @@ class SpPropertyBag{
 			}
 		});
 	}
+	private showMessageOnDialog(title:string, message:string) {
+		let html:HTMLElement = document.createElement('div');
+		let hr:HTMLElement = document.createElement('hr');
+		let p:HTMLElement = document.createElement('p');
+
+		html.id = this.divContainerId;
+		p.textContent = message;
+
+		html.appendChild(hr);
+		html.appendChild(p);
+		this.showModal(title, html);
+	};
 	private showPropertiesDialog(props: any) {
 
 		let items:Array<any> = this.getItemArray(props);
