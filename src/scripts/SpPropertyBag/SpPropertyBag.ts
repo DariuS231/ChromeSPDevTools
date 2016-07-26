@@ -6,11 +6,6 @@
 /// <reference path="../../../typings/sharepoint/SharePoint.d.ts" />
 /// <reference path="../../../typings/microsoft-ajax/microsoft.ajax.d.ts" />
 
-interface window {
-    SpPropAdmin: any;
-}
-
-
 class SpPropertyBag{
     ctx: SP.ClientContext;
     web:any;
@@ -65,8 +60,8 @@ class SpPropertyBag{
 			h += '<tr>';
 			h += '<td style="text-align: right; padding-top: 15px;"><b>' + items[i].prop + '</b></td>';
 			h += '<td style="padding-top: 15px;"><input id="prop' + i + '" style="width:240px; " type="text" value="' + items[i].value + '"></inpu></td>';
-			h += '<td style="padding-top: 15px;"><button onclick="SpPropAdmin.setProperty(\'' + items[i].prop + '\',\'prop' + i +'\'); return false;">Update</button></td>';
-			h += '<td style="padding-top: 15px;"><button style="color: red; min-width: 1em;" onclick="SpPropAdmin.deleteProperty(\'' + items[i].prop + '\',\'prop' + i +'\'); return false;">X</button></td>';
+			h += '<td style="padding-top: 15px;"><button onclick="_spPropertyBag.setProperty(\'' + items[i].prop + '\',\'prop' + i +'\'); return false;">Update</button></td>';
+			h += '<td style="padding-top: 15px;"><button style="color: red; min-width: 1em;" onclick="_spPropertyBag.deleteProperty(\'' + items[i].prop + '\',\'prop' + i +'\'); return false;">X</button></td>';
 			h += '</tr>';
 		}
 		h += '</table>';
@@ -74,7 +69,7 @@ class SpPropertyBag{
 		h += '<hr><h3>Add a new property:</h3>';
 		h += '<div style="margin: 1em; padding-bottom: 2em;">Key: <input id="newKey"></inpu>';
 		h += '&nbsp;&nbsp;&nbsp;Value: <input id="newValue"></inpu>';
-		h += '&nbsp;<button onclick="SpPropAdmin.addProperty(); return false;">Add</button></div>';
+		h += '&nbsp;<button onclick="_spPropertyBag.addProperty(); return false;">Add</button></div>';
 		h += '<div></div>';
 		h += '<div id="' + this.divBlockContainerId + '" style="display:none; position: absolute; width: 100%; height: 100%; background-color: gray; top: 0; left: 0;opacity: .8;"></div>';
 		return h;
@@ -161,8 +156,8 @@ class SpPropertyBag{
 	};	
 }
 
-declare var SpPropAdmin:any;
+declare var _spPropertyBag:SpPropertyBag;
 
 SP.SOD.executeFunc('sp.js', 'SP.ClientContext', function(){
-    SpPropAdmin = new SpPropertyBag();
+    _spPropertyBag = new SpPropertyBag();
 });
