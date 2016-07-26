@@ -135,6 +135,19 @@ class SpPropertyBag{
 
 		return items;	
 	};
+	private showModal(modalTitle:string, modalHtml:HTMLElement){
+		SP.UI.ModalDialog.showModalDialog({
+			title: modalTitle,
+			html:modalHtml,
+			showClose: true,
+			autoSize: true,
+			dialogReturnValueCallback: function(dialogResult) {
+				if(this.reloadRequired){
+					window.location.reload();
+				}
+			}
+		});
+	}
 	private showPropertiesDialog(props: any) {
 
 		let items:Array<any> = this.getItemArray(props);
@@ -143,17 +156,7 @@ class SpPropertyBag{
 
 		html.innerHTML = this.buildTable(items);
 
-		SP.UI.ModalDialog.showModalDialog({
-		 title: "Property Bag Editor",
-		 html:html,
-		 showClose: true,
-		 autoSize: true,
-		 dialogReturnValueCallback: function(dialogResult) {
-			if(this.reloadRequired){
-				window.location.reload();
-			}
-		 }
-		});
+		this.showModal("Property Bag Editor", html);
 	};	
 }
 
