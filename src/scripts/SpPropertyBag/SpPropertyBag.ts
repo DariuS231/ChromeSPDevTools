@@ -54,25 +54,26 @@ class SpPropertyBag{
 		this.ctx.executeQueryAsync(onSuccess, onError);
 	};
 	private buildTable(items: Array<any>){
-		let h:string = '<hr><table style="margin: 1em;">';
+		let h:Array<string> = ['<hr><table style="margin: 1em;">'];
 
 		for(let i:number=0, itemsCount:number = items.length; i<itemsCount; i++) {
-			h += '<tr>';
-			h += '<td style="text-align: right; padding-top: 15px;"><b>' + items[i].prop + '</b></td>';
-			h += '<td style="padding-top: 15px;"><input id="prop' + i + '" style="width:240px; " type="text" value="' + items[i].value + '"></inpu></td>';
-			h += '<td style="padding-top: 15px;"><button onclick="_spPropertyBag.setProperty(\'' + items[i].prop + '\',\'prop' + i +'\'); return false;">Update</button></td>';
-			h += '<td style="padding-top: 15px;"><button style="color: red; min-width: 1em;" onclick="_spPropertyBag.deleteProperty(\'' + items[i].prop + '\',\'prop' + i +'\'); return false;">X</button></td>';
-			h += '</tr>';
+			let item:any = items[i];
+			h.push('<tr>');
+			h.push('<td style="text-align: right; padding-top: 15px;"><b>' + item.prop + '</b></td>');
+			h.push('<td style="padding-top: 15px;"><input id="prop' + i + '" style="width:240px; " type="text" value="' + item.value + '"></inpu></td>');
+			h.push('<td style="padding-top: 15px;"><button onclick="_spPropertyBag.setProperty(\'' + item.prop + '\',\'prop' + i +'\'); return false;">Update</button></td>');
+			h.push('<td style="padding-top: 15px;"><button style="color: red; min-width: 1em;" onclick="_spPropertyBag.deleteProperty(\'' + item.prop + '\',\'prop' + i +'\'); return false;">X</button></td>');
+			h.push('</tr>');
 		}
-		h += '</table>';
+		h.push('</table>');
 
-		h += '<hr><h3>Add a new property:</h3>';
-		h += '<div style="margin: 1em; padding-bottom: 2em;">Key: <input id="newKey"></inpu>';
-		h += '&nbsp;&nbsp;&nbsp;Value: <input id="newValue"></inpu>';
-		h += '&nbsp;<button onclick="_spPropertyBag.addProperty(); return false;">Add</button></div>';
-		h += '<div></div>';
-		h += '<div id="' + this.divBlockContainerId + '" style="display:none; position: absolute; width: 100%; height: 100%; background-color: gray; top: 0; left: 0;opacity: .8;"></div>';
-		return h;
+		h.push('<hr><h3>Add a new property:</h3>');
+		h.push('<div style="margin: 1em; padding-bottom: 2em;">Key: <input id="newKey"></inpu>');
+		h.push('&nbsp;&nbsp;&nbsp;Value: <input id="newValue"></inpu>');
+		h.push('&nbsp;<button onclick="_spPropertyBag.addProperty(); return false;">Add</button></div>');
+		h.push('<div></div>');
+		h.push('<div id="' + this.divBlockContainerId + '" style="display:none; position: absolute; width: 100%; height: 100%; background-color: gray; top: 0; left: 0;opacity: .8;"></div>');
+		return h.join('\n');
 	};
     private executeChanges() {
 		this.ctx.get_web().update();
