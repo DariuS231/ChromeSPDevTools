@@ -1,8 +1,8 @@
 {
-  "name": "ChromeSPPropertiesAdmin",
-  "version": "0.0.1",
+  "name": "Chrome SP Properties Admin",
+  "version": "0.0.2",
   "manifest_version": 2,
-  "description": "ChromeSPPropertiesAdmin",
+  "description": "Chrome SP Properties Admin",
   "icons": {
     "16": "images/icon-16.png",
     "128": "images/icon-128.png"
@@ -23,6 +23,6 @@
       "19": "images/icon-19.png",
       "38": "images/icon-38.png"
     },
-    "default_title": "ChromeSPPropertiesAdmin"
+    "default_title": "Chrome SP Properties Admin"
   }
 }
