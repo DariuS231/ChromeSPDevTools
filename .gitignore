@@ -7,6 +7,7 @@ test/bower_components
 package
 app/scripts
 dist/
+chromePackage*
 # Logs
 logs
 *.log

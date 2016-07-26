@@ -1,12 +1,8 @@
 var gulp = require("gulp");
 var ts = require("gulp-typescript");
 var tsProject = ts.createProject("tsconfig.json");
-
-var sourcemaps = require('gulp-sourcemaps');
-var buffer = require('vinyl-buffer');
-var watchify = require("watchify");
-var browserify = require("browserify");
 var uglify = require('gulp-uglify');
+var zip = require('gulp-zip');
 
 var paths = {
     images: ['src/images/*.png'],
@@ -23,12 +19,15 @@ gulp.task("copy-manifest", function () {
         .pipe(gulp.dest("dist"));
 });
 
+gulp.task("generate-chrome-package", function () {
+    return gulp.src('dist/**')
+        .pipe(zip('ChromeSPPropertiesAdmin.zip'))
+        .pipe(gulp.dest('chromePackage'));
+});
+
 gulp.task("default", ["copy-images", "copy-manifest"], function () {
     return tsProject.src()
         .pipe(ts(tsProject))
-        .pipe(buffer())
-        .pipe(sourcemaps.init({loadMaps: true}))
-        //.pipe(uglify())
-        .pipe(sourcemaps.write('./'))
+        .pipe(uglify())
         .pipe(gulp.dest("dist/scripts"));
 });
