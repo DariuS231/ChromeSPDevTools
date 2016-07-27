@@ -1,4 +1,5 @@
 /// <reference path="globals/chrome/index.d.ts" />
+/// <reference path="globals/es6-shim/index.d.ts" />
 /// <reference path="globals/filesystem/index.d.ts" />
 /// <reference path="globals/filewriter/index.d.ts" />
 /// <reference path="globals/microsoft.ajax/index.d.ts" />
