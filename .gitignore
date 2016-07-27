@@ -1,5 +1,6 @@
 node_modules
 typings/
+!typings/sharepoint/
 temp
 .tmp
 .sass-cache
