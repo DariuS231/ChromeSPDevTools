@@ -3,8 +3,8 @@
  * by rlv-dan (https://github.com/rlv-dan)
  * License: GPL3
 */
-/// <reference path="../../../typings/sharepoint/SharePoint.d.ts" />
-/// <reference path="../../../typings/microsoft-ajax/microsoft.ajax.d.ts" />
+/// <reference path="../../../typings/globals/SharePoint/index.d.ts" />
+/// <reference path="../../../typings/globals/microsoft.ajax/index.d.ts" />
 
 class SpPropertyBag{
     ctx: SP.ClientContext;

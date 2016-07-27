@@ -1,8 +1,7 @@
 {
      "files": [
         "src/scripts/background.ts",
-        "src/scripts/spModalLauncher.ts",
-        "typings/es6-shim/es6-shim.d.ts"
+        "src/scripts/spModalLauncher.ts"
     ],
     "compilerOptions": {
         "outDir": "./dist/scripts",

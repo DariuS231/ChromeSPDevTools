@@ -1,4 +1,4 @@
-/// <reference path="../../typings/chrome/chrome.d.ts" />
+/// <reference path="../../typings/globals/chrome/index.d.ts" />
 chrome.browserAction.onClicked.addListener(function (tab) {
 	chrome.tabs.executeScript(tab.id, {
 		file: 'scripts/spModalLauncher.js'

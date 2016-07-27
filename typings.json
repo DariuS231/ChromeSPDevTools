@@ -1,0 +1,10 @@
+{
+  "globalDependencies": {
+    "webrtc/mediastream": "registry:dt/webrtc/mediastream#0.0.0+20160317120654",
+    "filesystem": "registry:dt/filesystem#0.0.0+20160316155526",
+    "filewriter": "registry:dt/filewriter#0.0.0+20160316155526",
+    "microsoft.ajax": "registry:dt/microsoft.ajax#0.0.0+20160706234802",
+    "sharepoint": "registry:dt/sharepoint#0.0.0+20160602140352",
+    "chrome": "registry:dt/chrome#0.0.0+20160724063844"
+  }
+}
