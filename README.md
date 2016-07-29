@@ -1,19 +1,26 @@
 # Chrome SP Properties Admin
 A Google chrome extension that will show a modal dialog within a SharePoint site with a list of all the web properties of the current SharePoint site and giving the user the option to *Create* new web properties, *Modify* or *Delete* existing properties.
-## Installation
+
+## Google Chrome Installation
+
+The application is published in the Google Chrome Web Store. [This](https://chrome.google.com/webstore/detail/chrome-sp-properties-admi/efhiadiopfkjpdihdmlccoffnpdblkho) is the direct link to it. 
+
+## Development
+
+### Installation
 
 After cloning this repo, execute in your favourite shell:
 
 * `mpm install` to install npm dependencies.
 * `typings install` to install the typescript definitions.
 
-## Compilation
+### Compilation
 
 Within the same shell window, execute:
 
 * `gulp` to execute the task that will create the content of the dist folder.
 
-## Loading the extension
+### Loading the extension
 
 From a google chrome window
 
