@@ -6,4 +6,4 @@
 /// <reference path="globals/sharepoint/index.d.ts" />
 /// <reference path="globals/webrtc/mediastream/index.d.ts" />
 
-interface Window { SpPropertyBagObj: any; }
+/// <reference path="custom/custom.d.ts" />

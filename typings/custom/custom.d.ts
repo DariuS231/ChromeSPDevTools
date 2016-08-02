@@ -1,0 +1,2 @@
+
+interface Window { SpPropertyBagObj: any; }
