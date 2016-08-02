@@ -3,10 +3,7 @@
  * by rlv-dan (https://github.com/rlv-dan)
  * License: GPL3
 */
-/// <reference path="../../../typings/globals/SharePoint/index.d.ts" />
-/// <reference path="../../../typings/globals/microsoft.ajax/index.d.ts" />
-
-class SpPropertyBag{
+export class SpPropertyBag{
     ctx: SP.ClientContext;
     web:any;
     allProperties:any;
@@ -87,8 +84,8 @@ class SpPropertyBag{
 			h.push('<tr>');
 			h.push('<td style="text-align: right; padding-top: 15px;"><b>' + item.prop + '</b></td>');
 			h.push('<td style="padding-top: 15px;"><input id="prop' + i + '" style="width:240px; " type="text" value="' + item.value + '"></inpu></td>');
-			h.push('<td style="padding-top: 15px;"><button onclick="_spPropertyBag.setProperty(\'' + item.prop + '\',\'prop' + i +'\'); return false;">Update</button></td>');
-			h.push('<td style="padding-top: 15px;"><button style="color: red; min-width: 1em;" onclick="_spPropertyBag.deleteProperty(\'' + item.prop + '\',\'prop' + i +'\'); return false;">X</button></td>');
+			h.push('<td style="padding-top: 15px;"><button onclick="window.SpPropertyBagObj.setProperty(\'' + item.prop + '\',\'prop' + i +'\'); return false;">Update</button></td>');
+			h.push('<td style="padding-top: 15px;"><button style="color: red; min-width: 1em;" onclick="window.SpPropertyBagObj.deleteProperty(\'' + item.prop + '\',\'prop' + i +'\'); return false;">X</button></td>');
 			h.push('</tr>');
 		}
 		h.push('</table>');
@@ -96,7 +93,7 @@ class SpPropertyBag{
 		h.push('<hr><h3>Add a new property:</h3>');
 		h.push('<div style="margin: 1em; padding-bottom: 2em;">Key: <input id="newKey"></inpu>');
 		h.push('&nbsp;&nbsp;&nbsp;Value: <input id="newValue"></inpu>');
-		h.push('&nbsp;<button onclick="_spPropertyBag.addProperty(); return false;">Add</button></div>');
+		h.push('&nbsp;<button onclick="window.SpPropertyBagObj.addProperty(); return false;">Add</button></div>');
 		h.push('<div></div>');
 		h.push('<div id="' + this.divBlockContainerId + '" style="display:none; position: absolute; width: 100%; height: 100%; background-color: gray; top: 0; left: 0;opacity: .8;"></div>');
 		return h.join('\n');
@@ -167,7 +164,7 @@ class SpPropertyBag{
 			html:modalHtml,
 			showClose: true,
 			autoSize: true,
-			dialogReturnValueCallback: function(dialogResult) {
+			dialogReturnValueCallback: function(dialogResult: any) {
 				if(this.reloadRequired){
 					window.location.reload();
 				}
@@ -197,9 +194,3 @@ class SpPropertyBag{
 		this.showModal("Property Bag Editor", html);
 	};	
 }
-
-declare var _spPropertyBag:SpPropertyBag;
-
-SP.SOD.executeFunc('sp.js', 'SP.ClientContext', function(){
-    _spPropertyBag = new SpPropertyBag();
-});

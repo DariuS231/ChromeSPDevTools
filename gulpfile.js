@@ -1,10 +1,16 @@
 var gulp = require('gulp-param')(require('gulp'), process.argv); 
 var ts = require("gulp-typescript"); 
 var tsProject = ts.createProject("tsconfig.json"); 
-var tsProjectSpPropBag = ts.createProject("tsconfig.json"); 
 var uglify = require('gulp-uglify'); 
 var zip = require('gulp-zip'); 
 var rename = require('gulp-rename'); 
+
+
+var browserify = require('browserify');
+var source = require('vinyl-source-stream');
+var tsify = require('tsify');
+var sourcemaps = require('gulp-sourcemaps');
+var buffer = require('vinyl-buffer');
 
 var paths =  {
     images:['src/images/*.png'],
@@ -22,19 +28,34 @@ gulp.task("copy-rootFolderFiles", function () {
         .pipe(gulp.dest("dist")); 
 }); 
 
-gulp.task("generate-chrome-package", ["copy-images", "copy-rootFolderFiles", "build-sppropertyBagFile", "compile-chrome-files"], function () {
+gulp.task("generate-chrome-package", ["copy-images", "copy-rootFolderFiles", "compile-chrome-files"], function () {
     return gulp.src('dist/**')
         .pipe(zip('ChromeSPPropertiesAdmin.zip'))
         .pipe(gulp.dest('chromePackage'));
 });
 
+
+
 gulp.task("build-sppropertyBagFile", function (ugli) {
-    var ret = gulp.src('src/scripts/SpPropertyBag/SpPropertyBag.ts')
-        .pipe(ts(tsProjectSpPropBag)); 
-        if (ugli) {
-            ret = ret.pipe(uglify()); 
-        }
-        return  ret.pipe(gulp.dest("spPropertyBag")); 
+     var ret = browserify({
+        basedir: '.',
+        debug: true,
+        entries: ['src/scripts/SpPropertyBag/main.ts'],
+        cache: {},
+        packageCache: {}
+    })
+    .plugin(tsify)
+    .transform("babelify")
+    .bundle()
+    .pipe(source('SpPropertyBag.js'))
+    .pipe(buffer())
+    .pipe(sourcemaps.init({loadMaps: true}));
+    if(ugli){
+        ret = ret.pipe(uglify());
+    }
+    
+    return ret.pipe(sourcemaps.write('./'))
+    .pipe(gulp.dest("SpPropertyBag"));
 }); 
 
 gulp.task("compile-chrome-files", function (ugli) {
@@ -46,4 +67,4 @@ gulp.task("compile-chrome-files", function (ugli) {
         return  ret.pipe(rename( {dirname:''})).pipe(gulp.dest("dist/scripts")); 
 }); 
 
-gulp.task("default", ["copy-images", "copy-rootFolderFiles", "build-sppropertyBagFile", "compile-chrome-files"], function(ugli) {}); 
+gulp.task("default", ["copy-images", "copy-rootFolderFiles", "compile-chrome-files","build-sppropertyBagFile"], function(ugli) {}); 

@@ -9,6 +9,7 @@ test/bower_components
 package
 app/scripts
 dist/
+spPropertyBag/*.map
 chromePackage*
 # Logs
 logs

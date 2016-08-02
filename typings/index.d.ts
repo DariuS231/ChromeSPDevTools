@@ -5,3 +5,5 @@
 /// <reference path="globals/microsoft.ajax/index.d.ts" />
 /// <reference path="globals/sharepoint/index.d.ts" />
 /// <reference path="globals/webrtc/mediastream/index.d.ts" />
+
+interface Window { SpPropertyBagObj: any; }
