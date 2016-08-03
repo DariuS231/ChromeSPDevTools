@@ -36,10 +36,18 @@ export class SpPropertyBag{
                     this.showMessageOnDialog("No required permissions","Current user does not have the required permissions");
                 }
 		});
-        let onError:Function = Function.createDelegate(this,function(sender:any, err:any){SP.UI.Notify.addNotification("Failed to check the current user permissions...<br>" + err.get_message(), false);});
+        let onError:Function = Function.createDelegate(this,this.notificatioError);
         this.ctx.executeQueryAsync(onSuccess, onError);
 
     };
+	private modalError(sender:any, err:any){
+		alert("Failed to execute the action... Check the console log.");
+		console.log(err.get_message());
+		this.toggleBlockModal(false);
+	}
+	private notificatioError(sender:any, err:any){
+		SP.UI.Notify.addNotification("Failed to get web properties...<br>" + err.get_message(), false);
+	}
 	private getWebProperties(){
 		this.ctx = SP.ClientContext.get_current();
         this.web = this.ctx.get_web();
@@ -49,7 +57,7 @@ export class SpPropertyBag{
         
         
         let onSuccess:Function = Function.createDelegate(this,function(sender:any, err:any){this.showPropertiesDialog(this.allProperties.get_fieldValues());});
-        let onError:Function = Function.createDelegate(this,function(sender:any, err:any){SP.UI.Notify.addNotification("Failed to get web properties...<br>" + err.get_message(), false);});
+        let onError:Function = Function.createDelegate(this,this.modalError);
         this.ctx.executeQueryAsync(onSuccess, onError);
 	}
 	private toggleBlockModal(blockModal:Boolean){
@@ -73,7 +81,7 @@ export class SpPropertyBag{
 			html.innerHTML = this.buildTable(items);
 			this.toggleBlockModal(false);
 		});
-        let onError:Function = Function.createDelegate(this,function(sender:any, err:any){SP.UI.Notify.addNotification("Failed to get web properties...<br>" + err.get_message(), false);});
+        let onError:Function = Function.createDelegate(this,this.modalError);
 		this.ctx.executeQueryAsync(onSuccess, onError);
 	};
 	private buildTable(items: Array<any>){
@@ -110,7 +118,7 @@ export class SpPropertyBag{
 				this.toggleBlockModal(false);
 			}
 		});
-        let onError:Function = Function.createDelegate(this,function(sender:any, err:any){SP.UI.Notify.addNotification("Failed to set web property!...<br>" + err.get_message(), false);});
+        let onError:Function = Function.createDelegate(this,this.modalError);
         this.ctx.executeQueryAsync(onSuccess, onError);
 	};
 	private setProperty(key:string, inputId:string) {
