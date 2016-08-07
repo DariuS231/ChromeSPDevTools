@@ -40,7 +40,7 @@ gulp.task("build-sppropertyBagFile", function (noUglify) {
      var ret = browserify({
         basedir: '.',
         debug: true,
-        entries: ['src/scripts/actions/SpPropertyBag/main.ts'],
+        entries: ['src/scripts/actions/SpPropertyBag/main.tsx'],
         cache: {},
         packageCache: {}
     })
