@@ -1,14 +1,13 @@
 {
      "files": [
-        "typings/index.d.ts",  
-        "src/scripts/background.ts",
-        "src/scripts/spModalLauncher.ts"
+        "typings/index.d.ts"
     ],
     "compilerOptions": {
-        "outDir": "./dist/scripts",
+        "outDir": "./dist",
         "sourceMap": false,
         "noImplicitAny": true,
         "module": "commonjs",
-        "target": "es5"
+        "target": "es5",
+        "jsx": "react"
     }
 }
