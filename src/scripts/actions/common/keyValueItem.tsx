@@ -16,11 +16,11 @@ export default class KeyValueItemProps extends React.Component<KeyValueItemProps
     }
     public render() {
         return <tr>
+            <th style={{textAlign: 'right' }}>
+                {this.props.itemKey}:
+            </th>
             <td>
-                <label htmlFor="valueInput">{this.props.itemKey}: </label>
-            </td>
-            <td>
-                <input id="valueInput" value={this.state.itemInputValue} onChange={this.onValueInputChange.bind(this) } />
+                <input style={{width:'240px'}} id="valueInput" value={this.state.itemInputValue} onChange={this.onValueInputChange.bind(this) } />
             </td>
             <td>
                 <a href="javascript:void(0)" >Update</a> 

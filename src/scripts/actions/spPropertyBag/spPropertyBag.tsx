@@ -98,12 +98,14 @@ export default class SpPropertyBag extends React.Component<SpPropertyBagProps, S
 
     }
     public render() {
-        let contentStyles: any = {overflow:'auto', height: '94%'};
+        let contentStyles: any = {overflow:'auto', height: '90%'};
+        let workingOnItContStyles: any = {overflow:'auto', height: '90%',width:'100%', textAlign: 'center', verticalAlign: 'middle'};
+        let workingOnItItemsStyles:any = { display: 'inline-block', verticalAlign: 'middle', margin: '20px'}
         if (this.state.isWorkingOnIt) {
             return (
-                <div style={contentStyles}>
-                    <img src="/_layouts/15/images/gears_anv4.gif" alt="Working on it..."/>
-                    <h2>Working on it...</h2>
+                <div style={workingOnItContStyles}>
+                    <img style={workingOnItItemsStyles} src="/_layouts/15/images/gears_anv4.gif" alt="Working on it..."/>
+                    <h2 style={workingOnItItemsStyles}>Working on it...</h2>
                 </div>);
         } else {
             if (this.state.currentUserHasPermissions) {
@@ -117,6 +119,7 @@ export default class SpPropertyBag extends React.Component<SpPropertyBagProps, S
                                 {props}
                             </tbody>
                         </table>
+                        <hr/>
                         <NewKeyValueItem moduleTitle="New web proiperty" keyDisplayName="Property Name" valueDisplayName="Property Value" onNewItemClick={this.onAddingNewProperty.bind(this) } />
                     </div>);
             } else {

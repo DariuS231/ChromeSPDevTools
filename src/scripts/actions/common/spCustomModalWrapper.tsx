@@ -24,17 +24,28 @@ export default class SpCustomModalWrapper extends React.Component<SpCustomModalW
         }
         var divModalStyles = {
             background: 'white',
-            width: '50%',
-            height: '98%',
+            width: '60%',
+            height: '94%',
             margin: '10px auto',
-            position: 'relative'
+            position: 'relative',
+            padding: '10px',
+            borderRadius: '5px'
         }
 
         var linkBtnStyles = {
             top: 0,
             right: 0,
-            position: 'absolute'
+            position: 'absolute',
+            height: '25px',
+            width: '25px',
+            backgroundColor: 'lightgrey',
+            color: 'black',
+            textAlign: 'center',
+            verticalAlign: 'middle',
+            fontSize: 'large',
+            borderRadius: '0 5px'
         }
+        
         return <div style={modalContainerDivStyles}>
             <div style={divModalStyles}>
                 <div>
