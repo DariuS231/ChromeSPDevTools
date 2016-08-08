@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import SpCustomModal from './../common/spCustomModal';
+import SpCustomModalWrapper from './../common/spCustomModalWrapper';
 import SpPropertyBag from './spPropertyBag.tsx'
 
 let baseDivId:string = 'spPropBaseDiv';
@@ -13,4 +13,4 @@ if(!baseDiv){
     document.querySelector('form').appendChild(baseDiv);
 }
 
-ReactDOM.render(<SpCustomModal componentChild={SpPropertyBag} />, document.getElementById(baseDivId));
+ReactDOM.render(<SpCustomModalWrapper><SpPropertyBag/></SpCustomModalWrapper>, document.getElementById(baseDivId));
