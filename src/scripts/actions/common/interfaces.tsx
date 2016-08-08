@@ -2,10 +2,10 @@ interface IKeyValue {
     key: string,
     value: any
 }
-interface KeyValueItemPropsState {
+interface KeyValueItemState {
     itemInputValue:string
 }
-interface KeyValueItemPropsProps {
+interface KeyValueItemProps {
     itemKey: string,
     itemValue: string,
     onUpdateClick: any,
@@ -44,3 +44,8 @@ interface SpPropertyBagState {
 }
 
 
+interface WorkingOnItProps {
+
+} interface WorkingOnItState{
+    
+}

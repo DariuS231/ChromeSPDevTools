@@ -3,7 +3,7 @@
 import * as React from 'react';
 
 
-export default class KeyValueItemProps extends React.Component<KeyValueItemPropsProps, KeyValueItemPropsState> {
+export default class KeyValueItem extends React.Component<KeyValueItemProps, KeyValueItemState> {
     constructor(props:any) {
         super(props); 
         this.state = {
@@ -12,7 +12,7 @@ export default class KeyValueItemProps extends React.Component<KeyValueItemProps
     }
 
     private onValueInputChange(e: any) {
-        this.setState({ itemInputValue: e.target.value } as KeyValueItemPropsState);
+        this.setState({ itemInputValue: e.target.value } as KeyValueItemState);
     }
     public render() {
         return <tr>

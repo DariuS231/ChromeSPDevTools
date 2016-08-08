@@ -4,6 +4,7 @@ import * as React from 'react';
 
 import NewKeyValueItem from './../common/newKeyValueItem';
 import KeyValueItem from './../common/KeyValueItem';
+import WorkingOnIt from './../common/WorkingOnIt';
 
 export default class SpPropertyBag extends React.Component<SpPropertyBagProps, SpPropertyBagState> {
     ctx: SP.ClientContext;
@@ -99,14 +100,8 @@ export default class SpPropertyBag extends React.Component<SpPropertyBagProps, S
     }
     public render() {
         let contentStyles: any = {overflow:'auto', height: '90%'};
-        let workingOnItContStyles: any = {overflow:'auto', height: '90%',width:'100%', textAlign: 'center', verticalAlign: 'middle'};
-        let workingOnItItemsStyles:any = { display: 'inline-block', verticalAlign: 'middle', margin: '20px'}
-        if (this.state.isWorkingOnIt) {
-            return (
-                <div style={workingOnItContStyles}>
-                    <img style={workingOnItItemsStyles} src="/_layouts/15/images/gears_anv4.gif" alt="Working on it..."/>
-                    <h2 style={workingOnItItemsStyles}>Working on it...</h2>
-                </div>);
+       if (this.state.isWorkingOnIt) {
+            return <WorkingOnIt/>;
         } else {
             if (this.state.currentUserHasPermissions) {
                 var props = this.state.webProperties.map((prop) => {
