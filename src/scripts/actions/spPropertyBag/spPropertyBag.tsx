@@ -9,6 +9,7 @@ import WorkingOnIt from './../common/WorkingOnIt';
 export default class SpPropertyBag extends React.Component<SpPropertyBagProps, SpPropertyBagState> {
     ctx: SP.ClientContext;
     web: any;
+    allProperties: any;
     constructor() {
         super();
         this.state = {
@@ -19,7 +20,10 @@ export default class SpPropertyBag extends React.Component<SpPropertyBagProps, S
         } as SpPropertyBagState;
     }
     private onAddingNewProperty(key: string, value: string) {
+        this.setState({ isWorkingOnIt: true } as SpPropertyBagState)
         console.log("New property krey: " + key + "New property value: " + value);
+        this.allProperties.set_item(key, value);
+        this.executeChanges();
     }
     private onDeletingProperty(key: string, value: string) {
         console.log("New property krey: " + key + "New property value: " + value);
@@ -30,16 +34,22 @@ export default class SpPropertyBag extends React.Component<SpPropertyBagProps, S
     private spErrorHandler(sender: any, err: any) {
 
     }
+    private executeChanges() {
+        this.ctx.get_web().update();
+        let onSuccess: Function = Function.createDelegate(this, function (sender: any, err: any) {
+            console.log("Web properties successfully modified");
+            this.getWebProperties();
+        });
+        let onError: Function = Function.createDelegate(this, this.spErrorHandler);
+        this.ctx.executeQueryAsync(onSuccess, onError);
+    };
     private getWebProperties() {
-
-        this.ctx = SP.ClientContext.get_current();
-        this.web = this.ctx.get_web();
-        let allProperties = this.web.get_allProperties();
+        this.allProperties = this.web.get_allProperties();
         this.ctx.load(this.web);
-        this.ctx.load(allProperties);
+        this.ctx.load(this.allProperties);
 
         let onSuccess: Function = Function.createDelegate(this, (sender: any, err: any) => {
-            let propsKeyVal: any = allProperties.get_fieldValues();
+            let propsKeyVal: any = this.allProperties.get_fieldValues();
 
             let items: Array<IKeyValue> = [];
             for (let p in propsKeyVal) {
@@ -99,8 +109,8 @@ export default class SpPropertyBag extends React.Component<SpPropertyBagProps, S
 
     }
     public render() {
-        let contentStyles: any = {overflow:'auto', height: '90%'};
-       if (this.state.isWorkingOnIt) {
+        let contentStyles: any = { overflow: 'auto', height: '90%' };
+        if (this.state.isWorkingOnIt) {
             return <WorkingOnIt/>;
         } else {
             if (this.state.currentUserHasPermissions) {
