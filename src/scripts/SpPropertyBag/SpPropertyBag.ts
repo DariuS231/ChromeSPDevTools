@@ -1,4 +1,3 @@
-/// <reference path="../../../../typings/index.d.ts" />
 /*
  * SpPropertyBag.js
  * by rlv-dan (https://github.com/rlv-dan)
