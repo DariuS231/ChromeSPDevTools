@@ -11,7 +11,7 @@ The application is published in the Google Chrome Web Store. [This](https://chro
 
 After cloning this repo, execute in your favourite shell:
 
-* `mpm install` to install npm dependencies.
+* `npm install` to install npm dependencies.
 * `typings install` to install the typescript definitions.
 
 ### Compilation
