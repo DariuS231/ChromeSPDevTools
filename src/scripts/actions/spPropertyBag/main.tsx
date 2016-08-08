@@ -5,12 +5,18 @@ import * as ReactDOM from "react-dom";
 import SpCustomModalWrapper from './../common/spCustomModalWrapper';
 import SpPropertyBag from './spPropertyBag.tsx'
 
-let baseDivId:string = 'spPropBaseDiv';
-let baseDiv:HTMLElement = document.getElementById(baseDivId);
-if(!baseDiv){
-    baseDiv = document.createElement('div');
-    baseDiv.setAttribute('id',baseDivId)
-    document.querySelector('form').appendChild(baseDiv);
+function render() {
+    let baseDivId: string = 'spPropBaseDiv';
+    let baseDiv: HTMLElement = document.getElementById(baseDivId);
+    if (!baseDiv) {
+        baseDiv = document.createElement('div');
+        baseDiv.setAttribute('id', baseDivId)
+        document.querySelector('form').appendChild(baseDiv);
+    }
+
+    SP.SOD.executeFunc('sp.js', 'SP.ClientContext', function () {
+        ReactDOM.render(<SpCustomModalWrapper modalDialogTitle="Web Property Administration Panel"><SpPropertyBag/></SpCustomModalWrapper>, document.getElementById(baseDivId));
+    });
 }
 
-ReactDOM.render(<SpCustomModalWrapper><SpPropertyBag/></SpCustomModalWrapper>, document.getElementById(baseDivId));
+render();
