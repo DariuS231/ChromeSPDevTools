@@ -2,6 +2,13 @@
 /// <reference path="./interfaces.tsx"/>
 import * as React from 'react';
 
+interface SpCustomModalWrapperProps {
+    modalDialogTitle:string
+}
+interface SpCustomModalWrapperState {
+    isClosed: boolean
+}
+
 export default class SpCustomModalWrapper extends React.Component<SpCustomModalWrapperProps, SpCustomModalWrapperState> {
     constructor() {
         super();
@@ -53,7 +60,7 @@ export default class SpCustomModalWrapper extends React.Component<SpCustomModalW
                         {this.props.modalDialogTitle}
                     </h1>
                     <a href="javascript:void(0)" style={linkBtnStyles} onClick={this.closeBtnClick.bind(this) }>X</a>
-                    <hr/>
+                    <hr style={{marginBottom:0}}/>
                 </div>
                 { this.props.children }
             </div>

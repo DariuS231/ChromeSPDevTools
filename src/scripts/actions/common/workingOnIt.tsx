@@ -2,11 +2,13 @@
 /// <reference path="./interfaces.tsx"/>
 import * as React from 'react';
 
+interface WorkingOnItProps { } 
+interface WorkingOnItState { }
 
 export default class WorkingOnIt extends React.Component<WorkingOnItProps, WorkingOnItState> {
 
     public render() {
-        let workingOnItContStyles: any = {overflow:'auto', height: '90%',width:'100%', textAlign: 'center', verticalAlign: 'middle'};
+        let workingOnItContStyles: any = {overflow:'auto', height: '90%',width:'100%', textAlign: 'center', verticalAlign: 'middle', marginTop: '6.5px'};
         let workingOnItItemsStyles:any = { display: 'inline-block', verticalAlign: 'middle', margin: '20px'}
         
         return <div style={workingOnItContStyles}>

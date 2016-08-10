@@ -1,49 +1,92 @@
 /// <reference path="../../../../typings/index.d.ts"/>
 /// <reference path="./../common/interfaces.tsx"/>
+/// <reference path="./../common/enums.tsx"/>
 import * as React from 'react';
 
 import NewKeyValueItem from './../common/newKeyValueItem';
 import KeyValueItem from './../common/KeyValueItem';
 import WorkingOnIt from './../common/WorkingOnIt';
+import MessageBar from './../common/MessageBar';
+
+export enum MessageType  {
+    Error,
+    Success,
+    Info
+};
+export enum OperationType  {
+    Create,
+    Update,
+    Delete,
+    None
+}
+
+
+interface SpPropertyBagProps {
+
+}
+interface SpPropertyBagState {
+    currentUserHasPermissions: boolean,
+    isWorkingOnIt: boolean,
+    noPermissionsMessage: string,
+    webProperties: Array<IKeyValue>,
+    showMessage:boolean,
+    messageType:MessageType,
+    message:string
+}
 
 export default class SpPropertyBag extends React.Component<SpPropertyBagProps, SpPropertyBagState> {
     ctx: SP.ClientContext;
     web: any;
     allProperties: any;
+    reloadPage: boolean;
     constructor() {
         super();
         this.state = {
             currentUserHasPermissions: true,
             noPermissionsMessage: '',
             webProperties: [],
-            isWorkingOnIt: true
+            isWorkingOnIt: true,
+            showMessage: false,
+            messageType: MessageType.Info,
+            message: ''
         } as SpPropertyBagState;
+        this.reloadPage = false;
+    }
+    private onUpdatingNewProperty(key: string, value: string) {
+        this.setState({ isWorkingOnIt: true } as SpPropertyBagState);
+        this.allProperties.set_item(key, value);
+        this.executeChanges(OperationType.Update, 'The selected property has been updated.');
     }
     private onAddingNewProperty(key: string, value: string) {
-        this.setState({ isWorkingOnIt: true } as SpPropertyBagState)
-        console.log("New property krey: " + key + "New property value: " + value);
+        this.setState({ isWorkingOnIt: true } as SpPropertyBagState);
         this.allProperties.set_item(key, value);
-        this.executeChanges();
+        this.executeChanges(OperationType.Create, 'A new property has been created');
     }
-    private onDeletingProperty(key: string, value: string) {
-        console.log("New property krey: " + key + "New property value: " + value);
-    }
-    private onUpdatingProperty(key: string, value: string) {
-        console.log("New property krey: " + key + "New property value: " + value);
+    private onDeletingProperty(key: string) {
+        this.setState({ isWorkingOnIt: true } as SpPropertyBagState)
+        if (confirm('Are you sure you want to remove this property? The page will be refreshed after the property has been deleted.')) {
+            this.reloadPage = true;
+            this.allProperties.set_item(key);
+            this.executeChanges(OperationType.Delete, '');
+        }
     }
     private spErrorHandler(sender: any, err: any) {
-
+        console.log(err.get_message());
+        this.setState({ isWorkingOnIt: false, messageType:MessageType.Error, message:'An error ocurred, check the log for more information.', showMessage: true } as SpPropertyBagState)
     }
-    private executeChanges() {
+    private executeChanges(opType:OperationType, msg:string) {
         this.ctx.get_web().update();
         let onSuccess: Function = Function.createDelegate(this, function (sender: any, err: any) {
-            console.log("Web properties successfully modified");
-            this.getWebProperties();
+            if (this.reloadPage) {
+                window.location.reload();
+            } else {
+                this.getWebProperties(opType,msg);
+            }
         });
         let onError: Function = Function.createDelegate(this, this.spErrorHandler);
         this.ctx.executeQueryAsync(onSuccess, onError);
     };
-    private getWebProperties() {
+    private getWebProperties(opType:OperationType, msg:string) {
         this.allProperties = this.web.get_allProperties();
         this.ctx.load(this.web);
         this.ctx.load(this.allProperties);
@@ -64,7 +107,7 @@ export default class SpPropertyBag extends React.Component<SpPropertyBagProps, S
             items.sort(function (a, b) {
                 return a.key.localeCompare(b.key);
             });
-            this.setState({ webProperties: items, isWorkingOnIt: false } as SpPropertyBagState)
+            this.setState({ webProperties: items, isWorkingOnIt: false, messageType:MessageType.Success, message:msg, showMessage: (opType !== OperationType.None) } as SpPropertyBagState);
         });
         let onError: Function = Function.createDelegate(this, this.spErrorHandler);
         this.ctx.executeQueryAsync(onSuccess, onError);
@@ -85,7 +128,7 @@ export default class SpPropertyBag extends React.Component<SpPropertyBagProps, S
             let onSuccess: Function = Function.createDelegate(this, (sender: any, err: any) => {
                 var hasPermissions = per.get_value();
                 if (hasPermissions) {
-                    this.getWebProperties();
+                    this.getWebProperties(OperationType.None, '');
                 }
                 else {
                     this.setState({
@@ -110,15 +153,17 @@ export default class SpPropertyBag extends React.Component<SpPropertyBagProps, S
     }
     public render() {
         let contentStyles: any = { overflow: 'auto', height: '90%' };
+
         if (this.state.isWorkingOnIt) {
             return <WorkingOnIt/>;
         } else {
             if (this.state.currentUserHasPermissions) {
                 var props = this.state.webProperties.map((prop) => {
-                    return (<KeyValueItem itemKey={prop.key} key={prop.key}  itemValue={prop.value}  onUpdateClick={this.onUpdatingProperty.bind(this) } onDeleteClick={this.onDeletingProperty.bind(this) } />);
+                    return (<KeyValueItem itemKey={prop.key} key={prop.key}  itemValue={prop.value}  onUpdateClick={this.onUpdatingNewProperty.bind(this) } onDeleteClick={this.onDeletingProperty.bind(this) } />);
                 });
-                return (
-                    <div style={contentStyles}>
+                return (<div style={contentStyles}>
+                    <MessageBar message={this.state.message} messageType={this.state.messageType} showMessage={this.state.showMessage} />
+                    <div style={{marginTop: '6.5px'}}>
                         <table>
                             <tbody>
                                 {props}
@@ -126,7 +171,8 @@ export default class SpPropertyBag extends React.Component<SpPropertyBagProps, S
                         </table>
                         <hr/>
                         <NewKeyValueItem moduleTitle="New web proiperty" keyDisplayName="Property Name" valueDisplayName="Property Value" onNewItemClick={this.onAddingNewProperty.bind(this) } />
-                    </div>);
+                    </div>
+                </div>);
             } else {
                 return (
                     <div style={contentStyles}>

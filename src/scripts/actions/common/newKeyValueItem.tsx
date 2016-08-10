@@ -2,6 +2,17 @@
 /// <reference path="./interfaces.tsx"/>
 import * as React from 'react';
 
+interface NewKeyValueItemState {
+    newKey: string,
+    newValue: string
+}
+interface NewKeyValueItemProps {
+    moduleTitle: string,
+    keyDisplayName: string,
+    valueDisplayName: string,
+    onNewItemClick: any
+}
+
 export default class NewKeyValueItem extends React.Component<NewKeyValueItemProps, NewKeyValueItemState> {
     constructor() {
         super();
