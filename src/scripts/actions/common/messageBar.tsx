@@ -6,20 +6,34 @@ import {Enums} from './enums'
 
 
 interface MessageBarProps {
-    messageType:Enums.MessageType,
-    message:string, 
-    showMessage:boolean    
+    messageType: Enums.MessageType,
+    message: string,
+    showMessage: boolean
 }
-interface MessageBarState { }
+interface MessageBarState {
+    showMessage: boolean
+}
 
 export default class MessageBar extends React.Component<MessageBarProps, MessageBarState> {
 
+    constructor(props: any) {
+        super(props);
+        this.state = {
+            showMessage: this.props.showMessage
+        }
+        if (this.props.showMessage) {
+            setTimeout(function () {
+                this.setState({ showMessage: false });
+            }.bind(this), 5000);
+        }
+    }
+
     public render() {
-        if(!this.props.showMessage){
+        if (!this.state.showMessage) {
             return <div></div>;
-        } else{
-                
-            let styles:any = {
+        } else {
+
+            let styles: any = {
                 divContainer: {
                     padding: '5px',
                     margin: 0
