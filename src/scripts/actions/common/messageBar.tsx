@@ -2,15 +2,11 @@
 /// <reference path="./interfaces.tsx"/>
 /// <reference path="./../common/enums.tsx"/>
 import * as React from 'react';
+import {Enums} from './enums'
 
-export enum MessageType  {
-    Error,
-    Success,
-    Info
-};
 
 interface MessageBarProps {
-    messageType:MessageType,
+    messageType:Enums.MessageType,
     message:string, 
     showMessage:boolean    
 }
@@ -35,17 +31,17 @@ export default class MessageBar extends React.Component<MessageBarProps, Message
             }
             let messageTitle: string;
             switch (this.props.messageType) {
-                case MessageType.Error:
+                case Enums.MessageType.Error:
                     styles.divContainer['backgroundColor'] = 'rgba(255, 0, 0, 0.6)';
                     styles.divContainer['border'] = '1px rgb(255, 0, 0) solid';
                     messageTitle = "Error"
                     break;
-                case MessageType.Success:
+                case Enums.MessageType.Success:
                     styles.divContainer['backgroundColor'] = 'rgba(49, 149, 36, 0.6)';
                     styles.divContainer['border'] = '1px rgb(49, 149, 36) solid';
                     messageTitle = "Success"
                     break;
-                case MessageType.Info:
+                case Enums.MessageType.Info:
                     styles.divContainer['backgroundColor'] = 'rgba(10, 117, 224, 0.6)';
                     styles.divContainer['border'] = '1px rgb(10, 117, 224) solid';
                     messageTitle = "Info"

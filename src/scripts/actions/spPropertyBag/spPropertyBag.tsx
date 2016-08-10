@@ -7,18 +7,8 @@ import NewKeyValueItem from './../common/newKeyValueItem';
 import KeyValueItem from './../common/KeyValueItem';
 import WorkingOnIt from './../common/WorkingOnIt';
 import MessageBar from './../common/MessageBar';
+import {Enums} from './../common/enums'
 
-export enum MessageType  {
-    Error,
-    Success,
-    Info
-};
-export enum OperationType  {
-    Create,
-    Update,
-    Delete,
-    None
-}
 
 
 interface SpPropertyBagProps {
@@ -30,7 +20,7 @@ interface SpPropertyBagState {
     noPermissionsMessage: string,
     webProperties: Array<IKeyValue>,
     showMessage:boolean,
-    messageType:MessageType,
+    messageType:Enums.MessageType,
     message:string
 }
 
@@ -47,7 +37,7 @@ export default class SpPropertyBag extends React.Component<SpPropertyBagProps, S
             webProperties: [],
             isWorkingOnIt: true,
             showMessage: false,
-            messageType: MessageType.Info,
+            messageType: Enums.MessageType.Info,
             message: ''
         } as SpPropertyBagState;
         this.reloadPage = false;
@@ -55,26 +45,26 @@ export default class SpPropertyBag extends React.Component<SpPropertyBagProps, S
     private onUpdatingNewProperty(key: string, value: string) {
         this.setState({ isWorkingOnIt: true } as SpPropertyBagState);
         this.allProperties.set_item(key, value);
-        this.executeChanges(OperationType.Update, 'The selected property has been updated.');
+        this.executeChanges(Enums.OperationType.Update, 'The selected property has been updated.');
     }
     private onAddingNewProperty(key: string, value: string) {
         this.setState({ isWorkingOnIt: true } as SpPropertyBagState);
         this.allProperties.set_item(key, value);
-        this.executeChanges(OperationType.Create, 'A new property has been created');
+        this.executeChanges(Enums.OperationType.Create, 'A new property has been created');
     }
     private onDeletingProperty(key: string) {
         this.setState({ isWorkingOnIt: true } as SpPropertyBagState)
         if (confirm('Are you sure you want to remove this property? The page will be refreshed after the property has been deleted.')) {
             this.reloadPage = true;
             this.allProperties.set_item(key);
-            this.executeChanges(OperationType.Delete, '');
+            this.executeChanges(Enums.OperationType.Delete, '');
         }
     }
     private spErrorHandler(sender: any, err: any) {
         console.log(err.get_message());
-        this.setState({ isWorkingOnIt: false, messageType:MessageType.Error, message:'An error ocurred, check the log for more information.', showMessage: true } as SpPropertyBagState)
+        this.setState({ isWorkingOnIt: false, messageType:Enums.MessageType.Error, message:'An error ocurred, check the log for more information.', showMessage: true } as SpPropertyBagState)
     }
-    private executeChanges(opType:OperationType, msg:string) {
+    private executeChanges(opType:Enums.OperationType, msg:string) {
         this.ctx.get_web().update();
         let onSuccess: Function = Function.createDelegate(this, function (sender: any, err: any) {
             if (this.reloadPage) {
@@ -86,7 +76,7 @@ export default class SpPropertyBag extends React.Component<SpPropertyBagProps, S
         let onError: Function = Function.createDelegate(this, this.spErrorHandler);
         this.ctx.executeQueryAsync(onSuccess, onError);
     };
-    private getWebProperties(opType:OperationType, msg:string) {
+    private getWebProperties(opType:Enums.OperationType, msg:string) {
         this.allProperties = this.web.get_allProperties();
         this.ctx.load(this.web);
         this.ctx.load(this.allProperties);
@@ -107,7 +97,7 @@ export default class SpPropertyBag extends React.Component<SpPropertyBagProps, S
             items.sort(function (a, b) {
                 return a.key.localeCompare(b.key);
             });
-            this.setState({ webProperties: items, isWorkingOnIt: false, messageType:MessageType.Success, message:msg, showMessage: (opType !== OperationType.None) } as SpPropertyBagState);
+            this.setState({ webProperties: items, isWorkingOnIt: false, messageType:Enums.MessageType.Success, message:msg, showMessage: (opType !== Enums.OperationType.None) } as SpPropertyBagState);
         });
         let onError: Function = Function.createDelegate(this, this.spErrorHandler);
         this.ctx.executeQueryAsync(onSuccess, onError);
@@ -128,7 +118,7 @@ export default class SpPropertyBag extends React.Component<SpPropertyBagProps, S
             let onSuccess: Function = Function.createDelegate(this, (sender: any, err: any) => {
                 var hasPermissions = per.get_value();
                 if (hasPermissions) {
-                    this.getWebProperties(OperationType.None, '');
+                    this.getWebProperties(Enums.OperationType.None, '');
                 }
                 else {
                     this.setState({
