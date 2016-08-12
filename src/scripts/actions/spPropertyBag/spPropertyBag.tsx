@@ -149,7 +149,7 @@ export default class SpPropertyBag extends React.Component<SpPropertyBagProps, S
         } else {
             if (this.state.currentUserHasPermissions) {
                 var props = this.state.webProperties.map((prop) => {
-                    return (<KeyValueItem itemKey={prop.key} key={prop.key}  itemValue={prop.value}  onUpdateClick={this.onUpdatingNewProperty.bind(this) } onDeleteClick={this.onDeletingProperty.bind(this) } />);
+                    return (<KeyValueItem item={prop} key={prop.key} onUpdateClick={this.onUpdatingNewProperty.bind(this) } onDeleteClick={this.onDeletingProperty.bind(this) } />);
                 });
                 return (<div style={contentStyles}>
                     <MessageBar message={this.state.message} messageType={this.state.messageType} showMessage={this.state.showMessage} />

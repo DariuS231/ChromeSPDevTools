@@ -6,8 +6,7 @@ interface KeyValueItemState {
     itemInputValue:string
 }
 interface KeyValueItemProps {
-    itemKey: string,
-    itemValue: string,
+    item: IKeyValue
     onUpdateClick: any,
     onDeleteClick: any
 }
@@ -16,14 +15,14 @@ export default class KeyValueItem extends React.Component<KeyValueItemProps, Key
     constructor(props:any) {
         super(props); 
         this.state = {
-            itemInputValue: this.props.itemValue
+            itemInputValue: this.props.item.value
         };
     }
     private onDeleteClick(e:any){
-        this.props.onDeleteClick(this.props.itemKey);
+        this.props.onDeleteClick(this.props.item.key);
     }
     private onUpdateClick(e:any){
-        this.props.onUpdateClick(this.props.itemKey, this.state.itemInputValue);
+        this.props.onUpdateClick(this.props.item.key, this.state.itemInputValue);
     }
     private onValueInputChange(e: any) {
         this.setState({ itemInputValue: e.target.value } as KeyValueItemState);
@@ -31,7 +30,7 @@ export default class KeyValueItem extends React.Component<KeyValueItemProps, Key
     public render() {
         return <tr>
             <th style={{textAlign: 'right' }}>
-                {this.props.itemKey}:
+                {this.props.item.key}:
             </th>
             <td>
                 <input style={{width:'240px'}} id="valueInput" value={this.state.itemInputValue} onChange={this.onValueInputChange.bind(this) } />
