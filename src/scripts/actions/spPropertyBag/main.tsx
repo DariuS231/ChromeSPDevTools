@@ -15,7 +15,7 @@ function render() {
     }
 
     SP.SOD.executeFunc('sp.js', 'SP.ClientContext', function () {
-        ReactDOM.render(<SpCustomModalWrapper modalDialogTitle="Web Property Administration Panel"><SpPropertyBag/></SpCustomModalWrapper>, document.getElementById(baseDivId));
+        ReactDOM.render(<SpCustomModalWrapper modalDialogTitle="Web Property Administration Panel" modalWidth="700px"><SpPropertyBag/></SpCustomModalWrapper>, document.getElementById(baseDivId));
     });
 }
 

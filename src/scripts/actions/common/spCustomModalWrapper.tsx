@@ -3,7 +3,8 @@
 import * as React from 'react';
 
 interface SpCustomModalWrapperProps {
-    modalDialogTitle:string
+    modalDialogTitle:string,
+    modalWidth?:string
 }
 interface SpCustomModalWrapperState {
     isClosed: boolean
@@ -18,7 +19,7 @@ export default class SpCustomModalWrapper extends React.Component<SpCustomModalW
         this.setState({ isClosed: true });
     }
     public render() {
-        var modalContainerDivStyles: any = {
+        let modalContainerDivStyles: any = {
             width: '100%',
             position: 'absolute',
             backgroundColor: 'rgba(0,0,0,0.5)',
@@ -29,7 +30,7 @@ export default class SpCustomModalWrapper extends React.Component<SpCustomModalW
         if (this.state.isClosed) {
             modalContainerDivStyles['display'] = 'none';
         }
-        var divModalStyles = {
+        let divModalStyles:any = {
             background: 'white',
             width: '60%',
             height: '94%',
@@ -39,7 +40,10 @@ export default class SpCustomModalWrapper extends React.Component<SpCustomModalW
             borderRadius: '5px'
         }
 
-        var linkBtnStyles = {
+        if(this.props.modalWidth !== undefined){
+            divModalStyles.width = this.props.modalWidth;
+        }
+        let linkBtnStyles:any = {
             top: 0,
             right: 0,
             position: 'absolute',
@@ -59,7 +63,7 @@ export default class SpCustomModalWrapper extends React.Component<SpCustomModalW
                     <h1>
                         {this.props.modalDialogTitle}
                     </h1>
-                    <a href="javascript:void(0)" style={linkBtnStyles} onClick={this.closeBtnClick.bind(this) }>X</a>
+                    <a href="javascript:void(0)" style={linkBtnStyles} onClick={this.closeBtnClick.bind(this) }>x</a>
                     <hr style={{marginBottom:0}}/>
                 </div>
                 { this.props.children }
