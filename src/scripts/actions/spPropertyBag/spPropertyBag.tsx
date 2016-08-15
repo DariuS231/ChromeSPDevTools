@@ -53,8 +53,8 @@ export default class SpPropertyBag extends React.Component<SpPropertyBagProps, S
         this.executeChanges(Enums.OperationType.Create, 'A new property has been created');
     }
     private onDeletingProperty(key: string) {
-        this.setState({ isWorkingOnIt: true } as SpPropertyBagState)
         if (confirm('Are you sure you want to remove this property? The page will be refreshed after the property has been deleted.')) {
+            this.setState({ isWorkingOnIt: true } as SpPropertyBagState)
             this.reloadPage = true;
             this.allProperties.set_item(key);
             this.executeChanges(Enums.OperationType.Delete, '');
