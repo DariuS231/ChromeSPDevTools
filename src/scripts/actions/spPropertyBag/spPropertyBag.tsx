@@ -143,7 +143,7 @@ export default class SpPropertyBag extends React.Component<SpPropertyBagProps, S
     }
     public render() {
         let contentStyles: any = { overflow: 'auto', height: '90%' };
-
+        let tableStyles:any = { borderSpacing: 0, borderCollapse: 'collapse'}
         if (this.state.isWorkingOnIt) {
             return <WorkingOnIt/>;
         } else {
@@ -154,7 +154,7 @@ export default class SpPropertyBag extends React.Component<SpPropertyBagProps, S
                 return (<div style={contentStyles}>
                     <MessageBar message={this.state.message} messageType={this.state.messageType} showMessage={this.state.showMessage} />
                     <div style={{marginTop: '6.5px'}}>
-                        <table>
+                        <table style={tableStyles}>
                             <tbody>
                                 {props}
                             </tbody>
