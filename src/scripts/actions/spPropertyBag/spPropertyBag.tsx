@@ -143,7 +143,7 @@ export default class SpPropertyBag extends React.Component<SpPropertyBagProps, S
     }
     public render() {
         let contentStyles: any = { overflow: 'auto', height: '90%' };
-        let tableStyles:any = { borderSpacing: 0, borderCollapse: 'collapse'}
+        let tableStyles:any = { borderSpacing: 0, borderCollapse: 'collapse', width: '100%'}
         if (this.state.isWorkingOnIt) {
             return <WorkingOnIt/>;
         } else {
