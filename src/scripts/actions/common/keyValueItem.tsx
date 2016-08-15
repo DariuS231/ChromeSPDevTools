@@ -34,7 +34,7 @@ export default class KeyValueItem extends React.Component<KeyValueItemProps, Key
             tableRowStyles.backgroundColor = 'rgba(100,149,237, 0.1)';
         }
         return <tr style={tableRowStyles}>
-            <th style={{textAlign: 'right' }}>
+            <th style={{textAlign: 'right', wordBreak: 'break-word' }}>
                 {this.props.item.key}:
             </th>
             <td>
