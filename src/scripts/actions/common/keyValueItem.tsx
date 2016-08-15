@@ -8,7 +8,8 @@ interface KeyValueItemState {
 interface KeyValueItemProps {
     item: IKeyValue
     onUpdateClick: any,
-    onDeleteClick: any
+    onDeleteClick: any,
+    itemIndex:number
 }
 
 export default class KeyValueItem extends React.Component<KeyValueItemProps, KeyValueItemState> {
@@ -28,7 +29,11 @@ export default class KeyValueItem extends React.Component<KeyValueItemProps, Key
         this.setState({ itemInputValue: e.target.value } as KeyValueItemState);
     }
     public render() {
-        return <tr>
+        let tableRowStyles:any ={}; 
+        if(Math.abs(this.props.itemIndex % 2) !== 1){
+            tableRowStyles.backgroundColor = 'rgba(100,149,237, 0.1)';
+        }
+        return <tr style={tableRowStyles}>
             <th style={{textAlign: 'right' }}>
                 {this.props.item.key}:
             </th>
