@@ -1,6 +1,6 @@
 /// <reference path="../../../../typings/index.d.ts"/>
-/// <reference path="./interfaces.tsx"/>
-/// <reference path="./../common/enums.tsx"/>
+/// <reference path="./interfaces.ts"/>
+/// <reference path="./../common/enums.ts"/>
 import * as React from 'react';
 import {Enums} from './enums'
 

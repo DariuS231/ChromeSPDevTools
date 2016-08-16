@@ -1,5 +1,5 @@
 /// <reference path="../../../../typings/index.d.ts"/>
-/// <reference path="./interfaces.tsx"/>
+/// <reference path="./interfaces.ts"/>
 import * as React from 'react';
 
 interface WorkingOnItProps { } 
