@@ -9,6 +9,7 @@ import KeyValueItem from './../common/KeyValueItem';
 import WorkingOnIt from './../common/WorkingOnIt';
 import MessageBar from './../common/MessageBar';
 import {Enums} from './../common/enums';
+import { SpPropertyBagStyles as spPropStyles } from './../common/Styles'
 
 interface SpPropertyBagProps {
 
@@ -100,7 +101,6 @@ export default class SpPropertyBag extends React.Component<SpPropertyBagProps, S
         });
         let onError: Function = Function.createDelegate(this, this.spErrorHandler);
         this.ctx.executeQueryAsync(onSuccess, onError);
-
     }
     private checkUserPermissions() {
         if (typeof this.web.doesUserHavePermissions !== "function") {
@@ -136,25 +136,9 @@ export default class SpPropertyBag extends React.Component<SpPropertyBagProps, S
     private componentDidMount() {
         this.ctx = SP.ClientContext.get_current();
         this.web = this.ctx.get_web();
-
         this.checkUserPermissions();
-
     }
     public render() {
-        var styles = {
-            contentStyles: {
-                overflow: 'auto',
-                height: '90%'
-            },
-            tableStyles: {
-                borderSpacing: 0,
-                borderCollapse: 'collapse',
-                width: '100%'
-            },
-            tableContainer: {
-                marginTop: '6.5px'
-            }
-        };
         if (this.state.isWorkingOnIt) {
             return <WorkingOnIt/>;
         } else {
@@ -162,10 +146,10 @@ export default class SpPropertyBag extends React.Component<SpPropertyBagProps, S
                 var props = this.state.webProperties.map((prop: IKeyValue, index: number) => {
                     return (<KeyValueItem item={prop} key={prop.key} itemIndex={index} onUpdateClick={this.onUpdatingNewProperty.bind(this) } onDeleteClick={this.onDeletingProperty.bind(this) } />);
                 });
-                return (<div style={styles.contentStyles}>
+                return (<div style={spPropStyles.contentStyles}>
                     <MessageBar message={this.state.message} messageType={this.state.messageType} showMessage={this.state.showMessage} />
-                    <div style={styles.tableContainer}>
-                        <table style={styles.tableStyles}>
+                    <div style={spPropStyles.tableContainer}>
+                        <table style={spPropStyles.tableStyles}>
                             <tbody>
                                 {props}
                             </tbody>
@@ -176,7 +160,7 @@ export default class SpPropertyBag extends React.Component<SpPropertyBagProps, S
                 </div>);
             } else {
                 return (
-                    <div style={styles.contentStyles}>
+                    <div style={spPropStyles.contentStyles}>
                         <h2>{this.state.noPermissionsMessage}</h2>
                     </div>);
             }

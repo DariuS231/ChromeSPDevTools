@@ -27,6 +27,21 @@ let inputStyles = {
     width: '240px'
 }
 
+export let SpPropertyBagStyles = {
+    contentStyles: {
+        overflow: 'auto',
+        height: '90%'
+    },
+    tableStyles: {
+        borderSpacing: 0,
+        borderCollapse: 'collapse',
+        width: '100%'
+    },
+    tableContainer: {
+        marginTop: '6.5px'
+    }
+}
+
 export let KeyValueItemStyles = {
     deleteBtnStyle: Utils.mergeObjects({
         backgroundColor: 'rgba(255,0,0,0.2)',
@@ -131,7 +146,7 @@ export let SpCustomModalWrapperStyles = {
         color: 'black',
         textAlign: 'center',
         verticalAlign: 'middle',
-        fontSize: 'large',
+        fontSize: 'larger',
         borderRadius: '0 5px'
     }
 }
