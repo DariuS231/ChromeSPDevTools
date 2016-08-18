@@ -26,13 +26,13 @@ var paths =  {
         },
         scripts:{
             background:{
-                watchWildCard:'src/scripts/chromeExtension/background.ts',
+                watchFiles:'src/scripts/chromeExtension/background.ts',
                 entries:['src/scripts/chromeExtension/background.ts'],
                 outputFolder:'dist/chromeExtension/dev',
                 outputFileName:'background.js'
             },
             spModalLauncher:{
-                watchWildCard:'src/scripts/chromeExtension/spModalLauncher.ts',
+                watchFiles:'src/scripts/chromeExtension/spModalLauncher.ts',
                 entries:['src/scripts/chromeExtension/spModalLauncher.ts'],
                 outputFolder:'dist/chromeExtension/dev',
                 outputFileName:'spModalLauncher.js'
@@ -41,8 +41,16 @@ var paths =  {
     },
     actions: {
         spPropertyBag:{
-            watchWildCard:[
-                'src/scripts/actions/SpPropertyBag/**/*.tsx'
+            watchFiles:[
+                'src/scripts/actions/SpPropertyBag/**/*.tsx',
+                'src/scripts/actions/common/enums.ts',
+                'src/scripts/actions/common/interfaces.ts',
+                'src/scripts/actions/common/keyValueItem.tsx',
+                'src/scripts/actions/common/messageBar.tsx',
+                'src/scripts/actions/common/newKeyValueItem.tsx',
+                'src/scripts/actions/common/spCustomModalWrapper.tsx',
+                'src/scripts/actions/common/styles.ts',
+                'src/scripts/actions/common/workingOnIt.tsx'
             ],
             entries:['src/scripts/actions/SpPropertyBag/main.tsx'],
             outputFolder:'dist/actions/SpPropertyBag',
@@ -113,9 +121,9 @@ gulp.task("build-chromeExt-SpModalLauncher", function (noUglify) {
     return browserifyFn(entries,destFile,destFolder, noUglify);
 }); 
 gulp.task('watch',function(){
-    gulp.watch(paths.actions.spPropertyBag.watchWildCard, ['build-sppropertyBagFile']);
-    gulp.watch(paths.chromeExt.scripts.background.watchWildCard, ['build-chromeExt-background']);
-    gulp.watch(paths.chromeExt.scripts.spModalLauncher.watchWildCard, ['build-chromeExt-SpModalLauncher']);
+    gulp.watch(paths.actions.spPropertyBag.watchFiles, ['build-sppropertyBagFile']);
+    gulp.watch(paths.chromeExt.scripts.background.watchFiles, ['build-chromeExt-background']);
+    gulp.watch(paths.chromeExt.scripts.spModalLauncher.watchFiles, ['build-chromeExt-SpModalLauncher']);
 });
 
 gulp.task("default", ["watch"], function() { }); 
