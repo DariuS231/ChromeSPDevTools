@@ -9,8 +9,6 @@ import WorkingOnIt from './../common/WorkingOnIt';
 import MessageBar from './../common/MessageBar';
 import {Enums} from './../common/enums'
 
-
-
 interface SpPropertyBagProps {
 
 }
@@ -19,9 +17,9 @@ interface SpPropertyBagState {
     isWorkingOnIt: boolean,
     noPermissionsMessage: string,
     webProperties: Array<IKeyValue>,
-    showMessage:boolean,
-    messageType:Enums.MessageType,
-    message:string
+    showMessage: boolean,
+    messageType: Enums.MessageType,
+    message: string
 }
 
 export default class SpPropertyBag extends React.Component<SpPropertyBagProps, SpPropertyBagState> {
@@ -62,21 +60,21 @@ export default class SpPropertyBag extends React.Component<SpPropertyBagProps, S
     }
     private spErrorHandler(sender: any, err: any) {
         console.log(err.get_message());
-        this.setState({ isWorkingOnIt: false, messageType:Enums.MessageType.Error, message:'An error ocurred, check the log for more information.', showMessage: true } as SpPropertyBagState)
+        this.setState({ isWorkingOnIt: false, messageType: Enums.MessageType.Error, message: 'An error ocurred, check the log for more information.', showMessage: true } as SpPropertyBagState)
     }
-    private executeChanges(opType:Enums.OperationType, msg:string) {
+    private executeChanges(opType: Enums.OperationType, msg: string) {
         this.ctx.get_web().update();
         let onSuccess: Function = Function.createDelegate(this, function (sender: any, err: any) {
             if (this.reloadPage) {
                 window.location.reload();
             } else {
-                this.getWebProperties(opType,msg);
+                this.getWebProperties(opType, msg);
             }
         });
         let onError: Function = Function.createDelegate(this, this.spErrorHandler);
         this.ctx.executeQueryAsync(onSuccess, onError);
     };
-    private getWebProperties(opType:Enums.OperationType, msg:string) {
+    private getWebProperties(opType: Enums.OperationType, msg: string) {
         this.allProperties = this.web.get_allProperties();
         this.ctx.load(this.web);
         this.ctx.load(this.allProperties);
@@ -97,7 +95,7 @@ export default class SpPropertyBag extends React.Component<SpPropertyBagProps, S
             items.sort(function (a, b) {
                 return a.key.localeCompare(b.key);
             });
-            this.setState({ webProperties: items, isWorkingOnIt: false, messageType:Enums.MessageType.Success, message:msg, showMessage: (opType !== Enums.OperationType.None) } as SpPropertyBagState);
+            this.setState({ webProperties: items, isWorkingOnIt: false, messageType: Enums.MessageType.Success, message: msg, showMessage: (opType !== Enums.OperationType.None) } as SpPropertyBagState);
         });
         let onError: Function = Function.createDelegate(this, this.spErrorHandler);
         this.ctx.executeQueryAsync(onSuccess, onError);
@@ -142,19 +140,31 @@ export default class SpPropertyBag extends React.Component<SpPropertyBagProps, S
 
     }
     public render() {
-        let contentStyles: any = { overflow: 'auto', height: '90%' };
-        let tableStyles:any = { borderSpacing: 0, borderCollapse: 'collapse', width: '100%'}
+        var styles = {
+            contentStyles: {
+                overflow: 'auto',
+                height: '90%'
+            },
+            tableStyles: {
+                borderSpacing: 0,
+                borderCollapse: 'collapse',
+                width: '100%'
+            },
+            tableContainer: {
+                marginTop: '6.5px'
+            }
+        };
         if (this.state.isWorkingOnIt) {
             return <WorkingOnIt/>;
         } else {
             if (this.state.currentUserHasPermissions) {
-                var props = this.state.webProperties.map((prop: IKeyValue, index:number) => {
+                var props = this.state.webProperties.map((prop: IKeyValue, index: number) => {
                     return (<KeyValueItem item={prop} key={prop.key} itemIndex={index} onUpdateClick={this.onUpdatingNewProperty.bind(this) } onDeleteClick={this.onDeletingProperty.bind(this) } />);
                 });
-                return (<div style={contentStyles}>
+                return (<div style={styles.contentStyles}>
                     <MessageBar message={this.state.message} messageType={this.state.messageType} showMessage={this.state.showMessage} />
-                    <div style={{marginTop: '6.5px'}}>
-                        <table style={tableStyles}>
+                    <div style={styles.tableContainer}>
+                        <table style={styles.tableStyles}>
                             <tbody>
                                 {props}
                             </tbody>
@@ -165,7 +175,7 @@ export default class SpPropertyBag extends React.Component<SpPropertyBagProps, S
                 </div>);
             } else {
                 return (
-                    <div style={contentStyles}>
+                    <div style={styles.contentStyles}>
                         <h2>{this.state.noPermissionsMessage}</h2>
                     </div>);
             }
