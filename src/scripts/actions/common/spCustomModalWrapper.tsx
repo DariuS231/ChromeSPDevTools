@@ -1,6 +1,7 @@
 /// <reference path="../../../../typings/index.d.ts"/>
 /// <reference path="./interfaces.ts"/>
 import * as React from 'react';
+import Utils from './utils';
 import { SpCustomModalWrapperStyles as styles } from './Styles'
 
 interface SpCustomModalWrapperProps {
@@ -20,18 +21,8 @@ export default class SpCustomModalWrapper extends React.Component<SpCustomModalW
         this.setState({ isClosed: true });
     }
     public render() {
-        let modalContainerDivStyles: any;
-        let divModalStyles: any;
-        if (this.state.isClosed) {
-            modalContainerDivStyles = styles.hidden;
-        } else {
-            modalContainerDivStyles = styles.modalContainerDivStyles
-        }
-        if (this.props.modalWidth !== undefined) {
-            divModalStyles = Object.assign({ width: this.props.modalWidth }, styles.divModalStyles);
-        } else {
-            divModalStyles = styles.divModalStyles;
-        }
+        let modalContainerDivStyles = this.state.isClosed ? styles.hidden : styles.modalContainerDivStyles;
+        let divModalStyles = (this.props.modalWidth !== undefined) ? Utils.mergeObjects(styles.divModalStyles, { width: this.props.modalWidth }) : styles.divModalStyles;
         return <div style={modalContainerDivStyles}>
             <div style={divModalStyles}>
                 <div>
