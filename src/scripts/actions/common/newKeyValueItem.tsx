@@ -24,11 +24,13 @@ export default class NewKeyValueItem extends React.Component<NewKeyValueItemProp
         };
     }
     private addBtnClick(e: any) {
+        e.preventDefault();
         this.props.onNewItemClick(this.state.newKey, this.state.newValue);
         this.setState({
             newKey: '',
             newValue: ''
         } as NewKeyValueItemState);
+        return false;
     }
     private onKeyInputChange(e: any) {
         this.setState({ newKey: e.target.value } as NewKeyValueItemState);
@@ -38,17 +40,17 @@ export default class NewKeyValueItem extends React.Component<NewKeyValueItemProp
         this.setState({ newValue: e.target.value } as NewKeyValueItemState);
     }
     public render() {
-        return <div>
+        return <form onSubmit={this.addBtnClick.bind(this) }>
             <h2>{this.props.moduleTitle}</h2>
             <div style={nkvStyles.divStyle}>
                 <label style={nkvStyles.labelStyle} htmlFor="newKey">{this.props.keyDisplayName}: </label>
-                <input style={nkvStyles.inputStyle} id="newKey" value={this.state.newKey} onChange={this.onKeyInputChange.bind(this) } />
+                <input style={nkvStyles.inputStyle} id="newKey" required="required" value={this.state.newKey} onChange={this.onKeyInputChange.bind(this) } />
             </div>
             <div style={nkvStyles.divStyle}>
                 <label style={nkvStyles.labelStyle} htmlFor="newValue">{this.props.valueDisplayName}: </label>
-                <input style={nkvStyles.inputStyle} id="newValue" value={this.state.newValue} onChange={this.onValueInputChange.bind(this) } />
+                <input style={nkvStyles.inputStyle} id="newValue" required="required" value={this.state.newValue} onChange={this.onValueInputChange.bind(this) } />
             </div>
-            <a href="javascript:void(0)" style={nkvStyles.btnStylePlus} onClick={this.addBtnClick.bind(this) }>Add</a>
-        </div>;
+            <input type="submit" style={nkvStyles.btnStylePlus} value="Add" />
+        </form>;
     }
 }

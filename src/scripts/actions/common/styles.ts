@@ -64,16 +64,20 @@ export let KeyValueItemStyles = {
 }
 
 export let NewKeyValueItemStyles = {
-    btnStylePlus: Utils.mergeObjects({
+    btnStylePlus: Utils.mergeObjects(btnStyles,{
+        height: '25px',
         backgroundColor: 'rgba(30,144,255,0.5)',
         backgroundImage: 'url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABPElEQVQ4T53TTyilYRTH8c+NspBskaYRykKGnaXNqGFmqWwlKRaTWZqlrCwmSihZSRYSym7KSlmNmt1kI1cWs5YsJJ163np7771yPfUs3nPe8z2/5/wpqTytmME87vAfA/iHTZzkQ0qF+HGsYxpneM75WzCVfF8SXB4wic+YxVMVZZnpY1LTFZAM0IsNjBayRtACfhWAATnCYAY4xHeUq2TeR6grnh+4CkC8bQ/fasiuBYhi7wZgBJ+wWicgfi8HYAINiExxDgqgYVzkbOe5mpwGYAwd2H6Hgj8B6MQi5uoEhOq/WReu0YfHOrrwFd0ZID6GsPRGQFOaxA/5SdzBcbqvDKLGaF+q2e88IN60lYZpBQ9VKD1pZpazRMVliphYlLW0TJe4R3uy3+InbjJ4NUDma0M/mtNKB6yiyC9HfD7GeS3R8QAAAABJRU5ErkJggg==)'
-    }, btnStyles),
+    }),
     divStyle: {
         display: 'inline-block',
-        width: '44%'
+        width: '44%',
+        marginTop: '10px'
     },
     labelStyle: {
-        display: 'block'
+        display: 'block',
+        fontWeight: 'bolder',
+        marginBottom: '5px'
     },
     inputStyle: {
         width: '95%'
