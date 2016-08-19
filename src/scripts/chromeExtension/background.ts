@@ -1,4 +1,4 @@
-/// <reference path="../../typings/globals/chrome/index.d.ts" />
+/// <reference path="../../../typings/index.d.ts" />
 
 chrome.browserAction.disable();
 chrome.browserAction.setBadgeBackgroundColor({ color: 'red' });
