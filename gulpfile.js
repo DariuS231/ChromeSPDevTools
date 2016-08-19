@@ -14,7 +14,7 @@ var buffer = require('vinyl-buffer');
 var paths =  {
     chromeExt:{
         rootDistFoldder:'dist/chromeExtension/dev',
-        rootFolderFiles: ['src/manifest.json'],
+        rootFolderFiles: ['src/manifest.json','src/index.html'],
         package:{
             packageFiles:'dist/chromeExtension/dev/**',
             name: 'ChromeSPPropertiesAdmin.zip',
@@ -28,14 +28,20 @@ var paths =  {
             background:{
                 watchFiles:'src/scripts/chromeExtension/background.ts',
                 entries:['src/scripts/chromeExtension/background.ts'],
-                outputFolder:'dist/chromeExtension/dev',
+                outputFolder:'dist/chromeExtension/dev/scripts',
                 outputFileName:'background.js'
             },
             spModalLauncher:{
                 watchFiles:'src/scripts/chromeExtension/spModalLauncher.ts',
                 entries:['src/scripts/chromeExtension/spModalLauncher.ts'],
-                outputFolder:'dist/chromeExtension/dev',
+                outputFolder:'dist/chromeExtension/dev/scripts',
                 outputFileName:'spModalLauncher.js'
+            },
+            popup:{
+                watchFiles:'src/scripts/chromeExtension/popup.ts',
+                entries:['src/scripts/chromeExtension/popup.ts'],
+                outputFolder:'dist/chromeExtension/dev/scripts',
+                outputFileName:'popup.js'
             }
         }
     },
@@ -113,6 +119,13 @@ gulp.task("build-chromeExt-background", function (noUglify) {
     var destFolder = obj.outputFolder;
     return browserifyFn(entries,destFile,destFolder, noUglify);
 }); 
+gulp.task("build-chromeExt-popUp", function (noUglify) {
+    var obj = paths.chromeExt.scripts.popup;
+    var entries = obj.entries;
+    var destFile = obj.outputFileName;
+    var destFolder = obj.outputFolder;
+    return browserifyFn(entries,destFile,destFolder, noUglify);
+}); 
 gulp.task("build-chromeExt-SpModalLauncher", function (noUglify) {
     var obj = paths.chromeExt.scripts.spModalLauncher;
     var entries = obj.entries;
@@ -124,6 +137,7 @@ gulp.task('watch',function(){
     gulp.watch(paths.actions.spPropertyBag.watchFiles, ['build-sppropertyBagFile']);
     gulp.watch(paths.chromeExt.scripts.background.watchFiles, ['build-chromeExt-background']);
     gulp.watch(paths.chromeExt.scripts.spModalLauncher.watchFiles, ['build-chromeExt-SpModalLauncher']);
+    gulp.watch(paths.chromeExt.scripts.popup.watchFiles, ['build-chromeExt-popUp']);
 });
 
 gulp.task("default", ["watch"], function() { }); 
