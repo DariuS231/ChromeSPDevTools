@@ -60,37 +60,11 @@ var paths =  {
 }; 
 
 
-<<<<<<< HEAD
-gulp.task("copy-images", function () {
-    return gulp.src(paths.images)
-        .pipe(gulp.dest("dist/images")); 
-}); 
-
-gulp.task("copy-rootFolderFiles", function () {
-    return gulp.src(paths.rootFolderFiles)
-        .pipe(gulp.dest("dist")); 
-}); 
-
-gulp.task("generate-chrome-package", ["copy-images", "copy-rootFolderFiles", "compile-chrome-files"], function () {
-    return gulp.src('dist/**')
-        .pipe(zip('ChromeSPPropertiesAdmin.zip'))
-        .pipe(gulp.dest('chromePackage'));
-});
-
-
-
-gulp.task("build-sppropertyBagFile", function (ugli) {
-     var ret = browserify({
-        basedir: '.',
-        debug: true,
-        entries: ['src/scripts/SpPropertyBag/main.ts'],
-=======
 var browserifyFn = (entries, destFile, destFolder, noUglify) => {
     var ret = browserify({
         basedir: '.',
         debug: true,
         entries: entries,
->>>>>>> react
         cache: {},
         packageCache: {}
     })
@@ -100,28 +74,12 @@ var browserifyFn = (entries, destFile, destFolder, noUglify) => {
       this.emit('end');
     }).pipe(source(destFile)).pipe(buffer())
     .pipe(sourcemaps.init({loadMaps: true}));
-<<<<<<< HEAD
-    if(ugli){
-=======
 
     if(!noUglify){
->>>>>>> react
         ret = ret.pipe(uglify());
     }
     
     return ret.pipe(sourcemaps.write('./'))
-<<<<<<< HEAD
-    .pipe(gulp.dest("SpPropertyBag"));
-}); 
-
-gulp.task("compile-chrome-files", function (ugli) {
-    var ret = tsProject.src()
-        .pipe(ts(tsProject)); 
-         if (ugli) {
-            ret = ret.pipe(uglify()); 
-        }
-        return  ret.pipe(rename( {dirname:''})).pipe(gulp.dest("dist/scripts")); 
-=======
     .pipe(gulp.dest(destFolder));
 }
 
@@ -147,7 +105,6 @@ gulp.task("build-sppropertyBagFile", function (noUglify) {
     var destFile = obj.outputFileName;
     var destFolder = obj.outputFolder;
     return browserifyFn(entries,destFile,destFolder, noUglify);
->>>>>>> react
 }); 
 gulp.task("build-chromeExt-background", function (noUglify) {
     var obj = paths.chromeExt.scripts.background;
@@ -169,8 +126,4 @@ gulp.task('watch',function(){
     gulp.watch(paths.chromeExt.scripts.spModalLauncher.watchFiles, ['build-chromeExt-SpModalLauncher']);
 });
 
-<<<<<<< HEAD
-gulp.task("default", ["copy-images", "copy-rootFolderFiles", "compile-chrome-files","build-sppropertyBagFile"], function(ugli) {}); 
-=======
 gulp.task("default", ["watch"], function() { }); 
->>>>>>> react
