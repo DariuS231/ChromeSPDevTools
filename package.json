@@ -2,10 +2,7 @@
   "name": "chromesppropertiesadmin",
   "version": "0.0.1",
   "description": "Google Chrome extension that opens a Property bag Modal dialog administration",
-  "dependencies": {
-    "react": "^15.3.0",
-    "react-dom": "^15.3.0"
-  },
+  "dependencies": {},
   "devDependencies": {
     "babelify": "^7.3.0",
     "browserify": "^13.1.0",
