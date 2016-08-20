@@ -12,6 +12,8 @@ class PopUp {
         chrome.tabs.query({ active: true }, function (tab) {
             chrome.tabs.executeScript(tab[0].id, {
                 code: codeStr
+            },function(){
+                window.close();
             });
         });
     }
