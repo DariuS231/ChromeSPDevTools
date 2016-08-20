@@ -13,8 +13,21 @@ var buffer = require('vinyl-buffer');
 
 var paths = {
     chromeExt: {
+        vendors: {
+            bootstrap: {
+                src: 'node_modules/bootstrap/dist/**',
+                dist: 'dist/chromeExtension/dev/vendor/bootstrap'
+            },
+            jquery: {
+                src: 'node_modules/jquery/dist/**',
+                dist: 'dist/chromeExtension/dev/vendor/jquery'
+            }
+        },
         rootDistFoldder: 'dist/chromeExtension/dev',
-        rootFolderFiles: ['src/manifest.json', 'src/index.html'],
+        rootFolderFiles: [
+            'src/manifest.json',
+            'src/index.html'
+        ],
         package: {
             packageFiles: 'dist/chromeExtension/dev/**',
             name: 'ChromeSPPropertiesAdmin.zip',
@@ -99,7 +112,17 @@ gulp.task("copy-rootFolderFiles", function () {
         .pipe(gulp.dest(paths.chromeExt.rootDistFoldder));
 });
 
-gulp.task("generate-chrome-dev", ["copy-images", "copy-rootFolderFiles", 'build-chromeExt-background', 'build-chromeExt-popUp'], function () {
+gulp.task("copy-bootstrap", function () {
+    return gulp.src(paths.chromeExt.vendors.bootstrap.src)
+        .pipe(gulp.dest(paths.chromeExt.vendors.bootstrap.dist));
+});
+
+gulp.task("copy-jquery", function () {
+    return gulp.src(paths.chromeExt.vendors.jquery.src)
+        .pipe(gulp.dest(paths.chromeExt.vendors.jquery.dist));
+});
+
+gulp.task("generate-chrome-dev", ["copy-images", "copy-rootFolderFiles", 'build-chromeExt-background', 'build-chromeExt-popUp', 'copy-jquery', 'copy-bootstrap'], function () {
 });
 gulp.task("generate-chrome-package", ["generate-chrome-dev"], function () {
     return gulp.src(paths.chromeExt.package.packageFiles)
