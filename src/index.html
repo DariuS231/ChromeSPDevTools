@@ -19,6 +19,29 @@
         .navbar-brand>img {
             display: inline-block;
         }
+        
+        .sp-admin-option {
+            padding: 0;
+        }
+        
+        .sp-admin-option > div {
+            display: table-cell;
+            padding: 10px 15px;
+        }
+        
+        .sp-admin-option-title {
+            width: 80%;
+        }
+        
+        .sp-admin-option-title:hover {
+            background-color: #337ab7;
+            color: white;
+        }
+        
+        .sp-admin-option-image {
+            width: 15%;
+            background-color: #337ab7;
+        }
     </style>
 </head>
 
@@ -38,11 +61,38 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="list-group">
-                    <a href="#" class="list-group-item" id="lnkPropBagAdmin">Property Bag Admin</a>
-                    <a href="#" class="list-group-item">Dapibus ac facilisis in</a>
-                    <a href="#" class="list-group-item">Morbi leo risus</a>
-                    <a href="#" class="list-group-item">Porta ac consectetur ac</a>
-                    <a href="#" class="list-group-item">Vestibulum at eros</a>
+                    <a href="#" class="list-group-item sp-admin-option" id="lnkPropBagAdmin">
+                        <div class="sp-admin-option-image">
+                            <img alt="Brand" src="/images/icon-19.png">
+                        </div>
+                        <div class="sp-admin-option-title">
+                            Property Bag Admin
+                        </div>
+                    </a>
+                    <a href="#" class="list-group-item sp-admin-option">
+                        <div class="sp-admin-option-image">
+                            <img alt="Brand" src="/images/icon-19.png">
+                        </div>
+                        <div class="sp-admin-option-title">
+                            Option 1
+                        </div>
+                    </a>
+                    <a href="#" class="list-group-item sp-admin-option">
+                        <div class="sp-admin-option-image">
+                            <img alt="Brand" src="/images/icon-19.png">
+                        </div>
+                        <div class="sp-admin-option-title">
+                            Option 2
+                        </div>
+                    </a>
+                    <a href="#" class="list-group-item sp-admin-option">
+                        <div class="sp-admin-option-image">
+                            <img alt="Brand" src="/images/icon-19.png">
+                        </div>
+                        <div class="sp-admin-option-title">
+                            Option 3
+                        </div>
+                    </a>
                 </div>
             </div>
         </div>
