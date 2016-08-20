@@ -99,7 +99,7 @@ gulp.task("copy-rootFolderFiles", function () {
         .pipe(gulp.dest(paths.chromeExt.rootDistFoldder));
 });
 
-gulp.task("generate-chrome-dev", ["copy-images", "copy-rootFolderFiles", 'build-chromeExt-background', 'build-chromeExt-SpModalLauncher', 'build-chromeExt-popUp'], function () {
+gulp.task("generate-chrome-dev", ["copy-images", "copy-rootFolderFiles", 'build-chromeExt-background', 'build-chromeExt-popUp'], function () {
 });
 gulp.task("generate-chrome-package", ["generate-chrome-dev"], function () {
     return gulp.src(paths.chromeExt.package.packageFiles)
@@ -128,17 +128,10 @@ gulp.task("build-chromeExt-popUp", function (noUglify) {
     var destFolder = obj.outputFolder;
     return browserifyFn(entries, destFile, destFolder, noUglify);
 });
-gulp.task("build-chromeExt-SpModalLauncher", function (noUglify) {
-    var obj = paths.chromeExt.scripts.spModalLauncher;
-    var entries = obj.entries;
-    var destFile = obj.outputFileName;
-    var destFolder = obj.outputFolder;
-    return browserifyFn(entries, destFile, destFolder, noUglify);
-});
+
 gulp.task('watch', function () {
     gulp.watch(paths.actions.spPropertyBag.watchFiles, ['build-sppropertyBagFile']);
     gulp.watch(paths.chromeExt.scripts.background.watchFiles, ['build-chromeExt-background']);
-    gulp.watch(paths.chromeExt.scripts.spModalLauncher.watchFiles, ['build-chromeExt-SpModalLauncher']);
     gulp.watch(paths.chromeExt.scripts.popup.watchFiles, ['build-chromeExt-popUp']);
 });
 
