@@ -3,8 +3,8 @@
         "chromeExt": {
             "vendors": {
                 "entries":  [
-                    "node_modules/bootstrap-sass/assets/javascripts/bootstrap.min.js",
-                    "node_modules/jquery/dist/jquery.min.js"
+                    "node_modules/jquery/dist/jquery.min.js",
+                    "node_modules/bootstrap-sass/assets/javascripts/bootstrap.min.js"
                 ],
                 "outputFolder": "dist/chromeExtension/dev/scripts/",
                 "outputFileName": "vendorBundle.js"
@@ -40,9 +40,9 @@
                     "outputFileName": "background.js"
                 },
                 "popup": {
-                    "watchFiles": "src/scripts/chromeExtension/popup.ts",
+                    "watchFiles": "src/scripts/chromeExtension/main.tsx",
                     "entries": [
-                        "src/scripts/chromeExtension/popup.ts"
+                        "src/scripts/chromeExtension/main.tsx"
                     ],
                     "outputFolder": "dist/chromeExtension/dev/scripts",
                     "outputFileName": "popup.js"
