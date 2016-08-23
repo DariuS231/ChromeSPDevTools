@@ -2,14 +2,12 @@
     "paths": {
         "chromeExt": {
             "vendors": {
-                "bootstrap": {
-                    "src": "node_modules/bootstrap-sass/assets/javascripts/**",
-                    "dist": "dist/chromeExtension/dev/vendor/bootstrap"
-                },
-                "jquery": {
-                    "src": "node_modules/jquery/dist/**",
-                    "dist": "dist/chromeExtension/dev/vendor/jquery"
-                }
+                "entries":  [
+                    "node_modules/bootstrap-sass/assets/javascripts/bootstrap.min.js",
+                    "node_modules/jquery/dist/jquery.min.js"
+                ],
+                "outputFolder": "dist/chromeExtension/dev/scripts/",
+                "outputFileName": "vendorBundle.js"
             },
             "styles": {
                 "watchFiles": [
@@ -72,12 +70,12 @@
             }
         }
     },
-    "sassConfig":{
+    "sassConfig": {
         "errLogToConsole": true,
         "outputStyle": "compressed",
         "includePaths": "node_modules/bootstrap-sass/assets/stylesheets/"
     },
-    "browserifyConfig":{
+    "browserifyConfig": {
         "basedir": ".",
         "debug": true,
         "cache": {},

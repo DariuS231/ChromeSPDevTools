@@ -42,13 +42,16 @@ gulp.task("copy-rootFolderFiles", function () {
         .pipe(gulp.dest(config.paths.chromeExt.rootDistFoldder));
 });
 
-gulp.task("copy-jquery", function () {
-    return gulp.src(config.paths.chromeExt.vendors.jquery.src)
-        .pipe(gulp.dest(config.paths.chromeExt.vendors.jquery.dist));
+gulp.task("generate-chromeExt-vendors", function (noUglify) {
+    var obj = config.paths.chromeExt.vendors;
+
+    var entries = obj.entries;
+    var destFile = obj.outputFileName;
+    var destFolder = obj.outputFolder;
+    return browserifyFn(entries, destFile, destFolder, noUglify);
 });
 
-gulp.task("generate-chrome-dev", ["copy-images", "copy-rootFolderFiles", 'build-chromeExt-background', 'build-chromeExt-popUp', 'build-chromeExt-styles', 'copy-jquery'], function () {
-});
+gulp.task("generate-chrome-dev", ["copy-images", "copy-rootFolderFiles", 'build-chromeExt-background', 'build-chromeExt-popUp', 'build-chromeExt-styles', 'generate-chromeExt-vendors'], function (noUglify) { });
 gulp.task("generate-chrome-package", ["generate-chrome-dev"], function () {
     return gulp.src(config.paths.chromeExt.package.packageFiles)
         .pipe(zip(config.paths.chromeExt.package.name))
@@ -56,7 +59,6 @@ gulp.task("generate-chrome-package", ["generate-chrome-dev"], function () {
 });
 
 gulp.task("build-sppropertyBagFile", function (noUglify) {
-
     var obj = config.paths.actions.spPropertyBag;
 
     var entries = obj.entries;
@@ -79,18 +81,22 @@ gulp.task("build-chromeExt-popUp", function (noUglify) {
     return browserifyFn(entries, destFile, destFolder, noUglify);
 });
 
-gulp.task('build-chromeExt-styles', function () {
+gulp.task('build-chromeExt-styles', function (noUglify) {
+    var sasConf = config.sassConfig;
+    if(noUglify){
+        sasConf['outputStyle'] = "expanded";
+    }
     return gulp.src(config.paths.chromeExt.styles.watchFiles)
-        .pipe(sass(config.sassConfig))
+        .pipe(sass(sasConf))
         .pipe(rename(config.paths.chromeExt.styles.bundle))
         .pipe(gulp.dest(config.paths.chromeExt.styles.dist));
 });
 
-gulp.task('watch', function () {
+gulp.task('watch', function (noUglify) {
     gulp.watch(config.paths.actions.spPropertyBag.watchFiles, ['build-sppropertyBagFile']);
     gulp.watch(config.paths.chromeExt.scripts.background.watchFiles, ['build-chromeExt-background']);
     gulp.watch(config.paths.chromeExt.scripts.popup.watchFiles, ['build-chromeExt-popUp']);
     gulp.watch(config.paths.chromeExt.styles.watchFiles, ['build-chromeExt-styles']);
 });
 
-gulp.task("default", ["watch"], function () { }); 
+gulp.task("default", ["watch"], function (noUglify) { }); 
