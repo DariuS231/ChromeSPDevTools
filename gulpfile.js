@@ -13,6 +13,13 @@ var buffer = require('vinyl-buffer');
 var sass = require('gulp-sass');
 var config = require("./gulpconfig.json");
 
+/****//****//****//****/
+//      The --noUglify parameter can be specified in some tasks to prevent minification of the generated files
+/****//****//****//****/
+
+/****//****//****//****/
+//      Utils
+/****//****//****//****/
 var browserifyFn = (entries, destFile, destFolder, noUglify) => {
     var bsfConfig = config.browserifyConfig;
     bsfConfig["entries"] = entries;
@@ -28,9 +35,11 @@ var browserifyFn = (entries, destFile, destFolder, noUglify) => {
         ret = ret.pipe(uglify());
     }
 
-    return ret.pipe(sourcemaps.write('./'))
-        .pipe(gulp.dest(destFolder));
+    return ret.pipe(sourcemaps.write('./')).pipe(gulp.dest(destFolder));
 }
+/****//****//****//****/
+//      Google Extension
+/****//****//****//****/
 
 gulp.task("copy-images", function () {
     return gulp.src(config.paths.chromeExt.images.src)
@@ -44,23 +53,14 @@ gulp.task("copy-rootFolderFiles", function () {
 
 gulp.task("generate-chromeExt-vendors", function (noUglify) {
     var obj = config.paths.chromeExt.vendors;
-
     var entries = obj.entries;
     var destFile = obj.outputFileName;
     var destFolder = obj.outputFolder;
     return browserifyFn(entries, destFile, destFolder, noUglify);
 });
 
-gulp.task("generate-chrome-dev", ["copy-images", "copy-rootFolderFiles", 'build-chromeExt-background', 'build-chromeExt-popUp', 'build-chromeExt-styles', 'generate-chromeExt-vendors'], function (noUglify) { });
-gulp.task("generate-chrome-package", ["generate-chrome-dev"], function () {
-    return gulp.src(config.paths.chromeExt.package.packageFiles)
-        .pipe(zip(config.paths.chromeExt.package.name))
-        .pipe(gulp.dest(config.paths.chromeExt.package.distFolder));
-});
-
-gulp.task("build-sppropertyBagFile", function (noUglify) {
-    var obj = config.paths.actions.spPropertyBag;
-
+gulp.task("build-chromeExt-popUp", function (noUglify) {
+    var obj = config.paths.chromeExt.scripts.popup;
     var entries = obj.entries;
     var destFile = obj.outputFileName;
     var destFolder = obj.outputFolder;
@@ -73,17 +73,10 @@ gulp.task("build-chromeExt-background", function (noUglify) {
     var destFolder = obj.outputFolder;
     return browserifyFn(entries, destFile, destFolder, noUglify);
 });
-gulp.task("build-chromeExt-popUp", function (noUglify) {
-    var obj = config.paths.chromeExt.scripts.popup;
-    var entries = obj.entries;
-    var destFile = obj.outputFileName;
-    var destFolder = obj.outputFolder;
-    return browserifyFn(entries, destFile, destFolder, noUglify);
-});
 
 gulp.task('build-chromeExt-styles', function (noUglify) {
     var sasConf = config.sassConfig;
-    if(noUglify){
+    if (noUglify) {
         sasConf['outputStyle'] = "expanded";
     }
     return gulp.src(config.paths.chromeExt.styles.watchFiles)
@@ -92,6 +85,29 @@ gulp.task('build-chromeExt-styles', function (noUglify) {
         .pipe(gulp.dest(config.paths.chromeExt.styles.dist));
 });
 
+gulp.task("generate-chrome-dev", ["copy-images", "copy-rootFolderFiles", 'build-chromeExt-background', 'build-chromeExt-popUp', 'build-chromeExt-styles', 'generate-chromeExt-vendors'], function (noUglify) {
+
+});
+gulp.task("generate-chrome-package", ["generate-chrome-dev"], function () {
+    return gulp.src(config.paths.chromeExt.package.packageFiles)
+        .pipe(zip(config.paths.chromeExt.package.name))
+        .pipe(gulp.dest(config.paths.chromeExt.package.distFolder));
+});
+
+/****//****//****//****/
+//      SharePoint Actions
+/****//****//****//****/
+gulp.task("build-sppropertyBagFile", function (noUglify) {
+    var obj = config.paths.actions.spPropertyBag;
+    var entries = obj.entries;
+    var destFile = obj.outputFileName;
+    var destFolder = obj.outputFolder;
+    return browserifyFn(entries, destFile, destFolder, noUglify);
+});
+
+/****//****//****//****/
+//      Watch
+/****//****//****//****/
 gulp.task('watch', function (noUglify) {
     gulp.watch(config.paths.actions.spPropertyBag.watchFiles, ['build-sppropertyBagFile']);
     gulp.watch(config.paths.chromeExt.scripts.background.watchFiles, ['build-chromeExt-background']);
