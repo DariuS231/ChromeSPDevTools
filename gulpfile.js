@@ -10,18 +10,24 @@ var source = require('vinyl-source-stream');
 var tsify = require('tsify');
 var sourcemaps = require('gulp-sourcemaps');
 var buffer = require('vinyl-buffer');
+var sass = require('gulp-sass');
 
 var paths = {
     chromeExt: {
         vendors: {
             bootstrap: {
-                src: 'node_modules/bootstrap/dist/**',
+                src: 'node_modules/bootstrap-sass/assets/javascripts/**',
                 dist: 'dist/chromeExtension/dev/vendor/bootstrap'
             },
             jquery: {
                 src: 'node_modules/jquery/dist/**',
                 dist: 'dist/chromeExtension/dev/vendor/jquery'
             }
+        },
+        styles: {
+            watchFiles:['./src/**/*.scss'],
+            bundle: 'bundle.css',
+            dist: 'dist/chromeExtension/dev/styles/'
         },
         rootDistFoldder: 'dist/chromeExtension/dev',
         rootFolderFiles: [
@@ -43,12 +49,6 @@ var paths = {
                 entries: ['src/scripts/chromeExtension/background.ts'],
                 outputFolder: 'dist/chromeExtension/dev/scripts',
                 outputFileName: 'background.js'
-            },
-            spModalLauncher: {
-                watchFiles: 'src/scripts/chromeExtension/spModalLauncher.ts',
-                entries: ['src/scripts/chromeExtension/spModalLauncher.ts'],
-                outputFolder: 'dist/chromeExtension/dev/scripts',
-                outputFileName: 'spModalLauncher.js'
             },
             popup: {
                 watchFiles: 'src/scripts/chromeExtension/popup.ts',
@@ -77,7 +77,11 @@ var paths = {
         }
     }
 };
-
+var sassOptions = {
+    errLogToConsole: true,
+    outputStyle: 'compressed',
+    includePaths: 'node_modules/bootstrap-sass/assets/stylesheets/'
+}
 
 var browserifyFn = (entries, destFile, destFolder, noUglify) => {
     var ret = browserify({
@@ -112,17 +116,12 @@ gulp.task("copy-rootFolderFiles", function () {
         .pipe(gulp.dest(paths.chromeExt.rootDistFoldder));
 });
 
-gulp.task("copy-bootstrap", function () {
-    return gulp.src(paths.chromeExt.vendors.bootstrap.src)
-        .pipe(gulp.dest(paths.chromeExt.vendors.bootstrap.dist));
-});
-
 gulp.task("copy-jquery", function () {
     return gulp.src(paths.chromeExt.vendors.jquery.src)
         .pipe(gulp.dest(paths.chromeExt.vendors.jquery.dist));
 });
 
-gulp.task("generate-chrome-dev", ["copy-images", "copy-rootFolderFiles", 'build-chromeExt-background', 'build-chromeExt-popUp', 'copy-jquery', 'copy-bootstrap'], function () {
+gulp.task("generate-chrome-dev", ["copy-images", "copy-rootFolderFiles", 'build-chromeExt-background', 'build-chromeExt-popUp', 'build-chromeExt-styles', 'copy-jquery'], function () {
 });
 gulp.task("generate-chrome-package", ["generate-chrome-dev"], function () {
     return gulp.src(paths.chromeExt.package.packageFiles)
@@ -152,10 +151,18 @@ gulp.task("build-chromeExt-popUp", function (noUglify) {
     return browserifyFn(entries, destFile, destFolder, noUglify);
 });
 
+gulp.task('build-chromeExt-styles', function () {
+    return gulp.src(paths.chromeExt.styles.watchFiles)
+        .pipe(sass(sassOptions))
+        .pipe(rename(paths.chromeExt.styles.bundle))
+        .pipe(gulp.dest(paths.chromeExt.styles.dist));
+});
+
 gulp.task('watch', function () {
     gulp.watch(paths.actions.spPropertyBag.watchFiles, ['build-sppropertyBagFile']);
     gulp.watch(paths.chromeExt.scripts.background.watchFiles, ['build-chromeExt-background']);
     gulp.watch(paths.chromeExt.scripts.popup.watchFiles, ['build-chromeExt-popUp']);
+    gulp.watch(paths.chromeExt.styles.watchFiles, ['build-chromeExt-styles']);
 });
 
 gulp.task("default", ["watch"], function () { }); 
