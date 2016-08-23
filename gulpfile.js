@@ -11,86 +11,12 @@ var tsify = require('tsify');
 var sourcemaps = require('gulp-sourcemaps');
 var buffer = require('vinyl-buffer');
 var sass = require('gulp-sass');
-
-var paths = {
-    chromeExt: {
-        vendors: {
-            bootstrap: {
-                src: 'node_modules/bootstrap-sass/assets/javascripts/**',
-                dist: 'dist/chromeExtension/dev/vendor/bootstrap'
-            },
-            jquery: {
-                src: 'node_modules/jquery/dist/**',
-                dist: 'dist/chromeExtension/dev/vendor/jquery'
-            }
-        },
-        styles: {
-            watchFiles:['./src/**/*.scss'],
-            bundle: 'bundle.css',
-            dist: 'dist/chromeExtension/dev/styles/'
-        },
-        rootDistFoldder: 'dist/chromeExtension/dev',
-        rootFolderFiles: [
-            'src/manifest.json',
-            'src/index.html'
-        ],
-        package: {
-            packageFiles: 'dist/chromeExtension/dev/**',
-            name: 'ChromeSPPropertiesAdmin.zip',
-            distFolder: 'dist/chromeExtension/prod'
-        },
-        images: {
-            src: 'src/images/*.png',
-            dist: 'dist/chromeExtension/dev/images'
-        },
-        scripts: {
-            background: {
-                watchFiles: 'src/scripts/chromeExtension/background.ts',
-                entries: ['src/scripts/chromeExtension/background.ts'],
-                outputFolder: 'dist/chromeExtension/dev/scripts',
-                outputFileName: 'background.js'
-            },
-            popup: {
-                watchFiles: 'src/scripts/chromeExtension/popup.ts',
-                entries: ['src/scripts/chromeExtension/popup.ts'],
-                outputFolder: 'dist/chromeExtension/dev/scripts',
-                outputFileName: 'popup.js'
-            }
-        }
-    },
-    actions: {
-        spPropertyBag: {
-            watchFiles: [
-                'src/scripts/actions/SpPropertyBag/**/*.tsx',
-                'src/scripts/actions/common/enums.ts',
-                'src/scripts/actions/common/interfaces.ts',
-                'src/scripts/actions/common/keyValueItem.tsx',
-                'src/scripts/actions/common/messageBar.tsx',
-                'src/scripts/actions/common/newKeyValueItem.tsx',
-                'src/scripts/actions/common/spCustomModalWrapper.tsx',
-                'src/scripts/actions/common/styles.ts',
-                'src/scripts/actions/common/workingOnIt.tsx'
-            ],
-            entries: ['src/scripts/actions/SpPropertyBag/main.tsx'],
-            outputFolder: 'dist/actions/SpPropertyBag',
-            outputFileName: 'SpPropertyBag.js'
-        }
-    }
-};
-var sassOptions = {
-    errLogToConsole: true,
-    outputStyle: 'compressed',
-    includePaths: 'node_modules/bootstrap-sass/assets/stylesheets/'
-}
+var config = require("./gulpconfig.json");
 
 var browserifyFn = (entries, destFile, destFolder, noUglify) => {
-    var ret = browserify({
-        basedir: '.',
-        debug: true,
-        entries: entries,
-        cache: {},
-        packageCache: {}
-    })
+    var bsfConfig = config.browserifyConfig;
+    bsfConfig["entries"] = entries;
+    var ret = browserify(bsfConfig)
         .plugin(tsify).transform("babelify").bundle()
         .on('error', function (err) {
             console.log(err.message);
@@ -107,44 +33,46 @@ var browserifyFn = (entries, destFile, destFolder, noUglify) => {
 }
 
 gulp.task("copy-images", function () {
-    return gulp.src(paths.chromeExt.images.src)
-        .pipe(gulp.dest(paths.chromeExt.images.dist));
+    return gulp.src(config.paths.chromeExt.images.src)
+        .pipe(gulp.dest(config.paths.chromeExt.images.dist));
 });
 
 gulp.task("copy-rootFolderFiles", function () {
-    return gulp.src(paths.chromeExt.rootFolderFiles)
-        .pipe(gulp.dest(paths.chromeExt.rootDistFoldder));
+    return gulp.src(config.paths.chromeExt.rootFolderFiles)
+        .pipe(gulp.dest(config.paths.chromeExt.rootDistFoldder));
 });
 
 gulp.task("copy-jquery", function () {
-    return gulp.src(paths.chromeExt.vendors.jquery.src)
-        .pipe(gulp.dest(paths.chromeExt.vendors.jquery.dist));
+    return gulp.src(config.paths.chromeExt.vendors.jquery.src)
+        .pipe(gulp.dest(config.paths.chromeExt.vendors.jquery.dist));
 });
 
 gulp.task("generate-chrome-dev", ["copy-images", "copy-rootFolderFiles", 'build-chromeExt-background', 'build-chromeExt-popUp', 'build-chromeExt-styles', 'copy-jquery'], function () {
 });
 gulp.task("generate-chrome-package", ["generate-chrome-dev"], function () {
-    return gulp.src(paths.chromeExt.package.packageFiles)
-        .pipe(zip(paths.chromeExt.package.name))
-        .pipe(gulp.dest(paths.chromeExt.package.distFolder));
+    return gulp.src(config.paths.chromeExt.package.packageFiles)
+        .pipe(zip(config.paths.chromeExt.package.name))
+        .pipe(gulp.dest(config.paths.chromeExt.package.distFolder));
 });
 
 gulp.task("build-sppropertyBagFile", function (noUglify) {
-    var obj = paths.actions.spPropertyBag;
+
+    var obj = config.paths.actions.spPropertyBag;
+
     var entries = obj.entries;
     var destFile = obj.outputFileName;
     var destFolder = obj.outputFolder;
     return browserifyFn(entries, destFile, destFolder, noUglify);
 });
 gulp.task("build-chromeExt-background", function (noUglify) {
-    var obj = paths.chromeExt.scripts.background;
+    var obj = config.paths.chromeExt.scripts.background;
     var entries = obj.entries;
     var destFile = obj.outputFileName;
     var destFolder = obj.outputFolder;
     return browserifyFn(entries, destFile, destFolder, noUglify);
 });
 gulp.task("build-chromeExt-popUp", function (noUglify) {
-    var obj = paths.chromeExt.scripts.popup;
+    var obj = config.paths.chromeExt.scripts.popup;
     var entries = obj.entries;
     var destFile = obj.outputFileName;
     var destFolder = obj.outputFolder;
@@ -152,17 +80,17 @@ gulp.task("build-chromeExt-popUp", function (noUglify) {
 });
 
 gulp.task('build-chromeExt-styles', function () {
-    return gulp.src(paths.chromeExt.styles.watchFiles)
-        .pipe(sass(sassOptions))
-        .pipe(rename(paths.chromeExt.styles.bundle))
-        .pipe(gulp.dest(paths.chromeExt.styles.dist));
+    return gulp.src(config.paths.chromeExt.styles.watchFiles)
+        .pipe(sass(config.sassConfig))
+        .pipe(rename(config.paths.chromeExt.styles.bundle))
+        .pipe(gulp.dest(config.paths.chromeExt.styles.dist));
 });
 
 gulp.task('watch', function () {
-    gulp.watch(paths.actions.spPropertyBag.watchFiles, ['build-sppropertyBagFile']);
-    gulp.watch(paths.chromeExt.scripts.background.watchFiles, ['build-chromeExt-background']);
-    gulp.watch(paths.chromeExt.scripts.popup.watchFiles, ['build-chromeExt-popUp']);
-    gulp.watch(paths.chromeExt.styles.watchFiles, ['build-chromeExt-styles']);
+    gulp.watch(config.paths.actions.spPropertyBag.watchFiles, ['build-sppropertyBagFile']);
+    gulp.watch(config.paths.chromeExt.scripts.background.watchFiles, ['build-chromeExt-background']);
+    gulp.watch(config.paths.chromeExt.scripts.popup.watchFiles, ['build-chromeExt-popUp']);
+    gulp.watch(config.paths.chromeExt.styles.watchFiles, ['build-chromeExt-styles']);
 });
 
 gulp.task("default", ["watch"], function () { }); 

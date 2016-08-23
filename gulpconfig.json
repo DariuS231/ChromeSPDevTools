@@ -1,0 +1,86 @@
+{
+    "paths": {
+        "chromeExt": {
+            "vendors": {
+                "bootstrap": {
+                    "src": "node_modules/bootstrap-sass/assets/javascripts/**",
+                    "dist": "dist/chromeExtension/dev/vendor/bootstrap"
+                },
+                "jquery": {
+                    "src": "node_modules/jquery/dist/**",
+                    "dist": "dist/chromeExtension/dev/vendor/jquery"
+                }
+            },
+            "styles": {
+                "watchFiles": [
+                    "./src/**/*.scss"
+                ],
+                "bundle": "bundle.css",
+                "dist": "dist/chromeExtension/dev/styles/"
+            },
+            "rootDistFoldder": "dist/chromeExtension/dev",
+            "rootFolderFiles": [
+                "src/manifest.json",
+                "src/index.html"
+            ],
+            "package": {
+                "packageFiles": "dist/chromeExtension/dev/**",
+                "name": "ChromeSPPropertiesAdmin.zip",
+                "distFolder": "dist/chromeExtension/prod"
+            },
+            "images": {
+                "src": "src/images/*.png",
+                "dist": "dist/chromeExtension/dev/images"
+            },
+            "scripts": {
+                "background": {
+                    "watchFiles": "src/scripts/chromeExtension/background.ts",
+                    "entries": [
+                        "src/scripts/chromeExtension/background.ts"
+                    ],
+                    "outputFolder": "dist/chromeExtension/dev/scripts",
+                    "outputFileName": "background.js"
+                },
+                "popup": {
+                    "watchFiles": "src/scripts/chromeExtension/popup.ts",
+                    "entries": [
+                        "src/scripts/chromeExtension/popup.ts"
+                    ],
+                    "outputFolder": "dist/chromeExtension/dev/scripts",
+                    "outputFileName": "popup.js"
+                }
+            }
+        },
+        "actions": {
+            "spPropertyBag": {
+                "watchFiles": [
+                    "src/scripts/actions/SpPropertyBag/**/*.tsx",
+                    "src/scripts/actions/common/enums.ts",
+                    "src/scripts/actions/common/interfaces.ts",
+                    "src/scripts/actions/common/keyValueItem.tsx",
+                    "src/scripts/actions/common/messageBar.tsx",
+                    "src/scripts/actions/common/newKeyValueItem.tsx",
+                    "src/scripts/actions/common/spCustomModalWrapper.tsx",
+                    "src/scripts/actions/common/styles.ts",
+                    "src/scripts/actions/common/workingOnIt.tsx"
+                ],
+                "entries": [
+                    "src/scripts/actions/SpPropertyBag/main.tsx"
+                ],
+                "outputFolder": "dist/actions/SpPropertyBag",
+                "outputFileName": "SpPropertyBag.js"
+            }
+        }
+    },
+    "sassConfig":{
+        "errLogToConsole": true,
+        "outputStyle": "compressed",
+        "includePaths": "node_modules/bootstrap-sass/assets/stylesheets/"
+    },
+    "browserifyConfig":{
+        "basedir": ".",
+        "debug": true,
+        "cache": {},
+        "packageCache": {}
+    }
+}
