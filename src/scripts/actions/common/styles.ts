@@ -154,3 +154,7 @@ export let SpCustomModalWrapperStyles = {
         borderRadius: '0 5px'
     }
 }
+
+export let SpSiteContentStyles: any = {
+
+}

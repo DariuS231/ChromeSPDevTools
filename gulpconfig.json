@@ -67,6 +67,18 @@
                 ],
                 "outputFolder": "dist/actions/SpPropertyBag",
                 "outputFileName": "SpPropertyBag.js"
+            },
+            "spSiteContent": {
+                "watchFiles": [
+                    "src/scripts/actions/SpSiteContent/**/*.tsx",
+                    "src/scripts/actions/common/spCustomModalWrapper.tsx",
+                    "src/scripts/actions/common/styles.ts"
+                ],
+                "entries": [
+                    "src/scripts/actions/SpSiteContent/main.tsx"
+                ],
+                "outputFolder": "dist/actions/SpSiteContent",
+                "outputFileName": "SpSiteContent.js"
             }
         }
     },
