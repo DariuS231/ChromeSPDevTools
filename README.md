@@ -11,8 +11,8 @@ The application is published in the Google Chrome Web Store. [This](https://chro
 
 After cloning this repo, execute in your favourite shell:
 
-* `npm install` to install npm dependencies.
-* `typings install` to install the typescript definitions.
+* `npm install --global gulp` to make sure gulp is installed globally.
+* `npm install` to install npm dependencies and TypeScript typings.
 
 ### Compilation
 
