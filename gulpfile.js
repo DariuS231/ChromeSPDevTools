@@ -12,6 +12,7 @@ var sourcemaps = require('gulp-sourcemaps');
 var buffer = require('vinyl-buffer');
 var sass = require('gulp-sass');
 var config = require("./gulpconfig.json");
+var concat = require('gulp-concat');
 
 /****//****//****//****/
 //      The --noUglify parameter can be specified in some tasks to prevent minification of the generated files
@@ -55,12 +56,9 @@ gulp.task("copy-rootFolderFiles", function () {
         .pipe(gulp.dest(config.paths.chromeExt.rootDistFoldder));
 });
 
-gulp.task("generate-chromeExt-vendors", function (noUglify) {
+gulp.task("generate-chromeExt-vendors", function () {
     var obj = config.paths.chromeExt.vendors;
-    var entries = obj.entries;
-    var destFile = obj.outputFileName;
-    var destFolder = obj.outputFolder;
- return browserifyFn(entries, destFile, destFolder, noUglify);
+    return gulp.src(obj.entries).pipe(concat(obj.outputFileName)).pipe(gulp.dest(obj.outputFolder));
 });
 
 gulp.task("build-chromeExt-popUp", function (noUglify) {
