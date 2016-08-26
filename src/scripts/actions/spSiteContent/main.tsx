@@ -15,7 +15,7 @@ function render() {
     }
 
     SP.SOD.executeFunc('sp.js', 'SP.ClientContext', function () {
-        ReactDOM.render(<SpCustomModalWrapper modalDialogTitle="All Site Content" modalWidth="700px"><SpSiteContent/></SpCustomModalWrapper>, document.getElementById(baseDivId));
+        ReactDOM.render(<SpCustomModalWrapper modalDialogTitle="Site lists" modalWidth="700px"><SpSiteContent/></SpCustomModalWrapper>, document.getElementById(baseDivId));
     });
 }
 
