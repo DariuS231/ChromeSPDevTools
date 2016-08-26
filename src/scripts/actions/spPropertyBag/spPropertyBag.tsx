@@ -155,7 +155,7 @@ export default class SpPropertyBag extends React.Component<SpPropertyBagProps, S
                             </tbody>
                         </table>
                         <hr/>
-                        <NewKeyValueItem moduleTitle="New web proiperty" keyDisplayName="Property Name" valueDisplayName="Property Value" onNewItemClick={this.onAddingNewProperty.bind(this) } />
+                        <NewKeyValueItem moduleTitle="New web property" keyDisplayName="Property Name" valueDisplayName="Property Value" onNewItemClick={this.onAddingNewProperty.bind(this) } />
                     </div>
                 </div>);
             } else {
