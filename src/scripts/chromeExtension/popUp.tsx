@@ -22,10 +22,10 @@ export default class PopUp extends React.Component<PopUpProps, PopUpState> {
                 "scriptUrl": "https://rawgit.com/DariuS231/ChromeSPPropertiesAdmin/master/dist/actions/SpPropertyBag/SpPropertyBag.js"
             },
             {
-                "title": "Option 2",
-                "descriptio": "Option 2",
+                "title": "Site Content",
+                "descriptio": "Site Content",
                 "image": "/images/sp-bag-32.png",
-                "scriptUrl": "https://rawgit.com/DariuS231/ChromeSPPropertiesAdmin/master/dist/actions/SpPropertyBag/SpPropertyBag.js"
+                "scriptUrl": "https://rawgit.com/DariuS231/ChromeSPPropertiesAdmin/extPopUp/dist/actions/SpSiteContent/SpSiteContent.js"
             },
             {
                 "title": "Option 3",
