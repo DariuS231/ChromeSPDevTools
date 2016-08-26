@@ -3,45 +3,48 @@
 import * as React from 'react';
 import ActionItem from './ActionItem'
 
+interface IActionData {
+    title: string,
+    descriptio: string,
+    image: string,
+    scriptUrl: string
+};
+
 interface PopUpProps {
 
 }
 interface PopUpState {
-
+    actions: IActionData[]
 }
 
 export default class PopUp extends React.Component<PopUpProps, PopUpState> {
-
-
-    public render() {
-        let options = [
-            {
-                "title": "Property Bag Admin",
-                "descriptio": "Property Bag Admin",
-                "image": "/images/sp-bag-32.png",
-                "scriptUrl": "https://rawgit.com/DariuS231/ChromeSPPropertiesAdmin/master/dist/actions/SpPropertyBag/SpPropertyBag.js"
-            },
-            {
-                "title": "Site Content",
-                "descriptio": "Site Content",
-                "image": "/images/sp-bag-32.png",
-                "scriptUrl": "https://rawgit.com/DariuS231/ChromeSPPropertiesAdmin/extPopUp/dist/actions/SpSiteContent/SpSiteContent.js"
-            },
-            {
-                "title": "Option 3",
-                "descriptio": "Option 3",
-                "image": "/images/sp-bag-32.png",
-                "scriptUrl": "https://rawgit.com/DariuS231/ChromeSPPropertiesAdmin/master/dist/actions/SpPropertyBag/SpPropertyBag.js"
-            },
-            {
-                "title": "Option 4",
-                "descriptio": "Option 4",
-                "image": "/images/sp-bag-32.png",
-                "scriptUrl": "https://rawgit.com/DariuS231/ChromeSPPropertiesAdmin/master/dist/actions/SpPropertyBag/SpPropertyBag.js"
+    constructor() {
+        super();
+        this.state = {
+            actions: []
+        };
+    }
+    public getActions() {
+        let that:any = this;
+        var xobj = new XMLHttpRequest();
+        xobj.overrideMimeType("application/json");
+        xobj.open('GET', 'data/actions.json', true);
+        xobj.onreadystatechange = function () {
+            if (xobj.readyState == 4 && xobj.status === 200) {
+                var data = JSON.parse(xobj.responseText);
+                that.setState({ actions: data });
             }
-        ];
+        };
+        xobj.send(null);
 
-        let opts: any = options.map((opt: any, index: number) => {
+    }
+    private componentDidMount() {
+        this.getActions();
+    }
+    public render() {
+
+
+        let opts: any = this.state.actions.map((opt: any, index: number) => {
             return (<ActionItem item={opt} key={index} />);
         });
         return <div className="container">

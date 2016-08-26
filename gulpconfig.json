@@ -30,6 +30,10 @@
                 "src": "src/images/*.png",
                 "dist": "dist/chromeExtension/dev/images"
             },
+            "data": {
+                "src": "src/data/*.json",
+                "dist": "dist/chromeExtension/dev/data"
+            },
             "scripts": {
                 "background": {
                     "watchFiles": "src/scripts/chromeExtension/background.ts",
