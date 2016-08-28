@@ -1,5 +1,6 @@
 
-interface Window { 
+interface Window {
     SpPropertyBagObj: any;
-    SpSiteContentObj: any; 
+    SpSiteContentObj: any;
+    SpCustomActionsObj: any;
 }
