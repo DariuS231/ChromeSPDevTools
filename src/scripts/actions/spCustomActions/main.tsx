@@ -23,7 +23,7 @@ class App {
         let that = this;
         SP.SOD.executeFunc('sp.js', 'SP.ClientContext', function () {
             ReactDOM.render(<SpCustomModalWrapper appContainerId={that.baseDivId} onCloseClick={that.remove.bind(this) } modalDialogTitle="Web Custom Actions" modalWidth="700px">
-                <SpCustomActions  />
+                <SpCustomActions  appContainerId={that.baseDivId} closeWindowFunction={that.remove.bind(this) } />
             </SpCustomModalWrapper>, document.getElementById(that.baseDivId));
         });
     }

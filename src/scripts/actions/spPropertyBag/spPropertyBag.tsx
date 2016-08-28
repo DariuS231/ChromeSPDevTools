@@ -12,7 +12,9 @@ import { MessageType, OperationType } from './../common/enums';
 import { SpPropertyBagStyles as spPropStyles } from './../common/Styles'
 
 interface SpPropertyBagProps {
-    showOnlyIconsInButtons:boolean
+    showOnlyIconsInButtons:boolean,
+    appContainerId: string,
+    closeWindowFunction:any
 }
 interface SpPropertyBagState {
     currentUserHasPermissions: boolean,
@@ -129,6 +131,8 @@ export default class SpPropertyBag extends React.Component<SpPropertyBagProps, S
             });
             let onError: Function = Function.createDelegate(this, (sender: any, err: any) => {
                 SP.UI.Notify.addNotification("Failed to get web properties...<br>" + err.get_message(), false);
+                console.log(err);
+                this.props.closeWindowFunction(this.props.appContainerId);
             });
             this.ctx.executeQueryAsync(onSuccess, onError);
         }

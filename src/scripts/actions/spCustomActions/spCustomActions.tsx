@@ -9,6 +9,8 @@ import { MessageType } from './../common/enums';
 import { SpCustomActionsStyles as styles } from './../common/Styles'
 
 interface SpCustomActionsProps {
+    appContainerId: string,
+    closeWindowFunction:any
 }
 interface SpCustomActionsState {
     isWorkingOnIt: boolean,
@@ -38,7 +40,8 @@ export default class SpCustomActions extends React.Component<SpCustomActionsProp
         });
         let onError: Function = Function.createDelegate(this, (sender: any, err: any) => {
             SP.UI.Notify.addNotification("Failed to get web custom actions...<br>" + err.get_message(), false);
-            
+            console.log(err);
+            this.props.closeWindowFunction(this.props.appContainerId);
         });
         ctx.executeQueryAsync(onSuccess, onError);
     }
