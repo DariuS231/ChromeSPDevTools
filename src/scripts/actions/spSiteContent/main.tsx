@@ -5,18 +5,29 @@ import * as ReactDOM from "react-dom";
 import SpCustomModalWrapper from './../common/spCustomModalWrapper';
 import SpSiteContent from './spSiteContent.tsx'
 
-function render() {
-    let baseDivId: string = 'spSiteContentDiv';
-    let baseDiv: HTMLElement = document.getElementById(baseDivId);
-    if (!baseDiv) {
-        baseDiv = document.createElement('div');
-        baseDiv.setAttribute('id', baseDivId)
-        document.querySelector('form').appendChild(baseDiv);
-    }
+class App {
+    baseDivId: string = 'spPropBaseDiv';
+    constructor() {
 
-    SP.SOD.executeFunc('sp.js', 'SP.ClientContext', function () {
-        ReactDOM.render(<SpCustomModalWrapper modalDialogTitle="Site lists" modalWidth="700px"><SpSiteContent/></SpCustomModalWrapper>, document.getElementById(baseDivId));
-    });
+        let baseDiv: HTMLElement = document.getElementById(this.baseDivId);
+        if (!baseDiv) {
+            baseDiv = document.createElement('div');
+            baseDiv.setAttribute('id', this.baseDivId)
+            document.querySelector('form').appendChild(baseDiv);
+        }
+    }
+    remove(containerId: string) {
+        ReactDOM.unmountComponentAtNode(document.getElementById(containerId));
+    }
+    public show() {
+        let that = this;
+        SP.SOD.executeFunc('sp.js', 'SP.ClientContext', function () {
+            ReactDOM.render(<SpCustomModalWrapper appContainerId={that.baseDivId} onCloseClick={that.remove.bind(this) } modalDialogTitle="Web Property Administration Panel" modalWidth="700px">
+                <SpSiteContent />
+            </SpCustomModalWrapper>, document.getElementById(that.baseDivId));
+        });
+    }
 }
 
-render();
+window.SpSiteContentObj = new App();
+window.SpSiteContentObj.show();

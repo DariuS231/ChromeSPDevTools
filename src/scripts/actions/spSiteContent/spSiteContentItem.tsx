@@ -17,9 +17,9 @@ export default class SpSiteContentItem extends React.Component<SpSiteContentItem
         return (
             <li style={styles.listItem}>
                 <div style={styles.divContainer}>
-                    <a target={target} href={this.props.item.listUrl}>
-                        <img src={this.props.item.imageUrl} alt="" style={styles.imageItem} />
-                        <h2 style={styles.itemTitle} href={this.props.item.listUrl}>{this.props.item.title}</h2>
+                    <a target={target} title={this.props.item.title} alt={this.props.item.title} href={this.props.item.listUrl}>
+                        <img src={this.props.item.imageUrl} alt={this.props.item.title} style={styles.imageItem} />
+                        <h2 style={styles.itemTitle}>{this.props.item.title}</h2>
                     </a>
                     <p style={styles.totalItems}>{this.props.item.itemCount} items</p>
                     <a target={target} href={this.props.item.settingsUrl} style={styles.settingsStyles}>List Settings</a>

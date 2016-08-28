@@ -12,7 +12,7 @@ import { MessageType, OperationType } from './../common/enums';
 import { SpPropertyBagStyles as spPropStyles } from './../common/Styles'
 
 interface SpPropertyBagProps {
-
+    showOnlyIconsInButtons:boolean
 }
 interface SpPropertyBagState {
     currentUserHasPermissions: boolean,
@@ -144,7 +144,7 @@ export default class SpPropertyBag extends React.Component<SpPropertyBagProps, S
         } else {
             if (this.state.currentUserHasPermissions) {
                 var props = this.state.webProperties.map((prop: IKeyValue, index: number) => {
-                    return (<KeyValueItem item={prop} key={prop.key} itemIndex={index} onUpdateClick={this.onUpdatingNewProperty.bind(this) } onDeleteClick={this.onDeletingProperty.bind(this) } />);
+                    return (<KeyValueItem item={prop} key={prop.key} itemIndex={index} onUpdateClick={this.onUpdatingNewProperty.bind(this) } onDeleteClick={this.onDeletingProperty.bind(this) } showOnlyIconsInButtons={this.props.showOnlyIconsInButtons} />);
                 });
                 return (<div style={spPropStyles.contentStyles}>
                     <MessageBar message={this.state.message} messageType={this.state.messageType} showMessage={this.state.showMessage} />
@@ -155,7 +155,7 @@ export default class SpPropertyBag extends React.Component<SpPropertyBagProps, S
                             </tbody>
                         </table>
                         <hr/>
-                        <NewKeyValueItem moduleTitle="New web property" keyDisplayName="Property Name" valueDisplayName="Property Value" onNewItemClick={this.onAddingNewProperty.bind(this) } />
+                        <NewKeyValueItem moduleTitle="New web property" keyDisplayName="Property Name" valueDisplayName="Property Value" onNewItemClick={this.onAddingNewProperty.bind(this) } showOnlyIconsInButtons={this.props.showOnlyIconsInButtons} />
                     </div>
                 </div>);
             } else {

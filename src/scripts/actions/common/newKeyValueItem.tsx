@@ -12,7 +12,8 @@ interface NewKeyValueItemProps {
     moduleTitle: string,
     keyDisplayName: string,
     valueDisplayName: string,
-    onNewItemClick: any
+    onNewItemClick: any,
+    showOnlyIconsInButtons:boolean
 }
 
 export default class NewKeyValueItem extends React.Component<NewKeyValueItemProps, NewKeyValueItemState> {
@@ -40,6 +41,15 @@ export default class NewKeyValueItem extends React.Component<NewKeyValueItemProp
         this.setState({ newValue: e.target.value } as NewKeyValueItemState);
     }
     public render() {
+        debugger;
+        let inputValue:string = '';
+        let inputStyle:any = nkvStyles.btnStylePlus;
+        if(!this.props.showOnlyIconsInButtons){
+            inputValue = 'Add';
+            inputStyle['backgroundPosition'] = '10% 50%';
+        } else {
+            inputStyle['backgroundPosition'] = '50% 50%';
+        }
         return <form onSubmit={this.addBtnClick.bind(this) }>
             <h2>{this.props.moduleTitle}</h2>
             <div style={nkvStyles.divStyle}>
@@ -50,7 +60,7 @@ export default class NewKeyValueItem extends React.Component<NewKeyValueItemProp
                 <label style={nkvStyles.labelStyle} htmlFor="newValue">{this.props.valueDisplayName}: </label>
                 <input style={nkvStyles.inputStyle} id="newValue" required="required" value={this.state.newValue} onChange={this.onValueInputChange.bind(this) } />
             </div>
-            <input type="submit" style={nkvStyles.btnStylePlus} value="Add" />
+            <input type="submit" style={inputStyle} title="Add" value={inputValue} />
         </form>;
     }
 }

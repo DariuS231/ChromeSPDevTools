@@ -10,7 +10,8 @@ interface KeyValueItemProps {
     item: IKeyValue
     onUpdateClick: any,
     onDeleteClick: any,
-    itemIndex: number
+    itemIndex: number,
+    showOnlyIconsInButtons:boolean
 }
 
 export default class KeyValueItem extends React.Component<KeyValueItemProps, KeyValueItemState> {
@@ -47,12 +48,25 @@ export default class KeyValueItem extends React.Component<KeyValueItemProps, Key
     public render() {
         let updateBtn: any;
         let valueElement: any;
+        let isEditMode:boolean = this.state.inEditMode;
 
-        if (this.state.inEditMode) {
-            updateBtn = (<input type="button" title="Save" value="Save" style={kviStyles.saveBtnStyle} onClick={this.onUpdateClick.bind(this) } />);
+        let inputValue:string = '';
+        let inputStyle:any = isEditMode ? kviStyles.saveBtnStyle : kviStyles.updateBtnStyle;
+        let deletBtnStyle:any = kviStyles.deleteBtnStyle;
+        if(!this.props.showOnlyIconsInButtons){
+            inputValue = isEditMode ? 'Save' : 'Edit';
+            inputStyle['backgroundPosition'] = '10% 50%';
+            deletBtnStyle['backgroundPosition'] = '10% 50%';
+        } else {
+            inputStyle['backgroundPosition'] = '50% 50%';
+            deletBtnStyle['backgroundPosition'] = '50% 50%';
+        }
+
+        if (isEditMode) {
+            updateBtn = (<input type="button" title="Save" value={inputValue} style={inputStyle} onClick={this.onUpdateClick.bind(this) } />);
             valueElement = (<input style={kviStyles.inputStyles} id={this.inputId} value={this.state.itemInputValue} onChange={this.onValueInputChange.bind(this) } />);
         } else {
-            updateBtn = (<input type="button" title="Edit" value="Edit" style={kviStyles.updateBtnStyle} onClick={this.onUpdateBtnClick.bind(this) } />);
+            updateBtn = (<input type="button" title="Edit" value={inputValue} style={inputStyle} onClick={this.onUpdateBtnClick.bind(this) } />);
             valueElement = (<input style={kviStyles.inputReadOnlyStyles} id={this.inputId} value={this.state.itemInputValue} onChange={this.onValueInputChange.bind(this) } readOnly />);
         }
 
@@ -67,7 +81,7 @@ export default class KeyValueItem extends React.Component<KeyValueItemProps, Key
                 {updateBtn}
             </td>
             <td style={kviStyles.tableCellStyle}>
-                <input type="button" style={kviStyles.deleteBtnStyle} onClick={this.onDeleteClick.bind(this) } title="Delete" value="Delete"/>
+                <input type="button" style={deletBtnStyle} onClick={this.onDeleteClick.bind(this) } title="Delete" value={this.props.showOnlyIconsInButtons ? '' : 'Delete'}/>
             </td>
         </tr>;
     }
