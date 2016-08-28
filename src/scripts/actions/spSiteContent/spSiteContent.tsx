@@ -72,7 +72,9 @@ export default class SpSiteContent extends React.Component<SpSiteContentProps, S
                 return a.title.localeCompare(b.title);
             });
         });
-        let onError: Function = Function.createDelegate(this, function () { console.log("ERROR"); });
+        let onError: Function = Function.createDelegate(this, (sender: any, err: any) => {
+            SP.UI.Notify.addNotification("Failed to get web lists...<br>" + err.get_message(), false);
+        });
         ctx.executeQueryAsync(onSuccess, onError);
     }
     private showHidden(e: any) {
