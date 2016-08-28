@@ -9,7 +9,6 @@ import { MessageType } from './../common/enums';
 import { SpCustomActionsStyles as styles } from './../common/Styles'
 
 interface SpCustomActionsProps {
-
 }
 interface SpCustomActionsState {
     isWorkingOnIt: boolean,
@@ -23,52 +22,24 @@ export default class SpCustomActions extends React.Component<SpCustomActionsProp
         super();
         this.state = {
             isWorkingOnIt: true,
-            siteLists: [],
             showMessage: false,
             messageType: MessageType.Info,
-            message: '',
-            showHidden: true,
-            openInNewTab: true
+            message: ''
         } as SpCustomActionsState;
     }
     private getCustomActions() {
         let ctx = SP.ClientContext.get_current();
         let web = ctx.get_web();
 
-        let siteConetent = web.get_lists();
         ctx.load(web);
-        ctx.load(siteConetent, 'Include(RootFolder,Title,Id,Hidden,ItemCount,Created,ImageUrl,LastItemModifiedDate,Description,ParentWebUrl)');
 
         let onSuccess: Function = Function.createDelegate(this, (sender: any, err: any) => {
 
-            let items: Array<ISiteContent> = [], listEnumerator: any = siteConetent.getEnumerator();
-
-            while (listEnumerator.moveNext()) {
-                let oList: any = listEnumerator.get_current();
-                let listId: any = oList.get_id();
-                let listItem: ISiteContent = {
-                    id: listId,
-                    title: oList.get_title(),
-                    description: oList.get_description(),
-                    hidden: oList.get_hidden(),
-                    itemCount: oList.get_itemCount(),
-                    imageUrl: oList.get_imageUrl(),
-                    created: oList.get_created(),
-                    lastModified: oList.get_lastItemModifiedDate(),
-                    listUrl: oList.get_rootFolder().get_serverRelativeUrl(),
-                    settingsUrl: oList.get_parentWebUrl() + '/_layouts/15/listedit.aspx?List=' + listId
-                }
-                items.push(listItem);
-                this.setState({
-                    siteLists: items,
-                    isWorkingOnIt: false
-                } as SpCustomActionsState);
-            }
-            items.sort(function (a, b) {
-                return a.title.localeCompare(b.title);
-            });
         });
-        let onError: Function = Function.createDelegate(this, function () { console.log("ERROR"); });
+        let onError: Function = Function.createDelegate(this, (sender: any, err: any) => {
+            SP.UI.Notify.addNotification("Failed to get web custom actions...<br>" + err.get_message(), false);
+            
+        });
         ctx.executeQueryAsync(onSuccess, onError);
     }
 

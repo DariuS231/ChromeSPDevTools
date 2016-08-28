@@ -83,6 +83,18 @@
                 ],
                 "outputFolder": "dist/actions/SpSiteContent",
                 "outputFileName": "SpSiteContent.js"
+            },
+            "spCustomActions": {
+                "watchFiles": [
+                    "src/scripts/actions/spCustomActions/**/*.tsx",
+                    "src/scripts/actions/common/spCustomModalWrapper.tsx",
+                    "src/scripts/actions/common/styles.ts"
+                ],
+                "entries": [
+                    "src/scripts/actions/spCustomActions/main.tsx"
+                ],
+                "outputFolder": "dist/actions/spCustomActions",
+                "outputFileName": "spCustomActions.js"
             }
         }
     },
