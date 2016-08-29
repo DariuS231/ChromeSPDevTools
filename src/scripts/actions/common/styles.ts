@@ -9,7 +9,7 @@ let divContainer = {
 let btnStyles = {
     display: 'inline-block',
     height: '26px',
-    minWidth:'0',
+    minWidth: '0',
     borderRadius: '5px',
     padding: '3px 10px 4px 25px',
     margin: '5px',
@@ -175,7 +175,13 @@ export let SpSiteContentItemStyles: any = {
     }
 }
 
-export let SpCustomActionsStyles : any ={
+export let SpCustomActionsStyles: any = {
     contentStyles: contentStyles,
     list: listStyle
+}
+export let CustomActionItemStyles: any = {
+    listItem: { width: '50%', display: 'inline-block' },
+    divContainer: { padding: '10px', margin: '5px', backgroundColor: 'rgba(100,149,237, 0.1)', position: 'relative', borderRadius: '5px' },
+    itemTitle: { display: 'inline-block', width: '93%', textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap', verticalAlign: 'middle' },
+    totalItems: { marginTop: '10px', marginBottom: '2px', wordBreak: 'break-word' }
 }

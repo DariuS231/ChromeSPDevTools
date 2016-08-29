@@ -6,6 +6,7 @@ import * as React from 'react';
 import WorkingOnIt from './../common/WorkingOnIt';
 import MessageBar from './../common/MessageBar';
 import { MessageType } from './../common/enums';
+import SpCustomActionItem from './customActionItem'
 import { SpCustomActionsStyles as styles } from './../common/Styles'
 
 interface SpCustomActionsProps {
@@ -56,9 +57,8 @@ export default class SpCustomActions extends React.Component<SpCustomActionsProp
                 });
             }
             items.sort(function (a, b) {
-                return a.title.localeCompare(b.title);
+                return a.name.localeCompare(b.name);
             });
-            console.log(items);
             this.setState({
                 customActions: items,
                 isWorkingOnIt: false
@@ -79,11 +79,14 @@ export default class SpCustomActions extends React.Component<SpCustomActionsProp
         if (this.state.isWorkingOnIt) {
             return <WorkingOnIt/>
         } else {
+            var customActions = this.state.customActions.map((list: ICustomAction, index: number) => { 
+                return (<SpCustomActionItem item={list} key={index} />); 
+            });
             return (
                 <div style={styles.contentStyles}>
                     <MessageBar message={this.state.message} messageType={this.state.messageType} showMessage={this.state.showMessage} />
                     <ul style={styles.list}>
-
+                        {customActions}
                     </ul>
                 </div>);
 
