@@ -8,7 +8,6 @@ import SpCustomActions from './spCustomActions.tsx'
 class App {
     baseDivId: string = 'spCuastomActionsBaseDiv';
     constructor() {
-
         let baseDiv: HTMLElement = document.getElementById(this.baseDivId);
         if (!baseDiv) {
             baseDiv = document.createElement('div');

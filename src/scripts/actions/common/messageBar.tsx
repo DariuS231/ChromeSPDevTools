@@ -16,18 +16,33 @@ interface MessageBarState {
 
 export default class MessageBar extends React.Component<MessageBarProps, MessageBarState> {
 
-    constructor(props: any) {
-        super(props);
+    constructor() {
+        super();
         this.state = {
-            showMessage: this.props.showMessage
-        }
-        if (this.props.showMessage) {
-            setTimeout(function () {
-                this.setState({ showMessage: false });
-            }.bind(this), 5000);
+            showMessage: false
         }
     }
-
+    componentDidMount() {
+        this.setState({
+            showMessage: this.props.showMessage
+        });
+        if (this.props.showMessage) {
+            this.startShowTimeOut();
+        }
+    }
+    startShowTimeOut() {
+        setTimeout(function () {
+            this.setState({ showMessage: false });
+        }.bind(this), 5000);
+    }
+    componentWillReceiveProps(nextProps: any) {
+        this.setState({
+            showMessage: nextProps.showMessage
+        });
+        if (nextProps.showMessage) {
+            this.startShowTimeOut();
+        }
+    }
     public render() {
         if (!this.state.showMessage) {
             return <div></div>;

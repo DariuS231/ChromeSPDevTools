@@ -11,7 +11,7 @@ import SpSiteContentItem  from './spSiteContentItem';
 
 interface SpSiteContentProps {
     appContainerId: string,
-    closeWindowFunction:any
+    closeWindowFunction: any
 }
 interface SpSiteContentState {
     isWorkingOnIt: boolean,
@@ -36,7 +36,7 @@ export default class SpSiteContent extends React.Component<SpSiteContentProps, S
             openInNewTab: true
         } as SpSiteContentState;
     }
-    private getWebProperties() {
+    private getLists() {
         let ctx = SP.ClientContext.get_current();
         let web = ctx.get_web();
 
@@ -64,14 +64,14 @@ export default class SpSiteContent extends React.Component<SpSiteContentProps, S
                     settingsUrl: oList.get_parentWebUrl() + '/_layouts/15/listedit.aspx?List=' + listId
                 }
                 items.push(listItem);
-                this.setState({
-                    siteLists: items,
-                    isWorkingOnIt: false
-                } as SpSiteContentState);
             }
             items.sort(function (a, b) {
                 return a.title.localeCompare(b.title);
             });
+            this.setState({
+                siteLists: items,
+                isWorkingOnIt: false
+            } as SpSiteContentState);
         });
         let onError: Function = Function.createDelegate(this, (sender: any, err: any) => {
             SP.UI.Notify.addNotification("Failed to get web lists...<br>" + err.get_message(), false);
@@ -81,17 +81,31 @@ export default class SpSiteContent extends React.Component<SpSiteContentProps, S
         ctx.executeQueryAsync(onSuccess, onError);
     }
     private showHidden(e: any) {
+        let showHiddenNewVal: boolean = e.target.checked;
+        let messageText:string = showHiddenNewVal ?  
+        'Showing hidden lists and libraries.': 
+        'Not showing hidden lists and libraries.';
         this.setState({
-            showHidden: e.target.checked
+            showHidden: showHiddenNewVal,
+            messageType:MessageType.Info,
+            showMessage:true,
+            message:messageText
         } as SpSiteContentState);
     }
     private openInNewTab(e: any) {
+        let openInNewTabNewVal: boolean = e.target.checked;
+        let messageText:string = openInNewTabNewVal ?  
+        'List and libraries links will open in a new tab.': 
+        'List and libraries links will open in the current tab.';
         this.setState({
-            openInNewTab: e.target.checked
+            openInNewTab: openInNewTabNewVal,
+            messageType:MessageType.Info,
+            showMessage:true,
+            message:messageText
         } as SpSiteContentState);
     }
     private componentDidMount() {
-        this.getWebProperties();
+        this.getLists();
     }
     public render() {
         if (this.state.isWorkingOnIt) {

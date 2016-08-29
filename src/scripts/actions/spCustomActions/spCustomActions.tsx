@@ -10,13 +10,14 @@ import { SpCustomActionsStyles as styles } from './../common/Styles'
 
 interface SpCustomActionsProps {
     appContainerId: string,
-    closeWindowFunction:any
+    closeWindowFunction: any
 }
 interface SpCustomActionsState {
     isWorkingOnIt: boolean,
     showMessage: boolean,
     messageType: MessageType,
-    message: string
+    message: string,
+    customActions: Array<ICustomAction>
 }
 
 export default class SpCustomActions extends React.Component<SpCustomActionsProps, SpCustomActionsState> {
@@ -26,17 +27,42 @@ export default class SpCustomActions extends React.Component<SpCustomActionsProp
             isWorkingOnIt: true,
             showMessage: false,
             messageType: MessageType.Info,
-            message: ''
+            message: '',
+            customActions: []
         } as SpCustomActionsState;
     }
     private getCustomActions() {
         let ctx = SP.ClientContext.get_current();
         let web = ctx.get_web();
+        let sca = web.get_userCustomActions();
 
         ctx.load(web);
-
+        ctx.load(sca);
         let onSuccess: Function = Function.createDelegate(this, (sender: any, err: any) => {
-
+            let enumerator = sca.getEnumerator();
+            let items: Array<ICustomAction> = [];
+            while (enumerator.moveNext()) {
+                let current = enumerator.get_current();
+                items.push({
+                    name: current.get_name(),
+                    description: current.get_description(),
+                    id: current.get_id(),
+                    title: current.get_title(),
+                    registrationType: current.get_registrationType(),
+                    scriptSrc: current.get_scriptSrc(),
+                    scriptBlock: current.get_scriptBlock(),
+                    location: current.get_location(),
+                    sequence: current.get_sequence()
+                });
+            }
+            items.sort(function (a, b) {
+                return a.title.localeCompare(b.title);
+            });
+            console.log(items);
+            this.setState({
+                customActions: items,
+                isWorkingOnIt: false
+            } as SpCustomActionsState);
         });
         let onError: Function = Function.createDelegate(this, (sender: any, err: any) => {
             SP.UI.Notify.addNotification("Failed to get web custom actions...<br>" + err.get_message(), false);

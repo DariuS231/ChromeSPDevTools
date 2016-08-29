@@ -8,7 +8,6 @@ import SpSiteContent from './spSiteContent.tsx'
 class App {
     baseDivId: string = 'spPropBaseDiv';
     constructor() {
-
         let baseDiv: HTMLElement = document.getElementById(this.baseDivId);
         if (!baseDiv) {
             baseDiv = document.createElement('div');
@@ -22,7 +21,7 @@ class App {
     public show() {
         let that = this;
         SP.SOD.executeFunc('sp.js', 'SP.ClientContext', function () {
-            ReactDOM.render(<SpCustomModalWrapper appContainerId={that.baseDivId} onCloseClick={that.remove.bind(this) } modalDialogTitle="Web Property Administration Panel" modalWidth="700px">
+            ReactDOM.render(<SpCustomModalWrapper appContainerId={that.baseDivId} onCloseClick={that.remove.bind(this) } modalDialogTitle="Lists and Libraries" modalWidth="700px">
                 <SpSiteContent  appContainerId={that.baseDivId} closeWindowFunction={that.remove.bind(this) } />
             </SpCustomModalWrapper>, document.getElementById(that.baseDivId));
         });

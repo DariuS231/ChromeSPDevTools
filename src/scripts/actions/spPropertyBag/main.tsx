@@ -8,7 +8,6 @@ import SpPropertyBag from './spPropertyBag.tsx'
 class App {
     baseDivId: string = 'spPropBaseDiv';
     constructor() {
-
         let baseDiv: HTMLElement = document.getElementById(this.baseDivId);
         if (!baseDiv) {
             baseDiv = document.createElement('div');
