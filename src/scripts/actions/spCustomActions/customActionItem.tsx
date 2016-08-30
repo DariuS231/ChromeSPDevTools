@@ -20,7 +20,7 @@ export default class CustomActionItem extends React.Component<CustomActionItemPr
             <li style={styles.listItem}>
                 <div style={styles.divContainer}>
                     <a title={this.props.item.name} alt={this.props.item.name} href="#">
-                        <h3 style={styles.itemTitle}>{this.props.item.name}</h3>
+                        <h2 style={styles.itemTitle}>{this.props.item.name}</h2>
                     </a>
                     <p style={styles.totalItems}>Location: {this.props.item.location}</p>
                     <p style={styles.totalItems}>Sequence: {this.props.item.sequence}</p>

@@ -180,7 +180,7 @@ export let SpCustomActionsStyles: any = {
     list: listStyle
 }
 export let CustomActionItemStyles: any = {
-    listItem: { width: '50%', display: 'inline-block' },
+    listItem: { },
     divContainer: { padding: '10px', margin: '5px', backgroundColor: 'rgba(100,149,237, 0.1)', position: 'relative', borderRadius: '5px' },
     itemTitle: { display: 'inline-block', width: '93%', textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap', verticalAlign: 'middle' },
     totalItems: { marginTop: '10px', marginBottom: '2px', wordBreak: 'break-word' }
