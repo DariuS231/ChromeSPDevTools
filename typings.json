@@ -7,8 +7,6 @@
     "microsoft.ajax": "registry:dt/microsoft.ajax#0.0.0+20160706234802",
     "react": "registry:dt/react#0.14.0+20160805125551",
     "react-dom": "registry:dt/react-dom#0.14.0+20160412154040",
-    "react-router": "registry:dt/react-router#2.0.0+20160813233016",
-    "react-router/history": "registry:dt/react-router/history#2.0.0+20160608102730",
     "webrtc/mediastream": "registry:dt/webrtc/mediastream#0.0.0+20160317120654"
   }
 }

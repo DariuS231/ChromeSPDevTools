@@ -2,10 +2,10 @@
 
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import { Router, Route, Link, browserHistory, withRouter, IndexRedirect } from 'react-router'
-import App from './app'
+import SpCustomModalWrapper from './../common/spCustomModalWrapper';
+import SpCustomActions from './spCustomActions.tsx'
 
-class Main {
+class App {
     baseDivId: string = 'spCuastomActionsBaseDiv';
     constructor() {
         let baseDiv: HTMLElement = document.getElementById(this.baseDivId);
@@ -15,19 +15,18 @@ class Main {
             document.querySelector('form').appendChild(baseDiv);
         }
     }
-
-    public show() {
+    remove(containerId:string) {
+        ReactDOM.unmountComponentAtNode(document.getElementById(containerId));
+    }
+    public show(showOnlyIconsInButtons: boolean) {
         let that = this;
         SP.SOD.executeFunc('sp.js', 'SP.ClientContext', function () {
-            ReactDOM.render(
-                <Router history={browserHistory}>
-                    <Route path="*" component={App}>
-                    </Route>
-                </Router>
-            , document.getElementById(that.baseDivId));
+            ReactDOM.render(<SpCustomModalWrapper appContainerId={that.baseDivId} onCloseClick={that.remove.bind(this) } modalDialogTitle="Web Custom Actions" modalWidth="700px">
+                <SpCustomActions  appContainerId={that.baseDivId} closeWindowFunction={that.remove.bind(this) } />
+            </SpCustomModalWrapper>, document.getElementById(that.baseDivId));
         });
     }
 }
 
-window.SpCustomActionsObj = new Main();
-window.SpCustomActionsObj.show();
+window.SpCustomActionsObj = new App();
+window.SpCustomActionsObj.show(true);
