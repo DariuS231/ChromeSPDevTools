@@ -3,29 +3,41 @@
 /// <reference path="./../common/interfaces.ts"/>
 
 import * as React from 'react';
-import { CustomActionItemStyles as styles } from './../common/Styles'
+import { CustomActionItemStyles as styles } from './../common/Styles';
+import { ViewMode } from './../common/enums';
+
+import CustomActionDisplay  from './customActionDisplay';
 
 interface CustomActionItemProps {
     item: ICustomAction
 }
-interface CustomActionItemState { }
+interface CustomActionItemState {
+    mode: ViewMode
+}
 
 export default class CustomActionItem extends React.Component<CustomActionItemProps, CustomActionItemState> {
+    constructor() {
+        super();
+        this.state = { mode: ViewMode.View };
+    }
+    private changeMode(e: any) {
+        this.setState({ mode: (this.state.mode === ViewMode.View ? ViewMode.Edit : ViewMode.View) })
+    }
     public render() {
-        let script = (this.props.item.location === 'ScriptLink')
-            ? (<p style={styles.totalItems}>ScriptSrc: {this.props.item.scriptSrc}</p>)
-            : (<p style={styles.totalItems}>scriptBlock: {this.props.item.scriptBlock}</p>);
 
+        let item: any;
+        let btnText:string;
+        if (this.state.mode === ViewMode.View) {
+            item = (<CustomActionDisplay item={this.props.item} />);
+            btnText = "Edit";
+        } else {
+            item = (<CustomActionDisplay item={this.props.item} />);
+            btnText = "Save";
+        }
         return (
-            <li style={styles.listItem}>
-                <div style={styles.divContainer}>
-                    <a title={this.props.item.name} alt={this.props.item.name} href="#">
-                        <h2 style={styles.itemTitle}>{this.props.item.name}</h2>
-                    </a>
-                    <p style={styles.totalItems}>Location: {this.props.item.location}</p>
-                    <p style={styles.totalItems}>Sequence: {this.props.item.sequence}</p>
-                    { script }
-                </div>
+            <li style={{ position: 'relative' }}>
+                {item}
+                <a href="javascript:void(0)" style={{ position: 'absolute', top: '5px', right: '15px' }} onClick={this.changeMode.bind(this) }>{btnText}</a>
             </li>);
     }
 }

@@ -10,3 +10,9 @@ export enum OperationType {
     Delete,
     None
 }
+
+export enum ViewMode {
+    New,
+    Edit,
+    View
+}

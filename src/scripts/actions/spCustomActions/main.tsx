@@ -18,7 +18,7 @@ class App {
     remove(containerId:string) {
         ReactDOM.unmountComponentAtNode(document.getElementById(containerId));
     }
-    public show(showOnlyIconsInButtons: boolean) {
+    public show() {
         let that = this;
         SP.SOD.executeFunc('sp.js', 'SP.ClientContext', function () {
             ReactDOM.render(<SpCustomModalWrapper appContainerId={that.baseDivId} onCloseClick={that.remove.bind(this) } modalDialogTitle="Web Custom Actions" modalWidth="700px">
@@ -29,4 +29,4 @@ class App {
 }
 
 window.SpCustomActionsObj = new App();
-window.SpCustomActionsObj.show(true);
+window.SpCustomActionsObj.show();
