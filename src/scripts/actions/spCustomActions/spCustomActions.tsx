@@ -54,7 +54,7 @@ export default class SpCustomActions extends React.Component<SpCustomActionsProp
                     scriptBlock: current.get_scriptBlock(),
                     location: current.get_location(),
                     sequence: current.get_sequence()
-                });
+                } as ICustomAction);
             }
             items.sort(function (a, b) {
                 return a.name.localeCompare(b.name);
