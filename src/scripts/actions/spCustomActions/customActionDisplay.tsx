@@ -13,7 +13,7 @@ interface CustomActionDisplayState { }
 export default class CustomActionDisplay extends React.Component<CustomActionDisplayProps, CustomActionDisplayState> {
 
     public render() {
-        let script = (this.props.item.location === 'ScriptLink')
+        let script = (this.props.item.locationInternal === 'ScriptLink')
             ? (<p style={styles.totalItems}>ScriptSrc: {this.props.item.scriptSrc}</p>)
             : (<p style={styles.totalItems}>scriptBlock: {this.props.item.scriptBlock}</p>);
 

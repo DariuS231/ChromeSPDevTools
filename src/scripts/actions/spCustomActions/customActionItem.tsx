@@ -10,7 +10,10 @@ import CustomActionDisplay  from './customActionDisplay';
 import CustomActionEdit  from './customActionEdit';
 
 interface CustomActionItemProps {
-    item: ICustomAction
+    item: ICustomAction,
+    workingOnIt: any,
+    showMessage: any,
+    reloadCActions: any
 }
 interface CustomActionItemState {
     mode: ViewMode
@@ -26,36 +29,41 @@ export default class CustomActionItem extends React.Component<CustomActionItemPr
     }
     private deleteCustomAction(e: any) {
         if (confirm("Are you sure you want to remove this Custom Action?")) {
-            let caGuid: SP.Guid = new SP.Guid(this.props.item.id);
+            this.props.workingOnIt(true);
+            let caGuid: SP.Guid = new SP.Guid(this.props.item.id.toString());
             let ctx: SP.ClientContext = SP.ClientContext.get_current();
             let web: SP.Web = ctx.get_web();
 
             let ca: SP.UserCustomAction = web.get_userCustomActions().getById(caGuid);
             ca.deleteObject();
             ctx.load(ca);
-            ctx.executeQueryAsync(function (a: any, b: any) {
-                console.log("Deleted");
-            }, function (a: any, b: any) {
+            let onSuccess: Function = Function.createDelegate(this, function (sender: any, err: any) {
+                this.props.reloadCActions();
+                this.props.workingOnIt(false);
+            });
+            let onError: Function = Function.createDelegate(this, function (a: any, b: any) {
                 console.log("ERROR");
             });
+
+            ctx.executeQueryAsync(onSuccess, onError);
         }
     }
     public render() {
-
-        let item: any;
-        let btnText: string;
-        if (this.state.mode === ViewMode.View) {
-            item = (<CustomActionDisplay item={this.props.item} />);
-            btnText = "Edit";
-        } else {
-            item = (<CustomActionEdit item={this.props.item} />);
-            btnText = "Save";
-        }
+        let isViewMode: boolean = this.state.mode === ViewMode.View;
+        let item: any = isViewMode
+            ? <CustomActionDisplay item={this.props.item} />
+            : <CustomActionEdit item={this.props.item} changeModefunction={this.changeMode.bind(this) } workingOnIt={this.props.workingOnIt}  showMessage={this.props.showMessage} reloadCActions={this.props.reloadCActions }  />;
         return (
             <li style={{ position: 'relative' }}>
                 {item}
-                <a href="javascript:void(0)" style={{ position: 'absolute', top: '5px', right: '15px' }} onClick={this.changeMode.bind(this) }>{btnText}</a>
-                <a href="javascript:void(0)" style={{ position: 'absolute', top: '35px', right: '15px' }} onClick={this.deleteCustomAction.bind(this) }>Delete</a>
+                {((isViewMode: boolean) => {
+                    if (isViewMode) {
+                        return <div>
+                            <a href="javascript:void(0)" style={{ position: 'absolute', top: '5px', right: '15px' }} onClick={this.changeMode.bind(this) }>Edit</a>
+                            <a href="javascript:void(0)" style={{ position: 'absolute', top: '35px', right: '15px' }} onClick={this.deleteCustomAction.bind(this) }>Delete</a>
+                        </div>
+                    }
+                })(isViewMode) }
             </li>);
     }
 }

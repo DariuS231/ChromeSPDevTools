@@ -23,6 +23,7 @@ interface ICustomAction {
     scriptSrc: any,
     scriptBlock: any,
     location: any,
+    locationInternal: string,
     sequence: any,
     [key: string]: string //To allow index references with ICustomAction objects 
 }
