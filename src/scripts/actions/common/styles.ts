@@ -128,7 +128,7 @@ export let SpCustomModalWrapperStyles = {
         backgroundColor: 'rgba(0,0,0,0.5)',
         top: 0,
         bottom: 0,
-        zIndex: 99991
+        zIndex: 1000
     },
     divModalStyles: {
         background: 'white',

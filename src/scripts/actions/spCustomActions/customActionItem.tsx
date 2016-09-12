@@ -52,7 +52,7 @@ export default class CustomActionItem extends React.Component<CustomActionItemPr
         let isViewMode: boolean = this.state.mode === ViewMode.View;
         let item: any = isViewMode
             ? <CustomActionDisplay item={this.props.item} />
-            : <CustomActionEdit item={this.props.item} changeModefunction={this.changeMode.bind(this) } workingOnIt={this.props.workingOnIt}  showMessage={this.props.showMessage} reloadCActions={this.props.reloadCActions }  />;
+            : <CustomActionEdit item={this.props.item} changeModefunction={this.changeMode.bind(this) } workingOnIt={this.props.workingOnIt.bind(this)}  showMessage={this.props.showMessage.bind(this)} reloadCActions={this.props.reloadCActions.bind(this) }  />;
         return (
             <li style={{ position: 'relative' }}>
                 {item}

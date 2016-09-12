@@ -7,6 +7,7 @@ import * as React from 'react';
 import Utils from './../common/utils';
 import { CustomActionItemStyles as styles } from './../common/Styles';
 import { ViewMode } from './../common/enums';
+import SpAssetPicker  from './../common/spAssetPicker'
 
 interface CustomActionEditProps {
     item?: ICustomAction,
