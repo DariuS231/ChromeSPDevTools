@@ -27,7 +27,7 @@ export default class CustomActionEdit extends React.Component<CustomActionEditPr
     constructor() {
         super();
         this.state = {
-            item: { } as ICustomAction,
+            item: {} as ICustomAction,
             mode: ViewMode.New
         };
     }
@@ -51,6 +51,7 @@ export default class CustomActionEdit extends React.Component<CustomActionEditPr
         } as CustomActionEditState);
     }
     private createCustomAction(): void {
+        this.props.workingOnIt(true);
         let ctx: SP.ClientContext = SP.ClientContext.get_current();
         let web: SP.Web = ctx.get_web();
         let ca: SP.UserCustomAction = web.get_userCustomActions().add();
@@ -59,7 +60,7 @@ export default class CustomActionEdit extends React.Component<CustomActionEditPr
         web.update();
         let onSuccess: Function = Function.createDelegate(this, function (sender: any, err: any) {
             this.props.changeModefunction();
-            this.props.workingOnIt(false);
+            this.props.reloadCActions();
         });
         let onError: Function = Function.createDelegate(this, function (a: any, b: any) {
             console.log("ERROR");
@@ -110,7 +111,7 @@ export default class CustomActionEdit extends React.Component<CustomActionEditPr
         ctx.load(ca);
         let onSuccess: Function = Function.createDelegate(this, function (sender: any, err: any) {
             this.props.changeModefunction();
-            this.props.workingOnIt(false);
+            this.props.reloadCActions();
         });
         let onError: Function = Function.createDelegate(this, function (a: any, b: any) {
             console.log("ERROR");
@@ -120,7 +121,7 @@ export default class CustomActionEdit extends React.Component<CustomActionEditPr
     public render() {
         let inputStyle: any = {
             background: 'transparent',
-            width: '90%',
+            width: '97%',
             border: '1px solid #ababab'
         };
         let labelStyles = { display: 'block', fontWeight: 'bold' };
@@ -133,13 +134,13 @@ export default class CustomActionEdit extends React.Component<CustomActionEditPr
                 <label style={labelStyles} htmlFor="csInputScriptBlock">ScriptBlock: </label>
                 <textarea type="text" id="csInputScriptBlock" style={inputStyle} value={this.state.item.scriptBlock} onChange={this.inputChange.bind(this, 'scriptBlock') } />
             </div>);
-let idStr:string = this.state.item.id ? this.state.item.id.toString() : '';
-        let numberInputStyle = Utils.mergeObjects(inputStyle, { width: '91.5%' }); 
+        let title: string = this.state.item.id ? `Edit Custom Action ID: ${this.state.item.id.toString()}` : 'Create a new Custom Action';
+        let numberInputStyle = Utils.mergeObjects(inputStyle, { width: '98.5%' });
         return (
-    <div style={styles.divContainer}>
-                <div>
-                    <p>ID: {idStr}</p> 
-                </div>
+            <div style={styles.divContainer}>
+                <h2>
+                {title}
+                </h2>
                 <div>
                     <label style={labelStyles} htmlFor="caInputTitle">Title: </label>
                     <input type="text" id="caInputTitle" value={this.state.item.title} style={inputStyle} onChange={this.inputChange.bind(this, 'title') } />

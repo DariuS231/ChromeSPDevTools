@@ -92,6 +92,9 @@ export default class SpCustomActions extends React.Component<SpCustomActionsProp
             mode: ViewMode.New
         } as SpCustomActionsState);
     }
+    private changeMode(e: any) {
+        this.setState({ mode: (this.state.mode === ViewMode.View ? ViewMode.Edit : ViewMode.View) } as SpCustomActionsState);
+    }
 
     private componentDidMount(): void {
         this.getCustomActions();
@@ -113,7 +116,7 @@ export default class SpCustomActions extends React.Component<SpCustomActionsProp
                         <input type="button" onClick={this.onNewCuatomActionClick.bind(this)} value="New Custom Action"/>
                     </div>);
             } else {
-                return (<SpCustomActionEdit changeModefunction={this.workingOnIt.bind(this) }  workingOnIt={this.workingOnIt.bind(this) }  showMessage={this.showMessage.bind(this) } reloadCActions={this.getCustomActions.bind(this) } />);
+                return (<SpCustomActionEdit changeModefunction={this.changeMode.bind(this) }  workingOnIt={this.workingOnIt.bind(this) }  showMessage={this.showMessage.bind(this) } reloadCActions={this.getCustomActions.bind(this) } />);
             }
         }
     }
