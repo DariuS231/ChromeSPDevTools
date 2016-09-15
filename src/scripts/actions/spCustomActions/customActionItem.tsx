@@ -54,13 +54,13 @@ export default class CustomActionItem extends React.Component<CustomActionItemPr
             ? <CustomActionDisplay item={this.props.item} />
             : <CustomActionEdit item={this.props.item} changeModefunction={this.changeMode.bind(this) } workingOnIt={this.props.workingOnIt.bind(this)}  showMessage={this.props.showMessage.bind(this)} reloadCActions={this.props.reloadCActions.bind(this) }  />;
         return (
-            <li style={{ position: 'relative' }}>
+            <li style={styles.caListItem}>
                 {item}
                 {((isViewMode: boolean) => {
                     if (isViewMode) {
                         return <div>
-                            <a href="javascript:void(0)" style={{ position: 'absolute', top: '5px', right: '15px' }} onClick={this.changeMode.bind(this) }>Edit</a>
-                            <a href="javascript:void(0)" style={{ position: 'absolute', top: '35px', right: '15px' }} onClick={this.deleteCustomAction.bind(this) }>Delete</a>
+                            <a href="javascript:void(0)" style={styles.updateBtnStyle} onClick={this.changeMode.bind(this) }></a>
+                            <a href="javascript:void(0)" style={styles.deleteBtnStyle} onClick={this.deleteCustomAction.bind(this) }></a>
                         </div>
                     }
                 })(isViewMode) }

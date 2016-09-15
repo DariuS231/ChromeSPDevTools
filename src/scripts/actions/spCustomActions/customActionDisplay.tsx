@@ -20,7 +20,7 @@ export default class CustomActionDisplay extends React.Component<CustomActionDis
         return (
             <div style={styles.divContainer}>
                 <h2 style={styles.itemTitle}>{this.props.item.name}</h2>
-                <p style={{ fontStyle: 'italic', marginTop: '0px', color: 'gray' }}>
+                <p style={styles.caDescription}>
                     { this.props.item.description }
                 </p>
                 <p style={styles.totalItems}>Location: {this.props.item.location}</p>

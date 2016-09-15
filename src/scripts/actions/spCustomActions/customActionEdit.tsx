@@ -119,54 +119,48 @@ export default class CustomActionEdit extends React.Component<CustomActionEditPr
         ctx.executeQueryAsync(onSuccess, onError);
     }
     public render() {
-        let inputStyle: any = {
-            background: 'transparent',
-            width: '97%',
-            border: '1px solid #ababab'
-        };
-        let labelStyles = { display: 'block', fontWeight: 'bold' };
         let script = (this.state.item.locationInternal === 'ScriptLink')
             ? (<div>
-                <label style={labelStyles} htmlFor="csInputScriptLink">ScriptLink: </label>
-                <input type="text" id="csInputScriptLink" style={inputStyle} value={this.state.item.scriptSrc} onChange={this.inputChange.bind(this, 'scriptSrc') } />
+                <label style={styles.labelStyles} htmlFor="csInputScriptLink">ScriptLink: </label>
+                <input type="text" id="csInputScriptLink" style={styles.inputStyle} value={this.state.item.scriptSrc} onChange={this.inputChange.bind(this, 'scriptSrc') } />
             </div>)
             : (<div>
-                <label style={labelStyles} htmlFor="csInputScriptBlock">ScriptBlock: </label>
-                <textarea type="text" id="csInputScriptBlock" style={inputStyle} value={this.state.item.scriptBlock} onChange={this.inputChange.bind(this, 'scriptBlock') } />
+                <label style={styles.labelStyles} htmlFor="csInputScriptBlock">ScriptBlock: </label>
+                <textarea type="text" id="csInputScriptBlock" style={styles.inputStyle} value={this.state.item.scriptBlock} onChange={this.inputChange.bind(this, 'scriptBlock') } />
             </div>);
         let title: string = this.state.item.id ? `Edit Custom Action ID: ${this.state.item.id.toString()}` : 'Create a new Custom Action';
-        let numberInputStyle = Utils.mergeObjects(inputStyle, { width: '98.5%' });
+        let numberInputStyle = Utils.mergeObjects(styles.inputStyle, { width: '98.5%' });
         return (
             <div style={styles.divContainer}>
                 <h2>
                 {title}
                 </h2>
                 <div>
-                    <label style={labelStyles} htmlFor="caInputTitle">Title: </label>
-                    <input type="text" id="caInputTitle" value={this.state.item.title} style={inputStyle} onChange={this.inputChange.bind(this, 'title') } />
+                    <label style={styles.labelStyles} htmlFor="caInputTitle">Title: </label>
+                    <input type="text" id="caInputTitle" value={this.state.item.title} style={styles.inputStyle} onChange={this.inputChange.bind(this, 'title') } />
                 </div>
                 <div>
-                    <label style={labelStyles} htmlFor="caInputName">Name: </label>
-                    <input type="text" id="caInputName" value={this.state.item.name} style={inputStyle} onChange={this.inputChange.bind(this, 'name') } />
+                    <label style={styles.labelStyles} htmlFor="caInputName">Name: </label>
+                    <input type="text" id="caInputName" value={this.state.item.name} style={styles.inputStyle} onChange={this.inputChange.bind(this, 'name') } />
                 </div>
                 <div>
-                    <label style={labelStyles} htmlFor="caInputDescription">Description: </label>
-                    <input type="text" id="caInputDescription" value={this.state.item.description} style={inputStyle} onChange={this.inputChange.bind(this, 'description') } />
+                    <label style={styles.labelStyles} htmlFor="caInputDescription">Description: </label>
+                    <input type="text" id="caInputDescription" value={this.state.item.description} style={styles.inputStyle} onChange={this.inputChange.bind(this, 'description') } />
                 </div>
                 <div>
-                    <label style={labelStyles} htmlFor="csInputSequence">Sequence: </label>
+                    <label style={styles.labelStyles} htmlFor="csInputSequence">Sequence: </label>
                     <input type="number" id="csInputSequence" value={this.state.item.sequence}  style={numberInputStyle}  onChange={this.inputChange.bind(this, 'sequence') }/>
                 </div>
                 <div>
-                    <label style={labelStyles} htmlFor="spLocation">Location: </label>
+                    <label style={styles.labelStyles} htmlFor="spLocation">Location: </label>
 
                     <input type="checkbox" name="spLocation" value="ScriptLink" id="caCheckScriptLink" checked={this.state.item.locationInternal === 'ScriptLink'} onChange={this.locationInputChange.bind(this) }/><span htmlFor="caCheckScriptLink" >ScriptLink</span>
                     <input type="checkbox" name="spLocation" value="ScriptBlock" id="caCheckScriptBlock" checked={this.state.item.locationInternal === 'ScriptBlock'} onChange={this.locationInputChange.bind(this) }/><span htmlFor="caCheckScriptBlock" >ScriptBlock</span>
                 </div>
                 { script }
-                <div>
-                    <input type="button" value="Cancel" onClick={this.onCancelClick.bind(this) } />
-                    <input type="button" value="Save" onClick={ this.state.mode === ViewMode.Edit ? this.onSaveClick.bind(this) : this.createCustomAction.bind(this) } />
+                <div style={styles.caNewBtnsContainer}>
+                    <input style={styles.cancelBtnStyle} type="button" value="Cancel" onClick={this.onCancelClick.bind(this) } />
+                    <input style={styles.saveBtnStyle} type="button" value="Save" onClick={ this.state.mode === ViewMode.Edit ? this.onSaveClick.bind(this) : this.createCustomAction.bind(this) } />
                 </div>
             </div>);
     }

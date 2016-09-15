@@ -103,7 +103,7 @@ export default class SpCustomActions extends React.Component<SpCustomActionsProp
         if (this.state.isWorkingOnIt) {
             return <WorkingOnIt/>
         } else {
-            if (this.state.mode === ViewMode.View) {
+            if (this.state.mode === ViewMode.View) {debugger;
                 var customActions = this.state.customActions.map((list: ICustomAction, index: number) => {
                     return (<SpCustomActionItem item={list} key={index} workingOnIt={this.workingOnIt.bind(this) }  showMessage={this.showMessage.bind(this) } reloadCActions={this.getCustomActions.bind(this) } />);
                 });
@@ -113,7 +113,7 @@ export default class SpCustomActions extends React.Component<SpCustomActionsProp
                         <ul style={styles.list}>
                             {customActions}
                         </ul>
-                        <input type="button" onClick={this.onNewCuatomActionClick.bind(this)} value="New Custom Action"/>
+                        <input style={styles.newBtnStyle} type="button" onClick={this.onNewCuatomActionClick.bind(this)} value="New Custom Action"/>
                     </div>);
             } else {
                 return (<SpCustomActionEdit changeModefunction={this.changeMode.bind(this) }  workingOnIt={this.workingOnIt.bind(this) }  showMessage={this.showMessage.bind(this) } reloadCActions={this.getCustomActions.bind(this) } />);
