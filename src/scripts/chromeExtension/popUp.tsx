@@ -25,7 +25,7 @@ export default class PopUp extends React.Component<PopUpProps, PopUpState> {
         };
     }
     public getActions() {
-        let that:any = this;
+        let that: any = this;
         var xobj = new XMLHttpRequest();
         xobj.overrideMimeType("application/json");
         xobj.open('GET', 'data/actions.json', true);
@@ -48,16 +48,9 @@ export default class PopUp extends React.Component<PopUpProps, PopUpState> {
             return (<ActionItem item={opt} key={index} />);
         });
         return <div className="container">
-            <nav className="navbar navbar-default">
-                <div className="container-fluid">
-                    <div className="navbar-header">
-                        <div className="navbar-brand sp-admin">
-                            <img alt="Brand" src="/images/sharepoint-logotype-32.png" />
-                            <span>SharePoint Admin Panel</span>
-                        </div>
-                    </div>
-                </div>
-            </nav>
+            <div className="page-header">
+                <h3>Chrome SP Dev Tools</h3>
+            </div>
             <div className="row">
                 <div className="col-md-4">
                     <div className="list-group">

@@ -1,5 +1,6 @@
-@import '_bootstrap';
-
+@import "bootstrap-sprockets";
+@import 'bootstrap';
+@import "bootstrap/theme";
 
 body {
     padding-top: 20px;
@@ -7,16 +8,8 @@ body {
     min-width: 300px;
 }
 
-.navbar {
-    margin-bottom: 20px;
-    .navbar-brand{
-        &.sp-admin {
-            height: 60px;
-        }
-        > img {
-            display: inline-block;
-        }
-    }
+.page-header{
+    margin-top: -15px;
 }
 
 .sp-admin-option {
@@ -27,13 +20,30 @@ body {
     }
     > .sp-admin-option-title {
         width: 80%;
-        &:hover {
-            background-color: #337ab7;
-            color: white;
+    }
+    > .sp-admin-option-image {
+        width: 15%;
+        background-color: #337ab7;        
+    }
+    &:first-child{
+        > .sp-admin-option-image{
+            border-top-left-radius: 3px;
+        }
+        > .sp-admin-option-title{
+            border-top-right-radius: 3px;
         }
     }
-    >.sp-admin-option-image {
-        width: 15%;
+    &:last-child{
+        > .sp-admin-option-image{
+            border-bottom-left-radius: 3px;
+        }
+        > .sp-admin-option-title{
+            border-bottom-right-radius: 3px;
+        }
+    }
+    &:hover > .sp-admin-option-title  {
+        transition: background-color 1s ease-in-out;
         background-color: #337ab7;
+        color: white;
     }
 }
