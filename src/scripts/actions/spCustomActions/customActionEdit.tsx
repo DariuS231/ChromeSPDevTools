@@ -99,6 +99,7 @@ export default class CustomActionEdit extends React.Component<CustomActionEditPr
         }
     }
     private onCancelClick(e: any) {
+        this.props.showMessage(MessageType.Error, '');
         this.props.changeModefunction();
     }
     private onSaveClick(e: any) {

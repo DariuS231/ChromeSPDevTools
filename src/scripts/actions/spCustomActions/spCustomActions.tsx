@@ -109,7 +109,12 @@ export default class SpCustomActions extends React.Component<SpCustomActionsProp
                 });
                 return (
                     <div style={styles.contentStyles}>
-                        <MessageBar message={this.state.message} messageType={this.state.messageType} showMessage={this.state.showMessage} />
+                        {
+                            (this.state.showMessage && this.state.message) ?
+                                 <MessageBar message={this.state.message} messageType={this.state.messageType} showMessage={this.state.showMessage} />
+                            :
+                                null
+                        }
                         <ul style={styles.list}>
                             {customActions}
                         </ul>
