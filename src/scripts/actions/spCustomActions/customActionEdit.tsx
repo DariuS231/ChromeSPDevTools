@@ -6,7 +6,7 @@ import * as React from 'react';
 
 import Utils from './../common/utils';
 import { CustomActionItemStyles as styles } from './../common/Styles';
-import { ViewMode } from './../common/enums';
+import { ViewMode, MessageType } from './../common/enums';
 import SpAssetPicker  from './../common/spAssetPicker'
 
 interface CustomActionEditProps {
@@ -61,9 +61,11 @@ export default class CustomActionEdit extends React.Component<CustomActionEditPr
         let onSuccess: Function = Function.createDelegate(this, function (sender: any, err: any) {
             this.props.changeModefunction();
             this.props.reloadCActions();
+            this.props.showMessage(MessageType.Success, 'The Custom action has been successfully created.');
         });
         let onError: Function = Function.createDelegate(this, function (a: any, b: any) {
-            console.log("ERROR");
+            console.log(b.get_message());
+            this.props.showMessage(MessageType.Error, 'An error occured while created a new Custom Action.');
         });
         ctx.executeQueryAsync(onSuccess, onError);
     }
@@ -73,7 +75,7 @@ export default class CustomActionEdit extends React.Component<CustomActionEditPr
         ca.set_description(this.state.item.description);
         ca.set_sequence(this.state.item.sequence);
         ca.set_location('ScriptLink');
-        if (this.state.item.location === 'ScriptLink') {
+        if (this.state.item.locationInternal === 'ScriptLink') {
             ca.set_scriptSrc(this.state.item.scriptSrc);
             ca.set_scriptBlock('');
         } else {
@@ -112,9 +114,11 @@ export default class CustomActionEdit extends React.Component<CustomActionEditPr
         let onSuccess: Function = Function.createDelegate(this, function (sender: any, err: any) {
             this.props.changeModefunction();
             this.props.reloadCActions();
+            this.props.showMessage(MessageType.Success, 'The Custom action has been successfully updated.');
         });
         let onError: Function = Function.createDelegate(this, function (a: any, b: any) {
-            console.log("ERROR");
+            console.log(b.get_message());
+            this.props.showMessage(MessageType.Error, 'An error occured while created a new Custom Action.');
         });
         ctx.executeQueryAsync(onSuccess, onError);
     }

@@ -4,7 +4,7 @@
 
 import * as React from 'react';
 import { CustomActionItemStyles as styles } from './../common/Styles';
-import { ViewMode } from './../common/enums';
+import { ViewMode, MessageType } from './../common/enums';
 
 import CustomActionDisplay  from './customActionDisplay';
 import CustomActionEdit  from './customActionEdit';
@@ -40,9 +40,11 @@ export default class CustomActionItem extends React.Component<CustomActionItemPr
             let onSuccess: Function = Function.createDelegate(this, function (sender: any, err: any) {
                 this.props.reloadCActions();
                 this.props.workingOnIt(false);
+                 this.props.showMessage(MessageType.Success, 'The Custom action has been successfully deleted.');
             });
             let onError: Function = Function.createDelegate(this, function (a: any, b: any) {
-                console.log("ERROR");
+                console.log(b.get_message());
+                 this.props.showMessage(MessageType.Error, 'An error ocurred while deleting the Custom Action.');
             });
 
             ctx.executeQueryAsync(onSuccess, onError);
