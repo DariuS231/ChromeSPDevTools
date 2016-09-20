@@ -1,8 +1,8 @@
 {
-  "name": "Chrome SP Properties Admin",
-  "version": "0.0.4",
+  "name": "Chrome SP Dev Tools",
+  "version": "0.2.0",
   "manifest_version": 2,
-  "description": "Chrome SP Properties Admin",
+  "description": "Chrome SP Dev Tools",
   "icons": {
     "16": "images/icon-16.png",
     "128": "images/icon-128.png"
@@ -23,7 +23,7 @@
       "19": "images/icon-19.png",
       "38": "images/icon-38.png"
     },
-    "default_title": "Chrome SP Properties Admin",
+    "default_title": "Chrome SP Dev Tools",
     "default_popup": "index.html"
   }
 }
