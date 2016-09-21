@@ -95,6 +95,18 @@
                 ],
                 "outputFolder": "dist/actions/spCustomActions",
                 "outputFileName": "spCustomActions.js"
+            },
+            "spFeatures": {
+                "watchFiles": [
+                    "src/scripts/actions/spFeatures**/*.tsx",
+                    "src/scripts/actions/common/spCustomModalWrapper.tsx",
+                    "src/scripts/actions/common/styles.ts"
+                ],
+                "entries": [
+                    "src/scripts/actions/spFeatures/main.tsx"
+                ],
+                "outputFolder": "dist/actions/spFeatures",
+                "outputFileName": "spFeatures.js"
             }
         }
     },

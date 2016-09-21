@@ -27,3 +27,12 @@ interface ICustomAction {
     sequence: any,
     [key: string]: string //To allow index references with ICustomAction objects 
 }
+
+interface IFeature {
+    id: any,
+    name: any,
+    description: any,
+    activated: any,
+    scope: any,
+    logo: any
+}
