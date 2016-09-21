@@ -16,5 +16,11 @@
         "descriptio": "Custom Actions",
         "image": "/images/hammer-nailing-a-nail-in-a-wall-32.png",
         "scriptUrl": "https://rawgit.com/DariuS231/ChromeSPPropertiesAdmin/extPopUp/dist/actions/SpCustomActions/spCustomActions.js"
+    },
+    {
+        "title": "Site/Web Features",
+        "descriptio": "Site/Web Features",
+        "image": "/images/switch-32.png",
+        "scriptUrl": "https://rawgit.com/DariuS231/ChromeSPPropertiesAdmin/extPopUp/dist/actions/spFeatures/spFeatures.js"
     }
 ]
