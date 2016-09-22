@@ -3,7 +3,7 @@
 /// <reference path="./../common/interfaces.ts"/>
 
 import * as React from 'react';
-import { KeyValueItemStyles as kviStyles } from '../common/Styles'
+import { KeyValueItemStyles as kviStyles, ButtonsStyle as buttonsStyle  } from '../common/Styles'
 import { SpFeaturesStyles as featureStyles } from '../common/Styles'
 interface FeatureItemState {
 }
@@ -26,17 +26,8 @@ export default class FeatureItem extends React.Component<FeatureItemProps, Featu
     }
 
     public render() {
-        let activateBtn: any;
-        let deactivateBtn: any;
-
-        let actBtnStyle: any = featureStyles.activateBtnStyle;
-        let deactBtnStyle: any = featureStyles.deactivateBtnStyle;
-
-        actBtnStyle['backgroundPosition'] = '10% 50%';
-        deactBtnStyle['backgroundPosition'] = '10% 50%';
-
-        activateBtn = (<input type="button"  onClick={this.onActionClick.bind(this) } style={actBtnStyle} title="Activate" value="Activate"/>);
-        deactivateBtn = (<input type="button" onClick={this.onActionClick.bind(this) } style={deactBtnStyle} title="Deactivate" value="Deactivate"/>);
+        let activateBtn: any  = (<input type="button"  onClick={this.onActionClick.bind(this) } style={buttonsStyle.activateBtnStyle} title="Activate" value="Activate"/>);
+        let deactivateBtn: any  = (<input type="button" onClick={this.onActionClick.bind(this) } style={buttonsStyle.deactivateBtnStyle} title="Deactivate" value="Deactivate"/>);
 
         let featureAction = (this.props.item.activated === true) ? activateBtn : deactivateBtn
 

@@ -1,7 +1,7 @@
 [
     {
-        "title": "Property Bag Admin",
-        "descriptio": "Property Bag Admin",
+        "title": "Property bags",
+        "descriptio": "Property bags",
         "image": "/images/sp-bag-32.png",
         "scriptUrl": "https://rawgit.com/DariuS231/ChromeSPPropertiesAdmin/extPopUp/dist/actions/SpPropertyBag/SpPropertyBag.js"
     },

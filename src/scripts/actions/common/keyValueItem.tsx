@@ -1,7 +1,7 @@
 /// <reference path="../../../../typings/index.d.ts"/>
 /// <reference path="./interfaces.ts"/>
 import * as React from 'react';
-import { KeyValueItemStyles as kviStyles } from './Styles'
+import { KeyValueItemStyles as kviStyles, ButtonsStyle as buttonsStyles } from './Styles'
 interface KeyValueItemState {
     itemInputValue: string,
     inEditMode: boolean
@@ -58,8 +58,8 @@ export default class KeyValueItem extends React.Component<KeyValueItemProps, Key
         let inputId:string = this.getInputId();
 
         let inputValue: string = '';
-        let inputStyle: any = isEditMode ? kviStyles.saveBtnStyle : kviStyles.updateBtnStyle;
-        let deletBtnStyle: any = kviStyles.deleteBtnStyle;
+        let inputStyle: any = isEditMode ? buttonsStyles.saveBtnStyle : buttonsStyles.updateBtnStyle;
+        let deletBtnStyle: any = buttonsStyles.deleteBtnStyle;
         if (!this.props.showOnlyIconsInButtons) {
             inputValue = isEditMode ? 'Save' : 'Edit';
             inputStyle['backgroundPosition'] = '10% 50%';

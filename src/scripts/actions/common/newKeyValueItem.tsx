@@ -1,7 +1,7 @@
 /// <reference path="../../../../typings/index.d.ts"/>
 /// <reference path="./interfaces.ts"/>
 import * as React from 'react';
-import { NewKeyValueItemStyles as nkvStyles } from './Styles'
+import { NewKeyValueItemStyles as nkvStyles, ButtonsStyle as buttonsStyles } from './Styles'
 import Utils from './utils';
 
 interface NewKeyValueItemState {
@@ -41,9 +41,8 @@ export default class NewKeyValueItem extends React.Component<NewKeyValueItemProp
         this.setState({ newValue: e.target.value } as NewKeyValueItemState);
     }
     public render() {
-        debugger;
         let inputValue:string = '';
-        let inputStyle:any = nkvStyles.btnStylePlus;
+        let inputStyle:any = buttonsStyles.newBtnStyle;
         if(!this.props.showOnlyIconsInButtons){
             inputValue = 'Add';
             inputStyle['backgroundPosition'] = '10% 50%';

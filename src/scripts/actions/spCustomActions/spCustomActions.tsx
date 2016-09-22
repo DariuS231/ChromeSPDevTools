@@ -5,10 +5,11 @@
 import * as React from 'react';
 import WorkingOnIt from './../common/WorkingOnIt';
 import MessageBar from './../common/MessageBar';
+import Utils from './../common/utils';
 import { MessageType, ViewMode } from './../common/enums';
 import SpCustomActionItem from './customActionItem'
 import SpCustomActionEdit from './customActionEdit'
-import { SpCustomActionsStyles as styles } from './../common/Styles'
+import { SpCustomActionsStyles as styles, ButtonsStyle as buttonsStyle } from './../common/Styles'
 
 interface SpCustomActionsProps {
     appContainerId: string,
@@ -103,7 +104,8 @@ export default class SpCustomActions extends React.Component<SpCustomActionsProp
         if (this.state.isWorkingOnIt) {
             return <WorkingOnIt/>
         } else {
-            if (this.state.mode === ViewMode.View) {debugger;
+            if (this.state.mode === ViewMode.View) {
+                let newBtnStyle = Utils.mergeObjects(buttonsStyle.newBtnStyle, buttonsStyle.caNewBtnStyle);
                 var customActions = this.state.customActions.map((list: ICustomAction, index: number) => {
                     return (<SpCustomActionItem item={list} key={index} workingOnIt={this.workingOnIt.bind(this) }  showMessage={this.showMessage.bind(this) } reloadCActions={this.getCustomActions.bind(this) } />);
                 });
@@ -118,7 +120,7 @@ export default class SpCustomActions extends React.Component<SpCustomActionsProp
                         <ul style={styles.list}>
                             {customActions}
                         </ul>
-                        <input style={styles.newBtnStyle} type="button" onClick={this.onNewCuatomActionClick.bind(this)} value="New Custom Action"/>
+                        <input style={newBtnStyle} type="button" onClick={this.onNewCuatomActionClick.bind(this)} value="New Custom Action"/>
                     </div>);
             } else {
                 return (<SpCustomActionEdit changeModefunction={this.changeMode.bind(this) }  workingOnIt={this.workingOnIt.bind(this) }  showMessage={this.showMessage.bind(this) } reloadCActions={this.getCustomActions.bind(this) } />);

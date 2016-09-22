@@ -5,7 +5,7 @@
 import * as React from 'react';
 
 import Utils from './../common/utils';
-import { CustomActionItemStyles as styles } from './../common/Styles';
+import { CustomActionItemStyles as styles, ButtonsStyle as buttonsStyle } from './../common/Styles';
 import { ViewMode, MessageType } from './../common/enums';
 import SpAssetPicker  from './../common/spAssetPicker'
 
@@ -135,6 +135,9 @@ export default class CustomActionEdit extends React.Component<CustomActionEditPr
             </div>);
         let title: string = this.state.item.id ? `Edit Custom Action ID: ${this.state.item.id.toString()}` : 'Create a new Custom Action';
         let numberInputStyle = Utils.mergeObjects(styles.inputStyle, { width: '98.5%' });
+        let saveBtnStyle = Utils.mergeObjects(buttonsStyle.saveBtnStyle, buttonsStyle.caSaveBtnStyle);
+        let cancelBtnStyle = Utils.mergeObjects(buttonsStyle.cancelBtnStyle, buttonsStyle.caCancelBtnStyle);
+                        
         return (
             <div style={styles.divContainer}>
                 <h2>
@@ -164,8 +167,8 @@ export default class CustomActionEdit extends React.Component<CustomActionEditPr
                 </div>
                 { script }
                 <div style={styles.caNewBtnsContainer}>
-                    <input style={styles.cancelBtnStyle} type="button" value="Cancel" onClick={this.onCancelClick.bind(this) } />
-                    <input style={styles.saveBtnStyle} type="button" value="Save" onClick={ this.state.mode === ViewMode.Edit ? this.onSaveClick.bind(this) : this.createCustomAction.bind(this) } />
+                    <input style={cancelBtnStyle} type="button" value="Cancel" onClick={this.onCancelClick.bind(this) } />
+                    <input style={saveBtnStyle} type="button" value="Save" onClick={ this.state.mode === ViewMode.Edit ? this.onSaveClick.bind(this) : this.createCustomAction.bind(this) } />
                 </div>
             </div>);
     }
