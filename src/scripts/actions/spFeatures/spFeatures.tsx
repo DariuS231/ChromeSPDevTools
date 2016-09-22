@@ -100,11 +100,9 @@ export default class SpFeatures extends React.Component<SpFeatureProps, SpFeatur
             });
 
             if (featureType === SP.FeatureDefinitionScope.none)
-                //that.setState({ webFeatures: items, isWorkingOnIt: false} as SpFeatureState);
                 that.setState({ webFeatures: items, messageType: MessageType.Success, message: msg, showMessage: (opType !== FeatureOperationType.None)} as SpFeatureState);
             else
-                //that.setState({ siteFeatures: items, isWorkingOnIt: false} as SpFeatureState);
-                that.setState({ siteFeatures: items, messageType: MessageType.Success, message: msg, showMessage: (opType !== FeatureOperationType.None)} as SpFeatureState);
+                that.setState({ siteFeatures: items, messageType: MessageType.Success, message: msg, showMessage: (opType !== FeatureOperationType.None), isWorkingOnIt: false} as SpFeatureState);
          })
     }
 
@@ -179,7 +177,6 @@ export default class SpFeatures extends React.Component<SpFeatureProps, SpFeatur
                 if (hasPermissions) {
                     this.getFeatures(SP.FeatureDefinitionScope.none, FeatureOperationType.None, '');
                     this.getFeatures(SP.FeatureDefinitionScope.site, FeatureOperationType.None, '');
-                    this.setState({ isWorkingOnIt: false} as SpFeatureState);
                 }
                 else {
                     this.setState({
@@ -209,10 +206,10 @@ export default class SpFeatures extends React.Component<SpFeatureProps, SpFeatur
             if (this.state.currentUserHasPermissions) {
                 //console.log(this.state.siteFeatures.length);
                 var webProps = this.state.webFeatures.map((prop: IFeature, index: number) => {
-                    return (<FeatureItem item={prop} itemIndex={index} onClick={this.onWebActionClick.bind(this)}/>);
+                    return (<FeatureItem item={prop} key={prop.id} itemIndex={index} onClick={this.onWebActionClick.bind(this)}/>);
                 });
                 var siteProps = this.state.siteFeatures.map((prop: IFeature, index: number) => {
-                    return (<FeatureItem item={prop} itemIndex={index} onClick={this.onSiteActionClick.bind(this)}/>);
+                    return (<FeatureItem item={prop} key={prop.id} itemIndex={index} onClick={this.onSiteActionClick.bind(this)}/>);
                 });
                 return (<div style={spFeatStyles.contentStyles}>
                     <MessageBar message={this.state.message} messageType={this.state.messageType} showMessage={this.state.showMessage} />
