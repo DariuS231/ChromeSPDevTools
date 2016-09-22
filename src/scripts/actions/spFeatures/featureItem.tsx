@@ -40,15 +40,15 @@ export default class FeatureItem extends React.Component<FeatureItemProps, Featu
 
         let featureAction = (this.props.item.activated === true) ? activateBtn : deactivateBtn
 
-        return <tr key="{this.props.item.id}" id="{this.props.item.id}" style={(Math.abs(this.props.itemIndex % 2) !== 1) ? kviStyles.oddTableRowStyles : {}}>
+        return <tr  id="{this.props.item.id}" style={(Math.abs(this.props.itemIndex % 2) !== 1) ? kviStyles.oddTableRowStyles : {}}>
             <th style={featureStyles.headerStyle}>
-                <td style={featureStyles.featureLogo}>
+                <div style={featureStyles.featureLogo}>
 			        <img src={this.props.item.logo} alt="" data-themekey="#"/>
-		        </td>
-                <td>
+		        </div>
+                <div>
                     {this.props.item.name}
-                </td>
-            </th>
+                </div>
+            </th >
             <td style={kviStyles.tableCellStyle}>
               {featureAction}
             </td>

@@ -21,6 +21,6 @@
         "title": "Site/Web Features",
         "descriptio": "Site/Web Features",
         "image": "/images/switch-32.png",
-        "scriptUrl": "https://rawgit.com/DariuS231/ChromeSPPropertiesAdmin/extPopUp/dist/actions/spFeatures/spFeatures.js"
+        "scriptUrl": "https://rawgit.com/benjacernuda/ChromeSPPropertiesAdmin/extPopUp/dist/actions/spFeatures/spFeatures.js"
     }
 ]
