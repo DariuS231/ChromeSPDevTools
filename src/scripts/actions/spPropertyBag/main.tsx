@@ -5,18 +5,28 @@ import * as ReactDOM from "react-dom";
 import SpCustomModalWrapper from './../common/spCustomModalWrapper';
 import SpPropertyBag from './spPropertyBag.tsx'
 
-function render() {
-    let baseDivId: string = 'spPropBaseDiv';
-    let baseDiv: HTMLElement = document.getElementById(baseDivId);
-    if (!baseDiv) {
-        baseDiv = document.createElement('div');
-        baseDiv.setAttribute('id', baseDivId)
-        document.querySelector('form').appendChild(baseDiv);
+class App {
+    baseDivId: string = 'spPropBaseDiv';
+    constructor() {
+        let baseDiv: HTMLElement = document.getElementById(this.baseDivId);
+        if (!baseDiv) {
+            baseDiv = document.createElement('div');
+            baseDiv.setAttribute('id', this.baseDivId)
+            document.querySelector('form').appendChild(baseDiv);
+        }
     }
-
-    SP.SOD.executeFunc('sp.js', 'SP.ClientContext', function () {
-        ReactDOM.render(<SpCustomModalWrapper modalDialogTitle="Web Property Administration Panel" modalWidth="700px"><SpPropertyBag/></SpCustomModalWrapper>, document.getElementById(baseDivId));
-    });
+    remove(containerId:string) {
+        ReactDOM.unmountComponentAtNode(document.getElementById(containerId));
+    }
+    public show(showOnlyIconsInButtons: boolean) {
+        let that = this;
+        SP.SOD.executeFunc('sp.js', 'SP.ClientContext', function () {
+            ReactDOM.render(<SpCustomModalWrapper appContainerId={that.baseDivId} onCloseClick={that.remove.bind(this) } modalDialogTitle="Web Property Administration Panel" modalWidth="700px">
+                <SpPropertyBag showOnlyIconsInButtons={showOnlyIconsInButtons} appContainerId={that.baseDivId} closeWindowFunction={that.remove.bind(this) } />
+            </SpCustomModalWrapper>, document.getElementById(that.baseDivId));
+        });
+    }
 }
 
-render();
+window.SpPropertyBagObj = new App();
+window.SpPropertyBagObj.show(true);

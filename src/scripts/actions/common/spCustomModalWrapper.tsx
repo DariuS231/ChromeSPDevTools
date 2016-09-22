@@ -5,12 +5,12 @@ import Utils from './utils';
 import { SpCustomModalWrapperStyles as styles } from './Styles'
 
 interface SpCustomModalWrapperProps {
+    appContainerId: string,
     modalDialogTitle: string,
-    modalWidth?: string
+    modalWidth?: string,
+    onCloseClick:any
 }
-interface SpCustomModalWrapperState {
-    isClosed: boolean
-}
+interface SpCustomModalWrapperState { }
 
 export default class SpCustomModalWrapper extends React.Component<SpCustomModalWrapperProps, SpCustomModalWrapperState> {
     constructor() {
@@ -18,12 +18,11 @@ export default class SpCustomModalWrapper extends React.Component<SpCustomModalW
         this.state = { isClosed: false };
     }
     private closeBtnClick(e: any) {
-        this.setState({ isClosed: true });
+        this.props.onCloseClick(this.props.appContainerId);
     }
-    public render() {
-        let modalContainerDivStyles = this.state.isClosed ? styles.hidden : styles.modalContainerDivStyles;
+    public render() {        
         let divModalStyles = (this.props.modalWidth !== undefined) ? Utils.mergeObjects(styles.divModalStyles, { width: this.props.modalWidth }) : styles.divModalStyles;
-        return <div style={modalContainerDivStyles}>
+        return <div style={styles.modalContainerDivStyles}>
             <div style={divModalStyles}>
                 <div>
                     <h1>
