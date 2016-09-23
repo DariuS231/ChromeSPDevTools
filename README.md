@@ -1,5 +1,7 @@
-# Chrome SP Properties Admin
-A Google chrome extension that will show a modal dialog within a SharePoint site with a list of all the web properties of the current SharePoint site and giving the user the option to *Create* new web properties, *Modify* or *Delete* existing properties.
+# Chrome SP Dev Tools
+A Google chrome extension design to make SharePoint Developer’s life easier. Providing several useful tools:
+
+Property Bag Admin: a tool that allow Devs to *Create*, *Update* or *Delete* web properties.
 
 ## Google Chrome Installation
 
