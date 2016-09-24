@@ -1,49 +1,34 @@
-@import "bootstrap-sprockets";
-@import 'bootstrap';
-@import "bootstrap/theme";
+@import url(https://appsforoffice.microsoft.com/fabric/fabric-core/4.0.0/fabric.min.css);
 
 body {
-    padding-top: 20px;
-    padding-bottom: 20px;
-    min-width: 300px;
-}
+            padding-top: 20px;
+            padding-bottom: 20px;
+            min-width: 300px;
+            .container{
+                .action-btn {
+                    width: 100%;
+                    text-align: left;
+                    max-width: none !important;
 
-.page-header{
-    margin-top: -15px;
-}
-
-.sp-admin-option {
-    padding: 0;
-    > div {
-        display: table-cell;
-        padding: 10px 15px;
-    }
-    > .sp-admin-option-title {
-        width: 80%;
-    }
-    > .sp-admin-option-image {
-        width: 15%;
-        background-color: #337ab7;        
-    }
-    &:first-child{
-        > .sp-admin-option-image{
-            border-top-left-radius: 3px;
+                    @mixin actionBtnChild {
+                        display: inline-block;
+                        margin: 5px;
+                    }
+                    >img {
+                        @include actionBtnChild;
+                    }
+                    &> div {
+                        @include actionBtnChild;
+                        vertical-align: top;
+                        width: 79.8%;
+                    }
+                }
+                
+                .ms-List-cell {
+                    margin-bottom: 10px;
+                    margin-top: 10px;
+                }
+            }
         }
-        > .sp-admin-option-title{
-            border-top-right-radius: 3px;
-        }
-    }
-    &:last-child{
-        > .sp-admin-option-image{
-            border-bottom-left-radius: 3px;
-        }
-        > .sp-admin-option-title{
-            border-bottom-right-radius: 3px;
-        }
-    }
-    &:hover > .sp-admin-option-title  {
-        transition: background-color 1s ease-in-out;
-        background-color: #337ab7;
-        color: white;
-    }
-}
+        
+        

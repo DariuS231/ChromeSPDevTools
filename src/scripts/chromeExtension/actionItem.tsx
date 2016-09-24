@@ -35,13 +35,12 @@ export default class ActionItem extends React.Component<ActionItemProps, ActionI
     public render() {
         let item: any = this.props.item;
 
-        return <a href="javascript:void(0)" className="list-group-item sp-admin-option" onClick={this.onItemClick.bind(this) }>
-            <div className="sp-admin-option-image">
-                <img alt="Brand" src={item.image}/>
+        return <button className="ms-Button ms-Button--compound action-btn" onClick={this.onItemClick.bind(this) }>
+            <img src={item.image} />
+            <div>
+                <span className="ms-Button-label">{this.props.item.title}</span>
+                <span className="ms-Button-description">{this.props.item.description}</span>
             </div>
-            <div className="sp-admin-option-title">
-                {item.title}
-            </div>
-        </a>;
+        </button>;
     }
 }
