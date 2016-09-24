@@ -38,7 +38,7 @@ export default class ActionItem extends React.Component<ActionItemProps, ActionI
         return <button className="ms-Button ms-Button--compound action-btn" onClick={this.onItemClick.bind(this) }>
             <img src={item.image} />
             <div>
-                <span className="ms-Button-label">{this.props.item.title}</span>
+                <span className="ms-font-l ms-fontColor-themePrimary ms-fontWeight-semibold">{this.props.item.title}</span>
                 <span className="ms-Button-description">{this.props.item.description}</span>
             </div>
         </button>;
