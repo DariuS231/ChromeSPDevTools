@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 import ActionItem from './ActionItem'
+import { List } from 'office-ui-fabric-react/lib/index';
 
 interface IActionData {
     title: string,
@@ -14,7 +15,7 @@ interface PopUpProps {
 
 }
 interface PopUpState {
-    actions: IActionData[]
+    actions: Array<IActionData>
 }
 
 export default class PopUp extends React.Component<PopUpProps, PopUpState> {
@@ -42,22 +43,10 @@ export default class PopUp extends React.Component<PopUpProps, PopUpState> {
         this.getActions();
     }
     public render() {
-
-
-        let opts: any = this.state.actions.map((opt: any, index: number) => {
-            return (<ActionItem item={opt} key={index} />);
-        });
         return <div className="container">
-            <div className="page-header">
-                <h3>Chrome SP Dev Tools</h3>
-            </div>
-            <div className="row">
-                <div className="col-md-4">
-                    <div className="list-group">
-                        {opts}
-                    </div>
-                </div>
-            </div>
+            <span className="ms-font-xxl ms-fontColor-themePrimary ms-fontWeight-semibold">Chrome SP Dev Tools</span>
+            <hr/>
+            <List items={ this.state.actions } onRenderCell={ (item, index) => (<ActionItem item={item} />) }/>
         </div>
     }
 }

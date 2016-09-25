@@ -3,8 +3,7 @@
   "version": "0.0.1",
   "description": "Google Chrome extension that opens a Property bag Modal dialog administration",
   "dependencies": {
-    "bootstrap-sass": "^3.3.7",
-    "jquery": "^3.1.0",
+    "office-ui-fabric-react": "^0.53.0",
     "react": "^15.3.0",
     "react-dom": "^15.3.0"
   },

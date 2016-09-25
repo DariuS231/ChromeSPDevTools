@@ -2,10 +2,7 @@
     "paths": {
         "chromeExt": {
             "vendors": {
-                "entries":  [
-                    "node_modules/jquery/dist/jquery.min.js",
-                    "node_modules/bootstrap-sass/assets/javascripts/bootstrap.min.js"
-                ],
+                "entries":  [ ],
                 "outputFolder": "dist/chromeExtension/dev/scripts/",
                 "outputFileName": "vendorBundle.js"
             },
@@ -113,7 +110,7 @@
     "sassConfig": {
         "errLogToConsole": true,
         "outputStyle": "compressed",
-        "includePaths": "node_modules/bootstrap-sass/assets/stylesheets/"
+        "includePaths": ""
     },
     "browserifyConfig": {
         "basedir": ".",

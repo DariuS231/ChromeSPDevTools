@@ -56,11 +56,6 @@ gulp.task("copy-rootFolderFiles", function () {
         .pipe(gulp.dest(config.paths.chromeExt.rootDistFoldder));
 });
 
-gulp.task("generate-chromeExt-vendors", function () {
-    var obj = config.paths.chromeExt.vendors;
-    return gulp.src(obj.entries).pipe(concat(obj.outputFileName)).pipe(gulp.dest(obj.outputFolder));
-});
-
 gulp.task("build-chromeExt-popUp", function (noUglify) {
     var obj = config.paths.chromeExt.scripts.popup;
     var entries = obj.entries;
@@ -87,7 +82,7 @@ gulp.task('build-chromeExt-styles', function (noUglify) {
         .pipe(gulp.dest(config.paths.chromeExt.styles.dist));
 });
 
-gulp.task("generate-chrome-dev", ["copy-images", 'copy-data', "copy-rootFolderFiles", 'build-chromeExt-background', 'build-chromeExt-popUp', 'build-chromeExt-styles', 'generate-chromeExt-vendors'], function (noUglify) {
+gulp.task("generate-chrome-dev", ["copy-images", 'copy-data', "copy-rootFolderFiles", 'build-chromeExt-background', 'build-chromeExt-popUp', 'build-chromeExt-styles'], function (noUglify) {
 
 });
 gulp.task("generate-chrome-package", ["generate-chrome-dev"], function () {
