@@ -206,10 +206,10 @@ export default class SpFeatures extends React.Component<SpFeatureProps, SpFeatur
             if (this.state.currentUserHasPermissions) {
                 //console.log(this.state.siteFeatures.length);
                 var webProps = this.state.webFeatures.map((prop: IFeature, index: number) => {
-                    return (<FeatureItem item={prop} key={prop.id} itemIndex={index} onClick={this.onWebActionClick.bind(this)}/>);
+                    return (<FeatureItem item={prop} key={prop.id} itemIndex={index} onClick={this.onWebActionClick.bind(this)} showOnlyIconsInButtons={this.props.showOnlyIconsInButtons}/>);
                 });
                 var siteProps = this.state.siteFeatures.map((prop: IFeature, index: number) => {
-                    return (<FeatureItem item={prop} key={prop.id} itemIndex={index} onClick={this.onSiteActionClick.bind(this)}/>);
+                    return (<FeatureItem item={prop} key={prop.id} itemIndex={index} onClick={this.onSiteActionClick.bind(this)} showOnlyIconsInButtons={this.props.showOnlyIconsInButtons}/>);
                 });
                 return (<div style={spFeatStyles.contentStyles}>
                     <MessageBar message={this.state.message} messageType={this.state.messageType} showMessage={this.state.showMessage} />

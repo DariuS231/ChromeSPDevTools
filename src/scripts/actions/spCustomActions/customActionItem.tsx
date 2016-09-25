@@ -3,8 +3,9 @@
 /// <reference path="./../common/interfaces.ts"/>
 
 import * as React from 'react';
-import { CustomActionItemStyles as styles } from './../common/Styles';
+import { CustomActionItemStyles as styles, ButtonsStyle as buttonsStyle } from './../common/Styles';
 import { ViewMode, MessageType } from './../common/enums';
+import Utils from './../common/utils';
 
 import CustomActionDisplay  from './customActionDisplay';
 import CustomActionEdit  from './customActionEdit';
@@ -60,12 +61,14 @@ export default class CustomActionItem extends React.Component<CustomActionItemPr
                 {item}
                 {((isViewMode: boolean) => {
                     if (isViewMode) {
+                        let updateBtnStyle = Utils.mergeObjects(buttonsStyle.updateBtnStyle, buttonsStyle.caUpdateBtnStyle);
+                        let deleteBtnStyle = Utils.mergeObjects(buttonsStyle.deleteBtnStyle, buttonsStyle.caDeleteBtnStyle);
                         return <div>
-                            <a href="javascript:void(0)" style={styles.updateBtnStyle} onClick={this.changeMode.bind(this) }></a>
-                            <a href="javascript:void(0)" style={styles.deleteBtnStyle} onClick={this.deleteCustomAction.bind(this) }></a>
+                            <a href="javascript:void(0)" style={updateBtnStyle} onClick={this.changeMode.bind(this) }></a>
+                            <a href="javascript:void(0)" style={deleteBtnStyle} onClick={this.deleteCustomAction.bind(this) }></a>
                         </div>
                     }
-                })(isViewMode) }
+                })(isViewMode) } 
             </li>);
     }
 }

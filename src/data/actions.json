@@ -1,7 +1,12 @@
 [
     {
+<<<<<<< HEAD
         "title": "Property Bag Admin",
         "description": "Create, Update or Delete Web Property Bags.",
+=======
+        "title": "Property bags",
+        "descriptio": "Property bags",
+>>>>>>> refs/remotes/origin/master
         "image": "/images/sp-bag-32.png",
         "scriptUrl": "https://rawgit.com/DariuS231/ChromeSPPropertiesAdmin/extPopUp/dist/actions/SpPropertyBag/SpPropertyBag.js"
     },

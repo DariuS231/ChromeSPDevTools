@@ -21,7 +21,7 @@ class App {
     public show(showOnlyIconsInButtons: boolean) {
         let that = this;
         SP.SOD.executeFunc('sp.js', 'SP.ClientContext', function () {
-            ReactDOM.render(<SpCustomModalWrapper appContainerId={that.baseDivId} onCloseClick={that.remove.bind(this) } modalDialogTitle="Feature Administration Panel" modalWidth="800px">
+            ReactDOM.render(<SpCustomModalWrapper appContainerId={that.baseDivId} onCloseClick={that.remove.bind(this) } modalDialogTitle="Web/Site Features" modalWidth="800px">
                 <SpFeatures showOnlyIconsInButtons={showOnlyIconsInButtons} appContainerId={that.baseDivId} closeWindowFunction={that.remove.bind(this) } />
             </SpCustomModalWrapper>, document.getElementById(that.baseDivId));
         });
