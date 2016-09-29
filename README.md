@@ -1,7 +1,10 @@
 # Chrome SP Dev Tools
 A Google chrome extension design to make SharePoint Developer’s life easier. Providing several useful tools:
 
-Property Bag Admin: a tool that allow Devs to *Create*, *Update* or *Delete* web properties.
+* __Property Bag tool:__ allowing Devs to *Create*, *Update* or *Delete* web properties.
+* __Site Lists tool:__ showing a list of all the lists and libraries *Public* or *Hidden*.
+* __Web Custom Actions tool:__ allowing Devs to *Create*, *Update* or *Delete* web custom actions.
+* __Web and site fueature tool:__ showing a list of all the web and site features with the option of *Activate* of *Deactivate* andy of the shown features.
 
 ## Google Chrome Installation
 
