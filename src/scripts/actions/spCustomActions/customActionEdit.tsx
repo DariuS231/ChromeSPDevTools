@@ -19,7 +19,8 @@ interface CustomActionEditProps {
 interface CustomActionEditState {
     item: ICustomAction,
     mode: ViewMode
-
+    isSequenceMissing: boolean,
+    isScriptMissing: boolean
 }
 
 export default class CustomActionEdit extends React.Component<CustomActionEditProps, CustomActionEditState> {
@@ -28,8 +29,11 @@ export default class CustomActionEdit extends React.Component<CustomActionEditPr
         super();
         this.state = {
             item: {} as ICustomAction,
-            mode: ViewMode.New
+            mode: ViewMode.New,
+            isScriptMissing: false,
+            isSequenceMissing: false
         };
+        this.isFormValid.bind(this);
     }
 
     componentDidMount() {
@@ -51,23 +55,25 @@ export default class CustomActionEdit extends React.Component<CustomActionEditPr
         } as CustomActionEditState);
     }
     private createCustomAction(): void {
-        this.props.workingOnIt(true);
-        let ctx: SP.ClientContext = SP.ClientContext.get_current();
-        let web: SP.Web = ctx.get_web();
-        let ca: SP.UserCustomAction = web.get_userCustomActions().add();
-        ca = this.setCustomActionData(ca);
-        ca.update();
-        web.update();
-        let onSuccess: Function = Function.createDelegate(this, function (sender: any, err: any) {
-            this.props.changeModefunction();
-            this.props.reloadCActions();
-            this.props.showMessage(MessageType.Success, 'The Custom action has been successfully created.');
-        });
-        let onError: Function = Function.createDelegate(this, function (a: any, b: any) {
-            console.log(b.get_message());
-            this.props.showMessage(MessageType.Error, 'An error occured while created a new Custom Action.');
-        });
-        ctx.executeQueryAsync(onSuccess, onError);
+        if (this.isFormValid()) {
+            this.props.workingOnIt(true);
+            let ctx: SP.ClientContext = SP.ClientContext.get_current();
+            let web: SP.Web = ctx.get_web();
+            let ca: SP.UserCustomAction = web.get_userCustomActions().add();
+            ca = this.setCustomActionData(ca);
+            ca.update();
+            web.update();
+            let onSuccess: Function = Function.createDelegate(this, function (sender: any, err: any) {
+                this.props.changeModefunction();
+                this.props.reloadCActions();
+                this.props.showMessage(MessageType.Success, 'The Custom action has been successfully created.');
+            });
+            let onError: Function = Function.createDelegate(this, function (a: any, b: any) {
+                console.log(b.get_message());
+                this.props.showMessage(MessageType.Error, 'An error occured while created a new Custom Action.');
+            });
+            ctx.executeQueryAsync(onSuccess, onError);
+        }
     }
     private setCustomActionData(ca: SP.UserCustomAction): SP.UserCustomAction {
         ca.set_title(this.state.item.title);
@@ -102,46 +108,89 @@ export default class CustomActionEdit extends React.Component<CustomActionEditPr
         this.props.showMessage(MessageType.Error, '');
         this.props.changeModefunction();
     }
+    private isFormValid(): boolean {debugger;
+        let isValid: boolean = true;
+        let script: string = '';
+        let newState: any = {};
+
+        if (!this.state.item.sequence) {
+            isValid = false;
+            newState.isSequenceMissing = true;
+        }
+
+        if (this.state.item.locationInternal === 'ScriptLink') {
+            script = this.state.item.scriptSrc;
+        } else {
+            script = this.state.item.scriptBlock;
+        }
+
+        if (!script) {
+            isValid = false;
+            newState.isScriptMissing = true;
+        }
+
+        if (!isValid) {
+            this.setState(newState);
+        }
+        return isValid;
+    }
     private onSaveClick(e: any) {
-        this.props.workingOnIt(true);
-        let caGuid: SP.Guid = new SP.Guid(this.props.item.id.toString());
-        let ctx: SP.ClientContext = SP.ClientContext.get_current();
-        let web: SP.Web = ctx.get_web();
-        let ca: SP.UserCustomAction = web.get_userCustomActions().getById(caGuid);
-        ca = this.setCustomActionData(ca);
-        ca.update();
-        web.update();
-        ctx.load(ca);
-        let onSuccess: Function = Function.createDelegate(this, function (sender: any, err: any) {
-            this.props.changeModefunction();
-            this.props.reloadCActions();
-            this.props.showMessage(MessageType.Success, 'The Custom action has been successfully updated.');
-        });
-        let onError: Function = Function.createDelegate(this, function (a: any, b: any) {
-            console.log(b.get_message());
-            this.props.showMessage(MessageType.Error, 'An error occured while created a new Custom Action.');
-        });
-        ctx.executeQueryAsync(onSuccess, onError);
+        if (this.isFormValid()) {
+            this.props.workingOnIt(true);
+            let caGuid: SP.Guid = new SP.Guid(this.props.item.id.toString());
+            let ctx: SP.ClientContext = SP.ClientContext.get_current();
+            let web: SP.Web = ctx.get_web();
+            let ca: SP.UserCustomAction = web.get_userCustomActions().getById(caGuid);
+            ca = this.setCustomActionData(ca);
+            ca.update();
+            web.update();
+            ctx.load(ca);
+            let onSuccess: Function = Function.createDelegate(this, function (sender: any, err: any) {
+                this.props.changeModefunction();
+                this.props.reloadCActions();
+                this.props.showMessage(MessageType.Success, 'The Custom action has been successfully updated.');
+            });
+            let onError: Function = Function.createDelegate(this, function (a: any, b: any) {
+                console.log(b.get_message());
+                this.props.showMessage(MessageType.Error, 'An error occured while created a new Custom Action.');
+            });
+            ctx.executeQueryAsync(onSuccess, onError);
+        }
     }
     public render() {
         let script = (this.state.item.locationInternal === 'ScriptLink')
             ? (<div>
                 <label style={styles.labelStyles} htmlFor="csInputScriptLink">ScriptLink: </label>
                 <input type="text" id="csInputScriptLink" style={styles.inputStyle} value={this.state.item.scriptSrc} onChange={this.inputChange.bind(this, 'scriptSrc') } />
+                {
+                    (this.state.isScriptMissing)
+                        ?
+                        <span style={{ color: 'red' }}>The ScriptLink is required</span>
+                        :
+                        null
+                }
+
             </div>)
             : (<div>
                 <label style={styles.labelStyles} htmlFor="csInputScriptBlock">ScriptBlock: </label>
                 <textarea type="text" id="csInputScriptBlock" style={styles.inputStyle} value={this.state.item.scriptBlock} onChange={this.inputChange.bind(this, 'scriptBlock') } />
+                {
+                    (this.state.isScriptMissing)
+                        ?
+                        <span style={{ color: 'red' }}>The ScriptBlock is required</span>
+                        :
+                        null
+                }
             </div>);
         let title: string = this.state.item.id ? `Edit Custom Action ID: ${this.state.item.id.toString()}` : 'Create a new Custom Action';
         let numberInputStyle = Utils.mergeObjects(styles.inputStyle, { width: '98.5%' });
         let saveBtnStyle = Utils.mergeObjects(buttonsStyle.saveBtnStyle, buttonsStyle.caSaveBtnStyle);
         let cancelBtnStyle = Utils.mergeObjects(buttonsStyle.cancelBtnStyle, buttonsStyle.caCancelBtnStyle);
-                        
+
         return (
             <div style={styles.divContainer}>
                 <h2>
-                {title}
+                    {title}
                 </h2>
                 <div>
                     <label style={styles.labelStyles} htmlFor="caInputTitle">Title: </label>
@@ -158,6 +207,13 @@ export default class CustomActionEdit extends React.Component<CustomActionEditPr
                 <div>
                     <label style={styles.labelStyles} htmlFor="csInputSequence">Sequence: </label>
                     <input type="number" id="csInputSequence" value={this.state.item.sequence}  style={numberInputStyle}  onChange={this.inputChange.bind(this, 'sequence') }/>
+                    {
+                        (this.state.isSequenceMissing)
+                            ?
+                            <span style={{ color: 'red' }}>The sequence is required</span>
+                            :
+                            null
+                    }
                 </div>
                 <div>
                     <label style={styles.labelStyles} htmlFor="spLocation">Location: </label>
