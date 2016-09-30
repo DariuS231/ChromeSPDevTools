@@ -38,6 +38,17 @@ var browserifyFn = (entries, destFile, destFolder, noUglify) => {
 
     return ret.pipe(sourcemaps.write('./')).pipe(gulp.dest(destFolder));
 }
+
+var compileSassFn = (entries, destFile, destFolder, noUglify) => {
+    var sasConf = config.sassConfig;
+    if (noUglify) {
+        sasConf['outputStyle'] = "expanded";
+    }
+    return gulp.src(entries)
+        .pipe(sass(sasConf))
+        .pipe(rename(destFile))
+        .pipe(gulp.dest(destFolder));
+}
 /****//****//****//****/
 //      Google Extension
 /****//****//****//****/
@@ -72,14 +83,8 @@ gulp.task("build-chromeExt-background", function (noUglify) {
 });
 
 gulp.task('build-chromeExt-styles', function (noUglify) {
-    var sasConf = config.sassConfig;
-    if (noUglify) {
-        sasConf['outputStyle'] = "expanded";
-    }
-    return gulp.src(config.paths.chromeExt.styles.watchFiles)
-        .pipe(sass(sasConf))
-        .pipe(rename(config.paths.chromeExt.styles.bundle))
-        .pipe(gulp.dest(config.paths.chromeExt.styles.dist));
+    var obj = config.paths.chromeExt.styles;
+    return compileSassFn(obj.watchFiles, config.paths.chromeExt.styles.bundle, config.paths.chromeExt.styles.dist)
 });
 
 gulp.task("generate-chrome-dev", ["copy-images", 'copy-data', "copy-rootFolderFiles", 'build-chromeExt-background', 'build-chromeExt-popUp', 'build-chromeExt-styles'], function (noUglify) {
@@ -94,7 +99,13 @@ gulp.task("generate-chrome-package", ["generate-chrome-dev"], function () {
 /****//****//****//****/
 //      SharePoint Actions
 /****//****//****//****/
-gulp.task("build-sppropertyBagFile", function (noUglify) {
+
+gulp.task('build-actions-styles', function (noUglify) {
+    var obj = config.paths.actions.styles;
+    return compileSassFn(obj.watchFiles, config.paths.chromeExt.styles.bundle, config.paths.chromeExt.styles.dist)
+});
+
+gulp.task("build-sppropertyBagFile", ['build-actions-styles'], function (noUglify) {
     var obj = config.paths.actions.spPropertyBag;
     var entries = obj.entries;
     var destFile = obj.outputFileName;
@@ -102,21 +113,21 @@ gulp.task("build-sppropertyBagFile", function (noUglify) {
     return browserifyFn(entries, destFile, destFolder, noUglify);
 });
 
-gulp.task("build-spSiteContentFile", function (noUglify) {
+gulp.task("build-spSiteContentFile", ['build-actions-styles'], function (noUglify) {
     var obj = config.paths.actions.spSiteContent;
     var entries = obj.entries;
     var destFile = obj.outputFileName;
     var destFolder = obj.outputFolder;
     return browserifyFn(entries, destFile, destFolder, noUglify);
 });
-gulp.task("build-spCustomActionsFile", function (noUglify) {
+gulp.task("build-spCustomActionsFile", ['build-actions-styles'], function (noUglify) {
     var obj = config.paths.actions.spCustomActions;
     var entries = obj.entries;
     var destFile = obj.outputFileName;
     var destFolder = obj.outputFolder;
     return browserifyFn(entries, destFile, destFolder, noUglify);
 });
-gulp.task("build-spFeatureFile", function (noUglify) {
+gulp.task("build-spFeatureFile", ['build-actions-styles'], function (noUglify) {
     var obj = config.paths.actions.spFeatures;
     var entries = obj.entries;
     var destFile = obj.outputFileName;
@@ -135,6 +146,7 @@ gulp.task('watch', function (noUglify) {
     gulp.watch(config.paths.chromeExt.scripts.background.watchFiles, ['build-chromeExt-background']);
     gulp.watch(config.paths.chromeExt.scripts.popup.watchFiles, ['build-chromeExt-popUp']);
     gulp.watch(config.paths.chromeExt.styles.watchFiles, ['build-chromeExt-styles']);
+    gulp.watch(config.paths.actions.styles.watchFiles, ['build-actions-styles']);
 });
 
 gulp.task("default", ["watch"], function (noUglify) { }); 

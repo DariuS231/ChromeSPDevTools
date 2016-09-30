@@ -104,6 +104,13 @@
                 ],
                 "outputFolder": "dist/actions/spFeatures",
                 "outputFileName": "spFeatures.js"
+            },
+            "styles": {
+                "watchFiles": [
+                    "./src/actions/styles/**/*.scss"
+                ],
+                "bundle": "bundle.css",
+                "dist": "dist/actions/styles/"
             }
         }
     },
