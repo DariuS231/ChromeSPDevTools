@@ -3,817 +3,817 @@
  * Office UI Fabric 2.2.0
  * The front-end framework for building experiences for Office 365.
  **/
-.ms-u-borderBox,
-.ms-u-borderBox:before,
-.ms-u-borderBox:after {
+.chrome-dev-tool-ms-u-borderBox,
+.chrome-dev-tool-ms-u-borderBox:before,
+.chrome-dev-tool-ms-u-borderBox:after {
   box-sizing: border-box;
 }
 
-.ms-u-clearfix {
+.chrome-dev-tool-ms-u-clearfix {
   *zoom: 1;
 }
 
-.ms-u-clearfix:before,
-.ms-u-clearfix:after {
+.chrome-dev-tool-ms-u-clearfix:before,
+.chrome-dev-tool-ms-u-clearfix:after {
   display: table;
   content: '';
   line-height: 0;
 }
 
-.ms-u-clearfix:after {
+.chrome-dev-tool-ms-u-clearfix:after {
   clear: both;
 }
 
-.ms-u-normalize {
+.chrome-dev-tool-ms-u-normalize {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
   box-shadow: none;
 }
 
-.ms-bgColor-themeDark,
-.ms-bgColor-themeDark--hover:hover {
+.chrome-dev-tool-ms-bgColor-themeDark,
+.chrome-dev-tool-ms-bgColor-themeDark--hover:hover {
   background-color: #005a9e;
 }
 
-.ms-bgColor-themeDarkAlt,
-.ms-bgColor-themeDarkAlt--hover:hover {
+.chrome-dev-tool-ms-bgColor-themeDarkAlt,
+.chrome-dev-tool-ms-bgColor-themeDarkAlt--hover:hover {
   background-color: #106ebe;
 }
 
-.ms-bgColor-themeDarker,
-.ms-bgColor-themeDarker--hover:hover {
+.chrome-dev-tool-ms-bgColor-themeDarker,
+.chrome-dev-tool-ms-bgColor-themeDarker--hover:hover {
   background-color: #004578;
 }
 
-.ms-bgColor-themePrimary,
-.ms-bgColor-themePrimary--hover:hover {
+.chrome-dev-tool-ms-bgColor-themePrimary,
+.chrome-dev-tool-ms-bgColor-themePrimary--hover:hover {
   background-color: #0078d7;
 }
 
-.ms-bgColor-themeSecondary,
-.ms-bgColor-themeSecondary--hover:hover {
+.chrome-dev-tool-ms-bgColor-themeSecondary,
+.chrome-dev-tool-ms-bgColor-themeSecondary--hover:hover {
   background-color: #2488d8;
 }
 
-.ms-bgColor-themeTertiary,
-.ms-bgColor-themeTertiary--hover:hover {
+.chrome-dev-tool-ms-bgColor-themeTertiary,
+.chrome-dev-tool-ms-bgColor-themeTertiary--hover:hover {
   background-color: #69afe5;
 }
 
-.ms-bgColor-themeLight,
-.ms-bgColor-themeLight--hover:hover {
+.chrome-dev-tool-ms-bgColor-themeLight,
+.chrome-dev-tool-ms-bgColor-themeLight--hover:hover {
   background-color: #b3d6f2;
 }
 
-.ms-bgColor-themeLighter,
-.ms-bgColor-themeLighter--hover:hover {
+.chrome-dev-tool-ms-bgColor-themeLighter,
+.chrome-dev-tool-ms-bgColor-themeLighter--hover:hover {
   background-color: #deecf9;
 }
 
-.ms-bgColor-themeLighterAlt,
-.ms-bgColor-themeLighterAlt--hover:hover {
+.chrome-dev-tool-ms-bgColor-themeLighterAlt,
+.chrome-dev-tool-ms-bgColor-themeLighterAlt--hover:hover {
   background-color: #eff6fc;
 }
 
-.ms-bgColor-black,
-.ms-bgColor-black--hover:hover {
+.chrome-dev-tool-ms-bgColor-black,
+.chrome-dev-tool-ms-bgColor-black--hover:hover {
   background-color: #000000;
 }
 
-.ms-bgColor-neutralDark,
-.ms-bgColor-neutralDark--hover:hover {
+.chrome-dev-tool-ms-bgColor-neutralDark,
+.chrome-dev-tool-ms-bgColor-neutralDark--hover:hover {
   background-color: #212121;
 }
 
-.ms-bgColor-neutralPrimary,
-.ms-bgColor-neutralPrimary--hover:hover {
+.chrome-dev-tool-ms-bgColor-neutralPrimary,
+.chrome-dev-tool-ms-bgColor-neutralPrimary--hover:hover {
   background-color: #333333;
 }
 
-.ms-bgColor-neutralSecondary,
-.ms-bgColor-neutralSecondary--hover:hover {
+.chrome-dev-tool-ms-bgColor-neutralSecondary,
+.chrome-dev-tool-ms-bgColor-neutralSecondary--hover:hover {
   background-color: #666666;
 }
 
-.ms-bgColor-neutralSecondaryAlt,
-.ms-bgColor-neutralSecondaryAlt--hover:hover {
+.chrome-dev-tool-ms-bgColor-neutralSecondaryAlt,
+.chrome-dev-tool-ms-bgColor-neutralSecondaryAlt--hover:hover {
   background-color: #767676;
 }
 
-.ms-bgColor-neutralTertiary,
-.ms-bgColor-neutralTertiary--hover:hover {
+.chrome-dev-tool-ms-bgColor-neutralTertiary,
+.chrome-dev-tool-ms-bgColor-neutralTertiary--hover:hover {
   background-color: #a6a6a6;
 }
 
-.ms-bgColor-neutralTertiaryAlt,
-.ms-bgColor-neutralTertiaryAlt--hover:hover {
+.chrome-dev-tool-ms-bgColor-neutralTertiaryAlt,
+.chrome-dev-tool-ms-bgColor-neutralTertiaryAlt--hover:hover {
   background-color: #c8c8c8;
 }
 
-.ms-bgColor-neutralLight,
-.ms-bgColor-neutralLight--hover:hover {
+.chrome-dev-tool-ms-bgColor-neutralLight,
+.chrome-dev-tool-ms-bgColor-neutralLight--hover:hover {
   background-color: #eaeaea;
 }
 
-.ms-bgColor-neutralLighter,
-.ms-bgColor-neutralLighter--hover:hover {
+.chrome-dev-tool-ms-bgColor-neutralLighter,
+.chrome-dev-tool-ms-bgColor-neutralLighter--hover:hover {
   background-color: #f4f4f4;
 }
 
-.ms-bgColor-neutralLighterAlt,
-.ms-bgColor-neutralLighterAlt--hover:hover {
+.chrome-dev-tool-ms-bgColor-neutralLighterAlt,
+.chrome-dev-tool-ms-bgColor-neutralLighterAlt--hover:hover {
   background-color: #f8f8f8;
 }
 
-.ms-bgColor-white,
-.ms-bgColor-white--hover:hover {
+.chrome-dev-tool-ms-bgColor-white,
+.chrome-dev-tool-ms-bgColor-white--hover:hover {
   background-color: #ffffff;
 }
 
-.ms-bgColor-yellow {
+.chrome-dev-tool-ms-bgColor-yellow {
   background-color: #ffb900;
 }
 
-.ms-bgColor-yellowLight {
+.chrome-dev-tool-ms-bgColor-yellowLight {
   background-color: #fff100;
 }
 
-.ms-bgColor-orange {
+.chrome-dev-tool-ms-bgColor-orange {
   background-color: #d83b01;
 }
 
-.ms-bgColor-orangeLight {
+.chrome-dev-tool-ms-bgColor-orangeLight {
   background-color: #ea4300;
 }
 
-.ms-bgColor-orangeLighter {
+.chrome-dev-tool-ms-bgColor-orangeLighter {
   background-color: #ff8c00;
 }
 
-.ms-bgColor-redDark {
+.chrome-dev-tool-ms-bgColor-redDark {
   background-color: #a80000;
 }
 
-.ms-bgColor-red {
+.chrome-dev-tool-ms-bgColor-red {
   background-color: #e81123;
 }
 
-.ms-bgColor-magentaDark {
+.chrome-dev-tool-ms-bgColor-magentaDark {
   background-color: #5c005c;
 }
 
-.ms-bgColor-magenta {
+.chrome-dev-tool-ms-bgColor-magenta {
   background-color: #b4009e;
 }
 
-.ms-bgColor-magentaLight {
+.chrome-dev-tool-ms-bgColor-magentaLight {
   background-color: #e3008c;
 }
 
-.ms-bgColor-purpleDark {
+.chrome-dev-tool-ms-bgColor-purpleDark {
   background-color: #32145a;
 }
 
-.ms-bgColor-purple {
+.chrome-dev-tool-ms-bgColor-purple {
   background-color: #5c2d91;
 }
 
-.ms-bgColor-purpleLight {
+.chrome-dev-tool-ms-bgColor-purpleLight {
   background-color: #b4a0ff;
 }
 
-.ms-bgColor-blueDark {
+.chrome-dev-tool-ms-bgColor-blueDark {
   background-color: #002050;
 }
 
-.ms-bgColor-blueMid {
+.chrome-dev-tool-ms-bgColor-blueMid {
   background-color: #00188f;
 }
 
-.ms-bgColor-blue {
+.chrome-dev-tool-ms-bgColor-blue {
   background-color: #0078d7;
 }
 
-.ms-bgColor-blueLight {
+.chrome-dev-tool-ms-bgColor-blueLight {
   background-color: #00bcf2;
 }
 
-.ms-bgColor-tealDark {
+.chrome-dev-tool-ms-bgColor-tealDark {
   background-color: #004b50;
 }
 
-.ms-bgColor-teal {
+.chrome-dev-tool-ms-bgColor-teal {
   background-color: #008272;
 }
 
-.ms-bgColor-tealLight {
+.chrome-dev-tool-ms-bgColor-tealLight {
   background-color: #00b294;
 }
 
-.ms-bgColor-greenDark {
+.chrome-dev-tool-ms-bgColor-greenDark {
   background-color: #004b1c;
 }
 
-.ms-bgColor-green {
+.chrome-dev-tool-ms-bgColor-green {
   background-color: #107c10;
 }
 
-.ms-bgColor-greenLight {
+.chrome-dev-tool-ms-bgColor-greenLight {
   background-color: #bad80a;
 }
 
-.ms-bgColor-info {
+.chrome-dev-tool-ms-bgColor-info {
   background-color: #f4f4f4;
 }
 
-.ms-bgColor-success {
+.chrome-dev-tool-ms-bgColor-success {
   background-color: #dff6dd;
 }
 
-.ms-bgColor-alert {
+.chrome-dev-tool-ms-bgColor-alert {
   background-color: #f4f4f4;
 }
 
-.ms-bgColor-error {
+.chrome-dev-tool-ms-bgColor-error {
   background-color: #fde7e9;
 }
 
-.ms-borderColor-themeDark,
-.ms-borderColor-themeDark--hover:hover {
+.chrome-dev-tool-ms-borderColor-themeDark,
+.chrome-dev-tool-ms-borderColor-themeDark--hover:hover {
   border-color: #005a9e;
 }
 
-.ms-borderColor-themeDarkAlt,
-.ms-borderColor-themeDarkAlt--hover:hover {
+.chrome-dev-tool-ms-borderColor-themeDarkAlt,
+.chrome-dev-tool-ms-borderColor-themeDarkAlt--hover:hover {
   border-color: #106ebe;
 }
 
-.ms-borderColor-themeDarker,
-.ms-borderColor-themeDarker--hover:hover {
+.chrome-dev-tool-ms-borderColor-themeDarker,
+.chrome-dev-tool-ms-borderColor-themeDarker--hover:hover {
   border-color: #004578;
 }
 
-.ms-borderColor-themePrimary,
-.ms-borderColor-themePrimary--hover:hover {
+.chrome-dev-tool-ms-borderColor-themePrimary,
+.chrome-dev-tool-ms-borderColor-themePrimary--hover:hover {
   border-color: #0078d7;
 }
 
-.ms-borderColor-themeSecondary,
-.ms-borderColor-themeSecondary--hover:hover {
+.chrome-dev-tool-ms-borderColor-themeSecondary,
+.chrome-dev-tool-ms-borderColor-themeSecondary--hover:hover {
   border-color: #2488d8;
 }
 
-.ms-borderColor-themeTertiary,
-.ms-borderColor-themeTertiary--hover:hover {
+.chrome-dev-tool-ms-borderColor-themeTertiary,
+.chrome-dev-tool-ms-borderColor-themeTertiary--hover:hover {
   border-color: #69afe5;
 }
 
-.ms-borderColor-themeLight,
-.ms-borderColor-themeLight--hover:hover {
+.chrome-dev-tool-ms-borderColor-themeLight,
+.chrome-dev-tool-ms-borderColor-themeLight--hover:hover {
   border-color: #b3d6f2;
 }
 
-.ms-borderColor-themeLighter,
-.ms-borderColor-themeLighter--hover:hover {
+.chrome-dev-tool-ms-borderColor-themeLighter,
+.chrome-dev-tool-ms-borderColor-themeLighter--hover:hover {
   border-color: #deecf9;
 }
 
-.ms-borderColor-themeLighterAlt,
-.ms-borderColor-themeLighterAlt--hover:hover {
+.chrome-dev-tool-ms-borderColor-themeLighterAlt,
+.chrome-dev-tool-ms-borderColor-themeLighterAlt--hover:hover {
   border-color: #eff6fc;
 }
 
-.ms-borderColor-black,
-.ms-borderColor-black--hover:hover {
+.chrome-dev-tool-ms-borderColor-black,
+.chrome-dev-tool-ms-borderColor-black--hover:hover {
   border-color: #000000;
 }
 
-.ms-borderColor-neutralDark,
-.ms-borderColor-neutralDark--hover:hover {
+.chrome-dev-tool-ms-borderColor-neutralDark,
+.chrome-dev-tool-ms-borderColor-neutralDark--hover:hover {
   border-color: #212121;
 }
 
-.ms-borderColor-neutralPrimary,
-.ms-borderColor-neutralPrimary--hover:hover {
+.chrome-dev-tool-ms-borderColor-neutralPrimary,
+.chrome-dev-tool-ms-borderColor-neutralPrimary--hover:hover {
   border-color: #333333;
 }
 
-.ms-borderColor-neutralSecondary,
-.ms-borderColor-neutralSecondary--hover:hover {
+.chrome-dev-tool-ms-borderColor-neutralSecondary,
+.chrome-dev-tool-ms-borderColor-neutralSecondary--hover:hover {
   border-color: #666666;
 }
 
-.ms-borderColor-neutralSecondaryAlt,
-.ms-borderColor-neutralSecondaryAlt--hover:hover {
+.chrome-dev-tool-ms-borderColor-neutralSecondaryAlt,
+.chrome-dev-tool-ms-borderColor-neutralSecondaryAlt--hover:hover {
   border-color: #767676;
 }
 
-.ms-borderColor-neutralTertiary,
-.ms-borderColor-neutralTertiary--hover:hover {
+.chrome-dev-tool-ms-borderColor-neutralTertiary,
+.chrome-dev-tool-ms-borderColor-neutralTertiary--hover:hover {
   border-color: #a6a6a6;
 }
 
-.ms-borderColor-neutralTertiaryAlt,
-.ms-borderColor-neutralTertiaryAlt--hover:hover {
+.chrome-dev-tool-ms-borderColor-neutralTertiaryAlt,
+.chrome-dev-tool-ms-borderColor-neutralTertiaryAlt--hover:hover {
   border-color: #c8c8c8;
 }
 
-.ms-borderColor-neutralLight,
-.ms-borderColor-neutralLight--hover:hover {
+.chrome-dev-tool-ms-borderColor-neutralLight,
+.chrome-dev-tool-ms-borderColor-neutralLight--hover:hover {
   border-color: #eaeaea;
 }
 
-.ms-borderColor-neutralLighter,
-.ms-borderColor-neutralLighter--hover:hover {
+.chrome-dev-tool-ms-borderColor-neutralLighter,
+.chrome-dev-tool-ms-borderColor-neutralLighter--hover:hover {
   border-color: #f4f4f4;
 }
 
-.ms-borderColor-neutralLighterAlt,
-.ms-borderColor-neutralLighterAlt--hover:hover {
+.chrome-dev-tool-ms-borderColor-neutralLighterAlt,
+.chrome-dev-tool-ms-borderColor-neutralLighterAlt--hover:hover {
   border-color: #f8f8f8;
 }
 
-.ms-borderColor-white,
-.ms-borderColor-white--hover:hover {
+.chrome-dev-tool-ms-borderColor-white,
+.chrome-dev-tool-ms-borderColor-white--hover:hover {
   border-color: #ffffff;
 }
 
-.ms-borderColor-yellow {
+.chrome-dev-tool-ms-borderColor-yellow {
   border-color: #ffb900;
 }
 
-.ms-borderColor-yellowLight {
+.chrome-dev-tool-ms-borderColor-yellowLight {
   border-color: #fff100;
 }
 
-.ms-borderColor-orange {
+.chrome-dev-tool-ms-borderColor-orange {
   border-color: #d83b01;
 }
 
-.ms-borderColor-orangeLight {
+.chrome-dev-tool-ms-borderColor-orangeLight {
   border-color: #ea4300;
 }
 
-.ms-borderColor-orangeLighter {
+.chrome-dev-tool-ms-borderColor-orangeLighter {
   border-color: #ff8c00;
 }
 
-.ms-borderColor-redDark {
+.chrome-dev-tool-ms-borderColor-redDark {
   border-color: #a80000;
 }
 
-.ms-borderColor-red {
+.chrome-dev-tool-ms-borderColor-red {
   border-color: #e81123;
 }
 
-.ms-borderColor-magentaDark {
+.chrome-dev-tool-ms-borderColor-magentaDark {
   border-color: #5c005c;
 }
 
-.ms-borderColor-magenta {
+.chrome-dev-tool-ms-borderColor-magenta {
   border-color: #b4009e;
 }
 
-.ms-borderColor-magentaLight {
+.chrome-dev-tool-ms-borderColor-magentaLight {
   border-color: #e3008c;
 }
 
-.ms-borderColor-purpleDark {
+.chrome-dev-tool-ms-borderColor-purpleDark {
   border-color: #32145a;
 }
 
-.ms-borderColor-purple {
+.chrome-dev-tool-ms-borderColor-purple {
   border-color: #5c2d91;
 }
 
-.ms-borderColor-purpleLight {
+.chrome-dev-tool-ms-borderColor-purpleLight {
   border-color: #b4a0ff;
 }
 
-.ms-borderColor-blueDark {
+.chrome-dev-tool-ms-borderColor-blueDark {
   border-color: #002050;
 }
 
-.ms-borderColor-blueMid {
+.chrome-dev-tool-ms-borderColor-blueMid {
   border-color: #00188f;
 }
 
-.ms-borderColor-blue {
+.chrome-dev-tool-ms-borderColor-blue {
   border-color: #0078d7;
 }
 
-.ms-borderColor-blueLight {
+.chrome-dev-tool-ms-borderColor-blueLight {
   border-color: #00bcf2;
 }
 
-.ms-borderColor-tealDark {
+.chrome-dev-tool-ms-borderColor-tealDark {
   border-color: #004b50;
 }
 
-.ms-borderColor-teal {
+.chrome-dev-tool-ms-borderColor-teal {
   border-color: #008272;
 }
 
-.ms-borderColor-tealLight {
+.chrome-dev-tool-ms-borderColor-tealLight {
   border-color: #00b294;
 }
 
-.ms-borderColor-greenDark {
+.chrome-dev-tool-ms-borderColor-greenDark {
   border-color: #004b1c;
 }
 
-.ms-borderColor-green {
+.chrome-dev-tool-ms-borderColor-green {
   border-color: #107c10;
 }
 
-.ms-borderColor-greenLight {
+.chrome-dev-tool-ms-borderColor-greenLight {
   border-color: #bad80a;
 }
 
-.ms-borderColor-info {
+.chrome-dev-tool-ms-borderColor-info {
   border-color: #107c10;
 }
 
-.ms-borderColor-success {
+.chrome-dev-tool-ms-borderColor-success {
   border-color: #107c10;
 }
 
-.ms-borderColor-alert {
+.chrome-dev-tool-ms-borderColor-alert {
   border-color: #d83b01;
 }
 
-.ms-borderColor-error {
+.chrome-dev-tool-ms-borderColor-error {
   border-color: #a80000;
 }
 
-.ms-borderColorTop-themePrimary,
-.ms-borderColorTop-themePrimary--hover:hover {
+.chrome-dev-tool-ms-borderColorTop-themePrimary,
+.chrome-dev-tool-ms-borderColorTop-themePrimary--hover:hover {
   border-top-color: #0078d7;
 }
 
-.ms-font-su {
+.chrome-dev-tool-ms-font-su {
   color: #333333;
   font-family: 'Segoe UI Light WestEuropean', 'Segoe UI Light', 'Segoe UI', Tahoma, Arial, sans-serif;
   font-size: 42px;
   font-weight: normal;
 }
 
-.ms-font-xxl {
+.chrome-dev-tool-ms-font-xxl {
   color: #333333;
   font-family: 'Segoe UI Light WestEuropean', 'Segoe UI Light', 'Segoe UI', Tahoma, Arial, sans-serif;
   font-size: 28px;
   font-weight: normal;
 }
 
-.ms-font-xl {
+.chrome-dev-tool-ms-font-xl {
   color: #333333;
   font-family: 'Segoe UI Light WestEuropean', 'Segoe UI Light', 'Segoe UI', Tahoma, Arial, sans-serif;
   font-size: 21px;
   font-weight: normal;
 }
 
-.ms-font-l {
+.chrome-dev-tool-ms-font-l {
   color: #333333;
   font-family: 'Segoe UI Semilight WestEuropean', 'Segoe UI Semilight', 'Segoe UI', Tahoma, Arial, sans-serif;
   font-size: 17px;
   font-weight: normal;
 }
 
-.ms-font-m-plus {
+.chrome-dev-tool-ms-font-m-plus {
   color: #333333;
   font-family: 'Segoe UI Regular WestEuropean', 'Segoe UI', Tahoma, Arial, sans-serif;
   font-size: 15px;
   font-weight: normal;
 }
 
-.ms-font-m {
+.chrome-dev-tool-ms-font-m {
   color: #333333;
   font-family: 'Segoe UI Regular WestEuropean', 'Segoe UI', Tahoma, Arial, sans-serif;
   font-size: 14px;
   font-weight: normal;
 }
 
-.ms-font-s-plus {
+.chrome-dev-tool-ms-font-s-plus {
   color: #333333;
   font-family: 'Segoe UI Regular WestEuropean', 'Segoe UI', Tahoma, Arial, sans-serif;
   font-size: 13px;
   font-weight: normal;
 }
 
-.ms-font-s {
+.chrome-dev-tool-ms-font-s {
   color: #333333;
   font-family: 'Segoe UI Regular WestEuropean', 'Segoe UI', Tahoma, Arial, sans-serif;
   font-size: 12px;
   font-weight: normal;
 }
 
-.ms-font-xs {
+.chrome-dev-tool-ms-font-xs {
   color: #333333;
   font-family: 'Segoe UI Regular WestEuropean', 'Segoe UI', Tahoma, Arial, sans-serif;
   font-size: 11px;
   font-weight: normal;
 }
 
-.ms-font-mi {
+.chrome-dev-tool-ms-font-mi {
   color: #333333;
   font-family: 'Segoe UI Semibold WestEuropean', 'Segoe UI Semibold', 'Segoe UI', Tahoma, Arial, sans-serif;
   font-size: 10px;
   font-weight: normal;
 }
 
-.ms-fontWeight-light,
-.ms-fontWeight-light--hover:hover {
+.chrome-dev-tool-ms-fontWeight-light,
+.chrome-dev-tool-ms-fontWeight-light--hover:hover {
   font-family: 'Segoe UI Light WestEuropean', 'Segoe UI Light', 'Segoe UI', Tahoma, Arial, sans-serif;
 }
 
-.ms-fontWeight-semilight,
-.ms-fontWeight-semilight--hover:hover {
+.chrome-dev-tool-ms-fontWeight-semilight,
+.chrome-dev-tool-ms-fontWeight-semilight--hover:hover {
   font-family: 'Segoe UI Semilight WestEuropean', 'Segoe UI Semilight', 'Segoe UI', Tahoma, Arial, sans-serif;
 }
 
-.ms-fontWeight-regular,
-.ms-fontWeight-regular--hover:hover {
+.chrome-dev-tool-ms-fontWeight-regular,
+.chrome-dev-tool-ms-fontWeight-regular--hover:hover {
   font-family: 'Segoe UI Regular WestEuropean', 'Segoe UI', Tahoma, Arial, sans-serif;
 }
 
-.ms-fontWeight-semibold,
-.ms-fontWeight-semibold--hover:hover {
+.chrome-dev-tool-ms-fontWeight-semibold,
+.chrome-dev-tool-ms-fontWeight-semibold--hover:hover {
   font-family: 'Segoe UI Semibold WestEuropean', 'Segoe UI Semibold', 'Segoe UI', Tahoma, Arial, sans-serif;
 }
 
-.ms-fontSize-su {
+.chrome-dev-tool-ms-fontSize-su {
   font-size: 42px;
 }
 
-.ms-fontSize-xxl {
+.chrome-dev-tool-ms-fontSize-xxl {
   font-size: 28px;
 }
 
-.ms-fontSize-xl {
+.chrome-dev-tool-ms-fontSize-xl {
   font-size: 21px;
 }
 
-.ms-fontSize-l {
+.chrome-dev-tool-ms-fontSize-l {
   font-size: 17px;
 }
 
-.ms-fontSize-mPlus {
+.chrome-dev-tool-ms-fontSize-mPlus {
   font-size: 15px;
 }
 
-.ms-fontSize-m {
+.chrome-dev-tool-ms-fontSize-m {
   font-size: 14px;
 }
 
-.ms-fontSize-sPlus {
+.chrome-dev-tool-ms-fontSize-sPlus {
   font-size: 13px;
 }
 
-.ms-fontSize-s {
+.chrome-dev-tool-ms-fontSize-s {
   font-size: 12px;
 }
 
-.ms-fontSize-xs {
+.chrome-dev-tool-ms-fontSize-xs {
   font-size: 11px;
 }
 
-.ms-fontSize-mi {
+.chrome-dev-tool-ms-fontSize-mi {
   font-size: 10px;
 }
 
-.ms-fontColor-themeDarker,
-.ms-fontColor-themeDarker--hover:hover {
+.chrome-dev-tool-ms-fontColor-themeDarker,
+.chrome-dev-tool-ms-fontColor-themeDarker--hover:hover {
   color: #004578;
 }
 
-.ms-fontColor-themeDark,
-.ms-fontColor-themeDark--hover:hover {
+.chrome-dev-tool-ms-fontColor-themeDark,
+.chrome-dev-tool-ms-fontColor-themeDark--hover:hover {
   color: #005a9e;
 }
 
-.ms-fontColor-themeDarkAlt,
-.ms-fontColor-themeDarkAlt--hover:hover {
+.chrome-dev-tool-ms-fontColor-themeDarkAlt,
+.chrome-dev-tool-ms-fontColor-themeDarkAlt--hover:hover {
   color: #106ebe;
 }
 
-.ms-fontColor-themePrimary,
-.ms-fontColor-themePrimary--hover:hover {
+.chrome-dev-tool-ms-fontColor-themePrimary,
+.chrome-dev-tool-ms-fontColor-themePrimary--hover:hover {
   color: #0078d7;
 }
 
-.ms-fontColor-themeSecondary,
-.ms-fontColor-themeSecondary--hover:hover {
+.chrome-dev-tool-ms-fontColor-themeSecondary,
+.chrome-dev-tool-ms-fontColor-themeSecondary--hover:hover {
   color: #2488d8;
 }
 
-.ms-fontColor-themeTertiary,
-.ms-fontColor-themeTertiary--hover:hover {
+.chrome-dev-tool-ms-fontColor-themeTertiary,
+.chrome-dev-tool-ms-fontColor-themeTertiary--hover:hover {
   color: #69afe5;
 }
 
-.ms-fontColor-themeLight,
-.ms-fontColor-themeLight--hover:hover {
+.chrome-dev-tool-ms-fontColor-themeLight,
+.chrome-dev-tool-ms-fontColor-themeLight--hover:hover {
   color: #b3d6f2;
 }
 
-.ms-fontColor-themeLighter,
-.ms-fontColor-themeLighter--hover:hover {
+.chrome-dev-tool-ms-fontColor-themeLighter,
+.chrome-dev-tool-ms-fontColor-themeLighter--hover:hover {
   color: #deecf9;
 }
 
-.ms-fontColor-themeLighterAlt,
-.ms-fontColor-themeLighterAlt--hover:hover {
+.chrome-dev-tool-ms-fontColor-themeLighterAlt,
+.chrome-dev-tool-ms-fontColor-themeLighterAlt--hover:hover {
   color: #eff6fc;
 }
 
-.ms-fontColor-black,
-.ms-fontColor-black--hover:hover {
+.chrome-dev-tool-ms-fontColor-black,
+.chrome-dev-tool-ms-fontColor-black--hover:hover {
   color: #000000;
 }
 
-.ms-fontColor-neutralDark,
-.ms-fontColor-neutralDark--hover:hover {
+.chrome-dev-tool-ms-fontColor-neutralDark,
+.chrome-dev-tool-ms-fontColor-neutralDark--hover:hover {
   color: #212121;
 }
 
-.ms-fontColor-neutralPrimary,
-.ms-fontColor-neutralPrimary--hover:hover {
+.chrome-dev-tool-ms-fontColor-neutralPrimary,
+.chrome-dev-tool-ms-fontColor-neutralPrimary--hover:hover {
   color: #333333;
 }
 
-.ms-fontColor-neutralSecondary,
-.ms-fontColor-neutralSecondary--hover:hover {
+.chrome-dev-tool-ms-fontColor-neutralSecondary,
+.chrome-dev-tool-ms-fontColor-neutralSecondary--hover:hover {
   color: #666666;
 }
 
-.ms-fontColor-neutralSecondaryAlt,
-.ms-fontColor-neutralSecondaryAlt--hover:hover {
+.chrome-dev-tool-ms-fontColor-neutralSecondaryAlt,
+.chrome-dev-tool-ms-fontColor-neutralSecondaryAlt--hover:hover {
   color: #767676;
 }
 
-.ms-fontColor-neutralTertiary,
-.ms-fontColor-neutralTertiary--hover:hover {
+.chrome-dev-tool-ms-fontColor-neutralTertiary,
+.chrome-dev-tool-ms-fontColor-neutralTertiary--hover:hover {
   color: #a6a6a6;
 }
 
-.ms-fontColor-neutralTertiaryAlt,
-.ms-fontColor-neutralTertiaryAlt--hover:hover {
+.chrome-dev-tool-ms-fontColor-neutralTertiaryAlt,
+.chrome-dev-tool-ms-fontColor-neutralTertiaryAlt--hover:hover {
   color: #c8c8c8;
 }
 
-.ms-fontColor-neutralLight,
-.ms-fontColor-neutralLight--hover:hover {
+.chrome-dev-tool-ms-fontColor-neutralLight,
+.chrome-dev-tool-ms-fontColor-neutralLight--hover:hover {
   color: #eaeaea;
 }
 
-.ms-fontColor-neutralLighter,
-.ms-fontColor-neutralLighter--hover:hover {
+.chrome-dev-tool-ms-fontColor-neutralLighter,
+.chrome-dev-tool-ms-fontColor-neutralLighter--hover:hover {
   color: #f4f4f4;
 }
 
-.ms-fontColor-neutralLighterAlt,
-.ms-fontColor-neutralLighterAlt--hover:hover {
+.chrome-dev-tool-ms-fontColor-neutralLighterAlt,
+.chrome-dev-tool-ms-fontColor-neutralLighterAlt--hover:hover {
   color: #f8f8f8;
 }
 
-.ms-fontColor-white,
-.ms-fontColor-white--hover:hover {
+.chrome-dev-tool-ms-fontColor-white,
+.chrome-dev-tool-ms-fontColor-white--hover:hover {
   color: #ffffff;
 }
 
-.ms-fontColor-yellow,
-.ms-fontColor-yellow--hover:hover {
+.chrome-dev-tool-ms-fontColor-yellow,
+.chrome-dev-tool-ms-fontColor-yellow--hover:hover {
   color: #ffb900;
 }
 
-.ms-fontColor-yellowLight,
-.ms-fontColor-yellowLight--hover:hover {
+.chrome-dev-tool-ms-fontColor-yellowLight,
+.chrome-dev-tool-ms-fontColor-yellowLight--hover:hover {
   color: #fff100;
 }
 
-.ms-fontColor-orange,
-.ms-fontColor-orange--hover:hover {
+.chrome-dev-tool-ms-fontColor-orange,
+.chrome-dev-tool-ms-fontColor-orange--hover:hover {
   color: #d83b01;
 }
 
-.ms-fontColor-orangeLight,
-.ms-fontColor-orangeLight--hover:hover {
+.chrome-dev-tool-ms-fontColor-orangeLight,
+.chrome-dev-tool-ms-fontColor-orangeLight--hover:hover {
   color: #ea4300;
 }
 
-.ms-fontColor-orangeLighter,
-.ms-fontColor-orangeLighter--hover:hover {
+.chrome-dev-tool-ms-fontColor-orangeLighter,
+.chrome-dev-tool-ms-fontColor-orangeLighter--hover:hover {
   color: #ff8c00;
 }
 
-.ms-fontColor-redDark,
-.ms-fontColor-redDark--hover:hover {
+.chrome-dev-tool-ms-fontColor-redDark,
+.chrome-dev-tool-ms-fontColor-redDark--hover:hover {
   color: #a80000;
 }
 
-.ms-fontColor-red,
-.ms-fontColor-red--hover:hover {
+.chrome-dev-tool-ms-fontColor-red,
+.chrome-dev-tool-ms-fontColor-red--hover:hover {
   color: #e81123;
 }
 
-.ms-fontColor-magentaDark,
-.ms-fontColor-magentaDark--hover:hover {
+.chrome-dev-tool-ms-fontColor-magentaDark,
+.chrome-dev-tool-ms-fontColor-magentaDark--hover:hover {
   color: #5c005c;
 }
 
-.ms-fontColor-magenta,
-.ms-fontColor-magenta--hover:hover {
+.chrome-dev-tool-ms-fontColor-magenta,
+.chrome-dev-tool-ms-fontColor-magenta--hover:hover {
   color: #b4009e;
 }
 
-.ms-fontColor-magentaLight,
-.ms-fontColor-magentaLight--hover:hover {
+.chrome-dev-tool-ms-fontColor-magentaLight,
+.chrome-dev-tool-ms-fontColor-magentaLight--hover:hover {
   color: #e3008c;
 }
 
-.ms-fontColor-purpleDark,
-.ms-fontColor-purpleDark--hover:hover {
+.chrome-dev-tool-ms-fontColor-purpleDark,
+.chrome-dev-tool-ms-fontColor-purpleDark--hover:hover {
   color: #32145a;
 }
 
-.ms-fontColor-purple,
-.ms-fontColor-purple--hover:hover {
+.chrome-dev-tool-ms-fontColor-purple,
+.chrome-dev-tool-ms-fontColor-purple--hover:hover {
   color: #5c2d91;
 }
 
-.ms-fontColor-purpleLight,
-.ms-fontColor-purpleLight--hover:hover {
+.chrome-dev-tool-ms-fontColor-purpleLight,
+.chrome-dev-tool-ms-fontColor-purpleLight--hover:hover {
   color: #b4a0ff;
 }
 
-.ms-fontColor-blueDark,
-.ms-fontColor-blueDark--hover:hover {
+.chrome-dev-tool-ms-fontColor-blueDark,
+.chrome-dev-tool-ms-fontColor-blueDark--hover:hover {
   color: #002050;
 }
 
-.ms-fontColor-blueMid,
-.ms-fontColor-blueMid--hover:hover {
+.chrome-dev-tool-ms-fontColor-blueMid,
+.chrome-dev-tool-ms-fontColor-blueMid--hover:hover {
   color: #00188f;
 }
 
-.ms-fontColor-blue,
-.ms-fontColor-blue--hover:hover {
+.chrome-dev-tool-ms-fontColor-blue,
+.chrome-dev-tool-ms-fontColor-blue--hover:hover {
   color: #0078d7;
 }
 
-.ms-fontColor-blueLight,
-.ms-fontColor-blueLight--hover:hover {
+.chrome-dev-tool-ms-fontColor-blueLight,
+.chrome-dev-tool-ms-fontColor-blueLight--hover:hover {
   color: #00bcf2;
 }
 
-.ms-fontColor-tealDark,
-.ms-fontColor-tealDark--hover:hover {
+.chrome-dev-tool-ms-fontColor-tealDark,
+.chrome-dev-tool-ms-fontColor-tealDark--hover:hover {
   color: #004b50;
 }
 
-.ms-fontColor-teal,
-.ms-fontColor-teal--hover:hover {
+.chrome-dev-tool-ms-fontColor-teal,
+.chrome-dev-tool-ms-fontColor-teal--hover:hover {
   color: #008272;
 }
 
-.ms-fontColor-tealLight,
-.ms-fontColor-tealLight--hover:hover {
+.chrome-dev-tool-ms-fontColor-tealLight,
+.chrome-dev-tool-ms-fontColor-tealLight--hover:hover {
   color: #00b294;
 }
 
-.ms-fontColor-greenDark,
-.ms-fontColor-greenDark--hover:hover {
+.chrome-dev-tool-ms-fontColor-greenDark,
+.chrome-dev-tool-ms-fontColor-greenDark--hover:hover {
   color: #004b1c;
 }
 
-.ms-fontColor-green,
-.ms-fontColor-green--hover:hover {
+.chrome-dev-tool-ms-fontColor-green,
+.chrome-dev-tool-ms-fontColor-green--hover:hover {
   color: #107c10;
 }
 
-.ms-fontColor-greenLight,
-.ms-fontColor-greenLight--hover:hover {
+.chrome-dev-tool-ms-fontColor-greenLight,
+.chrome-dev-tool-ms-fontColor-greenLight--hover:hover {
   color: #bad80a;
 }
 
-.ms-fontColor-info,
-.ms-fontColor-info--hover:hover {
+.chrome-dev-tool-ms-fontColor-info,
+.chrome-dev-tool-ms-fontColor-info--hover:hover {
   color: #107c10;
 }
 
-.ms-fontColor-success,
-.ms-fontColor-success--hover:hover {
+.chrome-dev-tool-ms-fontColor-success,
+.chrome-dev-tool-ms-fontColor-success--hover:hover {
   color: #107c10;
 }
 
-.ms-fontColor-alert,
-.ms-fontColor-alert--hover:hover {
+.chrome-dev-tool-ms-fontColor-alert,
+.chrome-dev-tool-ms-fontColor-alert--hover:hover {
   color: #d83b01;
 }
 
-.ms-fontColor-error,
-.ms-fontColor-error--hover:hover {
+.chrome-dev-tool-ms-fontColor-error,
+.chrome-dev-tool-ms-fontColor-error--hover:hover {
   color: #a80000;
 }
 
@@ -1052,7 +1052,7 @@
   font-style: normal;
 }
 
-.ms-Icon {
+.chrome-dev-tool-ms-Icon {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   display: inline-block;
@@ -1063,1367 +1063,1367 @@
   speak: none;
 }
 
-.ms-Icon--circleEmpty:before {
+.chrome-dev-tool-ms-Icon--circleEmpty:before {
   content: '\e000';
 }
 
-.ms-Icon--circleFill:before {
+.chrome-dev-tool-ms-Icon--circleFill:before {
   content: '\e001';
 }
 
-.ms-Icon--placeholder:before {
+.chrome-dev-tool-ms-Icon--placeholder:before {
   content: '\e002';
 }
 
-.ms-Icon--star:before {
+.chrome-dev-tool-ms-Icon--star:before {
   content: '\e003';
 }
 
-.ms-Icon--plus:before {
+.chrome-dev-tool-ms-Icon--plus:before {
   content: '\e004';
 }
 
-.ms-Icon--minus:before {
+.chrome-dev-tool-ms-Icon--minus:before {
   content: '\e005';
 }
 
-.ms-Icon--question:before {
+.chrome-dev-tool-ms-Icon--question:before {
   content: '\e006';
 }
 
-.ms-Icon--exclamation:before {
+.chrome-dev-tool-ms-Icon--exclamation:before {
   content: '\e007';
 }
 
-.ms-Icon--person:before {
+.chrome-dev-tool-ms-Icon--person:before {
   content: '\e008';
 }
 
-.ms-Icon--mail:before {
+.chrome-dev-tool-ms-Icon--mail:before {
   content: '\e009';
 }
 
-.ms-Icon--infoCircle:before {
+.chrome-dev-tool-ms-Icon--infoCircle:before {
   content: '\e00a';
 }
 
-.ms-Icon--alert:before {
+.chrome-dev-tool-ms-Icon--alert:before {
   content: '\e00b';
 }
 
-.ms-Icon--xCircle:before {
+.chrome-dev-tool-ms-Icon--xCircle:before {
   content: '\e00c';
 }
 
-.ms-Icon--mailOpen:before {
+.chrome-dev-tool-ms-Icon--mailOpen:before {
   content: '\e00d';
 }
 
-.ms-Icon--people:before {
+.chrome-dev-tool-ms-Icon--people:before {
   content: '\e00e';
 }
 
-.ms-Icon--bell:before {
+.chrome-dev-tool-ms-Icon--bell:before {
   content: '\e010';
 }
 
-.ms-Icon--calendar:before {
+.chrome-dev-tool-ms-Icon--calendar:before {
   content: '\e011';
 }
 
-.ms-Icon--scheduling:before {
+.chrome-dev-tool-ms-Icon--scheduling:before {
   content: '\e012';
 }
 
-.ms-Icon--event:before {
+.chrome-dev-tool-ms-Icon--event:before {
   content: '\e013';
 }
 
-.ms-Icon--folder:before {
+.chrome-dev-tool-ms-Icon--folder:before {
   content: '\e014';
 }
 
-.ms-Icon--documents:before {
+.chrome-dev-tool-ms-Icon--documents:before {
   content: '\e015';
 }
 
-.ms-Icon--onedrive:before {
+.chrome-dev-tool-ms-Icon--onedrive:before {
   content: '\e016';
 }
 
-.ms-Icon--chat:before {
+.chrome-dev-tool-ms-Icon--chat:before {
   content: '\e017';
 }
 
-.ms-Icon--sites:before {
+.chrome-dev-tool-ms-Icon--sites:before {
   content: '\e018';
 }
 
-.ms-Icon--listBullets:before {
+.chrome-dev-tool-ms-Icon--listBullets:before {
   content: '\e019';
 }
 
-.ms-Icon--calendarWeek:before {
+.chrome-dev-tool-ms-Icon--calendarWeek:before {
   content: '\e01a';
 }
 
-.ms-Icon--calendarWorkWeek:before {
+.chrome-dev-tool-ms-Icon--calendarWorkWeek:before {
   content: '\e01b';
 }
 
-.ms-Icon--calendarDay:before {
+.chrome-dev-tool-ms-Icon--calendarDay:before {
   content: '\e01c';
 }
 
-.ms-Icon--folderMove:before {
+.chrome-dev-tool-ms-Icon--folderMove:before {
   content: '\e01d';
 }
 
-.ms-Icon--panel:before {
+.chrome-dev-tool-ms-Icon--panel:before {
   content: '\e01e';
 }
 
-.ms-Icon--popout:before {
+.chrome-dev-tool-ms-Icon--popout:before {
   content: '\e01f';
 }
 
-.ms-Icon--menu:before {
+.chrome-dev-tool-ms-Icon--menu:before {
   content: '\e020';
 }
 
-.ms-Icon--home:before {
+.chrome-dev-tool-ms-Icon--home:before {
   content: '\e021';
 }
 
-.ms-Icon--favorites:before {
+.chrome-dev-tool-ms-Icon--favorites:before {
   content: '\e022';
 }
 
-.ms-Icon--phone:before {
+.chrome-dev-tool-ms-Icon--phone:before {
   content: '\e023';
 }
 
-.ms-Icon--mailSend:before {
+.chrome-dev-tool-ms-Icon--mailSend:before {
   content: '\e024';
 }
 
-.ms-Icon--save:before {
+.chrome-dev-tool-ms-Icon--save:before {
   content: '\e025';
 }
 
-.ms-Icon--trash:before {
+.chrome-dev-tool-ms-Icon--trash:before {
   content: '\e026';
 }
 
-.ms-Icon--pencil:before {
+.chrome-dev-tool-ms-Icon--pencil:before {
   content: '\e027';
 }
 
-.ms-Icon--flag:before {
+.chrome-dev-tool-ms-Icon--flag:before {
   content: '\e028';
 }
 
-.ms-Icon--reply:before {
+.chrome-dev-tool-ms-Icon--reply:before {
   content: '\e029';
 }
 
-.ms-Icon--miniatures:before {
+.chrome-dev-tool-ms-Icon--miniatures:before {
   content: '\e02a';
 }
 
-.ms-Icon--voicemail:before {
+.chrome-dev-tool-ms-Icon--voicemail:before {
   content: '\e02b';
 }
 
-.ms-Icon--play:before {
+.chrome-dev-tool-ms-Icon--play:before {
   content: '\e02c';
 }
 
-.ms-Icon--pause:before {
+.chrome-dev-tool-ms-Icon--pause:before {
   content: '\e02d';
 }
 
-.ms-Icon--onlineAdd:before {
+.chrome-dev-tool-ms-Icon--onlineAdd:before {
   content: '\e02e';
 }
 
-.ms-Icon--onlineJoin:before {
+.chrome-dev-tool-ms-Icon--onlineJoin:before {
   content: '\e02f';
 }
 
-.ms-Icon--replyAll:before {
+.chrome-dev-tool-ms-Icon--replyAll:before {
   content: '\e030';
 }
 
-.ms-Icon--attachment:before {
+.chrome-dev-tool-ms-Icon--attachment:before {
   content: '\e031';
 }
 
-.ms-Icon--drm:before {
+.chrome-dev-tool-ms-Icon--drm:before {
   content: '\e032';
 }
 
-.ms-Icon--pinDown:before {
+.chrome-dev-tool-ms-Icon--pinDown:before {
   content: '\e033';
 }
 
-.ms-Icon--refresh:before {
+.chrome-dev-tool-ms-Icon--refresh:before {
   content: '\e034';
 }
 
-.ms-Icon--gear:before {
+.chrome-dev-tool-ms-Icon--gear:before {
   content: '\e035';
 }
 
-.ms-Icon--smiley:before {
+.chrome-dev-tool-ms-Icon--smiley:before {
   content: '\e036';
 }
 
-.ms-Icon--info:before {
+.chrome-dev-tool-ms-Icon--info:before {
   content: '\e037';
 }
 
-.ms-Icon--lock:before {
+.chrome-dev-tool-ms-Icon--lock:before {
   content: '\e038';
 }
 
-.ms-Icon--search:before {
+.chrome-dev-tool-ms-Icon--search:before {
   content: '\e039';
 }
 
-.ms-Icon--questionReverse:before {
+.chrome-dev-tool-ms-Icon--questionReverse:before {
   content: '\e03a';
 }
 
-.ms-Icon--notRecurring:before {
+.chrome-dev-tool-ms-Icon--notRecurring:before {
   content: '\e03b';
 }
 
-.ms-Icon--tasks:before {
+.chrome-dev-tool-ms-Icon--tasks:before {
   content: '\e040';
 }
 
-.ms-Icon--check:before {
+.chrome-dev-tool-ms-Icon--check:before {
   content: '\e041';
 }
 
-.ms-Icon--x:before {
+.chrome-dev-tool-ms-Icon--x:before {
   content: '\e042';
 }
 
-.ms-Icon--ellipsis:before {
+.chrome-dev-tool-ms-Icon--ellipsis:before {
   content: '\e045';
 }
 
-.ms-Icon--dot:before {
+.chrome-dev-tool-ms-Icon--dot:before {
   content: '\e046';
 }
 
-.ms-Icon--arrowUp:before {
+.chrome-dev-tool-ms-Icon--arrowUp:before {
   content: '\e047';
 }
 
-.ms-Icon--arrowDown:before {
+.chrome-dev-tool-ms-Icon--arrowDown:before {
   content: '\e048';
 }
 
-.ms-Icon--arrowLeft:before {
+.chrome-dev-tool-ms-Icon--arrowLeft:before {
   content: '\e049';
 }
 
-.ms-Icon--arrowRight:before {
+.chrome-dev-tool-ms-Icon--arrowRight:before {
   content: '\e04a';
 }
 
-.ms-Icon--download:before {
+.chrome-dev-tool-ms-Icon--download:before {
   content: '\e04b';
 }
 
-.ms-Icon--directions:before {
+.chrome-dev-tool-ms-Icon--directions:before {
   content: '\e04c';
 }
 
-.ms-Icon--microphone:before {
+.chrome-dev-tool-ms-Icon--microphone:before {
   content: '\e04f';
 }
 
-.ms-Icon--caretUp:before {
+.chrome-dev-tool-ms-Icon--caretUp:before {
   content: '\e051';
 }
 
-.ms-Icon--caretDown:before {
+.chrome-dev-tool-ms-Icon--caretDown:before {
   content: '\e052';
 }
 
-.ms-Icon--caretLeft:before {
+.chrome-dev-tool-ms-Icon--caretLeft:before {
   content: '\e053';
 }
 
-.ms-Icon--caretRight:before {
+.chrome-dev-tool-ms-Icon--caretRight:before {
   content: '\e054';
 }
 
-.ms-Icon--caretUpLeft:before {
+.chrome-dev-tool-ms-Icon--caretUpLeft:before {
   content: '\e05a';
 }
 
-.ms-Icon--caretUpRight:before {
+.chrome-dev-tool-ms-Icon--caretUpRight:before {
   content: '\e05b';
 }
 
-.ms-Icon--caretDownRight:before {
+.chrome-dev-tool-ms-Icon--caretDownRight:before {
   content: '\e05c';
 }
 
-.ms-Icon--caretDownLeft:before {
+.chrome-dev-tool-ms-Icon--caretDownLeft:before {
   content: '\e05d';
 }
 
-.ms-Icon--note:before {
+.chrome-dev-tool-ms-Icon--note:before {
   content: '\e06a';
 }
 
-.ms-Icon--noteReply:before {
+.chrome-dev-tool-ms-Icon--noteReply:before {
   content: '\e06b';
 }
 
-.ms-Icon--noteForward:before {
+.chrome-dev-tool-ms-Icon--noteForward:before {
   content: '\e06c';
 }
 
-.ms-Icon--key:before {
+.chrome-dev-tool-ms-Icon--key:before {
   content: '\e06f';
 }
 
-.ms-Icon--tile:before {
+.chrome-dev-tool-ms-Icon--tile:before {
   content: '\e070';
 }
 
-.ms-Icon--taskRecurring:before {
+.chrome-dev-tool-ms-Icon--taskRecurring:before {
   content: '\e071';
 }
 
-.ms-Icon--starEmpty:before {
+.chrome-dev-tool-ms-Icon--starEmpty:before {
   content: '\e073';
 }
 
-.ms-Icon--upload:before {
+.chrome-dev-tool-ms-Icon--upload:before {
   content: '\e076';
 }
 
-.ms-Icon--wrench:before {
+.chrome-dev-tool-ms-Icon--wrench:before {
   content: '\e077';
 }
 
-.ms-Icon--share:before {
+.chrome-dev-tool-ms-Icon--share:before {
   content: '\e078';
 }
 
-.ms-Icon--documentReply:before {
+.chrome-dev-tool-ms-Icon--documentReply:before {
   content: '\e079';
 }
 
-.ms-Icon--documentForward:before {
+.chrome-dev-tool-ms-Icon--documentForward:before {
   content: '\e07a';
 }
 
-.ms-Icon--partner:before {
+.chrome-dev-tool-ms-Icon--partner:before {
   content: '\e080';
 }
 
-.ms-Icon--reactivate:before {
+.chrome-dev-tool-ms-Icon--reactivate:before {
   content: '\e084';
 }
 
-.ms-Icon--sort:before {
+.chrome-dev-tool-ms-Icon--sort:before {
   content: '\e085';
 }
 
-.ms-Icon--personAdd:before {
+.chrome-dev-tool-ms-Icon--personAdd:before {
   content: '\e086';
 }
 
-.ms-Icon--chevronUp:before {
+.chrome-dev-tool-ms-Icon--chevronUp:before {
   content: '\e087';
 }
 
-.ms-Icon--chevronDown:before {
+.chrome-dev-tool-ms-Icon--chevronDown:before {
   content: '\e088';
 }
 
-.ms-Icon--chevronLeft:before {
+.chrome-dev-tool-ms-Icon--chevronLeft:before {
   content: '\e089';
 }
 
-.ms-Icon--chevronRight:before {
+.chrome-dev-tool-ms-Icon--chevronRight:before {
   content: '\e08a';
 }
 
-.ms-Icon--peopleAdd:before {
+.chrome-dev-tool-ms-Icon--peopleAdd:before {
   content: '\e08c';
 }
 
-.ms-Icon--newsfeed:before {
+.chrome-dev-tool-ms-Icon--newsfeed:before {
   content: '\e08d';
 }
 
-.ms-Icon--notebook:before {
+.chrome-dev-tool-ms-Icon--notebook:before {
   content: '\e08e';
 }
 
-.ms-Icon--link:before {
+.chrome-dev-tool-ms-Icon--link:before {
   content: '\e08f';
 }
 
-.ms-Icon--chevronsUp:before {
+.chrome-dev-tool-ms-Icon--chevronsUp:before {
   content: '\e090';
 }
 
-.ms-Icon--chevronsDown:before {
+.chrome-dev-tool-ms-Icon--chevronsDown:before {
   content: '\e091';
 }
 
-.ms-Icon--chevronsLeft:before {
+.chrome-dev-tool-ms-Icon--chevronsLeft:before {
   content: '\e092';
 }
 
-.ms-Icon--chevronsRight:before {
+.chrome-dev-tool-ms-Icon--chevronsRight:before {
   content: '\e093';
 }
 
-.ms-Icon--clutter:before {
+.chrome-dev-tool-ms-Icon--clutter:before {
   content: '\e09a';
 }
 
-.ms-Icon--subscribe:before {
+.chrome-dev-tool-ms-Icon--subscribe:before {
   content: '\e09c';
 }
 
-.ms-Icon--unsubscribe:before {
+.chrome-dev-tool-ms-Icon--unsubscribe:before {
   content: '\e09d';
 }
 
-.ms-Icon--personRemove:before {
+.chrome-dev-tool-ms-Icon--personRemove:before {
   content: '\e09e';
 }
 
-.ms-Icon--receiptForward:before {
+.chrome-dev-tool-ms-Icon--receiptForward:before {
   content: '\e0a0';
 }
 
-.ms-Icon--receiptReply:before {
+.chrome-dev-tool-ms-Icon--receiptReply:before {
   content: '\e0a1';
 }
 
-.ms-Icon--receiptCheck:before {
+.chrome-dev-tool-ms-Icon--receiptCheck:before {
   content: '\e0a2';
 }
 
-.ms-Icon--peopleRemove:before {
+.chrome-dev-tool-ms-Icon--peopleRemove:before {
   content: '\e0a3';
 }
 
-.ms-Icon--merge:before {
+.chrome-dev-tool-ms-Icon--merge:before {
   content: '\e0a4';
 }
 
-.ms-Icon--split:before {
+.chrome-dev-tool-ms-Icon--split:before {
   content: '\e0a5';
 }
 
-.ms-Icon--eventCancel:before {
+.chrome-dev-tool-ms-Icon--eventCancel:before {
   content: '\e0a6';
 }
 
-.ms-Icon--eventShare:before {
+.chrome-dev-tool-ms-Icon--eventShare:before {
   content: '\e0a7';
 }
 
-.ms-Icon--today:before {
+.chrome-dev-tool-ms-Icon--today:before {
   content: '\e0a9';
 }
 
-.ms-Icon--oofReply:before {
+.chrome-dev-tool-ms-Icon--oofReply:before {
   content: '\e0aa';
 }
 
-.ms-Icon--voicemailReply:before {
+.chrome-dev-tool-ms-Icon--voicemailReply:before {
   content: '\e0ac';
 }
 
-.ms-Icon--voicemailForward:before {
+.chrome-dev-tool-ms-Icon--voicemailForward:before {
   content: '\e0ad';
 }
 
-.ms-Icon--ribbon:before {
+.chrome-dev-tool-ms-Icon--ribbon:before {
   content: '\e0af';
 }
 
-.ms-Icon--contact:before {
+.chrome-dev-tool-ms-Icon--contact:before {
   content: '\e0b0';
 }
 
-.ms-Icon--eye:before {
+.chrome-dev-tool-ms-Icon--eye:before {
   content: '\e0b1';
 }
 
-.ms-Icon--glasses:before {
+.chrome-dev-tool-ms-Icon--glasses:before {
   content: '\e0b2';
 }
 
-.ms-Icon--print:before {
+.chrome-dev-tool-ms-Icon--print:before {
   content: '\e100';
 }
 
-.ms-Icon--room:before {
+.chrome-dev-tool-ms-Icon--room:before {
   content: '\e101';
 }
 
-.ms-Icon--post:before {
+.chrome-dev-tool-ms-Icon--post:before {
   content: '\e102';
 }
 
-.ms-Icon--toggle:before {
+.chrome-dev-tool-ms-Icon--toggle:before {
   content: '\e103';
 }
 
-.ms-Icon--touch:before {
+.chrome-dev-tool-ms-Icon--touch:before {
   content: '\e104';
 }
 
-.ms-Icon--clock:before {
+.chrome-dev-tool-ms-Icon--clock:before {
   content: '\e105';
 }
 
-.ms-Icon--fax:before {
+.chrome-dev-tool-ms-Icon--fax:before {
   content: '\e106';
 }
 
-.ms-Icon--lightning:before {
+.chrome-dev-tool-ms-Icon--lightning:before {
   content: '\e110';
 }
 
-.ms-Icon--dialpad:before {
+.chrome-dev-tool-ms-Icon--dialpad:before {
   content: '\e111';
 }
 
-.ms-Icon--phoneTransfer:before {
+.chrome-dev-tool-ms-Icon--phoneTransfer:before {
   content: '\e112';
 }
 
-.ms-Icon--phoneAdd:before {
+.chrome-dev-tool-ms-Icon--phoneAdd:before {
   content: '\e113';
 }
 
-.ms-Icon--late:before {
+.chrome-dev-tool-ms-Icon--late:before {
   content: '\e114';
 }
 
-.ms-Icon--chatAdd:before {
+.chrome-dev-tool-ms-Icon--chatAdd:before {
   content: '\e115';
 }
 
-.ms-Icon--conflict:before {
+.chrome-dev-tool-ms-Icon--conflict:before {
   content: '\e116';
 }
 
-.ms-Icon--navigate:before {
+.chrome-dev-tool-ms-Icon--navigate:before {
   content: '\e117';
 }
 
-.ms-Icon--camera:before {
+.chrome-dev-tool-ms-Icon--camera:before {
   content: '\e119';
 }
 
-.ms-Icon--filter:before {
+.chrome-dev-tool-ms-Icon--filter:before {
   content: '\e11a';
 }
 
-.ms-Icon--fullscreen:before {
+.chrome-dev-tool-ms-Icon--fullscreen:before {
   content: '\e11b';
 }
 
-.ms-Icon--new:before {
+.chrome-dev-tool-ms-Icon--new:before {
   content: '\e11c';
 }
 
-.ms-Icon--mailEmpty:before {
+.chrome-dev-tool-ms-Icon--mailEmpty:before {
   content: '\e11d';
 }
 
-.ms-Icon--editBox:before {
+.chrome-dev-tool-ms-Icon--editBox:before {
   content: '\e11e';
 }
 
-.ms-Icon--waffle:before {
+.chrome-dev-tool-ms-Icon--waffle:before {
   content: '\e11f';
 }
 
-.ms-Icon--work:before {
+.chrome-dev-tool-ms-Icon--work:before {
   content: '\e120';
 }
 
-.ms-Icon--eventRecurring:before {
+.chrome-dev-tool-ms-Icon--eventRecurring:before {
   content: '\e121';
 }
 
-.ms-Icon--cart:before {
+.chrome-dev-tool-ms-Icon--cart:before {
   content: '\e122';
 }
 
-.ms-Icon--socialListening:before {
+.chrome-dev-tool-ms-Icon--socialListening:before {
   content: '\e123';
 }
 
-.ms-Icon--mapMarker:before {
+.chrome-dev-tool-ms-Icon--mapMarker:before {
   content: '\e124';
 }
 
-.ms-Icon--org:before {
+.chrome-dev-tool-ms-Icon--org:before {
   content: '\e125';
 }
 
-.ms-Icon--replyAlt:before {
+.chrome-dev-tool-ms-Icon--replyAlt:before {
   content: '\e150';
 }
 
-.ms-Icon--replyAllAlt:before {
+.chrome-dev-tool-ms-Icon--replyAllAlt:before {
   content: '\e152';
 }
 
-.ms-Icon--eventInfo:before {
+.chrome-dev-tool-ms-Icon--eventInfo:before {
   content: '\e154';
 }
 
-.ms-Icon--group:before {
+.chrome-dev-tool-ms-Icon--group:before {
   content: '\e155';
 }
 
-.ms-Icon--money:before {
+.chrome-dev-tool-ms-Icon--money:before {
   content: '\e161';
 }
 
-.ms-Icon--graph:before {
+.chrome-dev-tool-ms-Icon--graph:before {
   content: '\e162';
 }
 
-.ms-Icon--noteEdit:before {
+.chrome-dev-tool-ms-Icon--noteEdit:before {
   content: '\e163';
 }
 
-.ms-Icon--dashboard:before {
+.chrome-dev-tool-ms-Icon--dashboard:before {
   content: '\e164';
 }
 
-.ms-Icon--mailEdit:before {
+.chrome-dev-tool-ms-Icon--mailEdit:before {
   content: '\e165';
 }
 
-.ms-Icon--pinLeft:before {
+.chrome-dev-tool-ms-Icon--pinLeft:before {
   content: '\e167';
 }
 
-.ms-Icon--heart:before {
+.chrome-dev-tool-ms-Icon--heart:before {
   content: '\e16a';
 }
 
-.ms-Icon--heartEmpty:before {
+.chrome-dev-tool-ms-Icon--heartEmpty:before {
   content: '\e16b';
 }
 
-.ms-Icon--picture:before {
+.chrome-dev-tool-ms-Icon--picture:before {
   content: '\e16c';
 }
 
-.ms-Icon--cake:before {
+.chrome-dev-tool-ms-Icon--cake:before {
   content: '\e16d';
 }
 
-.ms-Icon--books:before {
+.chrome-dev-tool-ms-Icon--books:before {
   content: '\e16e';
 }
 
-.ms-Icon--chart:before {
+.chrome-dev-tool-ms-Icon--chart:before {
   content: '\e16f';
 }
 
-.ms-Icon--video:before {
+.chrome-dev-tool-ms-Icon--video:before {
   content: '\e170';
 }
 
-.ms-Icon--soccer:before {
+.chrome-dev-tool-ms-Icon--soccer:before {
   content: '\e171';
 }
 
-.ms-Icon--meal:before {
+.chrome-dev-tool-ms-Icon--meal:before {
   content: '\e172';
 }
 
-.ms-Icon--balloon:before {
+.chrome-dev-tool-ms-Icon--balloon:before {
   content: '\e173';
 }
 
-.ms-Icon--cat:before {
+.chrome-dev-tool-ms-Icon--cat:before {
   content: '\e174';
 }
 
-.ms-Icon--dog:before {
+.chrome-dev-tool-ms-Icon--dog:before {
   content: '\e175';
 }
 
-.ms-Icon--bag:before {
+.chrome-dev-tool-ms-Icon--bag:before {
   content: '\e176';
 }
 
-.ms-Icon--music:before {
+.chrome-dev-tool-ms-Icon--music:before {
   content: '\e177';
 }
 
-.ms-Icon--stopwatch:before {
+.chrome-dev-tool-ms-Icon--stopwatch:before {
   content: '\e178';
 }
 
-.ms-Icon--coffee:before {
+.chrome-dev-tool-ms-Icon--coffee:before {
   content: '\e179';
 }
 
-.ms-Icon--briefcase:before {
+.chrome-dev-tool-ms-Icon--briefcase:before {
   content: '\e17a';
 }
 
-.ms-Icon--pill:before {
+.chrome-dev-tool-ms-Icon--pill:before {
   content: '\e17b';
 }
 
-.ms-Icon--trophy:before {
+.chrome-dev-tool-ms-Icon--trophy:before {
   content: '\e17c';
 }
 
-.ms-Icon--firstAid:before {
+.chrome-dev-tool-ms-Icon--firstAid:before {
   content: '\e17d';
 }
 
-.ms-Icon--plane:before {
+.chrome-dev-tool-ms-Icon--plane:before {
   content: '\e17e';
 }
 
-.ms-Icon--page:before {
+.chrome-dev-tool-ms-Icon--page:before {
   content: '\e17f';
 }
 
-.ms-Icon--car:before {
+.chrome-dev-tool-ms-Icon--car:before {
   content: '\e180';
 }
 
-.ms-Icon--dogAlt:before {
+.chrome-dev-tool-ms-Icon--dogAlt:before {
   content: '\e181';
 }
 
-.ms-Icon--document:before {
+.chrome-dev-tool-ms-Icon--document:before {
   content: '\e182';
 }
 
-.ms-Icon--metadata:before {
+.chrome-dev-tool-ms-Icon--metadata:before {
   content: '\e183';
 }
 
-.ms-Icon--pointItem:before {
+.chrome-dev-tool-ms-Icon--pointItem:before {
   content: '\e184';
 }
 
-.ms-Icon--text:before {
+.chrome-dev-tool-ms-Icon--text:before {
   content: '\e185';
 }
 
-.ms-Icon--fieldText:before {
+.chrome-dev-tool-ms-Icon--fieldText:before {
   content: '\e186';
 }
 
-.ms-Icon--fieldNumber:before {
+.chrome-dev-tool-ms-Icon--fieldNumber:before {
   content: '\e187';
 }
 
-.ms-Icon--dropdown:before {
+.chrome-dev-tool-ms-Icon--dropdown:before {
   content: '\e188';
 }
 
-.ms-Icon--radioButton:before {
+.chrome-dev-tool-ms-Icon--radioButton:before {
   content: '\e189';
 }
 
-.ms-Icon--checkbox:before {
+.chrome-dev-tool-ms-Icon--checkbox:before {
   content: '\e18a';
 }
 
-.ms-Icon--story:before {
+.chrome-dev-tool-ms-Icon--story:before {
   content: '\e18b';
 }
 
-.ms-Icon--bold:before {
+.chrome-dev-tool-ms-Icon--bold:before {
   content: '\e18c';
 }
 
-.ms-Icon--italic:before {
+.chrome-dev-tool-ms-Icon--italic:before {
   content: '\e18d';
 }
 
-.ms-Icon--underline:before {
+.chrome-dev-tool-ms-Icon--underline:before {
   content: '\e18e';
 }
 
-.ms-Icon--quote:before {
+.chrome-dev-tool-ms-Icon--quote:before {
   content: '\e18f';
 }
 
-.ms-Icon--styleRemove:before {
+.chrome-dev-tool-ms-Icon--styleRemove:before {
   content: '\e190';
 }
 
-.ms-Icon--pictureAdd:before {
+.chrome-dev-tool-ms-Icon--pictureAdd:before {
   content: '\e191';
 }
 
-.ms-Icon--pictureRemove:before {
+.chrome-dev-tool-ms-Icon--pictureRemove:before {
   content: '\e192';
 }
 
-.ms-Icon--desktop:before {
+.chrome-dev-tool-ms-Icon--desktop:before {
   content: '\e193';
 }
 
-.ms-Icon--tablet:before {
+.chrome-dev-tool-ms-Icon--tablet:before {
   content: '\e194';
 }
 
-.ms-Icon--mobile:before {
+.chrome-dev-tool-ms-Icon--mobile:before {
   content: '\e195';
 }
 
-.ms-Icon--table:before {
+.chrome-dev-tool-ms-Icon--table:before {
   content: '\e196';
 }
 
-.ms-Icon--hide:before {
+.chrome-dev-tool-ms-Icon--hide:before {
   content: '\e197';
 }
 
-.ms-Icon--shield:before {
+.chrome-dev-tool-ms-Icon--shield:before {
   content: '\e198';
 }
 
-.ms-Icon--header:before {
+.chrome-dev-tool-ms-Icon--header:before {
   content: '\e19a';
 }
 
-.ms-Icon--paint:before {
+.chrome-dev-tool-ms-Icon--paint:before {
   content: '\e19b';
 }
 
-.ms-Icon--support:before {
+.chrome-dev-tool-ms-Icon--support:before {
   content: '\e19c';
 }
 
-.ms-Icon--settings:before {
+.chrome-dev-tool-ms-Icon--settings:before {
   content: '\e19d';
 }
 
-.ms-Icon--creditCard:before {
+.chrome-dev-tool-ms-Icon--creditCard:before {
   content: '\e19e';
 }
 
-.ms-Icon--reload:before {
+.chrome-dev-tool-ms-Icon--reload:before {
   content: '\e19f';
 }
 
-.ms-Icon--peopleSecurity:before {
+.chrome-dev-tool-ms-Icon--peopleSecurity:before {
   content: '\e200';
 }
 
-.ms-Icon--fieldTextBox:before {
+.chrome-dev-tool-ms-Icon--fieldTextBox:before {
   content: '\e203';
 }
 
-.ms-Icon--multiChoice:before {
+.chrome-dev-tool-ms-Icon--multiChoice:before {
   content: '\e204';
 }
 
-.ms-Icon--fieldMail:before {
+.chrome-dev-tool-ms-Icon--fieldMail:before {
   content: '\e205';
 }
 
-.ms-Icon--contactForm:before {
+.chrome-dev-tool-ms-Icon--contactForm:before {
   content: '\e206';
 }
 
-.ms-Icon--circleHalfFilled:before {
+.chrome-dev-tool-ms-Icon--circleHalfFilled:before {
   content: '\e207';
 }
 
-.ms-Icon--documentPDF:before {
+.chrome-dev-tool-ms-Icon--documentPDF:before {
   content: '\e208';
 }
 
-.ms-Icon--bookmark:before {
+.chrome-dev-tool-ms-Icon--bookmark:before {
   content: '\e209';
 }
 
-.ms-Icon--circleUnfilled:before {
+.chrome-dev-tool-ms-Icon--circleUnfilled:before {
   content: '\e20b';
 }
 
-.ms-Icon--circleFilled:before {
+.chrome-dev-tool-ms-Icon--circleFilled:before {
   content: '\e20c';
 }
 
-.ms-Icon--textBox:before {
+.chrome-dev-tool-ms-Icon--textBox:before {
   content: '\e20e';
 }
 
-.ms-Icon--drop:before {
+.chrome-dev-tool-ms-Icon--drop:before {
   content: '\e20f';
 }
 
-.ms-Icon--sun:before {
+.chrome-dev-tool-ms-Icon--sun:before {
   content: '\e210';
 }
 
-.ms-Icon--lifesaver:before {
+.chrome-dev-tool-ms-Icon--lifesaver:before {
   content: '\e211';
 }
 
-.ms-Icon--lifesaverLock:before {
+.chrome-dev-tool-ms-Icon--lifesaverLock:before {
   content: '\e212';
 }
 
-.ms-Icon--mailUnread:before {
+.chrome-dev-tool-ms-Icon--mailUnread:before {
   content: '\e213';
 }
 
-.ms-Icon--mailRead:before {
+.chrome-dev-tool-ms-Icon--mailRead:before {
   content: '\e214';
 }
 
-.ms-Icon--inboxCheck:before {
+.chrome-dev-tool-ms-Icon--inboxCheck:before {
   content: '\e215';
 }
 
-.ms-Icon--folderSearch:before {
+.chrome-dev-tool-ms-Icon--folderSearch:before {
   content: '\e216';
 }
 
-.ms-Icon--collapse:before {
+.chrome-dev-tool-ms-Icon--collapse:before {
   content: '\e217';
 }
 
-.ms-Icon--expand:before {
+.chrome-dev-tool-ms-Icon--expand:before {
   content: '\e218';
 }
 
-.ms-Icon--ascending:before {
+.chrome-dev-tool-ms-Icon--ascending:before {
   content: '\e219';
 }
 
-.ms-Icon--descending:before {
+.chrome-dev-tool-ms-Icon--descending:before {
   content: '\e21a';
 }
 
-.ms-Icon--filterClear:before {
+.chrome-dev-tool-ms-Icon--filterClear:before {
   content: '\e21b';
 }
 
-.ms-Icon--checkboxEmpty:before {
+.chrome-dev-tool-ms-Icon--checkboxEmpty:before {
   content: '\e21c';
 }
 
-.ms-Icon--checkboxMixed:before {
+.chrome-dev-tool-ms-Icon--checkboxMixed:before {
   content: '\e21d';
 }
 
-.ms-Icon--boards:before {
+.chrome-dev-tool-ms-Icon--boards:before {
   content: '\e21e';
 }
 
-.ms-Icon--checkboxCheck:before {
+.chrome-dev-tool-ms-Icon--checkboxCheck:before {
   content: '\e21f';
 }
 
-.ms-Icon--frowny:before {
+.chrome-dev-tool-ms-Icon--frowny:before {
   content: '\e220';
 }
 
-.ms-Icon--lightBulb:before {
+.chrome-dev-tool-ms-Icon--lightBulb:before {
   content: '\e221';
 }
 
-.ms-Icon--globe:before {
+.chrome-dev-tool-ms-Icon--globe:before {
   content: '\e222';
 }
 
-.ms-Icon--deviceWipe:before {
+.chrome-dev-tool-ms-Icon--deviceWipe:before {
   content: '\e223';
 }
 
-.ms-Icon--listCheck:before {
+.chrome-dev-tool-ms-Icon--listCheck:before {
   content: '\e226';
 }
 
-.ms-Icon--listGroup:before {
+.chrome-dev-tool-ms-Icon--listGroup:before {
   content: '\e227';
 }
 
-.ms-Icon--timeline:before {
+.chrome-dev-tool-ms-Icon--timeline:before {
   content: '\e228';
 }
 
-.ms-Icon--fontIncrease:before {
+.chrome-dev-tool-ms-Icon--fontIncrease:before {
   content: '\e229';
 }
 
-.ms-Icon--fontDecrease:before {
+.chrome-dev-tool-ms-Icon--fontDecrease:before {
   content: '\e22a';
 }
 
-.ms-Icon--fontColor:before {
+.chrome-dev-tool-ms-Icon--fontColor:before {
   content: '\e22b';
 }
 
-.ms-Icon--mailCheck:before {
+.chrome-dev-tool-ms-Icon--mailCheck:before {
   content: '\e22c';
 }
 
-.ms-Icon--mailDown:before {
+.chrome-dev-tool-ms-Icon--mailDown:before {
   content: '\e22d';
 }
 
-.ms-Icon--listCheckbox:before {
+.chrome-dev-tool-ms-Icon--listCheckbox:before {
   content: '\e22e';
 }
 
-.ms-Icon--sunAdd:before {
+.chrome-dev-tool-ms-Icon--sunAdd:before {
   content: '\e22f';
 }
 
-.ms-Icon--sunQuestion:before {
+.chrome-dev-tool-ms-Icon--sunQuestion:before {
   content: '\e230';
 }
 
-.ms-Icon--chevronThinUp:before {
+.chrome-dev-tool-ms-Icon--chevronThinUp:before {
   content: '\e231';
 }
 
-.ms-Icon--chevronThinDown:before {
+.chrome-dev-tool-ms-Icon--chevronThinDown:before {
   content: '\e232';
 }
 
-.ms-Icon--chevronThinLeft:before {
+.chrome-dev-tool-ms-Icon--chevronThinLeft:before {
   content: '\e233';
 }
 
-.ms-Icon--chevronThinRight:before {
+.chrome-dev-tool-ms-Icon--chevronThinRight:before {
   content: '\e234';
 }
 
-.ms-Icon--chevronThickUp:before {
+.chrome-dev-tool-ms-Icon--chevronThickUp:before {
   content: '\e235';
 }
 
-.ms-Icon--chevronThickDown:before {
+.chrome-dev-tool-ms-Icon--chevronThickDown:before {
   content: '\e236';
 }
 
-.ms-Icon--chevronThickLeft:before {
+.chrome-dev-tool-ms-Icon--chevronThickLeft:before {
   content: '\e237';
 }
 
-.ms-Icon--chevronThickRight:before {
+.chrome-dev-tool-ms-Icon--chevronThickRight:before {
   content: '\e238';
 }
 
-.ms-Icon--linkRemove:before {
+.chrome-dev-tool-ms-Icon--linkRemove:before {
   content: '\e239';
 }
 
-.ms-Icon--alertOutline:before {
+.chrome-dev-tool-ms-Icon--alertOutline:before {
   content: '\e23b';
 }
 
-.ms-Icon--documentLandscape:before {
+.chrome-dev-tool-ms-Icon--documentLandscape:before {
   content: '\e23c';
 }
 
-.ms-Icon--documentAdd:before {
+.chrome-dev-tool-ms-Icon--documentAdd:before {
   content: '\e23d';
 }
 
-.ms-Icon--toggleMiddle:before {
+.chrome-dev-tool-ms-Icon--toggleMiddle:before {
   content: '\e23e';
 }
 
-.ms-Icon--embed:before {
+.chrome-dev-tool-ms-Icon--embed:before {
   content: '\e23f';
 }
 
-.ms-Icon--listNumbered:before {
+.chrome-dev-tool-ms-Icon--listNumbered:before {
   content: '\e240';
 }
 
-.ms-Icon--peopleCheck:before {
+.chrome-dev-tool-ms-Icon--peopleCheck:before {
   content: '\e242';
 }
 
-.ms-Icon--caretUpOutline:before {
+.chrome-dev-tool-ms-Icon--caretUpOutline:before {
   content: '\e243';
 }
 
-.ms-Icon--caretDownOutline:before {
+.chrome-dev-tool-ms-Icon--caretDownOutline:before {
   content: '\e244';
 }
 
-.ms-Icon--caretLeftOutline:before {
+.chrome-dev-tool-ms-Icon--caretLeftOutline:before {
   content: '\e245';
 }
 
-.ms-Icon--caretRightOutline:before {
+.chrome-dev-tool-ms-Icon--caretRightOutline:before {
   content: '\e246';
 }
 
-.ms-Icon--mailSync:before {
+.chrome-dev-tool-ms-Icon--mailSync:before {
   content: '\e248';
 }
 
-.ms-Icon--mailError:before {
+.chrome-dev-tool-ms-Icon--mailError:before {
   content: '\e249';
 }
 
-.ms-Icon--mailPause:before {
+.chrome-dev-tool-ms-Icon--mailPause:before {
   content: '\e24a';
 }
 
-.ms-Icon--peopleSync:before {
+.chrome-dev-tool-ms-Icon--peopleSync:before {
   content: '\e24b';
 }
 
-.ms-Icon--peopleError:before {
+.chrome-dev-tool-ms-Icon--peopleError:before {
   content: '\e24c';
 }
 
-.ms-Icon--peoplePause:before {
+.chrome-dev-tool-ms-Icon--peoplePause:before {
   content: '\e24d';
 }
 
-.ms-Icon--circleBall:before {
+.chrome-dev-tool-ms-Icon--circleBall:before {
   content: '\e24e';
 }
 
-.ms-Icon--circleBalloons:before {
+.chrome-dev-tool-ms-Icon--circleBalloons:before {
   content: '\e24f';
 }
 
-.ms-Icon--circleCar:before {
+.chrome-dev-tool-ms-Icon--circleCar:before {
   content: '\e250';
 }
 
-.ms-Icon--circleCat:before {
+.chrome-dev-tool-ms-Icon--circleCat:before {
   content: '\e251';
 }
 
-.ms-Icon--circleCoffee:before {
+.chrome-dev-tool-ms-Icon--circleCoffee:before {
   content: '\e252';
 }
 
-.ms-Icon--circleDog:before {
+.chrome-dev-tool-ms-Icon--circleDog:before {
   content: '\e253';
 }
 
-.ms-Icon--circleLightning:before {
+.chrome-dev-tool-ms-Icon--circleLightning:before {
   content: '\e254';
 }
 
-.ms-Icon--circlePill:before {
+.chrome-dev-tool-ms-Icon--circlePill:before {
   content: '\e255';
 }
 
-.ms-Icon--circlePlane:before {
+.chrome-dev-tool-ms-Icon--circlePlane:before {
   content: '\e256';
 }
 
-.ms-Icon--circlePoodle:before {
+.chrome-dev-tool-ms-Icon--circlePoodle:before {
   content: '\e257';
 }
 
-.ms-Icon--checkPeople:before {
+.chrome-dev-tool-ms-Icon--checkPeople:before {
   content: '\e259';
 }
 
-.ms-Icon--documentSearch:before {
+.chrome-dev-tool-ms-Icon--documentSearch:before {
   content: '\e25a';
 }
 
-.ms-Icon--sortLines:before {
+.chrome-dev-tool-ms-Icon--sortLines:before {
   content: '\e25c';
 }
 
-.ms-Icon--calendarPublic:before {
+.chrome-dev-tool-ms-Icon--calendarPublic:before {
   content: '\e25d';
 }
 
-.ms-Icon--contactPublic:before {
+.chrome-dev-tool-ms-Icon--contactPublic:before {
   content: '\e25e';
 }
 
-.ms-Icon--classNotebook:before {
+.chrome-dev-tool-ms-Icon--classNotebook:before {
   content: '\e25f';
 }
 
-.ms-Icon--triangleUp:before {
+.chrome-dev-tool-ms-Icon--triangleUp:before {
   content: '\e260';
 }
 
-.ms-Icon--triangleRight:before {
+.chrome-dev-tool-ms-Icon--triangleRight:before {
   content: '\e261';
 }
 
-.ms-Icon--triangleDown:before {
+.chrome-dev-tool-ms-Icon--triangleDown:before {
   content: '\e262';
 }
 
-.ms-Icon--triangleLeft:before {
+.chrome-dev-tool-ms-Icon--triangleLeft:before {
   content: '\e263';
 }
 
-.ms-Icon--triangleEmptyUp:before {
+.chrome-dev-tool-ms-Icon--triangleEmptyUp:before {
   content: '\e264';
 }
 
-.ms-Icon--triangleEmptyRight:before {
+.chrome-dev-tool-ms-Icon--triangleEmptyRight:before {
   content: '\e265';
 }
 
-.ms-Icon--triangleEmptyDown:before {
+.chrome-dev-tool-ms-Icon--triangleEmptyDown:before {
   content: '\e266';
 }
 
-.ms-Icon--triangleEmptyLeft:before {
+.chrome-dev-tool-ms-Icon--triangleEmptyLeft:before {
   content: '\e267';
 }
 
-.ms-Icon--filePDF:before {
+.chrome-dev-tool-ms-Icon--filePDF:before {
   content: '\e268';
 }
 
-.ms-Icon--fileImage:before {
+.chrome-dev-tool-ms-Icon--fileImage:before {
   content: '\e26c';
 }
 
-.ms-Icon--fileDocument:before {
+.chrome-dev-tool-ms-Icon--fileDocument:before {
   content: '\e26d';
 }
 
-.ms-Icon--listGroup2:before {
+.chrome-dev-tool-ms-Icon--listGroup2:before {
   content: '\e26e';
 }
 
-.ms-Icon--copy:before {
+.chrome-dev-tool-ms-Icon--copy:before {
   content: '\e26f';
 }
 
-.ms-Icon--creditCardOutline:before {
+.chrome-dev-tool-ms-Icon--creditCardOutline:before {
   content: '\e270';
 }
 
-.ms-Icon--mailPublic:before {
+.chrome-dev-tool-ms-Icon--mailPublic:before {
   content: '\e272';
 }
 
-.ms-Icon--folderPublic:before {
+.chrome-dev-tool-ms-Icon--folderPublic:before {
   content: '\e273';
 }
 
-.ms-Icon--teamwork:before {
+.chrome-dev-tool-ms-Icon--teamwork:before {
   content: '\e274';
 }
 
-.ms-Icon--move:before {
+.chrome-dev-tool-ms-Icon--move:before {
   content: '\e275';
 }
 
-.ms-Icon--classroom:before {
+.chrome-dev-tool-ms-Icon--classroom:before {
   content: '\e276';
 }
 
-.ms-Icon--menu2:before {
+.chrome-dev-tool-ms-Icon--menu2:before {
   content: '\e277';
 }
 
-.ms-Icon--plus2:before {
+.chrome-dev-tool-ms-Icon--plus2:before {
   content: '\e278';
 }
 
-.ms-Icon--tag:before {
+.chrome-dev-tool-ms-Icon--tag:before {
   content: '\e279';
 }
 
-.ms-Icon--arrowUp2:before {
+.chrome-dev-tool-ms-Icon--arrowUp2:before {
   content: '\e27a';
 }
 
-.ms-Icon--arrowDown2:before {
+.chrome-dev-tool-ms-Icon--arrowDown2:before {
   content: '\e27b';
 }
 
-.ms-Icon--circlePlus:before {
+.chrome-dev-tool-ms-Icon--circlePlus:before {
   content: '\e27c';
 }
 
-.ms-Icon--circleInfo:before {
+.chrome-dev-tool-ms-Icon--circleInfo:before {
   content: '\e27d';
 }
 
-.ms-Icon--section:before {
+.chrome-dev-tool-ms-Icon--section:before {
   content: '\e27e';
 }
 
-.ms-Icon--sections:before {
+.chrome-dev-tool-ms-Icon--sections:before {
   content: '\e27f';
 }
 
-.ms-Icon--at:before {
+.chrome-dev-tool-ms-Icon--at:before {
   content: '\e282';
 }
 
-.ms-Icon--arrowUpRight:before {
+.chrome-dev-tool-ms-Icon--arrowUpRight:before {
   content: '\e283';
 }
 
-.ms-Icon--arrowDownRight:before {
+.chrome-dev-tool-ms-Icon--arrowDownRight:before {
   content: '\e284';
 }
 
-.ms-Icon--arrowDownLeft:before {
+.chrome-dev-tool-ms-Icon--arrowDownLeft:before {
   content: '\e285';
 }
 
-.ms-Icon--arrowUpLeft:before {
+.chrome-dev-tool-ms-Icon--arrowUpLeft:before {
   content: '\e286';
 }
 
-.ms-Icon--bundle:before {
+.chrome-dev-tool-ms-Icon--bundle:before {
   content: '\e287';
 }
 
-.ms-Icon--pictureEdit:before {
+.chrome-dev-tool-ms-Icon--pictureEdit:before {
   content: '\e288';
 }
 
-.ms-Icon--protectionCenter:before {
+.chrome-dev-tool-ms-Icon--protectionCenter:before {
   content: '\e289';
 }
 
-.ms-Icon--alert2:before {
+.chrome-dev-tool-ms-Icon--alert2:before {
   content: '\e28a';
 }
 
-.ms-Icon--circle {
+.chrome-dev-tool-ms-Icon--circle {
   position: relative;
   display: inline-block;
   font-size: 1rem;
@@ -2435,13 +2435,13 @@
   -webkit-font-smoothing: antialiased;
 }
 
-.ms-Icon--circle:before,
-.ms-Icon--circle:after {
+.chrome-dev-tool-ms-Icon--circle:before,
+.chrome-dev-tool-ms-Icon--circle:after {
   line-height: 1;
   font-size: inherit;
 }
 
-.ms-Icon--circle:before {
+.chrome-dev-tool-ms-Icon--circle:before {
   display: block;
   width: 100%;
   height: 100%;
@@ -2451,7 +2451,7 @@
   position: absolute;
 }
 
-.ms-Icon--circle:after {
+.chrome-dev-tool-ms-Icon--circle:after {
   content: '\e000';
   position: absolute;
   top: 0;
@@ -2465,527 +2465,527 @@
   z-index: 0;
 }
 
-.ms-Icon--circle.ms-Icon--star:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--star:before {
   top: -2%;
   left: 1%;
 }
 
-.ms-Icon--circle.ms-Icon--person:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--person:before {
   top: -2%;
   left: -3%;
 }
 
-.ms-Icon--circle.ms-Icon--alert:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--alert:before {
   top: -4%;
 }
 
-.ms-Icon--circle.ms-Icon--mailOpen:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--mailOpen:before {
   top: -5%;
 }
 
-.ms-Icon--circle.ms-Icon--people:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--people:before {
   top: -4%;
   left: -7%;
 }
 
-.ms-Icon--circle.ms-Icon--bell:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--bell:before {
   top: -3%;
 }
 
-.ms-Icon--circle.ms-Icon--scheduling:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--scheduling:before {
   top: -3%;
   left: 6%;
 }
 
-.ms-Icon--circle.ms-Icon--documents:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--documents:before {
   top: -1%;
   left: -2%;
 }
 
-.ms-Icon--circle.ms-Icon--listBullets:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--listBullets:before {
   top: -1%;
   left: 5%;
 }
 
-.ms-Icon--circle.ms-Icon--panel:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--panel:before {
   left: -2%;
 }
 
-.ms-Icon--circle.ms-Icon--popout:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--popout:before {
   top: -2%;
   left: -2%;
 }
 
-.ms-Icon--circle.ms-Icon--home:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--home:before {
   top: -4%;
 }
 
-.ms-Icon--circle.ms-Icon--favorites:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--favorites:before {
   top: -2%;
   left: 2%;
 }
 
-.ms-Icon--circle.ms-Icon--phone:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--phone:before {
   top: -2%;
   left: -2%;
 }
 
-.ms-Icon--circle.ms-Icon--mailSend:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--mailSend:before {
   left: -10%;
 }
 
-.ms-Icon--circle.ms-Icon--pencil:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--pencil:before {
   top: -2%;
   left: 3%;
 }
 
-.ms-Icon--circle.ms-Icon--flag:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--flag:before {
   left: 3%;
 }
 
-.ms-Icon--circle.ms-Icon--miniatures:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--miniatures:before {
   left: -3%;
 }
 
-.ms-Icon--circle.ms-Icon--voicemail:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--voicemail:before {
   top: 2%;
   left: -7%;
 }
 
-.ms-Icon--circle.ms-Icon--onlineAdd:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--onlineAdd:before {
   top: -1%;
   left: 2%;
 }
 
-.ms-Icon--circle.ms-Icon--pinDown:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--pinDown:before {
   top: 5%;
 }
 
-.ms-Icon--circle.ms-Icon--gear:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--gear:before {
   left: 2%;
 }
 
-.ms-Icon--circle.ms-Icon--check:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--check:before {
   top: 3%;
 }
 
-.ms-Icon--circle.ms-Icon--ellipsis:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--ellipsis:before {
   top: 2%;
   left: -12%;
 }
 
-.ms-Icon--circle.ms-Icon--directions:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--directions:before {
   left: 10%;
 }
 
-.ms-Icon--circle.ms-Icon--microphone:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--microphone:before {
   top: -3%;
 }
 
-.ms-Icon--circle.ms-Icon--caretDown:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--caretDown:before {
   top: 5%;
   left: 2%;
 }
 
-.ms-Icon--circle.ms-Icon--caretLeft:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--caretLeft:before {
   left: -6%;
 }
 
-.ms-Icon--circle.ms-Icon--caretRight:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--caretRight:before {
   left: 6%;
 }
 
-.ms-Icon--circle.ms-Icon--caretUpLeft:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--caretUpLeft:before {
   top: 5%;
   left: 5%;
 }
 
-.ms-Icon--circle.ms-Icon--caretUpRight:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--caretUpRight:before {
   top: 5%;
   left: -3%;
 }
 
-.ms-Icon--circle.ms-Icon--caretDownRight:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--caretDownRight:before {
   left: -3%;
 }
 
-.ms-Icon--circle.ms-Icon--caretDownLeft:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--caretDownLeft:before {
   left: 4%;
 }
 
-.ms-Icon--circle.ms-Icon--note:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--note:before {
   top: 2%;
   left: -3%;
 }
 
-.ms-Icon--circle.ms-Icon--noteReply:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--noteReply:before {
   top: 6%;
   left: 3%;
 }
 
-.ms-Icon--circle.ms-Icon--noteForward:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--noteForward:before {
   top: 6%;
 }
 
-.ms-Icon--circle.ms-Icon--key:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--key:before {
   top: 5%;
   left: 1%;
 }
 
-.ms-Icon--circle.ms-Icon--tile:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--tile:before {
   top: -1%;
   left: -18%;
 }
 
-.ms-Icon--circle.ms-Icon--taskRecurring:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--taskRecurring:before {
   top: 2%;
   left: -1%;
 }
 
-.ms-Icon--circle.ms-Icon--starEmpty:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--starEmpty:before {
   top: -4%;
   left: 1%;
 }
 
-.ms-Icon--circle.ms-Icon--documentReply:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--documentReply:before {
   top: -2%;
   left: 7%;
 }
 
-.ms-Icon--circle.ms-Icon--documentForward:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--documentForward:before {
   left: 5%;
 }
 
-.ms-Icon--circle.ms-Icon--partner:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--partner:before {
   top: -2%;
 }
 
-.ms-Icon--circle.ms-Icon--reactivate:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--reactivate:before {
   top: -2%;
   left: 6%;
 }
 
-.ms-Icon--circle.ms-Icon--sort:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--sort:before {
   left: -19%;
 }
 
-.ms-Icon--circle.ms-Icon--personAdd:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--personAdd:before {
   top: -2%;
   left: 6%;
 }
 
-.ms-Icon--circle.ms-Icon--chevronDown:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--chevronDown:before {
   top: 4%;
 }
 
-.ms-Icon--circle.ms-Icon--chevronLeft:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--chevronLeft:before {
   left: -5%;
 }
 
-.ms-Icon--circle.ms-Icon--chevronRight:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--chevronRight:before {
   left: 4%;
 }
 
-.ms-Icon--circle.ms-Icon--peopleAdd:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--peopleAdd:before {
   top: -5%;
   left: -12%;
 }
 
-.ms-Icon--circle.ms-Icon--newsfeed:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--newsfeed:before {
   left: -4%;
 }
 
-.ms-Icon--circle.ms-Icon--notebook:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--notebook:before {
   left: -4%;
 }
 
-.ms-Icon--circle.ms-Icon--link:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--link:before {
   top: 2%;
   left: -18%;
 }
 
-.ms-Icon--circle.ms-Icon--chevronsDown:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--chevronsDown:before {
   top: 5%;
 }
 
-.ms-Icon--circle.ms-Icon--chevronsLeft:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--chevronsLeft:before {
   left: -5%;
 }
 
-.ms-Icon--circle.ms-Icon--chevronsRight:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--chevronsRight:before {
   left: 4%;
 }
 
-.ms-Icon--circle.ms-Icon--personRemove:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--personRemove:before {
   left: 5%;
 }
 
-.ms-Icon--circle.ms-Icon--receiptForward:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--receiptForward:before {
   left: -20%;
 }
 
-.ms-Icon--circle.ms-Icon--receiptReply:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--receiptReply:before {
   left: -20%;
 }
 
-.ms-Icon--circle.ms-Icon--receiptCheck:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--receiptCheck:before {
   left: -20%;
 }
 
-.ms-Icon--circle.ms-Icon--peopleRemove:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--peopleRemove:before {
   top: -3%;
   left: -12%;
 }
 
-.ms-Icon--circle.ms-Icon--merge:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--merge:before {
   top: 2%;
 }
 
-.ms-Icon--circle.ms-Icon--split:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--split:before {
   top: 2%;
 }
 
-.ms-Icon--circle.ms-Icon--eventCancel:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--eventCancel:before {
   left: -2%;
 }
 
-.ms-Icon--circle.ms-Icon--today:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--today:before {
   top: -2%;
 }
 
-.ms-Icon--circle.ms-Icon--oofReply:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--oofReply:before {
   left: 5%;
 }
 
-.ms-Icon--circle.ms-Icon--voicemailReply:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--voicemailReply:before {
   top: 4%;
   left: -25%;
 }
 
-.ms-Icon--circle.ms-Icon--voicemailForward:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--voicemailForward:before {
   top: 4%;
   left: -20%;
 }
 
-.ms-Icon--circle.ms-Icon--eye:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--eye:before {
   top: -4%;
 }
 
-.ms-Icon--circle.ms-Icon--post:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--post:before {
   top: -4%;
   left: 4%;
 }
 
-.ms-Icon--circle.ms-Icon--fax:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--fax:before {
   top: -3%;
   left: -2%;
 }
 
-.ms-Icon--circle.ms-Icon--lightning:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--lightning:before {
   top: 2%;
   left: 1%;
 }
 
-.ms-Icon--circle.ms-Icon--filter:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--filter:before {
   top: 7%;
 }
 
-.ms-Icon--circle.ms-Icon--cart:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--cart:before {
   left: 3%;
 }
 
-.ms-Icon--circle.ms-Icon--socialListening:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--socialListening:before {
   top: 2%;
 }
 
-.ms-Icon--circle.ms-Icon--mapMarker:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--mapMarker:before {
   top: 2%;
 }
 
-.ms-Icon--circle.ms-Icon--replyAllAlt:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--replyAllAlt:before {
   left: -16%;
 }
 
-.ms-Icon--circle.ms-Icon--group:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--group:before {
   left: -33%;
 }
 
-.ms-Icon--circle.ms-Icon--money:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--money:before {
   left: -8%;
 }
 
-.ms-Icon--circle.ms-Icon--noteEdit:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--noteEdit:before {
   left: 4%;
 }
 
-.ms-Icon--circle.ms-Icon--mailEdit:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--mailEdit:before {
   top: 3%;
   left: 7%;
 }
 
-.ms-Icon--circle.ms-Icon--pinLeft:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--pinLeft:before {
   left: -6%;
 }
 
-.ms-Icon--circle.ms-Icon--heart:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--heart:before {
   top: 5%;
 }
 
-.ms-Icon--circle.ms-Icon--heartEmpty:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--heartEmpty:before {
   top: 5%;
 }
 
-.ms-Icon--circle.ms-Icon--cake:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--cake:before {
   top: -5%;
 }
 
-.ms-Icon--circle.ms-Icon--books:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--books:before {
   left: -8%;
 }
 
-.ms-Icon--circle.ms-Icon--video:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--video:before {
   top: -3%;
   left: 3%;
 }
 
-.ms-Icon--circle.ms-Icon--balloon:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--balloon:before {
   top: 4%;
   left: -1%;
 }
 
-.ms-Icon--circle.ms-Icon--music:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--music:before {
   top: -2%;
   left: -5%;
 }
 
-.ms-Icon--circle.ms-Icon--stopwatch:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--stopwatch:before {
   top: -3%;
   left: 3%;
 }
 
-.ms-Icon--circle.ms-Icon--coffee:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--coffee:before {
   top: -3%;
   left: 3%;
 }
 
-.ms-Icon--circle.ms-Icon--plane:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--plane:before {
   left: 4%;
 }
 
-.ms-Icon--circle.ms-Icon--dogAlt:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--dogAlt:before {
   left: -15%;
 }
 
-.ms-Icon--circle.ms-Icon--metadata:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--metadata:before {
   top: -4%;
   left: 4%;
 }
 
-.ms-Icon--circle.ms-Icon--text:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--text:before {
   top: -4%;
   left: 10%;
 }
 
-.ms-Icon--circle.ms-Icon--fieldText:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--fieldText:before {
   left: -14%;
 }
 
-.ms-Icon--circle.ms-Icon--fieldNumber:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--fieldNumber:before {
   left: -14%;
 }
 
-.ms-Icon--circle.ms-Icon--dropdown:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--dropdown:before {
   left: -14%;
 }
 
-.ms-Icon--circle.ms-Icon--story:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--story:before {
   left: -5%;
 }
 
-.ms-Icon--circle.ms-Icon--bold:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--bold:before {
   left: 4%;
 }
 
-.ms-Icon--circle.ms-Icon--underline:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--underline:before {
   top: 4%;
 }
 
-.ms-Icon--circle.ms-Icon--quote:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--quote:before {
   left: -4%;
 }
 
-.ms-Icon--circle.ms-Icon--styleRemove:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--styleRemove:before {
   top: 4%;
   left: 5%;
 }
 
-.ms-Icon--circle.ms-Icon--pictureAdd:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--pictureAdd:before {
   left: -6%;
 }
 
-.ms-Icon--circle.ms-Icon--pictureRemove:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--pictureRemove:before {
   left: -6%;
 }
 
-.ms-Icon--circle.ms-Icon--mobile:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--mobile:before {
   left: -3%;
 }
 
-.ms-Icon--circle.ms-Icon--hide:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--hide:before {
   top: -4%;
 }
 
-.ms-Icon--circle.ms-Icon--header:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--header:before {
   left: -9%;
 }
 
-.ms-Icon--circle.ms-Icon--msn:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--msn:before {
   left: 3%;
 }
 
-.ms-Icon--circle.ms-Icon--peopleCheck:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--peopleCheck:before {
   left: -7%;
   top: -3%;
 }
 
-.ms-Icon--circle.ms-Icon--caretDownOutline:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--caretDownOutline:before {
   top: 6%;
 }
 
-.ms-Icon--circle.ms-Icon--caretLeftOutline:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--caretLeftOutline:before {
   left: -5%;
 }
 
-.ms-Icon--circle.ms-Icon--caretRightOutline:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--caretRightOutline:before {
   left: 5%;
 }
 
-.ms-Icon--circle.ms-Icon--sway:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--sway:before {
   left: -3%;
 }
 
-.ms-Icon--circle.ms-Icon--mailSync:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--mailSync:before {
   left: 8%;
   top: 3%;
 }
 
-.ms-Icon--circle.ms-Icon--peopleSync:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--peopleSync:before {
   left: -8%;
 }
 
-.ms-Icon--circle.ms-Icon--peopleError:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--peopleError:before {
   left: -8%;
 }
 
-.ms-Icon--circle.ms-Icon--peoplePause:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--peoplePause:before {
   left: -8%;
 }
 
-.ms-Icon--circle.ms-Icon--documentSearch:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--documentSearch:before {
   left: 8%;
 }
 
-.ms-Icon--circle.ms-Icon--dynamicsMarketing:before {
+.chrome-dev-tool-ms-Icon--circle.chrome-dev-tool-ms-Icon--dynamicsMarketing:before {
   left: -8%;
 }
 
@@ -3003,7 +3003,7 @@
 */
 
 
-.ms-Button {
+.chrome-dev-tool-ms-Button {
   color: #333333;
   font-family: 'Segoe UI Regular WestEuropean', 'Segoe UI', Tahoma, Arial, sans-serif;
   font-size: 14px;
@@ -3021,112 +3021,112 @@
   padding: 4px 20px 6px;
 }
 
-.ms-Button:hover {
+.chrome-dev-tool-ms-Button:hover {
   background-color: #eaeaea;
   border-color: #eaeaea;
   outline: 1px solid transparent;
 }
 
-.ms-Button:hover .ms-Button-label {
+.chrome-dev-tool-ms-Button:hover .chrome-dev-tool-ms-Button-label {
   color: #000000;
 }
 
-.ms-Button:focus {
+.chrome-dev-tool-ms-Button:focus {
   background-color: #eaeaea;
   border-color: #0078d7;
   outline: 1px solid transparent;
 }
 
-.ms-Button:focus .ms-Button-label {
+.chrome-dev-tool-ms-Button:focus .chrome-dev-tool-ms-Button-label {
   color: #000000;
 }
 
-.ms-Button:active {
+.chrome-dev-tool-ms-Button:active {
   background-color: #0078d7;
   border-color: #0078d7;
 }
 
-.ms-Button:active .ms-Button-label {
+.chrome-dev-tool-ms-Button:active .chrome-dev-tool-ms-Button-label {
   color: #ffffff;
 }
 
-.ms-Button:disabled,
-.ms-Button.is-disabled {
+.chrome-dev-tool-ms-Button:disabled,
+.chrome-dev-tool-ms-Button.is-disabled {
   background-color: #f4f4f4;
   border-color: #f4f4f4;
   cursor: default;
 }
 
-.ms-Button:disabled .ms-Button-label,
-.ms-Button.is-disabled .ms-Button-label {
+.chrome-dev-tool-ms-Button:disabled .chrome-dev-tool-ms-Button-label,
+.chrome-dev-tool-ms-Button.is-disabled .chrome-dev-tool-ms-Button-label {
   color: #a6a6a6;
 }
 
-.ms-Button:disabled:hover,
-.ms-Button:disabled:focus,
-.ms-Button.is-disabled:hover,
-.ms-Button.is-disabled:focus {
+.chrome-dev-tool-ms-Button:disabled:hover,
+.chrome-dev-tool-ms-Button:disabled:focus,
+.chrome-dev-tool-ms-Button.is-disabled:hover,
+.chrome-dev-tool-ms-Button.is-disabled:focus {
   outline: 0;
 }
 
-.ms-Button + .ms-Button {
+.chrome-dev-tool-ms-Button + .chrome-dev-tool-ms-Button {
   margin-left: 6px;
 }
 
-.ms-Button-label {
+.chrome-dev-tool-ms-Button-label {
   color: #333333;
   font-family: 'Segoe UI Semibold WestEuropean', 'Segoe UI Semibold', 'Segoe UI', Tahoma, Arial, sans-serif;
   font-size: 14px;
 }
 
-.ms-Button-icon,
-.ms-Button-description {
+.chrome-dev-tool-ms-Button-icon,
+.chrome-dev-tool-ms-Button-description {
   display: none;
 }
 
-.ms-Button.ms-Button--primary {
+.chrome-dev-tool-ms-Button.chrome-dev-tool-ms-Button--primary {
   background-color: #0078d7;
   border-color: #0078d7;
 }
 
-.ms-Button.ms-Button--primary .ms-Button-label {
+.chrome-dev-tool-ms-Button.chrome-dev-tool-ms-Button--primary .chrome-dev-tool-ms-Button-label {
   color: #ffffff;
 }
 
-.ms-Button.ms-Button--primary:hover {
+.chrome-dev-tool-ms-Button.chrome-dev-tool-ms-Button--primary:hover {
   background-color: #005a9e;
   border-color: #005a9e;
 }
 
-.ms-Button.ms-Button--primary:focus {
+.chrome-dev-tool-ms-Button.chrome-dev-tool-ms-Button--primary:focus {
   background-color: #005a9e;
   border-color: #004578;
 }
 
-.ms-Button.ms-Button--primary:active {
+.chrome-dev-tool-ms-Button.chrome-dev-tool-ms-Button--primary:active {
   background-color: #0078d7;
   border-color: #0078d7;
 }
 
-.ms-Button.ms-Button--primary:disabled,
-.ms-Button.ms-Button--primary.is-disabled {
+.chrome-dev-tool-ms-Button.chrome-dev-tool-ms-Button--primary:disabled,
+.chrome-dev-tool-ms-Button.chrome-dev-tool-ms-Button--primary.is-disabled {
   background-color: #f4f4f4;
   border-color: #f4f4f4;
 }
 
-.ms-Button.ms-Button--primary:disabled .ms-Button-label,
-.ms-Button.ms-Button--primary.is-disabled .ms-Button-label {
+.chrome-dev-tool-ms-Button.chrome-dev-tool-ms-Button--primary:disabled .chrome-dev-tool-ms-Button-label,
+.chrome-dev-tool-ms-Button.chrome-dev-tool-ms-Button--primary.is-disabled .chrome-dev-tool-ms-Button-label {
   color: #a6a6a6;
 }
 
-.ms-Button.ms-Button--hero {
+.chrome-dev-tool-ms-Button.chrome-dev-tool-ms-Button--hero {
   background-color: transparent;
   border: none;
   vertical-align: top;
   line-height: normal;
 }
 
-.ms-Button.ms-Button--hero .ms-Button-icon {
+.chrome-dev-tool-ms-Button.chrome-dev-tool-ms-Button--hero .chrome-dev-tool-ms-Button-icon {
   color: #0078d7;
   display: inline-block;
   font-size: 12px;
@@ -3135,7 +3135,7 @@
   text-align: center;
 }
 
-.ms-Button.ms-Button--hero .ms-Button-icon .ms-Icon {
+.chrome-dev-tool-ms-Button.chrome-dev-tool-ms-Button--hero .chrome-dev-tool-ms-Button-icon .chrome-dev-tool-ms-Icon {
   border-radius: 18px;
   border: 1px solid #0078d7;
   height: 18px;
@@ -3145,7 +3145,7 @@
   margin: 0;
 }
 
-.ms-Button.ms-Button--hero .ms-Button-label {
+.chrome-dev-tool-ms-Button.chrome-dev-tool-ms-Button--hero .chrome-dev-tool-ms-Button-label {
   color: #0078d7;
   font-family: 'Segoe UI Light WestEuropean', 'Segoe UI Light', 'Segoe UI', Tahoma, Arial, sans-serif;
   font-size: 21px;
@@ -3154,42 +3154,42 @@
   text-decoration: none;
 }
 
-.ms-Button.ms-Button--hero:hover .ms-Button-icon .ms-Icon,
-.ms-Button.ms-Button--hero:focus .ms-Button-icon .ms-Icon {
+.chrome-dev-tool-ms-Button.chrome-dev-tool-ms-Button--hero:hover .chrome-dev-tool-ms-Button-icon .chrome-dev-tool-ms-Icon,
+.chrome-dev-tool-ms-Button.chrome-dev-tool-ms-Button--hero:focus .chrome-dev-tool-ms-Button-icon .chrome-dev-tool-ms-Icon {
   color: #005a9e;
 }
 
-.ms-Button.ms-Button--hero:hover .ms-Button-label,
-.ms-Button.ms-Button--hero:focus .ms-Button-label {
+.chrome-dev-tool-ms-Button.chrome-dev-tool-ms-Button--hero:hover .chrome-dev-tool-ms-Button-label,
+.chrome-dev-tool-ms-Button.chrome-dev-tool-ms-Button--hero:focus .chrome-dev-tool-ms-Button-label {
   color: #004578;
 }
 
-.ms-Button.ms-Button--hero:active .ms-Button-icon .ms-Icon {
+.chrome-dev-tool-ms-Button.chrome-dev-tool-ms-Button--hero:active .chrome-dev-tool-ms-Button-icon .chrome-dev-tool-ms-Icon {
   color: #0078d7;
 }
 
-.ms-Button.ms-Button--hero:active .ms-Button-label {
+.chrome-dev-tool-ms-Button.chrome-dev-tool-ms-Button--hero:active .chrome-dev-tool-ms-Button-label {
   color: #0078d7;
 }
 
-.ms-Button.ms-Button--hero:disabled .ms-Button-icon .ms-Icon,
-.ms-Button.ms-Button--hero.is-disabled .ms-Button-icon .ms-Icon {
+.chrome-dev-tool-ms-Button.chrome-dev-tool-ms-Button--hero:disabled .chrome-dev-tool-ms-Button-icon .chrome-dev-tool-ms-Icon,
+.chrome-dev-tool-ms-Button.chrome-dev-tool-ms-Button--hero.is-disabled .chrome-dev-tool-ms-Button-icon .chrome-dev-tool-ms-Icon {
   color: #c8c8c8;
 }
 
-.ms-Button.ms-Button--hero:disabled .ms-Button-label,
-.ms-Button.ms-Button--hero.is-disabled .ms-Button-label {
+.chrome-dev-tool-ms-Button.chrome-dev-tool-ms-Button--hero:disabled .chrome-dev-tool-ms-Button-label,
+.chrome-dev-tool-ms-Button.chrome-dev-tool-ms-Button--hero.is-disabled .chrome-dev-tool-ms-Button-label {
   color: #a6a6a6;
 }
 
-.ms-Button.ms-Button--compound {
+.chrome-dev-tool-ms-Button.chrome-dev-tool-ms-Button--compound {
   height: auto;
   min-height: 72px;
   max-width: 280px;
   padding: 20px;
 }
 
-.ms-Button.ms-Button--compound .ms-Button-label {
+.chrome-dev-tool-ms-Button.chrome-dev-tool-ms-Button--compound .chrome-dev-tool-ms-Button-label {
   display: block;
   font-family: 'Segoe UI Semibold WestEuropean', 'Segoe UI Semibold', 'Segoe UI', Tahoma, Arial, sans-serif;
   position: relative;
@@ -3197,7 +3197,7 @@
   margin-top: -5px;
 }
 
-.ms-Button.ms-Button--compound .ms-Button-description {
+.chrome-dev-tool-ms-Button.chrome-dev-tool-ms-Button--compound .chrome-dev-tool-ms-Button-description {
   color: #666666;
   display: block;
   font-family: 'Segoe UI Regular WestEuropean', 'Segoe UI', Tahoma, Arial, sans-serif;
@@ -3207,50 +3207,50 @@
   top: 3px;
 }
 
-.ms-Button.ms-Button--compound:hover .ms-Button-description {
+.chrome-dev-tool-ms-Button.chrome-dev-tool-ms-Button--compound:hover .chrome-dev-tool-ms-Button-description {
   color: #212121;
 }
 
-.ms-Button.ms-Button--compound:focus {
+.chrome-dev-tool-ms-Button.chrome-dev-tool-ms-Button--compound:focus {
   border-color: #0078d7;
   background-color: #f4f4f4;
 }
 
-.ms-Button.ms-Button--compound:focus .ms-Button-label {
+.chrome-dev-tool-ms-Button.chrome-dev-tool-ms-Button--compound:focus .chrome-dev-tool-ms-Button-label {
   color: #333333;
 }
 
-.ms-Button.ms-Button--compound:focus .ms-Button-description {
+.chrome-dev-tool-ms-Button.chrome-dev-tool-ms-Button--compound:focus .chrome-dev-tool-ms-Button-description {
   color: #666666;
 }
 
-.ms-Button.ms-Button--compound:active {
+.chrome-dev-tool-ms-Button.chrome-dev-tool-ms-Button--compound:active {
   background-color: #0078d7;
 }
 
-.ms-Button.ms-Button--compound:active .ms-Button-description,
-.ms-Button.ms-Button--compound:active .ms-Button-label {
+.chrome-dev-tool-ms-Button.chrome-dev-tool-ms-Button--compound:active .chrome-dev-tool-ms-Button-description,
+.chrome-dev-tool-ms-Button.chrome-dev-tool-ms-Button--compound:active .chrome-dev-tool-ms-Button-label {
   color: #ffffff;
 }
 
-.ms-Button.ms-Button--compound:disabled .ms-Button-label,
-.ms-Button.ms-Button--compound:disabled .ms-Button-description,
-.ms-Button.ms-Button--compound.is-disabled .ms-Button-label,
-.ms-Button.ms-Button--compound.is-disabled .ms-Button-description {
+.chrome-dev-tool-ms-Button.chrome-dev-tool-ms-Button--compound:disabled .chrome-dev-tool-ms-Button-label,
+.chrome-dev-tool-ms-Button.chrome-dev-tool-ms-Button--compound:disabled .chrome-dev-tool-ms-Button-description,
+.chrome-dev-tool-ms-Button.chrome-dev-tool-ms-Button--compound.is-disabled .chrome-dev-tool-ms-Button-label,
+.chrome-dev-tool-ms-Button.chrome-dev-tool-ms-Button--compound.is-disabled .chrome-dev-tool-ms-Button-description {
   color: #a6a6a6;
 }
 
-.ms-Button.ms-Button--compound:disabled:focus,
-.ms-Button.ms-Button--compound:disabled:active,
-.ms-Button.ms-Button--compound.is-disabled:focus,
-.ms-Button.ms-Button--compound.is-disabled:active {
+.chrome-dev-tool-ms-Button.chrome-dev-tool-ms-Button--compound:disabled:focus,
+.chrome-dev-tool-ms-Button.chrome-dev-tool-ms-Button--compound:disabled:active,
+.chrome-dev-tool-ms-Button.chrome-dev-tool-ms-Button--compound.is-disabled:focus,
+.chrome-dev-tool-ms-Button.chrome-dev-tool-ms-Button--compound.is-disabled:active {
   border-color: #f4f4f4;
   background-color: #f4f4f4;
 }
 
-.ms-Button.ms-Button--compound:disabled:focus .ms-Button-label,
-.ms-Button.ms-Button--compound:disabled:focus .ms-Button-description,
-.ms-Button.ms-Button--compound:disabled:active .ms-Button-label,
+.chrome-dev-tool-ms-Button.chrome-dev-tool-ms-Button--compound:disabled:focus .chrome-dev-tool-ms-Button-label,
+.chrome-dev-tool-ms-Button.chrome-dev-tool-ms-Button--compound:disabled:focus .chrome-dev-tool-ms-Button-description,
+.chrome-dev-tool-ms-Button.ms-Button--compound:disabled:active .ms-Button-label,
 .ms-Button.ms-Button--compound:disabled:active .ms-Button-description,
 .ms-Button.ms-Button--compound.is-disabled:focus .ms-Button-label,
 .ms-Button.ms-Button--compound.is-disabled:focus .ms-Button-description,

@@ -102,7 +102,7 @@ gulp.task("generate-chrome-package", ["generate-chrome-dev"], function () {
 
 gulp.task('build-actions-styles', function (noUglify) {
     var obj = config.paths.actions.styles;
-    return compileSassFn(obj.watchFiles, config.paths.chromeExt.styles.bundle, config.paths.chromeExt.styles.dist)
+    return compileSassFn(obj.watchFiles, obj.bundle, obj.dist, noUglify);
 });
 
 gulp.task("build-sppropertyBagFile", ['build-actions-styles'], function (noUglify) {
