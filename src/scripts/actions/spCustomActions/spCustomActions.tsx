@@ -12,7 +12,6 @@ import SpCustomActionEdit from './customActionEdit'
 import { SpCustomActionsStyles as styles, ButtonsStyle as buttonsStyle } from './../common/Styles'
 
 interface SpCustomActionsProps {
-    appContainerId: string,
     closeWindowFunction: any
 }
 interface SpCustomActionsState {
@@ -84,7 +83,7 @@ export default class SpCustomActions extends React.Component<SpCustomActionsProp
         let onError: Function = Function.createDelegate(this, (sender: any, err: any) => {
             SP.UI.Notify.addNotification("Failed to get web custom actions...<br>" + err.get_message(), false);
             console.log(err);
-            this.props.closeWindowFunction(this.props.appContainerId);
+            this.props.closeWindowFunction();
         });
         ctx.executeQueryAsync(onSuccess, onError);
     }

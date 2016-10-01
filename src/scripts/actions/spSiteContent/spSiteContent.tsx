@@ -10,7 +10,6 @@ import { SpSiteContentStyles as styles } from './../common/Styles'
 import SpSiteContentItem  from './spSiteContentItem';
 
 interface SpSiteContentProps {
-    appContainerId: string,
     closeWindowFunction: any
 }
 interface SpSiteContentState {
@@ -76,7 +75,7 @@ export default class SpSiteContent extends React.Component<SpSiteContentProps, S
         let onError: Function = Function.createDelegate(this, (sender: any, err: any) => {
             SP.UI.Notify.addNotification("Failed to get web lists...<br>" + err.get_message(), false);
             console.log(err);
-            this.props.closeWindowFunction(this.props.appContainerId);
+            this.props.closeWindowFunction();
         });
         ctx.executeQueryAsync(onSuccess, onError);
     }

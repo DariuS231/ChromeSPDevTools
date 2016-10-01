@@ -5,7 +5,6 @@ import Utils from './utils';
 import { SpCustomModalWrapperStyles as styles } from './Styles'
 
 interface SpCustomModalWrapperProps {
-    appContainerId: string,
     modalDialogTitle: string,
     modalWidth?: string,
     onCloseClick:any
@@ -18,16 +17,14 @@ export default class SpCustomModalWrapper extends React.Component<SpCustomModalW
         this.state = { isClosed: false };
     }
     private closeBtnClick(e: any) {
-        this.props.onCloseClick(this.props.appContainerId);
+        this.props.onCloseClick();
     }
     public render() {        
         let divModalStyles = (this.props.modalWidth !== undefined) ? Utils.mergeObjects(styles.divModalStyles, { width: this.props.modalWidth }) : styles.divModalStyles;
         return <div style={styles.modalContainerDivStyles}>
-            <div style={divModalStyles}>
+         <div style={divModalStyles}>
                 <div>
-                    <h1>
-                        {this.props.modalDialogTitle}
-                    </h1>
+                    <span className="chrome-dev-tool-ms-font-xxl chrome-dev-tool-ms-fontColor-themePrimary chrome-dev-tool-ms-fontWeight-semibold">{this.props.modalDialogTitle}</span>
                     <a href="javascript:void(0)" style={styles.linkBtnStyles} onClick={this.closeBtnClick.bind(this) }>x</a>
                     <hr style={{ marginBottom: 0 }}/>
                 </div>

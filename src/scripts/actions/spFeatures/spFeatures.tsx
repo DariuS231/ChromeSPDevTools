@@ -17,7 +17,6 @@ import { MessageType, FeatureOperationType } from './../common/enums';
 
 interface SpFeatureProps {
     showOnlyIconsInButtons:boolean,
-    appContainerId: string,
     closeWindowFunction:any
 }
 interface SpFeatureState {
@@ -189,7 +188,7 @@ export default class SpFeatures extends React.Component<SpFeatureProps, SpFeatur
             let onError: Function = Function.createDelegate(this, (sender: any, err: any) => {
                 SP.UI.Notify.addNotification("Failed to features...<br>" + err.get_message(), false);
                 console.log(err);
-                this.props.closeWindowFunction(this.props.appContainerId);
+                this.props.closeWindowFunction();
             });
             this.ctx.executeQueryAsync(onSuccess, onError);
         }

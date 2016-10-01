@@ -135,6 +135,7 @@ gulp.task("build-spFeatureFile", ['build-actions-styles'], function (noUglify) {
     return browserifyFn(entries, destFile, destFolder, noUglify);
 });
 
+gulp.task('build-actions', ["build-sppropertyBagFile", "build-spSiteContentFile", "build-spCustomActionsFile", "build-spFeatureFile"],function(){});
 /****//****//****//****/
 //      Watch
 /****//****//****//****/

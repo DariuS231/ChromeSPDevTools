@@ -13,7 +13,6 @@ import { SpPropertyBagStyles as spPropStyles } from './../common/Styles'
 
 interface SpPropertyBagProps {
     showOnlyIconsInButtons:boolean,
-    appContainerId: string,
     closeWindowFunction:any
 }
 interface SpPropertyBagState {
@@ -132,7 +131,7 @@ export default class SpPropertyBag extends React.Component<SpPropertyBagProps, S
             let onError: Function = Function.createDelegate(this, (sender: any, err: any) => {
                 SP.UI.Notify.addNotification("Failed to get web properties...<br>" + err.get_message(), false);
                 console.log(err);
-                this.props.closeWindowFunction(this.props.appContainerId);
+                this.props.closeWindowFunction();
             });
             this.ctx.executeQueryAsync(onSuccess, onError);
         }
