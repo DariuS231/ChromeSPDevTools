@@ -4,6 +4,14 @@
 import * as React from 'react';
 import {MessageType} from './enums'
 
+import {
+  Button,
+  MessageBar as MsBar,
+  MessageBarType,
+  Label,
+  Link
+} from './../../../../node_modules/office-ui-fabric-react/lib/index';
+
 interface MessageBarProps {
     messageType: MessageType,
     message: string,
@@ -32,7 +40,7 @@ export default class MessageBar extends React.Component<MessageBarProps, Message
         });
     }
     private onCloseClick(e: any) {
-        e.preventDefault();
+        //e.preventDefault();
         this.setState({
             showMessage: false
         });
@@ -61,27 +69,10 @@ export default class MessageBar extends React.Component<MessageBarProps, Message
                     messageBarIcon = 'ms-Icon--Info';
                     break;
             }
-            return <div className={"ms-MessageBar ms-MessageBar ms-MessageBar-multiline " + messageBarClass }>
-                <div className="ms-MessageBar-content">
-                    <div className="ms-MessageBar-icon">
-                        <i className={"ms-Icon " + messageBarIcon}></i>
-                    </div>
-                    <div className="ms-MessageBar-actionables">
-                        <button title="Close" className="ms-MessageBar-dismissal ms-Button ms-Button--icon" onClick={this.onCloseClick.bind(this) }>
-                            <span className="ms-Button-icon">
-                                <i className="ms-Icon ms-Icon--Cancel"></i>
-                            </span>
-                            <span className="ms-Button-label">
-                            </span>
-                        </button>
-                        <div className="ms-MessageBar-text">
-                            <span className="ms-MessageBar-innerTextPadding">
-                                {messageTitle} - {this.props.message}
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            return <MsBar
+          messageBarType={ MessageBarType.error }
+          onDismiss={ (e) => { this.onCloseClick(e); return false; } }>
+          {messageTitle} - {this.props.message}</MsBar>
         }
     }
 }

@@ -9,6 +9,10 @@ import { MessageType } from './../common/enums';
 import { SpSiteContentStyles as styles } from './../common/Styles'
 import SpSiteContentItem  from './spSiteContentItem';
 
+import {
+    Toggle
+} from './../../../../node_modules/office-ui-fabric-react/lib/index';
+
 interface SpSiteContentProps {
     closeWindowFunction: any
 }
@@ -81,30 +85,35 @@ export default class SpSiteContent extends React.Component<SpSiteContentProps, S
     }
     private showHidden(e: any) {
         let showHiddenNewVal: boolean = e.target.checked;
-        let messageText:string = showHiddenNewVal ?  
-        'Showing hidden lists and libraries.': 
-        'Not showing hidden lists and libraries.';
+        let messageText: string = showHiddenNewVal ?
+            'Showing hidden lists and libraries.' :
+            'Not showing hidden lists and libraries.';
         this.setState({
             showHidden: showHiddenNewVal,
-            messageType:MessageType.Info,
-            showMessage:true,
-            message:messageText
+            messageType: MessageType.Info,
+            showMessage: true,
+            message: messageText
         } as SpSiteContentState);
     }
     private openInNewTab(e: any) {
         let openInNewTabNewVal: boolean = e.target.checked;
-        let messageText:string = openInNewTabNewVal ?  
-        'List and libraries links will open in a new tab.': 
-        'List and libraries links will open in the current tab.';
+        let messageText: string = openInNewTabNewVal ?
+            'List and libraries links will open in a new tab.' :
+            'List and libraries links will open in the current tab.';
         this.setState({
             openInNewTab: openInNewTabNewVal,
-            messageType:MessageType.Info,
-            showMessage:true,
-            message:messageText
+            messageType: MessageType.Info,
+            showMessage: true,
+            message: messageText
         } as SpSiteContentState);
     }
     private componentDidMount() {
         this.getLists();
+    }
+    private testingTogggle(toggle:any){
+        debugger;
+        console.log(toggle);
+        return false;
     }
     public render() {
         if (this.state.isWorkingOnIt) {
@@ -125,6 +134,12 @@ export default class SpSiteContent extends React.Component<SpSiteContentProps, S
                     <MessageBar message={this.state.message} messageType={this.state.messageType} showMessage={this.state.showMessage} />
                     <div style={styles.checksContainer}>
                         <div style={styles.check}>
+                            <Toggle
+                                defaultChecked={ true }
+                                label='Enabled and checked'
+                                onText='On'
+                                offText='Off'
+                                onChanged={(e) => { debugger; this.testingTogggle(e); console.log(e); return false; } } />
                             <label htmlFor="showHiddenInput">Show hidden</label>
                             <input type="checkbox" id="showHiddenInput" checked={this.state.showHidden} onChange={this.showHidden.bind(this) }/>
                         </div>
