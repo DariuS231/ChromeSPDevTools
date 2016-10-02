@@ -1,19 +1,11 @@
 /// <reference path="../../../../typings/index.d.ts"/>
 /// <reference path="./interfaces.ts"/>
-/// <reference path="./../common/enums.ts"/>
 import * as React from 'react';
-import {MessageType} from './enums'
-
-import {
-  Button,
-  MessageBar as MsBar,
-  MessageBarType,
-  Label,
-  Link
-} from './../../../../node_modules/office-ui-fabric-react/lib/index';
+import Utils from './../common/utils';
+import { Button, MessageBar as MsBar, MessageBarType, Label, Link } from './../../../../node_modules/office-ui-fabric-react/lib/index';
 
 interface MessageBarProps {
-    messageType: MessageType,
+    messageType: MessageBarType,
     message: string,
     showMessage: boolean
 }
@@ -50,29 +42,9 @@ export default class MessageBar extends React.Component<MessageBarProps, Message
         if (!this.state.showMessage) {
             return <div></div>;
         } else {
-            let messageTitle: string = '';
-            let messageBarClass: string = '';
-            let messageBarIcon: string = '';
-            switch (this.props.messageType) {
-                case MessageType.Error:
-                    messageTitle = "Error";
-                    messageBarClass = 'ms-MessageBar--error';
-                    messageBarIcon = 'ms-Icon--ErrorBadge';
-                    break;
-                case MessageType.Success:
-                    messageTitle = "Success"
-                    messageBarClass = 'ms-MessageBar--success';
-                    messageBarIcon = 'ms-Icon--Completed';
-                    break;
-                case MessageType.Info:
-                    messageTitle = "Info"
-                    messageBarIcon = 'ms-Icon--Info';
-                    break;
-            }
-            return <MsBar
-          messageBarType={ MessageBarType.error }
-          onDismiss={ (e) => { this.onCloseClick(e); return false; } }>
-          {messageTitle} - {this.props.message}</MsBar>
+            return <MsBar messageBarType={ this.props.messageType } onDismiss={ (e) => { this.onCloseClick(e); return false; } }>
+                {Utils.capitalize(MessageBarType[this.props.messageType]) } - {this.props.message}
+            </MsBar>;
         }
     }
 }

@@ -1,8 +1,3 @@
-export enum MessageType {
-    Error,
-    Success,
-    Info
-};
 
 export enum OperationType {
     Create,

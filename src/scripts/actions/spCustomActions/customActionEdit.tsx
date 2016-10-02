@@ -6,8 +6,10 @@ import * as React from 'react';
 
 import Utils from './../common/utils';
 import { CustomActionItemStyles as styles, ButtonsStyle as buttonsStyle } from './../common/Styles';
-import { ViewMode, MessageType } from './../common/enums';
-import SpAssetPicker  from './../common/spAssetPicker'
+import { ViewMode } from './../common/enums';
+import SpAssetPicker  from './../common/spAssetPicker';
+import {  MessageBarType } from './../../../../node_modules/office-ui-fabric-react/lib/index';
+
 
 interface CustomActionEditProps {
     item?: ICustomAction,
@@ -61,11 +63,11 @@ export default class CustomActionEdit extends React.Component<CustomActionEditPr
         let onSuccess: Function = Function.createDelegate(this, function (sender: any, err: any) {
             this.props.changeModefunction();
             this.props.reloadCActions();
-            this.props.showMessage(MessageType.Success, 'The Custom action has been successfully created.');
+            this.props.showMessage(MessageBarType.success, 'The Custom action has been successfully created.');
         });
         let onError: Function = Function.createDelegate(this, function (a: any, b: any) {
             console.log(b.get_message());
-            this.props.showMessage(MessageType.Error, 'An error occured while created a new Custom Action.');
+            this.props.showMessage(MessageBarType.error, 'An error occured while created a new Custom Action.');
         });
         ctx.executeQueryAsync(onSuccess, onError);
     }
@@ -99,7 +101,7 @@ export default class CustomActionEdit extends React.Component<CustomActionEditPr
         }
     }
     private onCancelClick(e: any) {
-        this.props.showMessage(MessageType.Error, '');
+        this.props.showMessage(MessageBarType.error, '');
         this.props.changeModefunction();
     }
     private onSaveClick(e: any) {
@@ -115,11 +117,11 @@ export default class CustomActionEdit extends React.Component<CustomActionEditPr
         let onSuccess: Function = Function.createDelegate(this, function (sender: any, err: any) {
             this.props.changeModefunction();
             this.props.reloadCActions();
-            this.props.showMessage(MessageType.Success, 'The Custom action has been successfully updated.');
+            this.props.showMessage(MessageBarType.success, 'The Custom action has been successfully updated.');
         });
         let onError: Function = Function.createDelegate(this, function (a: any, b: any) {
             console.log(b.get_message());
-            this.props.showMessage(MessageType.Error, 'An error occured while created a new Custom Action.');
+            this.props.showMessage(MessageBarType.error, 'An error occured while created a new Custom Action.');
         });
         ctx.executeQueryAsync(onSuccess, onError);
     }

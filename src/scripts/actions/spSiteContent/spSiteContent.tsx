@@ -5,12 +5,11 @@
 import * as React from 'react';
 import WorkingOnIt from './../common/WorkingOnIt';
 import MessageBar from './../common/MessageBar';
-import { MessageType } from './../common/enums';
 import { SpSiteContentStyles as styles } from './../common/Styles'
 import SpSiteContentItem  from './spSiteContentItem';
 
 import {
-    Toggle
+    Checkbox, MessageBarType
 } from './../../../../node_modules/office-ui-fabric-react/lib/index';
 
 interface SpSiteContentProps {
@@ -20,7 +19,7 @@ interface SpSiteContentState {
     isWorkingOnIt: boolean,
     siteLists: Array<ISiteContent>,
     showMessage: boolean,
-    messageType: MessageType,
+    messageType: MessageBarType,
     message: string,
     showHidden: boolean,
     openInNewTab: boolean
@@ -33,7 +32,7 @@ export default class SpSiteContent extends React.Component<SpSiteContentProps, S
             isWorkingOnIt: true,
             siteLists: [],
             showMessage: false,
-            messageType: MessageType.Info,
+            messageType: MessageBarType.info,
             message: '',
             showHidden: true,
             openInNewTab: true
@@ -90,7 +89,7 @@ export default class SpSiteContent extends React.Component<SpSiteContentProps, S
             'Not showing hidden lists and libraries.';
         this.setState({
             showHidden: showHiddenNewVal,
-            messageType: MessageType.Info,
+            messageType: MessageBarType.info,
             showMessage: true,
             message: messageText
         } as SpSiteContentState);
@@ -102,7 +101,7 @@ export default class SpSiteContent extends React.Component<SpSiteContentProps, S
             'List and libraries links will open in the current tab.';
         this.setState({
             openInNewTab: openInNewTabNewVal,
-            messageType: MessageType.Info,
+            messageType: MessageBarType.info,
             showMessage: true,
             message: messageText
         } as SpSiteContentState);
@@ -110,7 +109,7 @@ export default class SpSiteContent extends React.Component<SpSiteContentProps, S
     private componentDidMount() {
         this.getLists();
     }
-    private testingTogggle(toggle:any){
+    private testingTogggle(toggle: any) {
         debugger;
         console.log(toggle);
         return false;
@@ -134,18 +133,17 @@ export default class SpSiteContent extends React.Component<SpSiteContentProps, S
                     <MessageBar message={this.state.message} messageType={this.state.messageType} showMessage={this.state.showMessage} />
                     <div style={styles.checksContainer}>
                         <div style={styles.check}>
-                            <Toggle
-                                defaultChecked={ true }
-                                label='Enabled and checked'
-                                onText='On'
-                                offText='Off'
-                                onChanged={(e) => { debugger; this.testingTogggle(e); console.log(e); return false; } } />
-                            <label htmlFor="showHiddenInput">Show hidden</label>
-                            <input type="checkbox" id="showHiddenInput" checked={this.state.showHidden} onChange={this.showHidden.bind(this) }/>
+                            <Checkbox
+                                label='Show hidden'
+                                defaultChecked={ this.state.showHidden }
+                                onChange={ this.showHidden.bind(this) } />
+
                         </div>
                         <div style={styles.lastCheck}>
-                            <label htmlFor="openInNewTabInput">Open links in new tab</label>
-                            <input type="checkbox" id="openInNewTabInput" checked={this.state.openInNewTab} onChange={this.openInNewTab.bind(this) }/>
+                            <Checkbox
+                                label='Show hidden'
+                                defaultChecked={ this.state.openInNewTab }
+                                onChange={ this.openInNewTab.bind(this) } />
                         </div>
                     </div>
                     <ul style={styles.list}>

@@ -1,10 +1,13 @@
 
 export default class Utils {
-    public static mergeObjects(...objs : any[]) : any {
-        let extended:any = {};
-        let deep:boolean = false;
-        let i:number = 0;
-        let length:number = arguments.length;
+    public static capitalize(srt: string): string {
+        return srt.charAt(0).toUpperCase() + srt.slice(1);
+    }
+    public static mergeObjects(...objs: any[]): any {
+        let extended: any = {};
+        let deep: boolean = false;
+        let i: number = 0;
+        let length: number = arguments.length;
 
         // Check if a deep merge
         if (Object.prototype.toString.call(arguments[0]) === '[object Boolean]') {
@@ -13,7 +16,7 @@ export default class Utils {
         }
 
         // Merge the object into the extended object
-        var merge = function (obj:any) {
+        var merge = function (obj: any) {
             for (var prop in obj) {
                 if (Object.prototype.hasOwnProperty.call(obj, prop)) {
                     // If deep merge and property is an object, merge properties

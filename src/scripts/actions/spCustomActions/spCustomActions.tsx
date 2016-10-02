@@ -6,10 +6,11 @@ import * as React from 'react';
 import WorkingOnIt from './../common/WorkingOnIt';
 import MessageBar from './../common/MessageBar';
 import Utils from './../common/utils';
-import { MessageType, ViewMode } from './../common/enums';
+import { ViewMode } from './../common/enums';
 import SpCustomActionItem from './customActionItem'
 import SpCustomActionEdit from './customActionEdit'
-import { SpCustomActionsStyles as styles, ButtonsStyle as buttonsStyle } from './../common/Styles'
+import { SpCustomActionsStyles as styles, ButtonsStyle as buttonsStyle } from './../common/Styles';
+import {  MessageBarType } from './../../../../node_modules/office-ui-fabric-react/lib/index';
 
 interface SpCustomActionsProps {
     closeWindowFunction: any
@@ -17,7 +18,7 @@ interface SpCustomActionsProps {
 interface SpCustomActionsState {
     isWorkingOnIt: boolean,
     showMessage: boolean,
-    messageType: MessageType,
+    messageType: MessageBarType,
     mode: ViewMode,
     message: string,
     customActions: Array<ICustomAction>
@@ -29,7 +30,7 @@ export default class SpCustomActions extends React.Component<SpCustomActionsProp
         this.state = {
             isWorkingOnIt: true,
             showMessage: false,
-            messageType: MessageType.Info,
+            messageType: MessageBarType.info,
             mode: ViewMode.View,
             message: '',
             customActions: []
@@ -40,7 +41,7 @@ export default class SpCustomActions extends React.Component<SpCustomActionsProp
             isWorkingOnIt: show
         } as SpCustomActionsState);
     }
-    private showMessage(messageType: MessageType, message: string): void {
+    private showMessage(messageType: MessageBarType, message: string): void {
         this.setState({ messageType: messageType, message: message, showMessage: true } as SpCustomActionsState)
     }
 

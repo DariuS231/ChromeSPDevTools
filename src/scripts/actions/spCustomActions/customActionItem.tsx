@@ -4,8 +4,9 @@
 
 import * as React from 'react';
 import { CustomActionItemStyles as styles, ButtonsStyle as buttonsStyle } from './../common/Styles';
-import { ViewMode, MessageType } from './../common/enums';
+import { ViewMode } from './../common/enums';
 import Utils from './../common/utils';
+import {  MessageBarType } from './../../../../node_modules/office-ui-fabric-react/lib/index';
 
 import CustomActionDisplay  from './customActionDisplay';
 import CustomActionEdit  from './customActionEdit';
@@ -41,11 +42,11 @@ export default class CustomActionItem extends React.Component<CustomActionItemPr
             let onSuccess: Function = Function.createDelegate(this, function (sender: any, err: any) {
                 this.props.reloadCActions();
                 this.props.workingOnIt(false);
-                 this.props.showMessage(MessageType.Success, 'The Custom action has been successfully deleted.');
+                 this.props.showMessage(MessageBarType.success, 'The Custom action has been successfully deleted.');
             });
             let onError: Function = Function.createDelegate(this, function (a: any, b: any) {
                 console.log(b.get_message());
-                 this.props.showMessage(MessageType.Error, 'An error ocurred while deleting the Custom Action.');
+                 this.props.showMessage(MessageBarType.error, 'An error ocurred while deleting the Custom Action.');
             });
 
             ctx.executeQueryAsync(onSuccess, onError);

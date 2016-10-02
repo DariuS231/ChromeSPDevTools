@@ -13,7 +13,8 @@ import MessageBar from './../common/MessageBar';
 import Utils from './../common/utils';
 
 import { SpFeaturesStyles as spFeatStyles } from './../common/Styles'
-import { MessageType, FeatureOperationType } from './../common/enums';
+import { FeatureOperationType } from './../common/enums';
+import {  MessageBarType } from './../../../../node_modules/office-ui-fabric-react/lib/index';
 
 interface SpFeatureProps {
     showOnlyIconsInButtons:boolean,
@@ -26,7 +27,7 @@ interface SpFeatureState {
     webFeatures: Array<IFeature>,
     siteFeatures: Array<IFeature>,
     showMessage: boolean,
-    messageType: MessageType,
+    messageType: MessageBarType,
     message: string
 }
 
@@ -44,7 +45,7 @@ export default class SpFeatures extends React.Component<SpFeatureProps, SpFeatur
             siteFeatures: [],
             isWorkingOnIt: true,
             showMessage: false,
-            messageType: MessageType.Info,
+            messageType: MessageBarType.info,
             message: ''
         } as SpFeatureState;
         this.reloadPage = false;
@@ -52,7 +53,7 @@ export default class SpFeatures extends React.Component<SpFeatureProps, SpFeatur
 
     private spErrorHandler(sender: any, err: any) {
         console.log(err.get_message());
-        this.setState({ isWorkingOnIt: false, messageType: MessageType.Error, message: 'An error ocurred, check the log for more information.', showMessage: true } as SpFeatureState)
+        this.setState({ isWorkingOnIt: false, messageType: MessageBarType.error, message: 'An error ocurred, check the log for more information.', showMessage: true } as SpFeatureState)
     }
     private executeChanges(opType: FeatureOperationType, msg: string) {
         this.ctx.get_web().update();
@@ -99,9 +100,9 @@ export default class SpFeatures extends React.Component<SpFeatureProps, SpFeatur
             });
 
             if (featureType === SP.FeatureDefinitionScope.none)
-                that.setState({ webFeatures: items, messageType: MessageType.Success, message: msg, showMessage: (opType !== FeatureOperationType.None)} as SpFeatureState);
+                that.setState({ webFeatures: items, messageType: MessageBarType.success, message: msg, showMessage: (opType !== FeatureOperationType.None)} as SpFeatureState);
             else
-                that.setState({ siteFeatures: items, messageType: MessageType.Success, message: msg, showMessage: (opType !== FeatureOperationType.None), isWorkingOnIt: false} as SpFeatureState);
+                that.setState({ siteFeatures: items, messageType: MessageBarType.success, message: msg, showMessage: (opType !== FeatureOperationType.None), isWorkingOnIt: false} as SpFeatureState);
          })
     }
 

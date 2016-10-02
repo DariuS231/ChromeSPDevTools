@@ -8,8 +8,9 @@ import NewKeyValueItem from './../common/newKeyValueItem';
 import KeyValueItem from './../common/KeyValueItem';
 import WorkingOnIt from './../common/WorkingOnIt';
 import MessageBar from './../common/MessageBar';
-import { MessageType, OperationType } from './../common/enums';
+import { OperationType } from './../common/enums';
 import { SpPropertyBagStyles as spPropStyles } from './../common/Styles'
+import {  MessageBarType } from './../../../../node_modules/office-ui-fabric-react/lib/index';
 
 interface SpPropertyBagProps {
     showOnlyIconsInButtons:boolean,
@@ -21,7 +22,7 @@ interface SpPropertyBagState {
     noPermissionsMessage: string,
     webProperties: Array<IKeyValue>,
     showMessage: boolean,
-    messageType: MessageType,
+    messageType: MessageBarType,
     message: string
 }
 
@@ -38,7 +39,7 @@ export default class SpPropertyBag extends React.Component<SpPropertyBagProps, S
             webProperties: [],
             isWorkingOnIt: true,
             showMessage: false,
-            messageType: MessageType.Info,
+            messageType: MessageBarType.info,
             message: ''
         } as SpPropertyBagState;
         this.reloadPage = false;
@@ -63,7 +64,7 @@ export default class SpPropertyBag extends React.Component<SpPropertyBagProps, S
     }
     private spErrorHandler(sender: any, err: any) {
         console.log(err.get_message());
-        this.setState({ isWorkingOnIt: false, messageType: MessageType.Error, message: 'An error ocurred, check the log for more information.', showMessage: true } as SpPropertyBagState)
+        this.setState({ isWorkingOnIt: false, messageType: MessageBarType.error, message: 'An error ocurred, check the log for more information.', showMessage: true } as SpPropertyBagState)
     }
     private executeChanges(opType: OperationType, msg: string) {
         this.ctx.get_web().update();
@@ -98,7 +99,7 @@ export default class SpPropertyBag extends React.Component<SpPropertyBagProps, S
             items.sort(function (a, b) {
                 return a.key.localeCompare(b.key);
             });
-            this.setState({ webProperties: items, isWorkingOnIt: false, messageType: MessageType.Success, message: msg, showMessage: (opType !== OperationType.None) } as SpPropertyBagState);
+            this.setState({ webProperties: items, isWorkingOnIt: false, messageType: MessageBarType.success, message: msg, showMessage: (opType !== OperationType.None) } as SpPropertyBagState);
         });
         let onError: Function = Function.createDelegate(this, this.spErrorHandler);
         this.ctx.executeQueryAsync(onSuccess, onError);
