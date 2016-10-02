@@ -3,7 +3,6 @@
 /// <reference path="./../common/enums.ts"/>
 import * as React from 'react';
 import {MessageType} from './enums'
-import { MessageBarStyles as styles } from './Styles'
 
 interface MessageBarProps {
     messageType: MessageType,
@@ -26,47 +25,62 @@ export default class MessageBar extends React.Component<MessageBarProps, Message
         this.setState({
             showMessage: this.props.showMessage
         });
-        if (this.props.showMessage) {
-            this.startShowTimeOut();
-        }
-    }
-    startShowTimeOut() {
-        setTimeout(function () {
-            this.setState({ showMessage: false });
-        }.bind(this), 5000);
     }
     componentWillReceiveProps(nextProps: any) {
         this.setState({
             showMessage: nextProps.showMessage
         });
-        if (nextProps.showMessage) {
-            this.startShowTimeOut();
-        }
+    }
+    private onCloseClick(e: any) {
+        e.preventDefault();
+        this.setState({
+            showMessage: false
+        });
+        return false;
     }
     public render() {
         if (!this.state.showMessage) {
             return <div></div>;
         } else {
-            let messageTitle: string;
-            let containerStyle: any;
+            let messageTitle: string = '';
+            let messageBarClass: string = '';
+            let messageBarIcon: string = '';
             switch (this.props.messageType) {
                 case MessageType.Error:
-                    containerStyle = styles.Error
-                    messageTitle = "Error"
+                    messageTitle = "Error";
+                    messageBarClass = 'ms-MessageBar--error';
+                    messageBarIcon = 'ms-Icon--ErrorBadge';
                     break;
                 case MessageType.Success:
-                    containerStyle = styles.Success
                     messageTitle = "Success"
+                    messageBarClass = 'ms-MessageBar--success';
+                    messageBarIcon = 'ms-Icon--Completed';
                     break;
                 case MessageType.Info:
-                    containerStyle = styles.Info
                     messageTitle = "Info"
+                    messageBarIcon = 'ms-Icon--Info';
                     break;
             }
-            return <div style={containerStyle}>
-                <span style={styles.span}>
-                    <strong>{messageTitle} </strong>{this.props.message}
-                </span>
+            return <div className={"ms-MessageBar ms-MessageBar ms-MessageBar-multiline " + messageBarClass }>
+                <div className="ms-MessageBar-content">
+                    <div className="ms-MessageBar-icon">
+                        <i className={"ms-Icon " + messageBarIcon}></i>
+                    </div>
+                    <div className="ms-MessageBar-actionables">
+                        <button title="Close" className="ms-MessageBar-dismissal ms-Button ms-Button--icon" onClick={this.onCloseClick.bind(this) }>
+                            <span className="ms-Button-icon">
+                                <i className="ms-Icon ms-Icon--Cancel"></i>
+                            </span>
+                            <span className="ms-Button-label">
+                            </span>
+                        </button>
+                        <div className="ms-MessageBar-text">
+                            <span className="ms-MessageBar-innerTextPadding">
+                                {messageTitle} - {this.props.message}
+                            </span>
+                        </div>
+                    </div>
+                </div>
             </div>
         }
     }

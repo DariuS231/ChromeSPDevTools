@@ -24,7 +24,7 @@ export default class SpCustomModalWrapper extends React.Component<SpCustomModalW
         return <div style={styles.modalContainerDivStyles}>
          <div style={divModalStyles}>
                 <div>
-                    <span className="chrome-dev-tool-ms-font-xxl chrome-dev-tool-ms-fontColor-themePrimary chrome-dev-tool-ms-fontWeight-semibold">{this.props.modalDialogTitle}</span>
+                    <span className="ms-font-xxl ms-fontColor-themePrimary ms-fontWeight-semibold">{this.props.modalDialogTitle}</span>
                     <a href="javascript:void(0)" style={styles.linkBtnStyles} onClick={this.closeBtnClick.bind(this) }>x</a>
                     <hr style={{ marginBottom: 0 }}/>
                 </div>
