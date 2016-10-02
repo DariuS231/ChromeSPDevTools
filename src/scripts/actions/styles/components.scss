@@ -1,1 +1,160 @@
-@import "./UIFabric";
+@import "./node_modules/office-ui-fabric-react/dist/sass/Fabric";
+
+$focusedBorderColor: $ms-color-neutralSecondary;
+
+$bodyBackgroundColor: $ms-color-white;
+$bodyForegroundColor: $ms-color-neutralPrimary;
+
+/* Primary item colors, used for Nav, DetailsList headers, Pivots */
+$unselectedBackgroundColor: $bodyBackgroundColor;
+$unselectedForegroundColor: $bodyForegroundColor;
+
+$disabledBackgroundColor: $bodyBackgroundColor;
+$disabledForegroundColor: $ms-color-neutralTertiaryAlt;
+
+$unselectedHoverBackgroundColor: $ms-color-neutralLighterAlt;
+$unselectedHoverForegroundColor: $bodyForegroundColor;
+
+$unselectedActiveBackgroundColor: $ms-color-neutralLight;
+$unselectedActiveForegroundColor: $bodyForegroundColor;
+
+$selectedBackgroundColor: $ms-color-neutralLighter;
+$selectedForegroundColor: $ms-color-neutralPrimary;
+
+$selectedHoverBackgroundColor: $ms-color-neutralLight;
+$selectedHoverForegroundColor: $ms-color-neutralDark;
+
+$selectedActiveBackgroundColor: $ms-color-neutralTertiaryAlt;
+$selectedActiveForegroundColor: $ms-color-neutralPrimary;
+
+$dividerColor: $ms-color-neutralLight;
+
+
+@mixin focus-border($padding: 0, $color: $focusedBorderColor) {
+    &::-moz-focus-inner {
+        // Clear the focus border in Firefox. Reference: http://stackoverflow.com/a/199319/1436671
+        border: 0;
+    }
+    & {
+        // Clear browser specific focus styles and use transparent as placeholder for focus style
+        outline: transparent;
+        // It is MUST because the pseudo-element is absolute position.
+        position: relative;
+    }
+    .ms-Fabric.is-focusVisible &:focus:after {
+        // Wrap the parent element with $padding pixels.
+        content: '';
+        position: absolute;
+        top: $padding;
+        right: $padding;
+        bottom: $padding;
+        left: $padding;
+        // Make the content not respond to mouse/touch event. Reference: https://css-tricks.com/almanac/properties/p/pointer-events/
+        pointer-events: none;
+        // Add focus border with $color
+        border: 1px solid $color;
+    }
+}
+
+.ms-ListGridExample .ms-List-page {
+    overflow: hidden;
+    font-size: 0;
+}
+
+.ms-ListGridExample .ms-List-surface {
+    position: relative;
+}
+
+.ms-ListGridExample-tile {
+    text-align: center;
+    outline: none;
+    position: relative;
+    float: left;
+    background: $ms-color-neutralLighter;
+}
+
+.ms-ListGridExample-sizer {
+    padding-bottom: 100%;
+}
+
+.msListGridExample-padder {
+    position: absolute;
+    left: 2px;
+    top: 2px;
+    right: 2px;
+    bottom: 2px;
+}
+
+.ms-Fabric.is-focusVisible .ms-ListGridExample-tile:focus:after {
+    content: '';
+    position: absolute;
+    left: 2px;
+    right: 2px;
+    top: 2px;
+    bottom: 2px;
+    box-sizing: border-box;
+    border: 1px solid $ms-color-white;
+}
+
+.ms-ListGridExample-label {
+    background: rgba(0, 0, 0, .3);
+    color: #ffffff;
+    padding: 10px;
+    position: absolute;
+    bottom: 0;
+    font-size: 12px;
+    left: 0;
+    width: 100%;
+    font-size: $ms-font-size-s;
+    box-sizing: border-box;
+}
+
+.ms-ListGridExample-image {
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.ms-ListBasicExample-itemCell {
+    @include focus-border();
+    min-height: 54px;
+    padding: 10px;
+    box-sizing: border-box;
+    border-bottom: 1px solid $dividerColor;
+    display: flex;
+}
+
+.ms-ListBasicExample-itemCell:hover {
+    background: #EEE;
+}
+
+.ms-ListBasicExample-itemImage {
+    flex-shrink: 0;
+}
+
+.ms-ListBasicExample-itemContent {
+    @include margin-left(10px);
+    overflow: hidden;
+    flex-grow: 1;
+}
+
+.ms-ListBasicExample-itemName {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.ms-ListBasicExample-itemIndex {
+    font-size: $ms-font-size-s;
+    color: $ms-color-neutralTertiary;
+    margin-bottom: 10px;
+}
+
+.ms-ListBasicExample-chevron {
+    align-self: center;
+    @include margin-left(10px);
+    color: $ms-color-neutralTertiary;
+    font-size: $ms-font-size-l;
+    flex-shrink: 0;
+}
