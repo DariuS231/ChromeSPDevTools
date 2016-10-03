@@ -22,7 +22,7 @@ export class AppBase {
         style.type = 'text/css';
         style.rel = 'stylesheet';
         style.id = this.styleLinkId;
-        style.href = 'https://appsforoffice.microsoft.com/fabric/fabric-core/4.0.0/fabric.min.css';
+        style.href = 'https://rawgit.com/DariuS231/ChromeSPDevTools/fabricui/dist/actions/styles/bundle.css';
         head.appendChild(style);
     }
     remove = (): void => {

@@ -9,7 +9,14 @@ import { SpSiteContentStyles as styles } from './../common/Styles'
 import SpSiteContentItem  from './spSiteContentItem';
 
 import {
-    Checkbox, MessageBarType
+    Checkbox,
+    MessageBarType,
+    FocusZone,
+    FocusZoneDirection,
+    TextField,
+    Image,
+    ImageFit,
+    List
 } from './../../../../node_modules/office-ui-fabric-react/lib/index';
 
 interface SpSiteContentProps {
@@ -127,7 +134,6 @@ export default class SpSiteContent extends React.Component<SpSiteContentProps, S
                 });
             }
 
-            var siteContent = lists.map((list: ISiteContent, index: number) => { return (<SpSiteContentItem item={list} key={index} openInNewTab={this.state.openInNewTab} />); });
             return (
                 <div style={styles.contentStyles}>
                     <MessageBar message={this.state.message} messageType={this.state.messageType} showMessage={this.state.showMessage} />
@@ -146,9 +152,26 @@ export default class SpSiteContent extends React.Component<SpSiteContentProps, S
                                 onChange={ this.openInNewTab.bind(this) } />
                         </div>
                     </div>
-                    <ul style={styles.list}>
-                        {siteContent}
-                    </ul>
+                    <FocusZone direction={ FocusZoneDirection.vertical }>
+                        <List
+                            items={ lists }
+                            onRenderCell={ (item, index) => (
+                                <div className='ms-ListBasicExample-itemCell' data-is-focusable={ true }>
+                                    <Image
+                                        className='ms-ListBasicExample-itemImage'
+                                        src={ item.imageUrl }
+                                        width={ 25 }
+                                        height={ 25 }
+                                        />
+                                    <div className='ms-ListBasicExample-itemContent'>
+                                        <div className='ms-ListBasicExample-itemName ms-font-l'>{ item.title }</div>
+                                        <div className='ms-ListBasicExample-itemIndex'>{ `${item.itemCount} Items` }</div>
+                                    </div>
+
+                                </div>
+                            ) }
+                            />
+                    </FocusZone>
                 </div>);
 
         }
