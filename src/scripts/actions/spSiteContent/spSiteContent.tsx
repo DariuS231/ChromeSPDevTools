@@ -5,8 +5,6 @@
 import * as React from 'react';
 import WorkingOnIt from './../common/WorkingOnIt';
 import MessageBar from './../common/MessageBar';
-import { SpSiteContentStyles as styles } from './../common/Styles'
-import SpSiteContentItem  from './spSiteContentItem';
 
 import {
     Checkbox,
@@ -133,21 +131,20 @@ export default class SpSiteContent extends React.Component<SpSiteContentProps, S
                     return !list.hidden;
                 });
             }
-
+            let target = this.state.openInNewTab ? '_blank' : '_self';
             return (
-                <div style={styles.contentStyles}>
+                <div className="action-container sp-siteContent">
                     <MessageBar message={this.state.message} messageType={this.state.messageType} showMessage={this.state.showMessage} />
-                    <div style={styles.checksContainer}>
-                        <div style={styles.check}>
+                    <div className="checkBoxes-container">
+                        <div>
                             <Checkbox
                                 label='Show hidden'
                                 defaultChecked={ this.state.showHidden }
                                 onChange={ this.showHidden.bind(this) } />
-
                         </div>
-                        <div style={styles.lastCheck}>
+                        <div>
                             <Checkbox
-                                label='Show hidden'
+                                label='Open in new Tab'
                                 defaultChecked={ this.state.openInNewTab }
                                 onChange={ this.openInNewTab.bind(this) } />
                         </div>
@@ -164,10 +161,12 @@ export default class SpSiteContent extends React.Component<SpSiteContentProps, S
                                         height={ 25 }
                                         />
                                     <div className='ms-ListBasicExample-itemContent'>
-                                        <div className='ms-ListBasicExample-itemName ms-font-l'>{ item.title }</div>
+                                        <a title={item.title} alt={item.title} href={item.listUrl} className='ms-ListBasicExample-itemName ms-font-l ms-fontColor-themePrimary ms-fontWeight-semibold' target={target}>{ item.title }</a>
                                         <div className='ms-ListBasicExample-itemIndex'>{ `${item.itemCount} Items` }</div>
                                     </div>
-
+                                    <div className="ms-ListItem-actions">
+                                        <a target={target} href={ item.settingsUrl} className="ms-ListItem-action"><i className="ms-Icon ms-Icon--Settings"></i></a>
+                                    </div>
                                 </div>
                             ) }
                             />

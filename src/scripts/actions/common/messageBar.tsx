@@ -40,7 +40,7 @@ export default class MessageBar extends React.Component<MessageBarProps, Message
     }
     public render() {
         if (!this.state.showMessage) {
-            return <div></div>;
+            return null;
         } else {
             return <MsBar messageBarType={ this.props.messageType } onDismiss={ (e) => { this.onCloseClick(e); return false; } }>
                 {Utils.capitalize(MessageBarType[this.props.messageType]) } - {this.props.message}

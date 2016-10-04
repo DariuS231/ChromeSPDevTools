@@ -163,3 +163,24 @@ $dividerColor: $ms-color-neutralLight;
         }
     }
 }
+
+.action-container{
+    overflow: auto;
+    height: 90%;
+    &.sp-siteContent{
+        .checkBoxes-container{
+            text-align: right;
+            margin-top: 6.5px;
+            >div{
+                display: inline-block;
+                &:first-child{
+                    margin-right: 20px;
+                }
+            }
+        }
+    }
+}
+
+.working-on-it-wrapper{
+    
+}
