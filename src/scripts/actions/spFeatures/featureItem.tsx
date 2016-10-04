@@ -42,10 +42,11 @@ export default class FeatureItem extends React.Component<FeatureItemProps, Featu
         }
         
         //Toggle component to activate/deactive, but I can't associate an event to the selection
-        //let activateBtn: any = (<Toggle defaultChecked={ true } disabled={ false } label='' onText='On' offText='Off'  onChanged='{this.onActionClick.bind(this)}'/>);
-        //let deactivateBtn: any = (<Toggle defaultChecked={ false } disabled={ false } label='' onText='On' offText='Off' onChanged='{this.onActionClick.bind(this)}'/>);
-        let activateBtn: any = (<input type="button"  onClick={this.onActionClick.bind(this) } style={actBtnStyles} title="Activate" value={actBtnText}/>);
-        let deactivateBtn: any = (<input type="button" onClick={this.onActionClick.bind(this) } style={deactBtnStyles} title="Deactivate" value={deactBtnText}/>);
+          
+        let activateBtn: any = (<Toggle  checked={ false }  label='' onText='On' offText='Off' onChanged={this.onActionClick.bind(this)} />);
+        let deactivateBtn: any = (<Toggle checked={ true }  label='' onText='On' offText='Off'  onChanged={this.onActionClick.bind(this)} />);
+        //let activateBtn: any = (<input type="button"  onClick={this.onActionClick.bind(this) } style={actBtnStyles} title="Activate" value={actBtnText}/>);
+        //let deactivateBtn: any = (<input type="button" onClick={this.onActionClick.bind(this) } style={deactBtnStyles} title="Deactivate" value={deactBtnText}/>);
 
 
 
