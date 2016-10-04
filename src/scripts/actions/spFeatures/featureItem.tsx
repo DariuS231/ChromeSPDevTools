@@ -5,6 +5,11 @@
 import * as React from 'react';
 import { KeyValueItemStyles as kviStyles, ButtonsStyle as buttonsStyle  } from '../common/Styles'
 import { SpFeaturesStyles as featureStyles } from '../common/Styles'
+
+import {
+    Toggle
+} from './../../../../node_modules/office-ui-fabric-react/lib/index';
+
 interface FeatureItemState {
 }
 
@@ -35,8 +40,14 @@ export default class FeatureItem extends React.Component<FeatureItemProps, Featu
             actBtnText = deactBtnText = '';
             actBtnStyles['backgroundPosition']  = deactBtnStyles['backgroundPosition'] =  '50% 50%';
         }
+        
+        //Toggle component to activate/deactive, but I can't associate an event to the selection
+        //let activateBtn: any = (<Toggle defaultChecked={ true } disabled={ false } label='' onText='On' offText='Off'  onChanged='{this.onActionClick.bind(this)}'/>);
+        //let deactivateBtn: any = (<Toggle defaultChecked={ false } disabled={ false } label='' onText='On' offText='Off' onChanged='{this.onActionClick.bind(this)}'/>);
         let activateBtn: any = (<input type="button"  onClick={this.onActionClick.bind(this) } style={actBtnStyles} title="Activate" value={actBtnText}/>);
         let deactivateBtn: any = (<input type="button" onClick={this.onActionClick.bind(this) } style={deactBtnStyles} title="Deactivate" value={deactBtnText}/>);
+
+
 
         let featureAction = (this.props.item.activated === true) ? activateBtn : deactivateBtn
 
@@ -45,7 +56,7 @@ export default class FeatureItem extends React.Component<FeatureItemProps, Featu
                 <div style={featureStyles.featureLogo}>
                     <img src={this.props.item.logo} alt="" data-themekey="#"/>
                 </div>
-                <div>
+                <div className='ms-font-m ms-fontColor-themePrimary'>
                     {this.props.item.name}
                 </div>
             </th >

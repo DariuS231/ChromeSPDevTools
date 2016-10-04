@@ -14,7 +14,10 @@ import Utils from './../common/utils';
 
 import { SpFeaturesStyles as spFeatStyles } from './../common/Styles'
 import { FeatureOperationType } from './../common/enums';
-import {  MessageBarType } from './../../../../node_modules/office-ui-fabric-react/lib/index';
+
+import {
+    MessageBarType
+} from './../../../../node_modules/office-ui-fabric-react/lib/index';
 
 interface SpFeatureProps {
     showOnlyIconsInButtons:boolean,
@@ -213,8 +216,10 @@ export default class SpFeatures extends React.Component<SpFeatureProps, SpFeatur
                 });
                 return (<div style={spFeatStyles.contentStyles}>
                     <MessageBar message={this.state.message} messageType={this.state.messageType} showMessage={this.state.showMessage} />
+
+
                     <div style={spFeatStyles.tableContainerWeb}>
-                        <h3><b>Web Features</b></h3>
+                        <div className='ms-font-l ms-fontWeight-semibold'>Web Features</div>
                         <table style={spFeatStyles.tableStyles}>                            
                             <tbody>
                                 {webProps}
@@ -222,7 +227,7 @@ export default class SpFeatures extends React.Component<SpFeatureProps, SpFeatur
                         </table>                 
                     </div>
                     <div style={spFeatStyles.tableContainerSite}>
-                        <h3><b>Site Features</b></h3>
+                        <div className='ms-font-l ms-fontWeight-semibold'>Site Features</div>
                         <table style={spFeatStyles.tableStyles}>                            
                             <tbody>
                                 {siteProps}
