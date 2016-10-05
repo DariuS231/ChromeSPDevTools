@@ -104,58 +104,6 @@ export let NewKeyValueItemStyles = {
     }
 }
 
-
-export let WorkingOnItStyles = {
-    workingOnItContStyles: {
-        overflow: 'auto',
-        height: '90%',
-        width: '100%',
-        textAlign: 'center',
-        verticalAlign: 'middle',
-        marginTop: '6.5px'
-    },
-    workingOnItItemsStyles: {
-        display: 'inline-block',
-        verticalAlign: 'middle',
-        margin: '20px'
-    }
-};
-
-export let SpCustomModalWrapperStyles = {
-    hidden: {
-        display: 'none',
-    },
-    modalContainerDivStyles: {
-        width: '100%',
-        position: 'absolute',
-        backgroundColor: 'rgba(0,0,0,0.5)',
-        top: 0,
-        bottom: 0,
-        zIndex: 1000
-    },
-    divModalStyles: {
-        background: 'white',
-        width: '60%',
-        height: '94%',
-        margin: '10px auto',
-        position: 'relative',
-        padding: '10px',
-        borderRadius: '5px'
-    },
-    linkBtnStyles: {
-        top: 0,
-        right: 0,
-        position: 'absolute',
-        height: '25px',
-        width: '25px',
-        backgroundColor: 'lightgrey',
-        color: 'black',
-        textAlign: 'center',
-        verticalAlign: 'middle',
-        fontSize: 'larger',
-        borderRadius: '0 5px'
-    }
-}
 export let SpCustomActionsStyles: any = {
     contentStyles: contentStyles,
     list: listStyle

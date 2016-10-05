@@ -127,6 +127,9 @@ $dividerColor: $ms-color-neutralLight;
     @include margin-left(10px);
     overflow: hidden;
     flex-grow: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .ms-ListBasicExample-itemName {
@@ -164,16 +167,16 @@ $dividerColor: $ms-color-neutralLight;
     }
 }
 
-.action-container{
+.action-container {
     overflow: auto;
     height: 90%;
-    &.sp-siteContent{
-        .checkBoxes-container{
+    &.sp-siteContent {
+        .checkBoxes-container {
             text-align: right;
             margin-top: 6.5px;
-            >div{
+            >div {
                 display: inline-block;
-                &:first-child{
+                &:first-child {
                     margin-right: 20px;
                 }
             }
@@ -181,6 +184,47 @@ $dividerColor: $ms-color-neutralLight;
     }
 }
 
-.working-on-it-wrapper{
-    
+.sp-siteContent i.ms-Icon.ms-Icon--Settings {
+    font-size: large;
+}
+
+.chrome-sp-dev-tool-wrapper {
+    width: 100%;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.498039);
+    top: 0px;
+    bottom: 0px;
+    z-index: 1000;
+    >.sp-dev-too-modal {
+        background: white;
+        width: 700px;
+        height: 94%;
+        margin: 10px auto;
+        position: relative;
+        padding: 10px;
+        >.sp-dev-tool-modal-header {
+            >hr {
+                margin-bottom: 0;
+            }
+            >a.sp-dev-tool-close-btn {
+                position: absolute;
+                right: 10px;
+            }
+        }
+    }
+}
+
+.working-on-it-wrapper {
+    overflow: auto;
+    height: 90%;
+    width: 100%;
+    text-align: center;
+    vertical-align: middle;
+    margin-top: 6.5px;
+    >img,
+    >h2 {
+        display: inline-block;
+        vertical-align: middle;
+        margin: 20px
+    }
 }

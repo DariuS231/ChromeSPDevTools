@@ -114,11 +114,6 @@ export default class SpSiteContent extends React.Component<SpSiteContentProps, S
     private componentDidMount() {
         this.getLists();
     }
-    private testingTogggle(toggle: any) {
-        debugger;
-        console.log(toggle);
-        return false;
-    }
     public render() {
         if (this.state.isWorkingOnIt) {
             return <WorkingOnIt/>
@@ -137,16 +132,10 @@ export default class SpSiteContent extends React.Component<SpSiteContentProps, S
                     <MessageBar message={this.state.message} messageType={this.state.messageType} showMessage={this.state.showMessage} />
                     <div className="checkBoxes-container">
                         <div>
-                            <Checkbox
-                                label='Show hidden'
-                                defaultChecked={ this.state.showHidden }
-                                onChange={ this.showHidden.bind(this) } />
+                            <Checkbox label='Show hidden' defaultChecked={ this.state.showHidden } onChange={ this.showHidden.bind(this) } />
                         </div>
                         <div>
-                            <Checkbox
-                                label='Open in new Tab'
-                                defaultChecked={ this.state.openInNewTab }
-                                onChange={ this.openInNewTab.bind(this) } />
+                            <Checkbox label='Open in new Tab' defaultChecked={ this.state.openInNewTab } onChange={ this.openInNewTab.bind(this) } />
                         </div>
                     </div>
                     <FocusZone direction={ FocusZoneDirection.vertical }>
@@ -154,18 +143,15 @@ export default class SpSiteContent extends React.Component<SpSiteContentProps, S
                             items={ lists }
                             onRenderCell={ (item, index) => (
                                 <div className='ms-ListBasicExample-itemCell' data-is-focusable={ true }>
-                                    <Image
-                                        className='ms-ListBasicExample-itemImage'
-                                        src={ item.imageUrl }
-                                        width={ 25 }
-                                        height={ 25 }
-                                        />
+                                    <Image className='ms-ListBasicExample-itemImage' src={ item.imageUrl } width={ 25 } height={ 25 } />
                                     <div className='ms-ListBasicExample-itemContent'>
-                                        <a title={item.title} alt={item.title} href={item.listUrl} className='ms-ListBasicExample-itemName ms-font-l ms-fontColor-themePrimary ms-fontWeight-semibold' target={target}>{ item.title }</a>
+                                        <a title={item.title} alt={item.title} href={item.listUrl} className='ms-ListBasicExample-itemName ms-font-l ms-fontColor-themePrimary ms-fontWeight-semibold' target={target}>
+                                            { item.title }
+                                        </a>
                                         <div className='ms-ListBasicExample-itemIndex'>{ `${item.itemCount} Items` }</div>
                                     </div>
                                     <div className="ms-ListItem-actions">
-                                        <a target={target} href={ item.settingsUrl} className="ms-ListItem-action"><i className="ms-Icon ms-Icon--Settings"></i></a>
+                                        <a target={target} href={ item.settingsUrl} title="Settings" className="ms-ListItem-action"><i className="ms-Icon ms-Icon--Settings"></i></a>
                                     </div>
                                 </div>
                             ) }
