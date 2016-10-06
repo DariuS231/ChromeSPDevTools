@@ -33,18 +33,6 @@ let contentStyles = {
 }
 let listStyle = { marginTop: '6.5px', listStyle: 'none', paddingLeft: '5px' };
 
-export let SpPropertyBagStyles = {
-    contentStyles: contentStyles,
-    tableStyles: {
-        borderSpacing: 0,
-        borderCollapse: 'collapse',
-        width: '100%'
-    },
-    tableContainer: {
-        marginTop: '6.5px'
-    }
-}
-
 export let ButtonsStyle = {
     caDeleteBtnStyle: { position: 'absolute', top: '50px', right: '15px' },
     caCancelBtnStyle: { right: '75px', position: 'absolute' },
@@ -79,30 +67,6 @@ export let ButtonsStyle = {
     })
 }
 
-export let KeyValueItemStyles = {
-    oddTableRowStyles: { backgroundColor: 'rgba(100,149,237, 0.1)' },
-    headerStyle: Utils.mergeObjects({ textAlign: 'right', wordBreak: 'break-word' }, tableCellStyle),
-    tableCellStyle: tableCellStyle,
-    inputStyles: inputStyles,
-    inputReadOnlyStyles: Utils.mergeObjects({ backgroundColor: 'gainsboro' }, inputStyles),
-
-}
-
-export let NewKeyValueItemStyles = {
-    divStyle: {
-        display: 'inline-block',
-        width: '44%',
-        marginTop: '10px'
-    },
-    labelStyle: {
-        display: 'block',
-        fontWeight: 'bolder',
-        marginBottom: '5px'
-    },
-    inputStyle: {
-        width: '95%'
-    }
-}
 
 export let SpCustomActionsStyles: any = {
     contentStyles: contentStyles,

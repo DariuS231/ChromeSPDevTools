@@ -152,23 +152,29 @@ $dividerColor: $ms-color-neutralLight;
     flex-shrink: 0;
 }
 
-.ms-List-cell {
-    width: 50%;
-    display: inline-block;
-    &:nth-child(odd) {
-        .ms-ListBasicExample-itemCell {
-            margin-right: 5px;
+.sp-siteContent {
+    .ms-List-cell {
+        width: 50%;
+        display: inline-block;
+        &:nth-child(odd) {
+            .ms-ListBasicExample-itemCell {
+                margin-right: 5px;
+            }
+        }
+        &:nth-child(even) {
+            .ms-ListBasicExample-itemCell {
+                margin-left: 5px;
+            }
         }
     }
-    &:nth-child(even) {
-        .ms-ListBasicExample-itemCell {
-            margin-left: 5px;
-        }
+    i.ms-Icon.ms-Icon--Settings {
+        font-size: large;
     }
 }
 
 .action-container {
-    overflow: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
     height: 90%;
     &.sp-siteContent {
         .checkBoxes-container {
@@ -184,8 +190,12 @@ $dividerColor: $ms-color-neutralLight;
     }
 }
 
-.sp-siteContent i.ms-Icon.ms-Icon--Settings {
-    font-size: large;
+.sp-peropertyBags {
+    .ms-Button {
+        display: block;
+        font-size: large;
+        margin: 5px
+    }
 }
 
 .chrome-sp-dev-tool-wrapper {
