@@ -194,7 +194,19 @@ $dividerColor: $ms-color-neutralLight;
     .ms-Button {
         display: block;
         font-size: large;
-        margin: 5px
+        margin: 5px;
+        &:hover>.ms-Icon--Edit {
+            color: #ffb900;
+        }
+        &:hover>.ms-Icon--Delete {
+            color: #e81123;
+        }
+        &:hover>.ms-Icon--Save {
+            color: #107c10;
+        }
+        &:hover>.ms-Icon--Cancel {
+            color: #e81123;
+        }
     }
 }
 
