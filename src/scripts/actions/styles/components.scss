@@ -166,6 +166,7 @@ $dividerColor: $ms-color-neutralLight;
                 margin-left: 5px;
             }
         }
+        
     }
     i.ms-Icon.ms-Icon--Settings {
         font-size: large;
@@ -208,6 +209,19 @@ $dividerColor: $ms-color-neutralLight;
             color: #e81123;
         }
     }
+    .ms-TextField{
+        >label{
+            color: #0078d7;
+        }
+        &.is-disabled {
+            .ms-TextField-field {
+                background-color: transparent;
+                border: none;
+                color: black;
+            }
+        }
+    }
+    
 }
 
 .chrome-sp-dev-tool-wrapper {
