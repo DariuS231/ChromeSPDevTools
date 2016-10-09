@@ -55,7 +55,6 @@ export default class KeyValueItem extends React.Component<KeyValueItemProps, Key
         return false;
     }
     private onValueInputChange(inputText: string) {
-        debugger;
         this.setState({ itemInputValue: inputText } as KeyValueItemState);
         return false;
     }
@@ -79,29 +78,17 @@ export default class KeyValueItem extends React.Component<KeyValueItemProps, Key
     }
 
     private buttons(isEditMode: Boolean) {
-        return <div className="ms-ListItem-actions ms-Grid-col ms-u-sm1 ms-u-md1 ms-u-lg1">
-            {
-                isEditMode
-                    ? null
-                    : <Button  buttonType={ ButtonType.icon } icon='Delete' rootProps={ { title: 'Delete' } } ariaLabel='Delete' onClick={this.onDeleteClick.bind(this) } />
-            }
-            {
-                isEditMode
-                    ? null
-                    : <Button  buttonType={ ButtonType.icon } icon='Edit' rootProps={ { title: 'Edit' } } ariaLabel='Edit' onClick={this.onUpdateBtnClick.bind(this) } />
-            }
-            {
-                isEditMode
-                    ? <Button  buttonType={ ButtonType.icon } icon='Save' rootProps={ { title: 'Save' } } ariaLabel='Save' onClick={this.onUpdateClick.bind(this) } />
-                    : null
-            }
-            {
-                isEditMode
-                    ? <Button  buttonType={ ButtonType.icon } icon='Cancel' rootProps={ { title: 'Cancel' } } ariaLabel='Cancel' onClick={this.onUpdateBtnClick.bind(this) } />
-                    : null
-            }
-
-        </div>
+        if (isEditMode) {
+            return <div className="ms-ListItem-actions ms-Grid-col ms-u-sm1 ms-u-md1 ms-u-lg1">
+                <Button  buttonType={ ButtonType.icon } icon='Save' rootProps={ { title: 'Save' } } ariaLabel='Save' onClick={this.onUpdateClick.bind(this) } />
+                <Button  buttonType={ ButtonType.icon } icon='Cancel' rootProps={ { title: 'Cancel' } } ariaLabel='Cancel' onClick={this.onUpdateBtnClick.bind(this) } />
+            </div>
+        } else {
+            return <div className="ms-ListItem-actions ms-Grid-col ms-u-sm1 ms-u-md1 ms-u-lg1">
+                <Button  buttonType={ ButtonType.icon } icon='Delete' rootProps={ { title: 'Delete' } } ariaLabel='Delete' onClick={this.onDeleteClick.bind(this) } />
+                <Button  buttonType={ ButtonType.icon } icon='Edit' rootProps={ { title: 'Edit' } } ariaLabel='Edit' onClick={this.onUpdateBtnClick.bind(this) } />
+            </div>
+        }
     }
     public render() {
         let isEditMode: boolean = this.state.inEditMode;

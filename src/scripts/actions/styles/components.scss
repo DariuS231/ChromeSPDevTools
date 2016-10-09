@@ -152,27 +152,7 @@ $dividerColor: $ms-color-neutralLight;
     flex-shrink: 0;
 }
 
-.sp-siteContent {
-    .ms-List-cell {
-        width: 50%;
-        display: inline-block;
-        &:nth-child(odd) {
-            .ms-ListBasicExample-itemCell {
-                margin-right: 5px;
-            }
-        }
-        &:nth-child(even) {
-            .ms-ListBasicExample-itemCell {
-                margin-left: 5px;
-            }
-        }
-        
-    }
-    i.ms-Icon.ms-Icon--Settings {
-        font-size: large;
-    }
-}
-
+/***   Common ***/
 .action-container {
     overflow-y: auto;
     overflow-x: hidden;
@@ -191,6 +171,51 @@ $dividerColor: $ms-color-neutralLight;
     }
 }
 
+.chrome-sp-dev-tool-wrapper {
+    width: 100%;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.498039);
+    top: 0px;
+    bottom: 0px;
+    z-index: 1000;
+    >.sp-dev-too-modal {
+        background: white;
+        width: 700px;
+        height: 94%;
+        margin: 10px auto;
+        position: relative;
+        padding: 10px;
+        >.sp-dev-tool-modal-header {
+            >hr {
+                margin-bottom: 0;
+            }
+            >a.sp-dev-tool-close-btn {
+                position: absolute;
+                right: 10px;
+            }
+        }
+    }
+}
+
+
+/***   Working on it ***/
+.working-on-it-wrapper {
+    overflow: auto;
+    height: 90%;
+    width: 100%;
+    text-align: center;
+    vertical-align: middle;
+    margin-top: 6.5px;
+    >img,
+    >h2 {
+        display: inline-block;
+        vertical-align: middle;
+        margin: 20px
+    }
+}
+
+
+/***   Property Bags ***/
 .sp-peropertyBags {
     .ms-Button {
         display: block;
@@ -224,43 +249,59 @@ $dividerColor: $ms-color-neutralLight;
     
 }
 
-.chrome-sp-dev-tool-wrapper {
-    width: 100%;
-    position: absolute;
-    background-color: rgba(0, 0, 0, 0.498039);
-    top: 0px;
-    bottom: 0px;
-    z-index: 1000;
-    >.sp-dev-too-modal {
-        background: white;
-        width: 700px;
-        height: 94%;
-        margin: 10px auto;
-        position: relative;
-        padding: 10px;
-        >.sp-dev-tool-modal-header {
-            >hr {
-                margin-bottom: 0;
-            }
-            >a.sp-dev-tool-close-btn {
-                position: absolute;
-                right: 10px;
+
+/***   Site lists and Libraries ***/
+.sp-siteContent {
+    .ms-List-cell {
+        width: 50%;
+        display: inline-block;
+        &:nth-child(odd) {
+            .ms-ListBasicExample-itemCell {
+                margin-right: 5px;
             }
         }
+        &:nth-child(even) {
+            .ms-ListBasicExample-itemCell {
+                margin-left: 5px;
+            }
+        }
+        
+    }
+    i.ms-Icon.ms-Icon--Settings {
+        font-size: large;
     }
 }
 
-.working-on-it-wrapper {
-    overflow: auto;
-    height: 90%;
-    width: 100%;
-    text-align: center;
-    vertical-align: middle;
-    margin-top: 6.5px;
-    >img,
-    >h2 {
-        display: inline-block;
-        vertical-align: middle;
-        margin: 20px
+
+/***   Custom Actions ***/
+.sp-customActions {
+    .ms-Button {
+        display: block;
+        font-size: large;
+        margin: 5px;
+        &:hover>.ms-Icon--Edit {
+            color: #ffb900;
+        }
+        &:hover>.ms-Icon--Delete {
+            color: #e81123;
+        }
+        &:hover>.ms-Icon--Save {
+            color: #107c10;
+        }
+        &:hover>.ms-Icon--Cancel {
+            color: #e81123;
+        }
+    }
+    .ms-TextField{
+        >label{
+            color: #0078d7;
+        }
+        &.is-disabled {
+            .ms-TextField-field {
+                background-color: transparent;
+                border: none;
+                color: black;
+            }
+        }
     }
 }

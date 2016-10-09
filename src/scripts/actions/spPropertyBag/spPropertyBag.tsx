@@ -9,12 +9,7 @@ import KeyValueItem from './../common/KeyValueItem';
 import WorkingOnIt from './../common/WorkingOnIt';
 import MessageBar from './../common/MessageBar';
 import { OperationType } from './../common/enums';
-import {
-    MessageBarType,
-    FocusZone,
-    FocusZoneDirection,
-    List
-} from './../../../../node_modules/office-ui-fabric-react/lib/index';
+import { MessageBarType, FocusZone, FocusZoneDirection, List } from './../../../../node_modules/office-ui-fabric-react/lib/index';
 
 
 interface SpPropertyBagProps {
