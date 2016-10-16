@@ -157,6 +157,24 @@ $dividerColor: $ms-color-neutralLight;
     overflow-y: auto;
     overflow-x: hidden;
     height: 90%;
+
+    .ms-Button {
+        display: block;
+        font-size: large;
+        margin: 5px;
+        &:hover .ms-Icon--Edit {
+            color: #ffb900;
+        }
+        &:hover .ms-Icon--Delete {
+            color: #e81123;
+        }
+        &:hover .ms-Icon--Save {
+            color: #107c10;
+        }
+        &:hover .ms-Icon--Cancel {
+            color: #e81123;
+        }
+    }
     &.sp-siteContent {
         .checkBoxes-container {
             text-align: right;
@@ -217,23 +235,7 @@ $dividerColor: $ms-color-neutralLight;
 
 /***   Property Bags ***/
 .sp-peropertyBags {
-    .ms-Button {
-        display: block;
-        font-size: large;
-        margin: 5px;
-        &:hover>.ms-Icon--Edit {
-            color: #ffb900;
-        }
-        &:hover>.ms-Icon--Delete {
-            color: #e81123;
-        }
-        &:hover>.ms-Icon--Save {
-            color: #107c10;
-        }
-        &:hover>.ms-Icon--Cancel {
-            color: #e81123;
-        }
-    }
+    
     .ms-TextField{
         >label{
             color: #0078d7;
@@ -275,23 +277,6 @@ $dividerColor: $ms-color-neutralLight;
 
 /***   Custom Actions ***/
 .sp-customActions {
-    .ms-Button {
-        display: block;
-        font-size: large;
-        margin: 5px;
-        &:hover>.ms-Icon--Edit {
-            color: #ffb900;
-        }
-        &:hover>.ms-Icon--Delete {
-            color: #e81123;
-        }
-        &:hover>.ms-Icon--Save {
-            color: #107c10;
-        }
-        &:hover>.ms-Icon--Cancel {
-            color: #e81123;
-        }
-    }
     .ms-TextField{
         >label{
             color: #0078d7;
@@ -304,4 +289,15 @@ $dividerColor: $ms-color-neutralLight;
             }
         }
     }
+    .ms-ChoiceFieldGroup {
+        .ms-ChoiceFieldGroup-title > label{
+            color: #0078d7;
+            font-size: 14px;
+            font-weight: 400;
+        }
+        .ms-ChoiceField{
+            display: inline-block;
+        }
+    }
+
 }
