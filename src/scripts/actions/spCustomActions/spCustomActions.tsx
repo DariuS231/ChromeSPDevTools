@@ -9,8 +9,7 @@ import Utils from './../common/utils';
 import { ViewMode } from './../common/enums';
 import SpCustomActionItem from './customActionItem'
 import SpCustomActionEdit from './customActionEdit'
-import { SpCustomActionsStyles as styles, ButtonsStyle as buttonsStyle } from './../common/Styles';
-import {  MessageBarType } from './../../../../node_modules/office-ui-fabric-react/lib/index';
+import {  MessageBarType, FocusZone, FocusZoneDirection, List, Button, ButtonType } from './../../../../node_modules/office-ui-fabric-react/lib/index';
 
 interface SpCustomActionsProps {
     closeWindowFunction: any
@@ -72,6 +71,7 @@ export default class SpCustomActions extends React.Component<SpCustomActionsProp
                     sequence: current.get_sequence()
                 } as ICustomAction);
             }
+            debugger;
             items.sort(function (a, b) {
                 return a.name.localeCompare(b.name);
             });
@@ -105,22 +105,22 @@ export default class SpCustomActions extends React.Component<SpCustomActionsProp
             return <WorkingOnIt/>
         } else {
             if (this.state.mode === ViewMode.View) {
-                let newBtnStyle = Utils.mergeObjects(buttonsStyle.newBtnStyle, buttonsStyle.caNewBtnStyle);
-                var customActions = this.state.customActions.map((list: ICustomAction, index: number) => {
-                    return (<SpCustomActionItem item={list} key={index} workingOnIt={this.workingOnIt.bind(this) }  showMessage={this.showMessage.bind(this) } reloadCActions={this.getCustomActions.bind(this) } />);
-                });
                 return (
-                    <div style={styles.contentStyles}>
+                    <div className="action-container sp-customActions">
                         {
                             (this.state.showMessage && this.state.message) ?
-                                 <MessageBar message={this.state.message} messageType={this.state.messageType} showMessage={this.state.showMessage} />
-                            :
+                                <MessageBar message={this.state.message} messageType={this.state.messageType} showMessage={this.state.showMessage} />
+                                :
                                 null
                         }
-                        <ul style={styles.list}>
-                            {customActions}
-                        </ul>
-                        <input style={newBtnStyle} type="button" onClick={this.onNewCuatomActionClick.bind(this)} value="New Custom Action"/>
+                        <FocusZone direction={ FocusZoneDirection.vertical }>
+                            <List items={ this.state.customActions }  onRenderCell={ (item, index) => (
+                                <SpCustomActionItem item={item} key={index} workingOnIt={this.workingOnIt.bind(this) }  showMessage={this.showMessage.bind(this) } reloadCActions={this.getCustomActions.bind(this) } />
+                            ) }  />
+                        </FocusZone>
+                        <Button  buttonType={ ButtonType.primary } onClick={this.onNewCuatomActionClick.bind(this) } >
+                            New Custom Action
+                        </Button>
                     </div>);
             } else {
                 return (<SpCustomActionEdit changeModefunction={this.changeMode.bind(this) }  workingOnIt={this.workingOnIt.bind(this) }  showMessage={this.showMessage.bind(this) } reloadCActions={this.getCustomActions.bind(this) } />);
