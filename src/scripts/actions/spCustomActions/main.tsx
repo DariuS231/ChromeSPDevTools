@@ -4,7 +4,7 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import SpCustomModalWrapper from './../common/spCustomModalWrapper';
 import {AppBase} from './../common/AppBase';
-import SpCustomActions from './spCustomActions.tsx'
+import SpCustomActions from './spCustomActions'
 
 class App extends AppBase {
     constructor() {
