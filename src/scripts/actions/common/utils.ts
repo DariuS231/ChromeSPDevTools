@@ -3,6 +3,19 @@ export default class Utils {
     public static capitalize(srt: string): string {
         return srt.charAt(0).toUpperCase() + srt.slice(1);
     }
+    public static loadScript(url:string) {
+        return new Promise((resolve, reject) => {
+            var head = document.getElementsByTagName('head')[0];
+            var script = document.createElement('script');
+            script.type = 'text/javascript';
+            script.src = url;
+
+            script.onload = function () {
+                resolve();
+            };
+            head.appendChild(script);
+        });
+    }
     public static mergeObjects(...objs: any[]): any {
         let extended: any = {};
         let deep: boolean = false;

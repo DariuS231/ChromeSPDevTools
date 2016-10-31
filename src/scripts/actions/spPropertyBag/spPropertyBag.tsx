@@ -6,7 +6,7 @@ import * as React from 'react';
 
 import NewKeyValueItem from './../common/newKeyValueItem';
 import KeyValueItem from './../common/KeyValueItem';
-import WorkingOnIt from './../common/WorkingOnIt';
+import {WorkingOnIt} from './../common/WorkingOnIt';
 import MessageBar from './../common/MessageBar';
 import { OperationType } from './../common/enums';
 import { MessageBarType, FocusZone, FocusZoneDirection, List } from './../../../../node_modules/office-ui-fabric-react/lib/index';

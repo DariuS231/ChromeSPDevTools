@@ -13,7 +13,7 @@ export class AppBase {
         if (!baseDiv) {
             baseDiv = document.createElement('div');
             baseDiv.setAttribute('id', this.baseDivId)
-            document.querySelector('form').appendChild(baseDiv);
+            document.querySelector('body').appendChild(baseDiv);
         }
 
         let head = document.head || document.getElementsByTagName('head')[0];
