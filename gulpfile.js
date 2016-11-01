@@ -139,7 +139,7 @@ gulp.task('build-actions', ["build-sppropertyBagFile", "build-spSiteContentFile"
 /****//****//****//****/
 //      Watch
 /****//****//****//****/
-gulp.task('watch', function (noUglify) {
+gulp.task('watch', ["build-sppropertyBagFile", "build-spSiteContentFile", "build-spCustomActionsFile", "build-spFeatureFile"], function (noUglify) {
     gulp.watch(config.paths.actions.spPropertyBag.watchFiles, ['build-sppropertyBagFile']);
     gulp.watch(config.paths.actions.spSiteContent.watchFiles, ['build-spSiteContentFile']);
     gulp.watch(config.paths.actions.spCustomActions.watchFiles, ['build-spCustomActionsFile']);

@@ -8,7 +8,7 @@ import * as jQuery from 'jquery'
 import "whatwg-fetch";
 
 import FeatureItem from './featureItem';
-import WorkingOnIt from './../common/WorkingOnIt';
+import { WorkingOnIt } from './../common/WorkingOnIt';
 import MessageBar from './../common/MessageBar';
 import Utils from './../common/utils';
 
@@ -20,8 +20,8 @@ import {
 } from './../../../../node_modules/office-ui-fabric-react/lib/index';
 
 interface SpFeatureProps {
-    showOnlyIconsInButtons:boolean,
-    closeWindowFunction:any
+    showOnlyIconsInButtons: boolean,
+    closeWindowFunction: any
 }
 interface SpFeatureState {
     currentUserHasPermissions: boolean,
@@ -70,11 +70,11 @@ export default class SpFeatures extends React.Component<SpFeatureProps, SpFeatur
         let onError: Function = Function.createDelegate(this, this.spErrorHandler);
         this.ctx.executeQueryAsync(onSuccess, onError);
     };
-    
-    
+
+
     private getFeatures(featureType: SP.FeatureDefinitionScope, opType: FeatureOperationType, msg: string) {
         let that = this;
-        let url:string;
+        let url: string;
 
         url = featureType === SP.FeatureDefinitionScope.none ? _spPageContextInfo.webAbsoluteUrl + "/_layouts/15/ManageFeatures.aspx" : _spPageContextInfo.webAbsoluteUrl + "/_layouts/15/ManageFeatures.aspx?Scope=Site"
 
@@ -82,15 +82,15 @@ export default class SpFeatures extends React.Component<SpFeatureProps, SpFeatur
             credentials: "include",
             method: "GET",
         })
-        .then(function(response) {
-            return response.text();
-        }).then(function(body) {
-            let items: Array<IFeature> = [];
-            let htmlFeatures = jQuery(body); 
-            let numtemp = 0;
+            .then(function (response) {
+                return response.text();
+            }).then(function (body) {
+                let items: Array<IFeature> = [];
+                let htmlFeatures = jQuery(body);
+                let numtemp = 0;
 
-            htmlFeatures.find(".ms-ButtonHeightWidth").parent().parent().parent().each(function() { 
-                    let featureLine = jQuery(this); 
+                htmlFeatures.find(".ms-ButtonHeightWidth").parent().parent().parent().each(function () {
+                    let featureLine = jQuery(this);
                     let name: any = featureLine.find("h3:first").text();
                     let id: any = featureLine.find(".ms-ButtonHeightWidth:first").parent().attr("id");
                     //temp we put the description in the name
@@ -100,33 +100,32 @@ export default class SpFeatures extends React.Component<SpFeatureProps, SpFeatur
                     let logo: string = featureLine.find("img").attr("src");
                     //console.log("feature name:" + name + " - id: " + id + " - activate: " + activated);
                     items.push({ id: id, name: name, description: name, scope: scope, activated: activated, logo: logo });
-            });
+                });
 
-            if (featureType === SP.FeatureDefinitionScope.none)
-                that.setState({ webFeatures: items, messageType: MessageBarType.success, message: msg, showMessage: (opType !== FeatureOperationType.None)} as SpFeatureState);
-            else
-                that.setState({ siteFeatures: items, messageType: MessageBarType.success, message: msg, showMessage: (opType !== FeatureOperationType.None), isWorkingOnIt: false} as SpFeatureState);
-         })
+                if (featureType === SP.FeatureDefinitionScope.none)
+                    that.setState({ webFeatures: items, messageType: MessageBarType.success, message: msg, showMessage: (opType !== FeatureOperationType.None) } as SpFeatureState);
+                else
+                    that.setState({ siteFeatures: items, messageType: MessageBarType.success, message: msg, showMessage: (opType !== FeatureOperationType.None), isWorkingOnIt: false } as SpFeatureState);
+            })
     }
 
 
-    private onWebActionClick(id: string, operation: boolean, scope:SP.FeatureDefinitionScope) {
+    private onWebActionClick(id: string, operation: boolean, scope: SP.FeatureDefinitionScope) {
         this.setState({ isWorkingOnIt: true } as SpFeatureState);
         let ctx = SP.ClientContext.get_current();
         let web = ctx.get_web();
         let msg: string;
         ctx.load(web);
         //console.log(id);
-        if (operation){
+        if (operation) {
             web.get_features().add(new SP.Guid(id), true, SP.FeatureDefinitionScope.none);
             msg = "The web feature " + name + " has been activated";
         }
-        else
-        {
+        else {
             web.get_features().remove(new SP.Guid(id), true);
             msg = "The web feature " + name + " has been deactivated";
         }
-        
+
 
         let onSuccess: Function = Function.createDelegate(this, function (sender: any, err: any) {
             this.getFeatures(SP.FeatureDefinitionScope.none, FeatureOperationType.Activate, msg);
@@ -137,23 +136,22 @@ export default class SpFeatures extends React.Component<SpFeatureProps, SpFeatur
         ctx.executeQueryAsync(Function.createDelegate(this, onSuccess), Function.createDelegate(this, onError));
     }
 
-    private onSiteActionClick(id: string, name: string, operation: boolean, scope:SP.FeatureDefinitionScope) {
+    private onSiteActionClick(id: string, name: string, operation: boolean, scope: SP.FeatureDefinitionScope) {
         this.setState({ isWorkingOnIt: true } as SpFeatureState);
         let ctx = SP.ClientContext.get_current();
         let site = ctx.get_site();
         let msg: string;
         ctx.load(site);
         //console.log(id);
-        if (operation){
+        if (operation) {
             site.get_features().add(new SP.Guid(id), true, SP.FeatureDefinitionScope.none);
             msg = "The site feature " + name + " has been activated";
         }
-        else
-        {
+        else {
             site.get_features().remove(new SP.Guid(id), true);
             msg = "The site feature " + name + " has been deactivated";
         }
-        
+
         let onSuccess: Function = Function.createDelegate(this, function (sender: any, err: any) {
             this.getFeatures(SP.FeatureDefinitionScope.site, FeatureOperationType.Activate, msg);
             this.setState({ isWorkingOnIt: false } as SpFeatureState);
@@ -204,15 +202,15 @@ export default class SpFeatures extends React.Component<SpFeatureProps, SpFeatur
     }
     public render() {
         if (this.state.isWorkingOnIt) {
-            return <WorkingOnIt/>;
+            return <WorkingOnIt />;
         } else {
             if (this.state.currentUserHasPermissions) {
                 //console.log(this.state.siteFeatures.length);
                 var webProps = this.state.webFeatures.map((prop: IFeature, index: number) => {
-                    return (<FeatureItem item={prop} key={prop.id} itemIndex={index} onClick={this.onWebActionClick.bind(this)} showOnlyIconsInButtons={this.props.showOnlyIconsInButtons}/>);
+                    return (<FeatureItem item={prop} key={prop.id} itemIndex={index} onClick={this.onWebActionClick.bind(this)} showOnlyIconsInButtons={this.props.showOnlyIconsInButtons} />);
                 });
                 var siteProps = this.state.siteFeatures.map((prop: IFeature, index: number) => {
-                    return (<FeatureItem item={prop} key={prop.id} itemIndex={index} onClick={this.onSiteActionClick.bind(this)} showOnlyIconsInButtons={this.props.showOnlyIconsInButtons}/>);
+                    return (<FeatureItem item={prop} key={prop.id} itemIndex={index} onClick={this.onSiteActionClick.bind(this)} showOnlyIconsInButtons={this.props.showOnlyIconsInButtons} />);
                 });
                 return (<div style={spFeatStyles.contentStyles}>
                     <MessageBar message={this.state.message} messageType={this.state.messageType} showMessage={this.state.showMessage} />
@@ -220,20 +218,20 @@ export default class SpFeatures extends React.Component<SpFeatureProps, SpFeatur
 
                     <div style={spFeatStyles.tableContainerWeb}>
                         <div className='ms-font-l ms-fontWeight-semibold'>Web Features</div>
-                        <table style={spFeatStyles.tableStyles}>                            
+                        <table style={spFeatStyles.tableStyles}>
                             <tbody>
                                 {webProps}
                             </tbody>
-                        </table>                 
+                        </table>
                     </div>
                     <div style={spFeatStyles.tableContainerSite}>
                         <div className='ms-font-l ms-fontWeight-semibold'>Site Features</div>
-                        <table style={spFeatStyles.tableStyles}>                            
+                        <table style={spFeatStyles.tableStyles}>
                             <tbody>
                                 {siteProps}
                             </tbody>
-                        </table>                  
-                    </div>                    
+                        </table>
+                    </div>
                 </div>);
             } else {
                 return (

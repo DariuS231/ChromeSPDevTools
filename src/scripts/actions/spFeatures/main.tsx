@@ -3,8 +3,9 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import SpCustomModalWrapper from './../common/spCustomModalWrapper';
-import {AppBase} from './../common/AppBase';
-import SpFeatures from './SpFeatures.tsx'
+import { AppBase } from './../common/AppBase';
+import SpFeatures from './SpFeatures';
+import Utils from './../common/Utils';
 
 class App extends AppBase {
     constructor() {
@@ -12,9 +13,9 @@ class App extends AppBase {
     }
     public show(showOnlyIconsInButtons: boolean) {
         let that = this;
-        SP.SOD.executeFunc('sp.js', 'SP.ClientContext', function () {
-            ReactDOM.render(<SpCustomModalWrapper  onCloseClick={that.remove.bind(this) } modalDialogTitle="Web/Site Features" modalWidth="800px">
-                <SpFeatures showOnlyIconsInButtons={showOnlyIconsInButtons} closeWindowFunction={that.remove.bind(this) } />
+        Utils.ensureSPObject().then(() => {
+            ReactDOM.render(<SpCustomModalWrapper onCloseClick={that.remove.bind(this)} modalDialogTitle="Web/Site Features" modalWidth="800px">
+                <SpFeatures showOnlyIconsInButtons={showOnlyIconsInButtons} closeWindowFunction={that.remove.bind(this)} />
             </SpCustomModalWrapper>, document.getElementById(that.baseDivId));
         });
     }

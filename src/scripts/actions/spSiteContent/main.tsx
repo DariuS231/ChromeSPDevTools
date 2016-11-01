@@ -4,7 +4,8 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import SpCustomModalWrapper from './../common/spCustomModalWrapper';
 import {AppBase} from './../common/AppBase';
-import SpSiteContent from './spSiteContent.tsx'
+import SpSiteContent from './spSiteContent';
+import Utils from './../common/utils';
 
 class App extends AppBase {
     constructor() {
@@ -12,7 +13,7 @@ class App extends AppBase {
     }
     public show() {
         let that = this;
-        SP.SOD.executeFunc('sp.js', 'SP.ClientContext', function () {
+        Utils.ensureSPObject().then(() => {
             ReactDOM.render(<SpCustomModalWrapper  onCloseClick={that.remove.bind(this) } modalDialogTitle="Lists and Libraries" modalWidth="700px">
                 <SpSiteContent  closeWindowFunction={that.remove.bind(this) } />
             </SpCustomModalWrapper>, document.getElementById(that.baseDivId));

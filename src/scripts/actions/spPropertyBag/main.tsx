@@ -3,18 +3,19 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import SpCustomModalWrapper from './../common/spCustomModalWrapper';
-import {AppBase} from './../common/AppBase';
-import SpPropertyBag from './spPropertyBag.tsx'
+import { AppBase } from './../common/AppBase';
+import Utils from './../common/utils';
+import SpPropertyBag from './spPropertyBag'
 
 class App extends AppBase {
     constructor() {
-       super('spPropBaseDiv')
+        super('spPropBaseDiv')
     }
     public show(showOnlyIconsInButtons: boolean) {
         let that = this;
-        SP.SOD.executeFunc('sp.js', 'SP.ClientContext', function () {
-            ReactDOM.render(<SpCustomModalWrapper onCloseClick={that.remove.bind(this) } modalDialogTitle="Web Property bags" modalWidth="700px">
-                <SpPropertyBag showOnlyIconsInButtons={showOnlyIconsInButtons} closeWindowFunction={that.remove.bind(this) } />
+        Utils.ensureSPObject().then(() => {
+            ReactDOM.render(<SpCustomModalWrapper onCloseClick={that.remove.bind(this)} modalDialogTitle="Web Property bags" modalWidth="700px">
+                <SpPropertyBag showOnlyIconsInButtons={showOnlyIconsInButtons} closeWindowFunction={that.remove.bind(this)} />
             </SpCustomModalWrapper>, document.getElementById(that.baseDivId));
         });
     }
