@@ -6,7 +6,7 @@ import * as React from 'react';
 
 import NewKeyValueItem from './../common/newKeyValueItem';
 import KeyValueItem from './../common/KeyValueItem';
-import {WorkingOnIt} from './../common/WorkingOnIt';
+import { WorkingOnIt } from './../common/WorkingOnIt';
 import MessageBar from './../common/MessageBar';
 import { OperationType } from './../common/enums';
 import { MessageBarType, FocusZone, FocusZoneDirection, List } from './../../../../node_modules/office-ui-fabric-react/lib/index';
@@ -144,18 +144,17 @@ export default class SpPropertyBag extends React.Component<SpPropertyBagProps, S
     }
     public render() {
         if (this.state.isWorkingOnIt) {
-            return <WorkingOnIt/>;
+            return <WorkingOnIt />;
         } else {
             return (<div className="action-container sp-peropertyBags">
                 <MessageBar message={this.state.message} messageType={this.state.messageType} showMessage={this.state.showMessage} />
-                <FocusZone direction={ FocusZoneDirection.vertical }>
-                    <List items={ this.state.webProperties }  onRenderCell={ (item, index) => (
-                        <KeyValueItem item={item} key={item.key} itemIndex={index} onUpdateClick={this.onUpdatingNewProperty.bind(this) } onDeleteClick={this.onDeletingProperty.bind(this) } />
-                    ) }
+                <FocusZone direction={FocusZoneDirection.vertical}>
+                    <List items={this.state.webProperties} onRenderCell={(item, index) => (
+                        <KeyValueItem item={item} key={item.key} itemIndex={index} onUpdateClick={this.onUpdatingNewProperty.bind(this)} onDeleteClick={this.onDeletingProperty.bind(this)} />
+                    )}
                         />
                 </FocusZone>
-                <hr/>
-                <NewKeyValueItem moduleTitle="New web property" keyDisplayName="Property Name" valueDisplayName="Property Value" onNewItemClick={this.onAddingNewProperty.bind(this) }/>
+                <NewKeyValueItem moduleTitle="New web property" keyDisplayName="Property Name" valueDisplayName="Property Value" onNewItemClick={this.onAddingNewProperty.bind(this)} />
             </div>);
 
         }

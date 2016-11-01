@@ -3,7 +3,7 @@ export default class Utils {
     public static capitalize(srt: string): string {
         return srt.charAt(0).toUpperCase() + srt.slice(1);
     }
-    public static loadScript(url:string) {
+    public static loadScript(url: string): Promise<any> {
         return new Promise((resolve, reject) => {
             var head = document.getElementsByTagName('head')[0];
             var script = document.createElement('script');
@@ -14,6 +14,22 @@ export default class Utils {
                 resolve();
             };
             head.appendChild(script);
+        });
+    }
+    public static ensureSPObject(): Promise<any> {
+        return new Promise((resolve, reject) => {
+            if (typeof SP == 'undefined') {
+                var scriptbase = _spPageContextInfo.webServerRelativeUrl + "/_layouts/15/";
+                this.loadScript(scriptbase + "SP.Runtime.js").then(() => {
+                    this.loadScript(scriptbase + "SP.js").then(() => {
+                        resolve();
+                    });
+                });
+            } else {
+                SP.SOD.executeFunc('sp.js', 'SP.ClientContext', function () {
+                    resolve();
+                });
+            }
         });
     }
     public static mergeObjects(...objs: any[]): any {

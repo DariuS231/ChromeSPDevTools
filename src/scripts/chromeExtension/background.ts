@@ -16,10 +16,10 @@ chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
 		chrome.tabs.executeScript(tabId, {
 			code: `(function() { 
 				var meta = document.querySelector(\'meta[name="GENERATOR"]\');
-				return meta && meta.content
+				return (meta && meta.content === "Microsoft SharePoint") || (window.location.host.endsWith('.sharepoint.com'));
 			})()`
 		}, function (result) {
-			if (result.length > 0 && result[0] === "Microsoft SharePoint") {
+			if (result && result.length > 0 && result[0]) {
 				chrome.browserAction.enable(tabId);
 				chrome.browserAction.setBadgeText({ text: '', tabId });
 				chrome.browserAction.setTitle({ title: 'Click to show the Properties modal.', tabId });

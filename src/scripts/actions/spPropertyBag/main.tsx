@@ -13,13 +13,10 @@ class App extends AppBase {
     }
     public show(showOnlyIconsInButtons: boolean) {
         let that = this;
-        var scriptbase = _spPageContextInfo.webServerRelativeUrl + "/_layouts/15/";
-        Utils.loadScript(scriptbase + "SP.Runtime.js").then(()=>{
-            Utils.loadScript(scriptbase + "SP.js").then(()=>{
-                 ReactDOM.render(<SpCustomModalWrapper onCloseClick={that.remove.bind(this)} modalDialogTitle="Web Property bags" modalWidth="700px">
-                    <SpPropertyBag showOnlyIconsInButtons={showOnlyIconsInButtons} closeWindowFunction={that.remove.bind(this)} />
-                </SpCustomModalWrapper>, document.getElementById(that.baseDivId));
-            });
+        Utils.ensureSPObject().then(() => {
+            ReactDOM.render(<SpCustomModalWrapper onCloseClick={that.remove.bind(this)} modalDialogTitle="Web Property bags" modalWidth="700px">
+                <SpPropertyBag showOnlyIconsInButtons={showOnlyIconsInButtons} closeWindowFunction={that.remove.bind(this)} />
+            </SpCustomModalWrapper>, document.getElementById(that.baseDivId));
         });
     }
 }
