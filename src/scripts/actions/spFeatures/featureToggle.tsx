@@ -3,7 +3,7 @@
 /// <reference path="./../common/interfaces.ts"/>
 
 import * as React from 'react';
-import { KeyValueItemStyles as kviStyles, ButtonsStyle as buttonsStyle  } from '../common/Styles'
+import { ButtonsStyle as buttonsStyle  } from '../common/Styles'
 import { SpFeaturesStyles as featureStyles } from '../common/Styles'
 
 import {
@@ -20,7 +20,7 @@ interface FeatureItemProps {
     onClick: any,
 }
 
-export default class FeatureItem extends React.Component<FeatureItemProps, FeatureItemState> {
+export default class FeatureToggle extends React.Component<FeatureItemProps, FeatureItemState> {
 
     private onActionClick(e: any) {
         this.props.onClick(this.props.item.id, this.props.item.name, this.props.item.activated, this.props.item.scope);
@@ -52,18 +52,8 @@ export default class FeatureItem extends React.Component<FeatureItemProps, Featu
 
         let featureAction = (this.props.item.activated === true) ? activateBtn : deactivateBtn
 
-        return <tr  id="{this.props.item.id}" style={(Math.abs(this.props.itemIndex % 2) !== 1) ? kviStyles.oddTableRowStyles : {}}>
-            <th style={featureStyles.headerStyle}>
-                <div style={featureStyles.featureLogo}>
-                    <img src={this.props.item.logo} alt="" data-themekey="#"/>
-                </div>
-                <div className='ms-font-m ms-fontColor-themePrimary'>
-                    {this.props.item.name}
-                </div>
-            </th >
-            <td style={kviStyles.tableCellStyle}>
+        return <div>
                 {featureAction}
-            </td>
-        </tr>;
+            </div>;
     }
 }

@@ -7,7 +7,7 @@ import * as React from 'react';
 import * as jQuery from 'jquery'
 import "whatwg-fetch";
 
-import FeatureItem from './featureItem';
+import FeatureToggle from './featureToggle';
 import { WorkingOnIt } from './../common/WorkingOnIt';
 import MessageBar from './../common/MessageBar';
 import Utils from './../common/utils';
@@ -16,8 +16,18 @@ import { SpFeaturesStyles as spFeatStyles } from './../common/Styles'
 import { FeatureOperationType } from './../common/enums';
 
 import {
-    MessageBarType
+    Checkbox,
+    MessageBarType,
+    FocusZone,
+    FocusZoneDirection,
+    TextField,
+    Image,
+    ImageFit,
+    List,
+    Toggle
 } from './../../../../node_modules/office-ui-fabric-react/lib/index';
+
+
 
 interface SpFeatureProps {
     showOnlyIconsInButtons: boolean,
@@ -96,6 +106,7 @@ export default class SpFeatures extends React.Component<SpFeatureProps, SpFeatur
                     //temp we put the description in the name
                     let description: any = name;
                     let activated: boolean = featureLine.find(".ms-ButtonHeightWidth:first").attr("value") === "Activate" ? true : false;
+                    let toggleButton: boolean = featureLine.find(".ms-ButtonHeightWidth:first").attr("value") === "Activate" ? false : true;
                     let scope: SP.FeatureDefinitionScope = featureType;
                     let logo: string = featureLine.find("img").attr("src");
                     //console.log("feature name:" + name + " - id: " + id + " - activate: " + activated);
@@ -110,13 +121,13 @@ export default class SpFeatures extends React.Component<SpFeatureProps, SpFeatur
     }
 
 
-    private onWebActionClick(id: string, operation: boolean, scope: SP.FeatureDefinitionScope) {
+    private onWebActionClick(id: string, name: string, operation: boolean, scope: SP.FeatureDefinitionScope) {
         this.setState({ isWorkingOnIt: true } as SpFeatureState);
         let ctx = SP.ClientContext.get_current();
         let web = ctx.get_web();
         let msg: string;
         ctx.load(web);
-        //console.log(id);
+        console.log("The operation is " + operation);
         if (operation) {
             web.get_features().add(new SP.Guid(id), true, SP.FeatureDefinitionScope.none);
             msg = "The web feature " + name + " has been activated";
@@ -142,7 +153,7 @@ export default class SpFeatures extends React.Component<SpFeatureProps, SpFeatur
         let site = ctx.get_site();
         let msg: string;
         ctx.load(site);
-        //console.log(id);
+        console.log(operation);
         if (operation) {
             site.get_features().add(new SP.Guid(id), true, SP.FeatureDefinitionScope.none);
             msg = "The site feature " + name + " has been activated";
@@ -206,31 +217,55 @@ export default class SpFeatures extends React.Component<SpFeatureProps, SpFeatur
         } else {
             if (this.state.currentUserHasPermissions) {
                 //console.log(this.state.siteFeatures.length);
-                var webProps = this.state.webFeatures.map((prop: IFeature, index: number) => {
-                    return (<FeatureItem item={prop} key={prop.id} itemIndex={index} onClick={this.onWebActionClick.bind(this)} showOnlyIconsInButtons={this.props.showOnlyIconsInButtons} />);
-                });
-                var siteProps = this.state.siteFeatures.map((prop: IFeature, index: number) => {
-                    return (<FeatureItem item={prop} key={prop.id} itemIndex={index} onClick={this.onSiteActionClick.bind(this)} showOnlyIconsInButtons={this.props.showOnlyIconsInButtons} />);
-                });
+                //var webProps = this.state.webFeatures.map((prop: IFeature, index: number) => {
+                //    return (<FeatureItem item={prop} key={prop.id} itemIndex={index} onClick={this.onWebActionClick.bind(this)} showOnlyIconsInButtons={this.props.showOnlyIconsInButtons} />);
+                //});
+                //var siteProps = this.state.siteFeatures.map((prop: IFeature, index: number) => {
+                //    return (<FeatureItem item={prop} key={prop.id} itemIndex={index} onClick={this.onSiteActionClick.bind(this)} showOnlyIconsInButtons={this.props.showOnlyIconsInButtons} />);
+                //});
+                var webProps = this.state.webFeatures;    
+                var siteProps = this.state.siteFeatures;
+
                 return (<div style={spFeatStyles.contentStyles}>
                     <MessageBar message={this.state.message} messageType={this.state.messageType} showMessage={this.state.showMessage} />
 
-
                     <div style={spFeatStyles.tableContainerWeb}>
                         <div className='ms-font-l ms-fontWeight-semibold'>Web Features</div>
-                        <table style={spFeatStyles.tableStyles}>
-                            <tbody>
-                                {webProps}
-                            </tbody>
-                        </table>
+                            <FocusZone direction={FocusZoneDirection.vertical}>
+                        <List
+                            items={webProps}
+                            onRenderCell={(item, index) => (
+                                <div className='ms-ListBasicExample-itemCell' data-is-focusable={true}>
+                                    <Image className='ms-ListBasicExample-itemImage' src={item.logo} width={31} height={22} />
+                                    <div className='ms-ListBasicExample-itemContent ms-ListBasicExample-itemName ms-font-m ms-fontColor-themePrimary ms-fontWeight-semibold'>                                        
+                                            {item.name}
+                                    </div>
+                                    <FeatureToggle item={item} key={item.id} itemIndex={index} onClick={this.onWebActionClick.bind(this)} showOnlyIconsInButtons={this.props.showOnlyIconsInButtons} />
+                                </div>
+                            )}
+                            />
+                    </FocusZone>
                     </div>
                     <div style={spFeatStyles.tableContainerSite}>
                         <div className='ms-font-l ms-fontWeight-semibold'>Site Features</div>
-                        <table style={spFeatStyles.tableStyles}>
-                            <tbody>
-                                {siteProps}
-                            </tbody>
-                        </table>
+                        <FocusZone direction={FocusZoneDirection.vertical}>
+                            <List
+                                items={siteProps}
+                                onRenderCell={(item, index) => (
+                                    <div className='ms-ListBasicExample-itemCell' data-is-focusable={true}>
+                                        <Image className='ms-ListBasicExample-itemImage' src={item.logo} width={31} height={22} />
+                                        <div className='ms-ListBasicExample-itemContent ms-ListBasicExample-itemName ms-font-m ms-fontColor-themePrimary ms-fontWeight-semibold'>
+                                                {item.name}
+                                        </div>
+                                        <FeatureToggle item={item} key={item.id} itemIndex={index} onClick={this.onSiteActionClick.bind(this)} showOnlyIconsInButtons={this.props.showOnlyIconsInButtons} />
+                                    </div>
+                                )}
+                                />
+                        </FocusZone>
+
+
+
+
                     </div>
                 </div>);
             } else {
