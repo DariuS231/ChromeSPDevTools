@@ -226,7 +226,7 @@ export default class SpFeatures extends React.Component<SpFeatureProps, SpFeatur
                 var webProps = this.state.webFeatures;    
                 var siteProps = this.state.siteFeatures;
 
-                return (<div style={spFeatStyles.contentStyles}>
+                return (<div style={spFeatStyles.contentStyles} className='sp-features'>
                     <MessageBar message={this.state.message} messageType={this.state.messageType} showMessage={this.state.showMessage} />
 
                     <div style={spFeatStyles.tableContainerWeb}>
@@ -237,7 +237,7 @@ export default class SpFeatures extends React.Component<SpFeatureProps, SpFeatur
                             onRenderCell={(item, index) => (
                                 <div className='ms-ListBasicExample-itemCell' data-is-focusable={true}>
                                     <Image className='ms-ListBasicExample-itemImage' src={item.logo} width={31} height={22} />
-                                    <div className='ms-ListBasicExample-itemContent ms-ListBasicExample-itemName ms-font-m ms-fontColor-themePrimary ms-fontWeight-semibold'>                                        
+                                    <div className='ms-ListBasicExample-itemContent ms-ListBasicExample-featureName ms-font-m ms-fontColor-themePrimary ms-fontWeight-semibold'>                                        
                                             {item.name}
                                     </div>
                                     <FeatureToggle item={item} key={item.id} itemIndex={index} onClick={this.onWebActionClick.bind(this)} showOnlyIconsInButtons={this.props.showOnlyIconsInButtons} />
@@ -253,10 +253,10 @@ export default class SpFeatures extends React.Component<SpFeatureProps, SpFeatur
                                 items={siteProps}
                                 onRenderCell={(item, index) => (
                                     <div className='ms-ListBasicExample-itemCell' data-is-focusable={true}>
-                                        <Image className='ms-ListBasicExample-itemImage' src={item.logo} width={31} height={22} />
-                                        <div className='ms-ListBasicExample-itemContent ms-ListBasicExample-itemName ms-font-m ms-fontColor-themePrimary ms-fontWeight-semibold'>
-                                                {item.name}
-                                        </div>
+                                            <Image className='ms-ListBasicExample-itemImage' src={item.logo} width={31} height={22} />
+                                            <div className='ms-ListBasicExample-itemContent ms-ListBasicExample-featureName ms-font-m ms-fontColor-themePrimary ms-fontWeight-semibold'>
+                                                    {item.name}
+                                            </div>
                                         <FeatureToggle item={item} key={item.id} itemIndex={index} onClick={this.onSiteActionClick.bind(this)} showOnlyIconsInButtons={this.props.showOnlyIconsInButtons} />
                                     </div>
                                 )}

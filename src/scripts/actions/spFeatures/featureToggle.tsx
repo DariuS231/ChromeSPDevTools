@@ -52,7 +52,7 @@ export default class FeatureToggle extends React.Component<FeatureItemProps, Fea
 
         let featureAction = (this.props.item.activated === true) ? activateBtn : deactivateBtn
 
-        return <div>
+        return <div className='ms-ListFeature-toggle'>
                 {featureAction}
             </div>;
     }

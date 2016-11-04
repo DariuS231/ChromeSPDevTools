@@ -305,3 +305,23 @@ $dividerColor: $ms-color-neutralLight;
     }
 
 }
+
+
+// /***   Web/Site Features ***/
+ .sp-features {
+        .ms-ListBasicExample-featureName {
+            white-space: normal;
+            overflow: visible;
+            margin-right: 10px;
+        }
+        .ms-ListBasicExample-featureContent {
+            @include margin-left(10px);
+            overflow: hidden;
+            flex-grow: 1;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .ms-ListFeature-toggle {
+            margin-top: -5px;
+        }
+ }
