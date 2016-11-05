@@ -1,9 +1,7 @@
 /// <reference path="../../../../typings/index.d.ts"/>
-/// <reference path="./../common/styles.ts"/>
 /// <reference path="./../common/interfaces.ts"/>
 
 import * as React from 'react';
-import { CustomActionItemStyles as styles, ButtonsStyle as buttonsStyle } from './../common/Styles';
 import { ViewMode } from './../common/enums';
 import Utils from './../common/utils';
 import {

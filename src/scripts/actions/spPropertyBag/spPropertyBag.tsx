@@ -1,7 +1,7 @@
 /// <reference path="../../../../typings/index.d.ts"/>
 /// <reference path="./../common/interfaces.ts"/>
 /// <reference path="./../common/enums.ts"/>
-/// <reference path="./../common/styles.ts"/>
+
 import * as React from 'react';
 
 import NewKeyValueItem from './../common/newKeyValueItem';

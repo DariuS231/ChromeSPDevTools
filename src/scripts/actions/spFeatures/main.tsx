@@ -5,7 +5,7 @@ import * as ReactDOM from "react-dom";
 import SpCustomModalWrapper from './../common/spCustomModalWrapper';
 import { AppBase } from './../common/AppBase';
 import SpFeatures from './SpFeatures';
-import Utils from './../common/Utils';
+import Utils from './../common/utils';
 
 class App extends AppBase {
     constructor() {

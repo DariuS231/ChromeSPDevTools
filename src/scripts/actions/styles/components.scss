@@ -309,6 +309,8 @@ $dividerColor: $ms-color-neutralLight;
 
 // /***   Web/Site Features ***/
  .sp-features {
+        overflow: auto;
+        height: 90%;
         .ms-ListBasicExample-featureName {
             white-space: normal;
             overflow: visible;
@@ -326,5 +328,18 @@ $dividerColor: $ms-color-neutralLight;
         }
         .ms-ListBasicExample-itemCell {
             min-height: 60px;
+        }
+        .web-feature-table{
+            margin-top: 6.5px;
+            display: inline-block;
+            width: 49%;
+            vertical-align: top;
+        }
+        .site-feature-table{
+            margin-top: 6.5px;
+            display: inline-block;
+            width: 49%;
+            vertical-align: top;
+            margin-left: 5px;
         }
  }

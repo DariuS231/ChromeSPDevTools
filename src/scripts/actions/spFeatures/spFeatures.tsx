@@ -1,18 +1,14 @@
 /// <reference path="../../../../typings/index.d.ts"/>
 /// <reference path="./../common/interfaces.ts"/>
 /// <reference path="./../common/enums.ts"/>
-/// <reference path="./../common/styles.ts"/>
 
 import * as React from 'react';
 import * as jQuery from 'jquery'
 import "whatwg-fetch";
-
 import FeatureToggle from './featureToggle';
 import { WorkingOnIt } from './../common/WorkingOnIt';
 import MessageBar from './../common/MessageBar';
 import Utils from './../common/utils';
-
-import { SpFeaturesStyles as spFeatStyles } from './../common/Styles'
 import { FeatureOperationType } from './../common/enums';
 
 import {
@@ -226,10 +222,10 @@ export default class SpFeatures extends React.Component<SpFeatureProps, SpFeatur
                 var webProps = this.state.webFeatures;    
                 var siteProps = this.state.siteFeatures;
 
-                return (<div style={spFeatStyles.contentStyles} className='sp-features'>
+                return (<div className='sp-features'>
                     <MessageBar message={this.state.message} messageType={this.state.messageType} showMessage={this.state.showMessage} />
 
-                    <div style={spFeatStyles.tableContainerWeb}>
+                    <div className='web-feature-table' >
                         <div className='ms-font-l ms-fontWeight-semibold'>Web Features</div>
                             <FocusZone direction={FocusZoneDirection.vertical}>
                         <List
@@ -246,7 +242,7 @@ export default class SpFeatures extends React.Component<SpFeatureProps, SpFeatur
                             />
                     </FocusZone>
                     </div>
-                    <div style={spFeatStyles.tableContainerSite}>
+                    <div className='site-feature-table' >
                         <div className='ms-font-l ms-fontWeight-semibold'>Site Features</div>
                         <FocusZone direction={FocusZoneDirection.vertical}>
                             <List
@@ -270,7 +266,7 @@ export default class SpFeatures extends React.Component<SpFeatureProps, SpFeatur
                 </div>);
             } else {
                 return (
-                    <div style={spFeatStyles.contentStyles}>
+                    <div className='sp-features'>
                         <h2>{this.state.noPermissionsMessage}</h2>
                     </div>);
             }
