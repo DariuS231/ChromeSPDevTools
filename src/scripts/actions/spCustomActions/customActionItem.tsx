@@ -20,9 +20,7 @@ interface CustomActionItemProps {
 }
 interface CustomActionItemState {
     mode: ViewMode,
-    item: ICustomAction,
-    isSequenceValid: Boolean,
-    isScriptValid: Boolean
+    item: ICustomAction
 }
 
 export default class CustomActionItem extends React.Component<CustomActionItemProps, CustomActionItemState> {
@@ -30,35 +28,34 @@ export default class CustomActionItem extends React.Component<CustomActionItemPr
         super();
         this.state = {
             mode: ViewMode.View,
-            item: { locationInternal: 'ScriptLink' } as ICustomAction,
-            isSequenceValid: false,
-            isScriptValid: false
+            item: { locationInternal: 'ScriptLink' } as ICustomAction
         };
-        this.saveCustomAction.bind(this);
-        this.createCustomAction.bind(this);
+        this.saveCustomAction = this.saveCustomAction.bind(this);
+        this.createCustomAction = this.createCustomAction.bind(this);
     }
     private changeMode(e: any) {
         e.preventDefault();
         if (this.state.mode === ViewMode.New) {
             this.props.workingOnIt(true);
-            this.props.reloadCActions();
+            this.props.reloadCActions('', MessageBarType.info);
         } else {
             this.setState({
-                mode: (this.state.mode === ViewMode.View ? ViewMode.Edit : ViewMode.View)
-            } as CustomActionItemState);
+                mode: (this.state.mode === ViewMode.View ? ViewMode.Edit : ViewMode.View),
+                item: this.state.item
+            });
         }
         return false;
     }
 
     private onSaveBtnClick(e: any) {
-        if (this.state.isScriptValid && this.state.isSequenceValid) {
-            this.props.workingOnIt(true);
-            if (this.state.mode === ViewMode.Edit) {
-                this.saveCustomAction();
-            } else {
-                this.createCustomAction();
-            }
+
+        this.props.workingOnIt(true);
+        if (this.state.mode === ViewMode.Edit) {
+            this.saveCustomAction();
+        } else {
+            this.createCustomAction();
         }
+
         e.preventDefault();
         return false;
     }
@@ -74,9 +71,7 @@ export default class CustomActionItem extends React.Component<CustomActionItemPr
             ca.deleteObject();
             ctx.load(ca);
             let onSuccess: Function = Function.createDelegate(this, function (sender: any, err: any) {
-                this.props.reloadCActions();
-                this.props.workingOnIt(false);
-                this.props.showMessage(MessageBarType.success, 'The Custom action has been successfully deleted.');
+                this.props.reloadCActions('The Custom action has been successfully deleted.', MessageBarType.success);
             });
             let onError: Function = Function.createDelegate(this, function (a: any, b: any) {
                 console.log(b.get_message());
@@ -129,8 +124,7 @@ export default class CustomActionItem extends React.Component<CustomActionItemPr
         ctx.load(ca);
         let onSuccess: Function = Function.createDelegate(this, function (sender: any, err: any) {
             //this.props.changeModefunction();
-            this.props.reloadCActions();
-            this.props.showMessage(MessageBarType.success, 'The Custom action has been successfully updated.');
+            this.props.reloadCActions('The Custom action has been successfully updated.', MessageBarType.success);
         });
         let onError: Function = Function.createDelegate(this, function (a: any, b: any) {
             console.log(b.get_message());
@@ -147,8 +141,7 @@ export default class CustomActionItem extends React.Component<CustomActionItemPr
         web.update();
         let onSuccess: Function = Function.createDelegate(this, function (sender: any, err: any) {
             //this.props.changeModefunction();
-            this.props.reloadCActions();
-            this.props.showMessage(MessageBarType.success, 'The Custom action has been successfully created.');
+            this.props.reloadCActions('The Custom action has been successfully created.', MessageBarType.success);
         });
         let onError: Function = Function.createDelegate(this, function (a: any, b: any) {
             console.log(b.get_message());
@@ -200,10 +193,6 @@ export default class CustomActionItem extends React.Component<CustomActionItemPr
             isScriptValid = false;
         }
 
-        this.setState({
-            isScriptValid: isScriptValid
-        } as CustomActionItemState)
-
         return errorMessage;
     }
 
@@ -218,15 +207,16 @@ export default class CustomActionItem extends React.Component<CustomActionItemPr
             errorMessage = 'The value must be a Number';
             isScriptValid = false;
         }
-
-        this.setState({
-            isScriptValid: isScriptValid
-        } as CustomActionItemState)
-
         return errorMessage;
     }
 
-
+    private isScriptValid(): boolean {
+        if (this.state.item.locationInternal === 'ScriptBlock') {
+            return this.state.item.scriptBlock !== '';
+        } else {
+            return this.state.item.scriptSrc !== '';
+        }
+    }
     private onTitleChange(inputText: string, b: any) {
         let newItem = this.state.item;
         newItem.title = inputText;

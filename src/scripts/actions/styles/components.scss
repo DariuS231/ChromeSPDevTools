@@ -152,12 +152,13 @@ $dividerColor: $ms-color-neutralLight;
     flex-shrink: 0;
 }
 
+
 /***   Common ***/
+
 .action-container {
     overflow-y: auto;
     overflow-x: hidden;
     height: 90%;
-
     .ms-Button {
         display: block;
         font-size: large;
@@ -217,6 +218,7 @@ $dividerColor: $ms-color-neutralLight;
 
 
 /***   Working on it ***/
+
 .working-on-it-wrapper {
     overflow: auto;
     height: 90%;
@@ -234,10 +236,10 @@ $dividerColor: $ms-color-neutralLight;
 
 
 /***   Property Bags ***/
+
 .sp-peropertyBags {
-    
-    .ms-TextField{
-        >label{
+    .ms-TextField {
+        >label {
             color: #0078d7;
         }
         &.is-disabled {
@@ -248,15 +250,18 @@ $dividerColor: $ms-color-neutralLight;
             }
         }
     }
-    h2{
+    h2 {
         margin-top: 10px;
         margin-bottom: 10px;
     }
-    
+    .spProp-create-button {
+        padding-left: 17px;
+    }
 }
 
 
 /***   Site lists and Libraries ***/
+
 .sp-siteContent {
     .ms-List-cell {
         width: 50%;
@@ -271,7 +276,6 @@ $dividerColor: $ms-color-neutralLight;
                 margin-left: 5px;
             }
         }
-        
     }
     i.ms-Icon.ms-Icon--Settings {
         font-size: large;
@@ -280,9 +284,10 @@ $dividerColor: $ms-color-neutralLight;
 
 
 /***   Custom Actions ***/
+
 .sp-customActions {
-    .ms-TextField{
-        >label{
+    .ms-TextField {
+        >label {
             color: #0078d7;
         }
         &.is-disabled {
@@ -294,52 +299,50 @@ $dividerColor: $ms-color-neutralLight;
         }
     }
     .ms-ChoiceFieldGroup {
-        .ms-ChoiceFieldGroup-title > label{
+        .ms-ChoiceFieldGroup-title>label {
             color: #0078d7;
             font-size: 14px;
             font-weight: 400;
         }
-        .ms-ChoiceField{
+        .ms-ChoiceField {
             display: inline-block;
         }
     }
-
 }
 
-
 // /***   Web/Site Features ***/
- .sp-features {
-        overflow: auto;
-        height: 90%;
-        .ms-ListBasicExample-featureName {
-            white-space: normal;
-            overflow: visible;
-            margin-right: 10px;
-        }
-        .ms-ListBasicExample-featureContent {
-            @include margin-left(10px);
-            overflow: hidden;
-            flex-grow: 1;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        .ms-ListFeature-toggle {
-            margin-top: -5px;
-        }
-        .ms-ListBasicExample-itemCell {
-            min-height: 60px;
-        }
-        .web-feature-table{
-            margin-top: 6.5px;
-            display: inline-block;
-            width: 49%;
-            vertical-align: top;
-        }
-        .site-feature-table{
-            margin-top: 6.5px;
-            display: inline-block;
-            width: 49%;
-            vertical-align: top;
-            margin-left: 5px;
-        }
- }
+.sp-features {
+    overflow: auto;
+    height: 90%;
+    .ms-ListBasicExample-featureName {
+        white-space: normal;
+        overflow: visible;
+        margin-right: 10px;
+    }
+    .ms-ListBasicExample-featureContent {
+        @include margin-left(10px);
+        overflow: hidden;
+        flex-grow: 1;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .ms-ListFeature-toggle {
+        margin-top: -5px;
+    }
+    .ms-ListBasicExample-itemCell {
+        min-height: 60px;
+    }
+    .web-feature-table {
+        margin-top: 6.5px;
+        display: inline-block;
+        width: 49%;
+        vertical-align: top;
+    }
+    .site-feature-table {
+        margin-top: 6.5px;
+        display: inline-block;
+        width: 49%;
+        vertical-align: top;
+        margin-left: 5px;
+    }
+}

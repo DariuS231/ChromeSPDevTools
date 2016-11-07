@@ -43,7 +43,7 @@ export default class SpCustomActions extends React.Component<SpCustomActionsProp
         this.setState({ messageType: messageType, message: message, showMessage: true } as SpCustomActionsState)
     }
 
-    private getCustomActions(): void {
+    private getCustomActions(message: string, messageType: MessageBarType): void {
         let ctx = SP.ClientContext.get_current();
         let web = ctx.get_web();
         let sca = web.get_userCustomActions();
@@ -79,6 +79,9 @@ export default class SpCustomActions extends React.Component<SpCustomActionsProp
             this.setState({
                 customActions: items,
                 mode: ViewMode.View,
+                message: message,
+                messageType: messageType,
+                showMessage: message !== '',
                 isWorkingOnIt: false
             } as SpCustomActionsState);
         });
@@ -99,7 +102,7 @@ export default class SpCustomActions extends React.Component<SpCustomActionsProp
     }
 
     private componentDidMount(): void {
-        this.getCustomActions();
+        this.getCustomActions('', MessageBarType.success);
     }
     public render(): JSX.Element {
         if (this.state.isWorkingOnIt) {

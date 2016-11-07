@@ -8,8 +8,6 @@ import MessageBar from './../common/MessageBar';
 import {
     Checkbox,
     MessageBarType,
-    FocusZone,
-    FocusZoneDirection,
     TextField,
     Image,
     ImageFit,
@@ -137,7 +135,6 @@ export default class SpSiteContent extends React.Component<SpSiteContentProps, S
                             <Checkbox label='Open in new Tab' defaultChecked={this.state.openInNewTab} onChange={this.openInNewTab.bind(this)} />
                         </div>
                     </div>
-                    <FocusZone direction={FocusZoneDirection.vertical}>
                         <List
                             items={lists}
                             onRenderCell={(item, index) => (
@@ -155,7 +152,6 @@ export default class SpSiteContent extends React.Component<SpSiteContentProps, S
                                 </div>
                             )}
                             />
-                    </FocusZone>
                 </div>);
 
         }
