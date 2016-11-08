@@ -9,7 +9,7 @@ import KeyValueItem from './../common/KeyValueItem';
 import { WorkingOnIt } from './../common/WorkingOnIt';
 import MessageBar from './../common/MessageBar';
 import { OperationType } from './../common/enums';
-import { MessageBarType, List, TextField, FocusZone, FocusZoneDirection } from './../../../../node_modules/office-ui-fabric-react/lib/index';
+import { MessageBarType, List, SearchBox, FocusZone, FocusZoneDirection } from './../../../../node_modules/office-ui-fabric-react/lib/index';
 
 
 interface SpPropertyBagProps {
@@ -159,7 +159,8 @@ export default class SpPropertyBag extends React.Component<SpPropertyBagProps, S
             return (<div className="action-container sp-peropertyBags">
                 <MessageBar message={this.state.message} messageType={this.state.messageType} showMessage={this.state.showMessage} />
                 <FocusZone direction={FocusZoneDirection.vertical}>
-                    <TextField label="Filter:" onBeforeChange={this.onFilterChange} />
+                
+                    <SearchBox onChange={this.onFilterChange} />
                     <List items={props} onRenderCell={(item, index) => (
                         <KeyValueItem
                             item={item}
