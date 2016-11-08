@@ -9,7 +9,7 @@ import KeyValueItem from './../common/KeyValueItem';
 import { WorkingOnIt } from './../common/WorkingOnIt';
 import MessageBar from './../common/MessageBar';
 import { OperationType } from './../common/enums';
-import { MessageBarType, List } from './../../../../node_modules/office-ui-fabric-react/lib/index';
+import { MessageBarType, List, TextField, FocusZone, FocusZoneDirection } from './../../../../node_modules/office-ui-fabric-react/lib/index';
 
 
 interface SpPropertyBagProps {
@@ -23,7 +23,8 @@ interface SpPropertyBagState {
     webProperties: Array<IKeyValue>,
     showMessage: boolean,
     messageType: MessageBarType,
-    message: string
+    message: string,
+    filterText: string
 }
 
 export default class SpPropertyBag extends React.Component<SpPropertyBagProps, SpPropertyBagState> {
@@ -40,9 +41,11 @@ export default class SpPropertyBag extends React.Component<SpPropertyBagProps, S
             isWorkingOnIt: true,
             showMessage: false,
             messageType: MessageBarType.info,
-            message: ''
+            message: '',
+            filterText: ''
         } as SpPropertyBagState;
         this.reloadPage = false;
+        this.onFilterChange = this.onFilterChange.bind(this);
     }
     private onUpdatingNewProperty(key: string, value: string) {
         this.setState({ isWorkingOnIt: true } as SpPropertyBagState);
@@ -137,6 +140,9 @@ export default class SpPropertyBag extends React.Component<SpPropertyBagProps, S
             this.ctx.executeQueryAsync(onSuccess, onError);
         }
     }
+    private onFilterChange(str: string) {
+        this.setState({ filterText: str } as SpPropertyBagState);
+    }
     private componentDidMount() {
         this.ctx = SP.ClientContext.get_current();
         this.web = this.ctx.get_web();
@@ -146,13 +152,25 @@ export default class SpPropertyBag extends React.Component<SpPropertyBagProps, S
         if (this.state.isWorkingOnIt) {
             return <WorkingOnIt />;
         } else {
+            const filter:string = this.state.filterText.toLowerCase();
+            const props:Array<IKeyValue> = filter !== '' ? this.state.webProperties.filter((prop:IKeyValue, index:number)=>{
+                return prop.key.toLowerCase().indexOf(filter) >= 0 || prop.value.toLowerCase().indexOf(filter) >= 0; 
+            }) : this.state.webProperties;
             return (<div className="action-container sp-peropertyBags">
                 <MessageBar message={this.state.message} messageType={this.state.messageType} showMessage={this.state.showMessage} />
-       
-                    <List items={this.state.webProperties} onRenderCell={(item, index) => (
-                        <KeyValueItem item={item} key={item.key} itemIndex={index} onUpdateClick={this.onUpdatingNewProperty.bind(this)} onDeleteClick={this.onDeletingProperty.bind(this)} />
-                    )}
-                        />
+                <FocusZone direction={FocusZoneDirection.vertical}>
+                    <TextField label="Filter:" onBeforeChange={this.onFilterChange} />
+                    <List items={props} onRenderCell={(item, index) => (
+                        <KeyValueItem
+                            item={item}
+                            key={item.key}
+                            itemIndex={index}
+                            onUpdateClick={this.onUpdatingNewProperty.bind(this)}
+                            onDeleteClick={this.onDeletingProperty.bind(this)} />
+                    )} />
+
+                </FocusZone>
+
                 <NewKeyValueItem moduleTitle="New web property" keyDisplayName="Property Name" valueDisplayName="Property Value" onNewItemClick={this.onAddingNewProperty.bind(this)} />
             </div>);
 
