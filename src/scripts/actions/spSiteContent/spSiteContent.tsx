@@ -23,7 +23,7 @@ interface SpSiteContentState {
     showMessage: boolean,
     messageType: MessageBarType,
     message: string,
-    showHidden: boolean,
+    showAll: boolean,
     openInNewTab: boolean
 }
 
@@ -36,7 +36,7 @@ export default class SpSiteContent extends React.Component<SpSiteContentProps, S
             showMessage: false,
             messageType: MessageBarType.info,
             message: '',
-            showHidden: true,
+            showAll: false,
             openInNewTab: true
         } as SpSiteContentState;
     }
@@ -84,13 +84,13 @@ export default class SpSiteContent extends React.Component<SpSiteContentProps, S
         });
         ctx.executeQueryAsync(onSuccess, onError);
     }
-    private showHidden(e: any) {
-        let showHiddenNewVal: boolean = e.target.checked;
-        let messageText: string = showHiddenNewVal ?
-            'Showing hidden lists and libraries.' :
-            'Not showing hidden lists and libraries.';
+    private showAll(e: any) {
+        let showAllNewVal: boolean = e.target.checked;
+        let messageText: string = showAllNewVal ?
+            'Showing all lists and libraries.' :
+            'Showing only hidden lists and libraries.';
         this.setState({
-            showHidden: showHiddenNewVal,
+            showAll: showAllNewVal,
             messageType: MessageBarType.info,
             showMessage: true,
             message: messageText
@@ -116,11 +116,11 @@ export default class SpSiteContent extends React.Component<SpSiteContentProps, S
             return <WorkingOnIt />
         } else {
             var lists: any;
-            if (this.state.showHidden) {
+            if (this.state.showAll) {
                 lists = this.state.siteLists;
             } else {
                 lists = this.state.siteLists.filter((list: ISiteContent, index: number) => {
-                    return !list.hidden;
+                    return list.hidden;
                 });
             }
             let target = this.state.openInNewTab ? '_blank' : '_self';
@@ -129,7 +129,7 @@ export default class SpSiteContent extends React.Component<SpSiteContentProps, S
                     <MessageBar message={this.state.message} messageType={this.state.messageType} showMessage={this.state.showMessage} />
                     <div className="checkBoxes-container">
                         <div>
-                            <Checkbox label='Show hidden' defaultChecked={this.state.showHidden} onChange={this.showHidden.bind(this)} />
+                            <Checkbox label='Show all' defaultChecked={this.state.showAll} onChange={this.showAll.bind(this)} />
                         </div>
                         <div>
                             <Checkbox label='Open in new Tab' defaultChecked={this.state.openInNewTab} onChange={this.openInNewTab.bind(this)} />
