@@ -1,14 +1,5 @@
 {
-  "globalDependencies": {
-    "chrome": "registry:dt/chrome#0.0.0+20160724063844",
-    "core-js": "registry:dt/core-js#0.0.0+20160602141332",
-    "filesystem": "registry:dt/filesystem#0.0.0+20160316155526",
-    "filewriter": "registry:dt/filewriter#0.0.0+20160316155526",
-    "microsoft.ajax": "registry:dt/microsoft.ajax#0.0.0+20160706234802",
-    "react": "registry:dt/react#0.14.0+20160805125551",
-    "react-dom": "registry:dt/react-dom#0.14.0+20160412154040",
-    "webrtc/mediastream": "registry:dt/webrtc/mediastream#0.0.0+20160317120654",
-    "whatwg-fetch": "registry:dt/whatwg-fetch#0.0.0+20160524142046",
-    "jquery": "registry:dt/jquery#1.10.0+20160704162008"
-  }
+    "globalDependencies": {
+        "core-js": "registry:dt/core-js#0.0.0+20160914114559"
+    }
 }
