@@ -11,7 +11,8 @@ import {
     TextField,
     Image,
     ImageFit,
-    List
+    List,
+    SearchBox
 } from './../../../../node_modules/office-ui-fabric-react/lib/index';
 
 interface SpSiteContentProps {
@@ -24,7 +25,8 @@ interface SpSiteContentState {
     messageType: MessageBarType,
     message: string,
     showAll: boolean,
-    openInNewTab: boolean
+    openInNewTab: boolean,
+    filterText:string
 }
 
 export default class SpSiteContent extends React.Component<SpSiteContentProps, SpSiteContentState> {
@@ -37,8 +39,11 @@ export default class SpSiteContent extends React.Component<SpSiteContentProps, S
             messageType: MessageBarType.info,
             message: '',
             showAll: false,
-            openInNewTab: true
+            openInNewTab: true,
+            filterText: ''
         } as SpSiteContentState;
+        
+        this.onFilterChange = this.onFilterChange.bind(this);
     }
     private getLists() {
         let ctx = SP.ClientContext.get_current();
@@ -111,6 +116,10 @@ export default class SpSiteContent extends React.Component<SpSiteContentProps, S
     private componentDidMount() {
         this.getLists();
     }
+    
+    private onFilterChange(str: string) {
+        this.setState({ filterText: str } as SpSiteContentState);
+    }
     public render() {
         if (this.state.isWorkingOnIt) {
             return <WorkingOnIt />
@@ -123,18 +132,29 @@ export default class SpSiteContent extends React.Component<SpSiteContentProps, S
                     return list.hidden;
                 });
             }
+            const filter = this.state.filterText.toLowerCase();
+            if(filter !== ''){
+                lists = lists.filter((list: ISiteContent, index: number) => {
+                    return list.title.toLowerCase().indexOf(filter) >= 0;
+                });
+            }
             let target = this.state.openInNewTab ? '_blank' : '_self';
             return (
                 <div className="action-container sp-siteContent">
                     <MessageBar message={this.state.message} messageType={this.state.messageType} showMessage={this.state.showMessage} />
-                    <div className="checkBoxes-container">
-                        <div>
-                            <Checkbox label='Show all' defaultChecked={this.state.showAll} onChange={this.showAll.bind(this)} />
-                        </div>
-                        <div>
-                            <Checkbox label='Open in new Tab' defaultChecked={this.state.openInNewTab} onChange={this.openInNewTab.bind(this)} />
+                    <div className="ms-Grid filters-container"> 
+                        <div className="ms-Grid-row">
+                            <div className="ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6">
+                                <SearchBox onChange={this.onFilterChange}/>
+                            </div>
+                            <div className="ms-Grid-col ms-u-sm3 ms-u-md3 ms-u-lg3">
+                                <Checkbox label='Show all' defaultChecked={this.state.showAll} onChange={this.showAll.bind(this)} /></div>
+                            <div className="ms-Grid-col ms-u-sm3 ms-u-md3 ms-u-lg3">
+                                <Checkbox label='Open in new Tab' defaultChecked={this.state.openInNewTab} onChange={this.openInNewTab.bind(this)} />
+                            </div>
                         </div>
                     </div>
+                   
                         <List
                             items={lists}
                             onRenderCell={(item, index) => (

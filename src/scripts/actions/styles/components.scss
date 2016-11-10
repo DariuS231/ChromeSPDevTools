@@ -159,6 +159,9 @@ $dividerColor: $ms-color-neutralLight;
     overflow-y: auto;
     overflow-x: hidden;
     height: 90%;
+    .filters-container {
+        margin-top: 10px;
+    }
     .ms-Button {
         display: block;
         font-size: large;
@@ -312,7 +315,8 @@ $dividerColor: $ms-color-neutralLight;
 
 // /***   Web/Site Features ***/
 .sp-features {
-    overflow: auto;
+    overflow-x: hidden;
+    overflow-y: auto;
     height: 90%;
     .ms-ListBasicExample-featureName {
         white-space: normal;

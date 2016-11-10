@@ -8,7 +8,7 @@ import Utils from './../common/utils';
 import { ViewMode } from './../common/enums';
 import SpCustomActionItem from './customActionItem'
 import { SpCustomActionList } from './spCustomActionList'
-import { MessageBarType, FocusZone, FocusZoneDirection, List, Button, ButtonType } from './../../../../node_modules/office-ui-fabric-react/lib/index';
+import { MessageBarType, FocusZone, FocusZoneDirection, List, Button, ButtonType, SearchBox } from './../../../../node_modules/office-ui-fabric-react/lib/index';
 
 interface SpCustomActionsProps {
     closeWindowFunction: any
@@ -19,7 +19,8 @@ interface SpCustomActionsState {
     messageType: MessageBarType,
     mode: ViewMode,
     message: string,
-    customActions: Array<ICustomAction>
+    customActions: Array<ICustomAction>,
+    filterText:string
 }
 
 export default class SpCustomActions extends React.Component<SpCustomActionsProps, SpCustomActionsState> {
@@ -31,8 +32,10 @@ export default class SpCustomActions extends React.Component<SpCustomActionsProp
             messageType: MessageBarType.info,
             mode: ViewMode.View,
             message: '',
-            customActions: []
+            customActions: [],
+            filterText:''
         } as SpCustomActionsState;
+        this.onFilterChange = this.onFilterChange.bind(this);
     }
     private workingOnIt(show: boolean): void {
         this.setState({
@@ -92,6 +95,10 @@ export default class SpCustomActions extends React.Component<SpCustomActionsProp
         };
         ctx.executeQueryAsync(onSuccess, onError);
     }
+    
+    private onFilterChange(str: string) {
+        this.setState({ filterText: str } as SpCustomActionsState);
+    }
     private onNewCuatomActionClick(e: any): void {
         this.setState({
             mode: ViewMode.New
@@ -109,6 +116,12 @@ export default class SpCustomActions extends React.Component<SpCustomActionsProp
             return <WorkingOnIt />
         } else {
             if (this.state.mode === ViewMode.View) {
+                const filter:string = this.state.filterText.toLowerCase();
+                const list = filter !== '' 
+                    ? this.state.customActions.filter((ca: ICustomAction, index: number) => {
+                        return ca.name.toLowerCase().indexOf(filter) >= 0;
+                    })
+                    : this.state.customActions;
                 return (
                     <div className="action-container sp-customActions">
                         {
@@ -120,8 +133,16 @@ export default class SpCustomActions extends React.Component<SpCustomActionsProp
                                 :
                                 null
                         }
+                        <div className="ms-Grid filters-container"> 
+                            <div className="ms-Grid-row">
+                                <div className="ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6">
+                                    <SearchBox onChange={this.onFilterChange}/>
+                                </div>
+                                <div className="ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6"> </div>
+                            </div>
+                        </div>
                         <SpCustomActionList
-                            customActions={this.state.customActions}
+                            customActions={list}
                             workingOnIt={this.workingOnIt.bind(this)}
                             showMessage={this.showMessage.bind(this)}
                             reloadCActions={this.getCustomActions.bind(this)} />

@@ -20,7 +20,8 @@ import {
     Image,
     ImageFit,
     List,
-    Toggle
+    Toggle,
+    SearchBox
 } from './../../../../node_modules/office-ui-fabric-react/lib/index';
 
 
@@ -37,7 +38,8 @@ interface SpFeatureState {
     siteFeatures: Array<IFeature>,
     showMessage: boolean,
     messageType: MessageBarType,
-    message: string
+    message: string,
+    filterText: string
 }
 
 export default class SpFeatures extends React.Component<SpFeatureProps, SpFeatureState> {
@@ -55,10 +57,12 @@ export default class SpFeatures extends React.Component<SpFeatureProps, SpFeatur
             isWorkingOnIt: true,
             showMessage: false,
             messageType: MessageBarType.info,
-            message: ''
+            message: '',
+            filterText:''
         } as SpFeatureState;
         this.reloadPage = false;
         this.spErrorHandler = this.spErrorHandler.bind(this);
+        this.onFilterChange = this.onFilterChange.bind(this);
     }
 
     private spErrorHandler(sender: any, err: any) {
@@ -188,6 +192,10 @@ export default class SpFeatures extends React.Component<SpFeatureProps, SpFeatur
             this.ctx.executeQueryAsync(onSuccess, onError);
         }
     }
+    
+    private onFilterChange(str: string) {
+        this.setState({ filterText: str } as SpFeatureState);
+    }
     private componentDidMount() {
         this.ctx = SP.ClientContext.get_current();
         this.web = this.ctx.get_web();
@@ -198,19 +206,29 @@ export default class SpFeatures extends React.Component<SpFeatureProps, SpFeatur
             return <WorkingOnIt />;
         } else {
             if (this.state.currentUserHasPermissions) {
-                //console.log(this.state.siteFeatures.length);
-                //var webProps = this.state.webFeatures.map((prop: IFeature, index: number) => {
-                //    return (<FeatureItem item={prop} key={prop.id} itemIndex={index} onClick={this.onWebActionClick.bind(this)} showOnlyIconsInButtons={this.props.showOnlyIconsInButtons} />);
-                //});
-                //var siteProps = this.state.siteFeatures.map((prop: IFeature, index: number) => {
-                //    return (<FeatureItem item={prop} key={prop.id} itemIndex={index} onClick={this.onSiteActionClick.bind(this)} showOnlyIconsInButtons={this.props.showOnlyIconsInButtons} />);
-                //});
-                var webProps = this.state.webFeatures;    
-                var siteProps = this.state.siteFeatures;
+                const filter:string = this.state.filterText.toLowerCase();
+                const applyFilter:boolean = filter!==''; 
+                var webProps = applyFilter 
+                    ? this.state.webFeatures.filter((f: IFeature, index: number) => {
+                        return f.name.toLowerCase().indexOf(filter) >= 0;
+                    })
+                    :  this.state.webFeatures;     
+                var siteProps = applyFilter 
+                    ? this.state.siteFeatures.filter((f: IFeature, index: number) => {
+                        return f.name.toLowerCase().indexOf(filter) >= 0;
+                    }) 
+                    : this.state.siteFeatures;
 
                 return (<div className='sp-features'>
                     <MessageBar message={this.state.message} messageType={this.state.messageType} showMessage={this.state.showMessage} />
-
+                    <div className="ms-Grid filters-container"> 
+                        <div className="ms-Grid-row">
+                            <div className="ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6">
+                                <SearchBox onChange={this.onFilterChange}/>
+                            </div>
+                            <div className="ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6"> </div>
+                        </div>
+                    </div>
                     <div className='web-feature-table' >
                         <div className='ms-font-l ms-fontWeight-semibold'>Web Features</div>
                             <FocusZone direction={FocusZoneDirection.vertical}>

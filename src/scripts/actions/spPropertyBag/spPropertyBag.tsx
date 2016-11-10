@@ -165,9 +165,14 @@ export default class SpPropertyBag extends React.Component<SpPropertyBagProps, S
             }) : this.state.webProperties;
             return (<div className="action-container sp-peropertyBags">
                 <MessageBar message={this.state.message} messageType={this.state.messageType} showMessage={this.state.showMessage} />
-                <FocusZone direction={FocusZoneDirection.vertical}>
-
-                    <SearchBox onChange={this.onFilterChange} />
+                <div className="ms-Grid filters-container"> 
+                        <div className="ms-Grid-row">
+                            <div className="ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6">
+                                <SearchBox onChange={this.onFilterChange}/>
+                            </div>
+                            <div className="ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6"> </div>
+                        </div>
+                    </div>
                     <List items={props} onRenderCell={(item, index) => (
                         <KeyValueItem
                             item={item}
@@ -177,7 +182,6 @@ export default class SpPropertyBag extends React.Component<SpPropertyBagProps, S
                             onDeleteClick={this.onDeletingProperty.bind(this)} />
                     )} />
 
-                </FocusZone>
 
                 <NewKeyValueItem moduleTitle="New web property" keyDisplayName="Property Name" valueDisplayName="Property Value" onNewItemClick={this.onAddingNewProperty.bind(this)} />
             </div>);
