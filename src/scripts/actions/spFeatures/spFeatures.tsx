@@ -58,26 +58,13 @@ export default class SpFeatures extends React.Component<SpFeatureProps, SpFeatur
             message: ''
         } as SpFeatureState;
         this.reloadPage = false;
+        this.spErrorHandler = this.spErrorHandler.bind(this);
     }
 
     private spErrorHandler(sender: any, err: any) {
         console.log(err.get_message());
         this.setState({ isWorkingOnIt: false, messageType: MessageBarType.error, message: 'An error ocurred, check the log for more information.', showMessage: true } as SpFeatureState)
     }
-    private executeChanges(opType: FeatureOperationType, msg: string) {
-        this.ctx.get_web().update();
-        let onSuccess: Function = Function.createDelegate(this, function (sender: any, err: any) {
-            if (this.reloadPage) {
-                window.location.reload();
-            } else {
-                this.getWebProperties(opType, msg);
-            }
-        });
-        let onError: Function = Function.createDelegate(this, this.spErrorHandler);
-        this.ctx.executeQueryAsync(onSuccess, onError);
-    };
-
-
     private getFeatures(featureType: SP.FeatureDefinitionScope, opType: FeatureOperationType, msg: string) {
         let that = this;
         let url: string;
@@ -134,13 +121,12 @@ export default class SpFeatures extends React.Component<SpFeatureProps, SpFeatur
         }
 
 
-        let onSuccess: Function = Function.createDelegate(this, function (sender: any, err: any) {
+        let onSuccess =  (sender: any, err: any) => {
             this.getFeatures(SP.FeatureDefinitionScope.none, FeatureOperationType.Activate, msg);
             this.setState({ isWorkingOnIt: false } as SpFeatureState);
 
-        });
-        let onError: Function = Function.createDelegate(this, this.spErrorHandler);
-        ctx.executeQueryAsync(Function.createDelegate(this, onSuccess), Function.createDelegate(this, onError));
+        };
+        ctx.executeQueryAsync( onSuccess,  this.spErrorHandler);
     }
 
     private onSiteActionClick(id: string, name: string, operation: boolean, scope: SP.FeatureDefinitionScope) {
@@ -159,13 +145,13 @@ export default class SpFeatures extends React.Component<SpFeatureProps, SpFeatur
             msg = "The site feature " + name + " has been deactivated";
         }
 
-        let onSuccess: Function = Function.createDelegate(this, function (sender: any, err: any) {
+        let onSuccess = (sender: any, err: any) => {
             this.getFeatures(SP.FeatureDefinitionScope.site, FeatureOperationType.Activate, msg);
             this.setState({ isWorkingOnIt: false } as SpFeatureState);
 
-        });
-        let onError: Function = Function.createDelegate(this, this.spErrorHandler);
-        ctx.executeQueryAsync(Function.createDelegate(this, onSuccess), Function.createDelegate(this, onError));
+        };
+        
+        ctx.executeQueryAsync(onSuccess, this.spErrorHandler);
     }
 
     private checkUserPermissions() {
@@ -180,7 +166,7 @@ export default class SpFeatures extends React.Component<SpFeatureProps, SpFeatur
             ob.set(SP.PermissionKind.manageWeb);
             let per: any = this.web.doesUserHavePermissions(ob);
 
-            let onSuccess: Function = Function.createDelegate(this, (sender: any, err: any) => {
+            let onSuccess =  (sender: any, err: any) => {
                 var hasPermissions = per.get_value();
                 if (hasPermissions) {
                     this.getFeatures(SP.FeatureDefinitionScope.none, FeatureOperationType.None, '');
@@ -193,12 +179,12 @@ export default class SpFeatures extends React.Component<SpFeatureProps, SpFeatur
                         isWorkingOnIt: false
                     } as SpFeatureState);
                 }
-            });
-            let onError: Function = Function.createDelegate(this, (sender: any, err: any) => {
+            };
+            let onError = (sender: any, err: any) => {
                 SP.UI.Notify.addNotification("Failed to features...<br>" + err.get_message(), false);
                 console.log(err);
                 this.props.closeWindowFunction();
-            });
+            };
             this.ctx.executeQueryAsync(onSuccess, onError);
         }
     }

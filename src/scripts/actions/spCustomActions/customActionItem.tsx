@@ -70,13 +70,13 @@ export default class CustomActionItem extends React.Component<CustomActionItemPr
             let ca: SP.UserCustomAction = web.get_userCustomActions().getById(caGuid);
             ca.deleteObject();
             ctx.load(ca);
-            let onSuccess: Function = Function.createDelegate(this, function (sender: any, err: any) {
+            let onSuccess = (sender: any, err: any) => {
                 this.props.reloadCActions('The Custom action has been successfully deleted.', MessageBarType.success);
-            });
-            let onError: Function = Function.createDelegate(this, function (a: any, b: any) {
+            };
+            let onError = (a: any, b: any) => {
                 console.log(b.get_message());
                 this.props.showMessage(MessageBarType.error, 'An error ocurred while deleting the Custom Action.');
-            });
+            };
 
             ctx.executeQueryAsync(onSuccess, onError);
         }
@@ -122,14 +122,14 @@ export default class CustomActionItem extends React.Component<CustomActionItemPr
         ca.update();
         web.update();
         ctx.load(ca);
-        let onSuccess: Function = Function.createDelegate(this, function (sender: any, err: any) {
+        let onSuccess = (sender: any, err: any) => {
             //this.props.changeModefunction();
             this.props.reloadCActions('The Custom action has been successfully updated.', MessageBarType.success);
-        });
-        let onError: Function = Function.createDelegate(this, function (a: any, b: any) {
+        };
+        let onError = (a: any, b: any) => {
             console.log(b.get_message());
             this.props.showMessage(MessageBarType.error, 'An error occured while created a new Custom Action.');
-        });
+        };
         ctx.executeQueryAsync(onSuccess, onError);
     }
     private createCustomAction(): void {
@@ -139,14 +139,14 @@ export default class CustomActionItem extends React.Component<CustomActionItemPr
         ca = this.setCustomActionData(ca);
         ca.update();
         web.update();
-        let onSuccess: Function = Function.createDelegate(this, function (sender: any, err: any) {
+        let onSuccess = (sender: any, err: any) => {
             //this.props.changeModefunction();
             this.props.reloadCActions('The Custom action has been successfully created.', MessageBarType.success);
-        });
-        let onError: Function = Function.createDelegate(this, function (a: any, b: any) {
+        };
+        let onError = (a: any, b: any) => {
             console.log(b.get_message());
             this.props.showMessage(MessageBarType.error, 'An error occured while created a new Custom Action.');
-        });
+        };
         ctx.executeQueryAsync(onSuccess, onError);
     }
     private setCustomActionData(ca: SP.UserCustomAction): SP.UserCustomAction {

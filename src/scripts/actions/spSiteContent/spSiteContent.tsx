@@ -48,7 +48,7 @@ export default class SpSiteContent extends React.Component<SpSiteContentProps, S
         ctx.load(web);
         ctx.load(siteConetent, 'Include(RootFolder,Title,Id,Hidden,ItemCount,Created,ImageUrl,LastItemModifiedDate,Description,ParentWebUrl)');
 
-        let onSuccess: Function = Function.createDelegate(this, (sender: any, err: any) => {
+        const onSuccess =  (sender: any, err: any) => {
 
             let items: Array<ISiteContent> = [], listEnumerator: any = siteConetent.getEnumerator();
 
@@ -76,12 +76,12 @@ export default class SpSiteContent extends React.Component<SpSiteContentProps, S
                 siteLists: items,
                 isWorkingOnIt: false
             } as SpSiteContentState);
-        });
-        let onError: Function = Function.createDelegate(this, (sender: any, err: any) => {
+        };
+        let onError=  (sender: any, err: any) => {
             SP.UI.Notify.addNotification("Failed to get web lists...<br>" + err.get_message(), false);
             console.log(err);
             this.props.closeWindowFunction();
-        });
+        };
         ctx.executeQueryAsync(onSuccess, onError);
     }
     private showAll(e: any) {

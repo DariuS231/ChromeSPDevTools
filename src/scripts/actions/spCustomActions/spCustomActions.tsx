@@ -50,7 +50,7 @@ export default class SpCustomActions extends React.Component<SpCustomActionsProp
 
         ctx.load(web);
         ctx.load(sca);
-        let onSuccess: Function = Function.createDelegate(this, (sender: any, err: any) => {
+        let onSuccess = (sender: any, err: any) => {
             let enumerator = sca.getEnumerator();
             let items: Array<ICustomAction> = [];
 
@@ -84,12 +84,12 @@ export default class SpCustomActions extends React.Component<SpCustomActionsProp
                 showMessage: message !== '',
                 isWorkingOnIt: false
             } as SpCustomActionsState);
-        });
-        let onError: Function = Function.createDelegate(this, (sender: any, err: any) => {
+        };
+        let onError = (sender: any, err: any) => {
             SP.UI.Notify.addNotification("Failed to get web custom actions...<br>" + err.get_message(), false);
             console.log(err);
             this.props.closeWindowFunction();
-        });
+        };
         ctx.executeQueryAsync(onSuccess, onError);
     }
     private onNewCuatomActionClick(e: any): void {
