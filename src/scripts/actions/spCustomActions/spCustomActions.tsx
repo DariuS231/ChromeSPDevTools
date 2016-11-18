@@ -5,13 +5,14 @@ import * as React from 'react';
 import { WorkingOnIt } from './../common/WorkingOnIt';
 import MessageBar from './../common/MessageBar';
 import Utils from './../common/utils';
-import { ViewMode } from './../common/enums';
+import { ViewMode, CustomActionType } from './../common/enums';
 import SpCustomActionItem from './customActionItem'
 import { SpCustomActionList } from './spCustomActionList'
 import { MessageBarType, FocusZone, FocusZoneDirection, List, Button, ButtonType, SearchBox } from './../../../../node_modules/office-ui-fabric-react/lib/index';
 
 interface SpCustomActionsProps {
-    closeWindowFunction: any
+    closeWindowFunction: any,
+    customActionType: CustomActionType
 }
 interface SpCustomActionsState {
     isWorkingOnIt: boolean,
@@ -20,7 +21,7 @@ interface SpCustomActionsState {
     mode: ViewMode,
     message: string,
     customActions: Array<ICustomAction>,
-    filterText:string
+    filterText: string
 }
 
 export default class SpCustomActions extends React.Component<SpCustomActionsProps, SpCustomActionsState> {
@@ -33,7 +34,7 @@ export default class SpCustomActions extends React.Component<SpCustomActionsProp
             mode: ViewMode.View,
             message: '',
             customActions: [],
-            filterText:''
+            filterText: ''
         } as SpCustomActionsState;
         this.onFilterChange = this.onFilterChange.bind(this);
     }
@@ -48,10 +49,14 @@ export default class SpCustomActions extends React.Component<SpCustomActionsProp
 
     private getCustomActions(message: string, messageType: MessageBarType): void {
         let ctx = SP.ClientContext.get_current();
-        let web = ctx.get_web();
-        let sca = web.get_userCustomActions();
+        let site: SP.Site = ctx.get_site();
+        let web: SP.Web = ctx.get_web();
+        let sca: SP.UserCustomActionCollection = (this.props.customActionType === CustomActionType.Web) 
+            ? web.get_userCustomActions()
+            : site.get_userCustomActions();
 
         ctx.load(web);
+        ctx.load(site);
         ctx.load(sca);
         let onSuccess = (sender: any, err: any) => {
             let enumerator = sca.getEnumerator();
@@ -89,13 +94,14 @@ export default class SpCustomActions extends React.Component<SpCustomActionsProp
             } as SpCustomActionsState);
         };
         let onError = (sender: any, err: any) => {
-            SP.UI.Notify.addNotification("Failed to get web custom actions...<br>" + err.get_message(), false);
+            
+            SP.UI.Notify.addNotification(`Failed to get ${this.props.customActionType} custom actions...<br> ${err.get_message()}`, false);
             console.log(err);
             this.props.closeWindowFunction();
         };
         ctx.executeQueryAsync(onSuccess, onError);
     }
-    
+
     private onFilterChange(str: string) {
         this.setState({ filterText: str } as SpCustomActionsState);
     }
@@ -116,8 +122,8 @@ export default class SpCustomActions extends React.Component<SpCustomActionsProp
             return <WorkingOnIt />
         } else {
             if (this.state.mode === ViewMode.View) {
-                const filter:string = this.state.filterText.toLowerCase();
-                const list = filter !== '' 
+                const filter: string = this.state.filterText.toLowerCase();
+                const list = filter !== ''
                     ? this.state.customActions.filter((ca: ICustomAction, index: number) => {
                         return ca.name.toLowerCase().indexOf(filter) >= 0;
                     })
@@ -133,10 +139,10 @@ export default class SpCustomActions extends React.Component<SpCustomActionsProp
                                 :
                                 null
                         }
-                        <div className="ms-Grid filters-container"> 
+                        <div className="ms-Grid filters-container">
                             <div className="ms-Grid-row">
                                 <div className="ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6">
-                                    <SearchBox onChange={this.onFilterChange}/>
+                                    <SearchBox onChange={this.onFilterChange} />
                                 </div>
                                 <div className="ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6"> </div>
                             </div>
@@ -145,7 +151,8 @@ export default class SpCustomActions extends React.Component<SpCustomActionsProp
                             customActions={list}
                             workingOnIt={this.workingOnIt.bind(this)}
                             showMessage={this.showMessage.bind(this)}
-                            reloadCActions={this.getCustomActions.bind(this)} />
+                            reloadCActions={this.getCustomActions.bind(this)} 
+                             type={this.props.customActionType}/>
                         <Button buttonType={ButtonType.primary}
                             onClick={this.onNewCuatomActionClick.bind(this)} >
                             New Custom Action
@@ -157,7 +164,8 @@ export default class SpCustomActions extends React.Component<SpCustomActionsProp
                         <SpCustomActionItem
                             workingOnIt={this.workingOnIt.bind(this)}
                             showMessage={this.showMessage.bind(this)}
-                            reloadCActions={this.getCustomActions.bind(this)} />
+                            reloadCActions={this.getCustomActions.bind(this)}
+                            caType={this.props.customActionType} />
                     </div>);
             }
         }

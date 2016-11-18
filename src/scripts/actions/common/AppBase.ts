@@ -8,6 +8,7 @@ export class AppBase {
     constructor(divId:string) {
         this.baseDivId = divId;
         this.styleLinkId = 'spChromeDevToolStyles';
+        this.remove = this.remove.bind(this);
 
         let baseDiv: HTMLElement = document.getElementById(this.baseDivId);
         if (!baseDiv) {

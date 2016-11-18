@@ -120,8 +120,15 @@ gulp.task("build-spSiteContentFile", ['build-actions-styles'], function (noUglif
     var destFolder = obj.outputFolder;
     return browserifyFn(entries, destFile, destFolder, noUglify);
 });
-gulp.task("build-spCustomActionsFile", ['build-actions-styles'], function (noUglify) {
-    var obj = config.paths.actions.spCustomActions;
+gulp.task("build-spWebCustomActionsFile", ['build-actions-styles'], function (noUglify) {
+    var obj = config.paths.actions.spWebCustomActions;
+    var entries = obj.entries;
+    var destFile = obj.outputFileName;
+    var destFolder = obj.outputFolder;
+    return browserifyFn(entries, destFile, destFolder, noUglify);
+});
+gulp.task("build-spSiteCustomActionsFile", ['build-actions-styles'], function (noUglify) {
+    var obj = config.paths.actions.spSiteCustomActions;
     var entries = obj.entries;
     var destFile = obj.outputFileName;
     var destFolder = obj.outputFolder;
@@ -135,14 +142,15 @@ gulp.task("build-spFeatureFile", ['build-actions-styles'], function (noUglify) {
     return browserifyFn(entries, destFile, destFolder, noUglify);
 });
 
-gulp.task('build-actions', ["build-sppropertyBagFile", "build-spSiteContentFile", "build-spCustomActionsFile", "build-spFeatureFile"],function(){});
+gulp.task('build-actions', ["build-sppropertyBagFile", "build-spSiteContentFile", "build-spWebCustomActionsFile", "build-spSiteCustomActionsFile", "build-spFeatureFile"],function(){});
 /****//****//****//****/
 //      Watch
 /****//****//****//****/
-gulp.task('watch', ["build-sppropertyBagFile", "build-spSiteContentFile", "build-spCustomActionsFile", "build-spFeatureFile"], function (noUglify) {
+gulp.task('watch', ["build-sppropertyBagFile", "build-spSiteContentFile", "build-spWebCustomActionsFile", "build-spSiteCustomActionsFile", "build-spFeatureFile"], function (noUglify) {
     gulp.watch(config.paths.actions.spPropertyBag.watchFiles, ['build-sppropertyBagFile']);
     gulp.watch(config.paths.actions.spSiteContent.watchFiles, ['build-spSiteContentFile']);
-    gulp.watch(config.paths.actions.spCustomActions.watchFiles, ['build-spCustomActionsFile']);
+    gulp.watch(config.paths.actions.spCustomActions.watchFiles, ['build-spWebCustomActionsFile']);
+    gulp.watch(config.paths.actions.spCustomActions.watchFiles, ['build-spSiteCustomActionsFile']);
     gulp.watch(config.paths.actions.spCustomActions.watchFiles, ['build-spFeatureFile']);
     gulp.watch(config.paths.chromeExt.scripts.background.watchFiles, ['build-chromeExt-background']);
     gulp.watch(config.paths.chromeExt.scripts.popup.watchFiles, ['build-chromeExt-popUp']);

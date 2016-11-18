@@ -81,17 +81,29 @@
                 "outputFolder": "dist/actions/SpSiteContent",
                 "outputFileName": "SpSiteContent.js"
             },
-            "spCustomActions": {
+            "spWebCustomActions": {
                 "watchFiles": [
                     "src/scripts/actions/spCustomActions/**/*.tsx",
                     "src/scripts/actions/common/spCustomModalWrapper.tsx",
                     "src/scripts/actions/common/styles.ts"
                 ],
                 "entries": [
-                    "src/scripts/actions/spCustomActions/main.tsx"
+                    "src/scripts/actions/spCustomActions/mainWebCa.tsx"
                 ],
-                "outputFolder": "dist/actions/spCustomActions",
-                "outputFileName": "spCustomActions.js"
+                "outputFolder": "dist/actions/spWebCustomActions",
+                "outputFileName": "spWebCustomActions.js"
+            },
+            "spSiteCustomActions": {
+                "watchFiles": [
+                    "src/scripts/actions/spCustomActions/**/*.tsx",
+                    "src/scripts/actions/common/spCustomModalWrapper.tsx",
+                    "src/scripts/actions/common/styles.ts"
+                ],
+                "entries": [
+                    "src/scripts/actions/spCustomActions/mainSiteCa.tsx"
+                ],
+                "outputFolder": "dist/actions/spSiteCustomActions",
+                "outputFileName": "spSiteCustomActions.js"
             },
             "spFeatures": {
                 "watchFiles": [

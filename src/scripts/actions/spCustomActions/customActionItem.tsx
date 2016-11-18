@@ -2,7 +2,7 @@
 /// <reference path="./../common/interfaces.ts"/>
 
 import * as React from 'react';
-import { ViewMode } from './../common/enums';
+import { ViewMode, CustomActionType } from './../common/enums';
 import Utils from './../common/utils';
 import {
     TextField,
@@ -16,7 +16,8 @@ interface CustomActionItemProps {
     item?: ICustomAction,
     workingOnIt: any,
     showMessage: any,
-    reloadCActions: any
+    reloadCActions: any,
+    caType:CustomActionType
 }
 interface CustomActionItemState {
     mode: ViewMode,
@@ -65,9 +66,12 @@ export default class CustomActionItem extends React.Component<CustomActionItemPr
             this.props.workingOnIt(true);
             let caGuid: SP.Guid = new SP.Guid(this.props.item.id.toString());
             let ctx: SP.ClientContext = SP.ClientContext.get_current();
+            let site: SP.Site = ctx.get_site();
             let web: SP.Web = ctx.get_web();
+            let ca: SP.UserCustomAction = (this.props.caType === CustomActionType.Web) 
+            ? web.get_userCustomActions().getById(caGuid)
+            : site.get_userCustomActions().getById(caGuid);
 
-            let ca: SP.UserCustomAction = web.get_userCustomActions().getById(caGuid);
             ca.deleteObject();
             ctx.load(ca);
             let onSuccess = (sender: any, err: any) => {
@@ -116,11 +120,16 @@ export default class CustomActionItem extends React.Component<CustomActionItemPr
     private saveCustomAction() {
         let caGuid: SP.Guid = new SP.Guid(this.props.item.id.toString());
         let ctx: SP.ClientContext = SP.ClientContext.get_current();
+        let site: SP.Site = ctx.get_site();
         let web: SP.Web = ctx.get_web();
-        let ca: SP.UserCustomAction = web.get_userCustomActions().getById(caGuid);
+        let ca: SP.UserCustomAction = (this.props.caType === CustomActionType.Web) 
+        ? web.get_userCustomActions().getById(caGuid)
+        : site.get_userCustomActions().getById(caGuid);
+
         ca = this.setCustomActionData(ca);
         ca.update();
         web.update();
+
         ctx.load(ca);
         let onSuccess = (sender: any, err: any) => {
             //this.props.changeModefunction();
@@ -134,8 +143,12 @@ export default class CustomActionItem extends React.Component<CustomActionItemPr
     }
     private createCustomAction(): void {
         let ctx: SP.ClientContext = SP.ClientContext.get_current();
+        let site: SP.Site = ctx.get_site();
         let web: SP.Web = ctx.get_web();
-        let ca: SP.UserCustomAction = web.get_userCustomActions().add();
+        let ca: SP.UserCustomAction = (this.props.caType === CustomActionType.Web) 
+        ? web.get_userCustomActions().add()
+        : site.get_userCustomActions().add();
+
         ca = this.setCustomActionData(ca);
         ca.update();
         web.update();

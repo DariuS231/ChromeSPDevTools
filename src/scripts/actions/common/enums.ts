@@ -17,3 +17,8 @@ export enum FeatureOperationType {
     Deactivate,
     None
 }
+
+export enum CustomActionType{
+    Site,
+    Web
+}
