@@ -2,30 +2,30 @@
         "title": "Property bags",
         "description": "Create, Update or Delete Web Property Bags.",
         "image": "/images/sp-bag-64-blue.png",
-        "scriptUrl": "https://rawgit.com/DariuS231/ChromeSPDevTools/fabricui/dist/actions/SpPropertyBag/SpPropertyBag.js"
+        "scriptUrl": "https://cdn.rawgit.com/DariuS231/ChromeSPDevTools/2faa76857fc5e6c94c2c5a1647af59679582c0e0/dist/actions/SpPropertyBag/SpPropertyBag.js"
     },
     {
         "title": "Site lists",
         "description": "All site lists, including hidden.",
         "image": "/images/content-management-64-blue.png",
-        "scriptUrl": "https://rawgit.com/DariuS231/ChromeSPDevTools/fabricui/dist/actions/SpSiteContent/SpSiteContent.js"
+        "scriptUrl": "https://cdn.rawgit.com/DariuS231/ChromeSPDevTools/2faa76857fc5e6c94c2c5a1647af59679582c0e0/dist/actions/SpSiteContent/SpSiteContent.js"
     },
     {
         "title": "Site Custom Actions",
         "description": "Create, Update or Delete Site Custom Actions.",
         "image": "/images/hammer-nailing-a-nail-in-a-wall-64-blue.png",
-        "scriptUrl": "https://rawgit.com/DariuS231/ChromeSPDevTools/fabricui/dist/actions/spSiteCustomActions/spSiteCustomActions.js"
+        "scriptUrl": "https://cdn.rawgit.com/DariuS231/ChromeSPDevTools/2faa76857fc5e6c94c2c5a1647af59679582c0e0/dist/actions/spSiteCustomActions/spSiteCustomActions.js"
     },
     {
         "title": "Web Custom Actions",
         "description": "Create, Update or Delete Web Custom Actions.",
         "image": "/images/hammer-nailing-a-nail-in-a-wall-64-blue.png", 
-        "scriptUrl": "https://rawgit.com/DariuS231/ChromeSPDevTools/fabricui/dist/actions/spWebCustomActions/spWebCustomActions.js"
+        "scriptUrl": "https://cdn.rawgit.com/DariuS231/ChromeSPDevTools/2faa76857fc5e6c94c2c5a1647af59679582c0e0/dist/actions/spWebCustomActions/spWebCustomActions.js"
     },
     {
         "title": "Site/Web Features",
         "description": "Activate, Deactivate site and web features.",
         "image": "/images/switch-64-blue.png",
-        "scriptUrl": "https://rawgit.com/DariuS231/ChromeSPDevTools/fabricui/dist/actions/spFeatures/spFeatures.js"
+        "scriptUrl": "https://cdn.rawgit.com/DariuS231/ChromeSPDevTools/2faa76857fc5e6c94c2c5a1647af59679582c0e0/dist/actions/spFeatures/spFeatures.js"
     }
 ]
