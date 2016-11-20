@@ -22,6 +22,7 @@ var concat = require('gulp-concat');
 //      Utils
 /****//****//****//****/
 var browserifyFn = (entries, destFile, destFolder, noUglify) => {
+    process.env.NODE_ENV = config.NODE_ENV;
     var bsfConfig = config.browserifyConfig;
     bsfConfig["entries"] = entries;
     var ret = browserify(bsfConfig)

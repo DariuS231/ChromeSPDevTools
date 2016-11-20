@@ -219,7 +219,7 @@ export default class SpFeatures extends React.Component<SpFeatureProps, SpFeatur
                     }) 
                     : this.state.siteFeatures;
 
-                return (<div className='sp-features'>
+                return (<div className='sp-features action-container'>
                     <MessageBar message={this.state.message} messageType={this.state.messageType} showMessage={this.state.showMessage} />
                     <div className="ms-Grid filters-container"> 
                         <div className="ms-Grid-row">

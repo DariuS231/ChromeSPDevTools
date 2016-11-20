@@ -1,8 +1,9 @@
 {
+    "NODE_ENV": "production",
     "paths": {
         "chromeExt": {
             "vendors": {
-                "entries":  [ ],
+                "entries": [],
                 "outputFolder": "dist/chromeExtension/dev/scripts/",
                 "outputFileName": "vendorBundle.js"
             },
