@@ -1,0 +1,352 @@
+@import "./node_modules/office-ui-fabric-react/dist/sass/Fabric";
+$focusedBorderColor: $ms-color-neutralSecondary;
+$bodyBackgroundColor: $ms-color-white;
+$bodyForegroundColor: $ms-color-neutralPrimary;
+
+/* Primary item colors, used for Nav, DetailsList headers, Pivots */
+
+$unselectedBackgroundColor: $bodyBackgroundColor;
+$unselectedForegroundColor: $bodyForegroundColor;
+$disabledBackgroundColor: $bodyBackgroundColor;
+$disabledForegroundColor: $ms-color-neutralTertiaryAlt;
+$unselectedHoverBackgroundColor: $ms-color-neutralLighterAlt;
+$unselectedHoverForegroundColor: $bodyForegroundColor;
+$unselectedActiveBackgroundColor: $ms-color-neutralLight;
+$unselectedActiveForegroundColor: $bodyForegroundColor;
+$selectedBackgroundColor: $ms-color-neutralLighter;
+$selectedForegroundColor: $ms-color-neutralPrimary;
+$selectedHoverBackgroundColor: $ms-color-neutralLight;
+$selectedHoverForegroundColor: $ms-color-neutralDark;
+$selectedActiveBackgroundColor: $ms-color-neutralTertiaryAlt;
+$selectedActiveForegroundColor: $ms-color-neutralPrimary;
+$dividerColor: $ms-color-neutralLight;
+@mixin focus-border($padding: 0, $color: $focusedBorderColor) {
+    &::-moz-focus-inner {
+        // Clear the focus border in Firefox. Reference: http://stackoverflow.com/a/199319/1436671
+        border: 0;
+    }
+    & {
+        // Clear browser specific focus styles and use transparent as placeholder for focus style
+        outline: transparent;
+        // It is MUST because the pseudo-element is absolute position.
+        position: relative;
+    }
+    .ms-Fabric.is-focusVisible &:focus:after {
+        // Wrap the parent element with $padding pixels.
+        content: '';
+        position: absolute;
+        top: $padding;
+        right: $padding;
+        bottom: $padding;
+        left: $padding;
+        // Make the content not respond to mouse/touch event. Reference: https://css-tricks.com/almanac/properties/p/pointer-events/
+        pointer-events: none;
+        // Add focus border with $color
+        border: 1px solid $color;
+    }
+}
+
+.ms-ListGridExample .ms-List-page {
+    overflow: hidden;
+    font-size: 0;
+}
+
+.ms-ListGridExample .ms-List-surface {
+    position: relative;
+}
+
+.ms-ListGridExample-tile {
+    text-align: center;
+    outline: none;
+    position: relative;
+    float: left;
+    background: $ms-color-neutralLighter;
+}
+
+.ms-ListGridExample-sizer {
+    padding-bottom: 100%;
+}
+
+.msListGridExample-padder {
+    position: absolute;
+    left: 2px;
+    top: 2px;
+    right: 2px;
+    bottom: 2px;
+}
+
+.ms-Fabric.is-focusVisible .ms-ListGridExample-tile:focus:after {
+    content: '';
+    position: absolute;
+    left: 2px;
+    right: 2px;
+    top: 2px;
+    bottom: 2px;
+    box-sizing: border-box;
+    border: 1px solid $ms-color-white;
+}
+
+.ms-ListGridExample-label {
+    background: rgba(0, 0, 0, .3);
+    color: #ffffff;
+    padding: 10px;
+    position: absolute;
+    bottom: 0;
+    font-size: 12px;
+    left: 0;
+    width: 100%;
+    font-size: $ms-font-size-s;
+    box-sizing: border-box;
+}
+
+.ms-ListGridExample-image {
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.ms-ListBasicExample-itemCell {
+    @include focus-border();
+    min-height: 54px;
+    padding: 10px;
+    box-sizing: border-box;
+    border-bottom: 1px solid $dividerColor;
+    display: flex;
+}
+
+.ms-ListBasicExample-itemCell:hover {
+    background: #EEE;
+}
+
+.ms-ListBasicExample-itemImage {
+    flex-shrink: 0;
+}
+
+.ms-ListBasicExample-itemContent {
+    @include margin-left(10px);
+    overflow: hidden;
+    flex-grow: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.ms-ListBasicExample-itemName {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.ms-ListBasicExample-itemIndex {
+    font-size: $ms-font-size-s;
+    color: $ms-color-neutralTertiary;
+    margin-bottom: 10px;
+}
+
+.ms-ListBasicExample-chevron {
+    align-self: center;
+    @include margin-left(10px);
+    color: $ms-color-neutralTertiary;
+    font-size: $ms-font-size-l;
+    flex-shrink: 0;
+}
+
+
+/***   Common ***/
+
+.action-container {
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 90%;
+    .filters-container {
+        margin-top: 10px;
+    }
+    .ms-Button {
+        display: block;
+        font-size: large;
+        margin: 5px;
+        &:hover .ms-Icon--Edit {
+            color: #ffb900;
+        }
+        &:hover .ms-Icon--Delete {
+            color: #e81123;
+        }
+        &:hover .ms-Icon--Save {
+            color: #107c10;
+        }
+        &:hover .ms-Icon--Cancel {
+            color: #e81123;
+        }
+    }
+    &.sp-siteContent {
+        .checkBoxes-container {
+            text-align: right;
+            margin-top: 6.5px;
+            >div {
+                display: inline-block;
+                &:first-child {
+                    margin-right: 20px;
+                }
+            }
+        }
+    }
+}
+
+.chrome-sp-dev-tool-wrapper {
+    width: 100%;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.498039);
+    top: 0px;
+    bottom: 0px;
+    z-index: 1000;
+    >.sp-dev-too-modal {
+        background: white;
+        width: 700px;
+        height: 94%;
+        margin: 10px auto;
+        position: relative;
+        padding: 10px;
+        >.sp-dev-tool-modal-header {
+            >hr {
+                margin-bottom: 0;
+            }
+            >a.sp-dev-tool-close-btn {
+                position: absolute;
+                right: 10px;
+            }
+        }
+    }
+}
+
+
+/***   Working on it ***/
+
+.working-on-it-wrapper {
+    overflow: auto;
+    height: 90%;
+    width: 100%;
+    text-align: center;
+    vertical-align: middle;
+    margin-top: 6.5px;
+    >img,
+    >h2 {
+        display: inline-block;
+        vertical-align: middle;
+        margin: 20px
+    }
+}
+
+
+/***   Property Bags ***/
+
+.sp-peropertyBags {
+    .ms-TextField {
+        >label {
+            color: #0078d7;
+        }
+        &.is-disabled {
+            .ms-TextField-field {
+                background-color: transparent;
+                border: none;
+                color: black;
+            }
+        }
+    }
+    h2 {
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+    .spProp-create-button {
+        padding-left: 17px;
+    }
+}
+
+
+/***   Site lists and Libraries ***/
+
+.sp-siteContent {
+    .ms-List-cell {
+        width: 50%;
+        display: inline-block;
+        &:nth-child(odd) {
+            .ms-ListBasicExample-itemCell {
+                margin-right: 5px;
+            }
+        }
+        &:nth-child(even) {
+            .ms-ListBasicExample-itemCell {
+                margin-left: 5px;
+            }
+        }
+    }
+    i.ms-Icon.ms-Icon--Settings {
+        font-size: large;
+    }
+}
+
+
+/***   Custom Actions ***/
+
+.sp-customActions {
+    .ms-TextField {
+        >label {
+            color: #0078d7;
+        }
+        &.is-disabled {
+            .ms-TextField-field {
+                background-color: transparent;
+                border: none;
+                color: black;
+            }
+        }
+    }
+    .ms-ChoiceFieldGroup {
+        .ms-ChoiceFieldGroup-title>label {
+            color: #0078d7;
+            font-size: 14px;
+            font-weight: 400;
+        }
+        .ms-ChoiceField {
+            display: inline-block;
+        }
+    }
+}
+
+// /***   Web/Site Features ***/
+.sp-features {
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: 90%;
+    .ms-ListBasicExample-featureName {
+        white-space: normal;
+        overflow: visible;
+        margin-right: 10px;
+    }
+    .ms-ListBasicExample-featureContent {
+        @include margin-left(10px);
+        overflow: hidden;
+        flex-grow: 1;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .ms-ListFeature-toggle {
+        margin-top: -5px;
+    }
+    .ms-ListBasicExample-itemCell {
+        min-height: 60px;
+    }
+    .web-feature-table {
+        margin-top: 6.5px;
+        display: inline-block;
+        width: 49%;
+        vertical-align: top;
+    }
+    .site-feature-table {
+        margin-top: 6.5px;
+        display: inline-block;
+        width: 49%;
+        vertical-align: top;
+        margin-left: 5px;
+    }
+}

@@ -2,13 +2,11 @@
 /// <reference path="./interfaces.ts"/>
 import * as React from 'react';
 import Utils from './utils';
-import { SpCustomModalWrapperStyles as styles } from './Styles'
 
 interface SpCustomModalWrapperProps {
-    appContainerId: string,
     modalDialogTitle: string,
     modalWidth?: string,
-    onCloseClick:any
+    onCloseClick: any
 }
 interface SpCustomModalWrapperState { }
 
@@ -18,18 +16,22 @@ export default class SpCustomModalWrapper extends React.Component<SpCustomModalW
         this.state = { isClosed: false };
     }
     private closeBtnClick(e: any) {
-        this.props.onCloseClick(this.props.appContainerId);
+        this.props.onCloseClick();
     }
-    public render() {        
-        let divModalStyles = (this.props.modalWidth !== undefined) ? Utils.mergeObjects(styles.divModalStyles, { width: this.props.modalWidth }) : styles.divModalStyles;
-        return <div style={styles.modalContainerDivStyles}>
-            <div style={divModalStyles}>
-                <div>
-                    <h1>
-                        {this.props.modalDialogTitle}
-                    </h1>
-                    <a href="javascript:void(0)" style={styles.linkBtnStyles} onClick={this.closeBtnClick.bind(this) }>x</a>
-                    <hr style={{ marginBottom: 0 }}/>
+    public render() {
+
+        return <div className="chrome-sp-dev-tool-wrapper">
+            <div className="sp-dev-too-modal" style={(this.props.modalWidth !== undefined) ? { width: this.props.modalWidth } : {}}>
+                <div className="sp-dev-tool-modal-header">
+                    <span className="ms-font-xxl ms-fontColor-themePrimary ms-fontWeight-semibold">{this.props.modalDialogTitle}</span>
+                    <a title="Close" className="ms-Button ms-Button--icon sp-dev-tool-close-btn" href="javascript:void(0)" onClick={this.closeBtnClick.bind(this) }>
+                        <span className="ms-Button-icon">
+                            <i className="ms-Icon ms-Icon--Cancel"></i>
+                        </span>
+                        <span className="ms-Button-label">
+                        </span>
+                    </a>
+                    <hr/>
                 </div>
                 { this.props.children }
             </div>

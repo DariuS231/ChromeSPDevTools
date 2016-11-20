@@ -7,6 +7,7 @@ body {
         .action-btn {
             width: 100%;
             text-align: left;
+            padding: 10px;
             max-width: none !important;
             @mixin actionBtnChild {
                 display: inline-block;

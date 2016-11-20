@@ -1,12 +1,11 @@
 /// <reference path="../../../../typings/index.d.ts"/>
 /// <reference path="./interfaces.ts"/>
-/// <reference path="./../common/enums.ts"/>
 import * as React from 'react';
-import {MessageType} from './enums'
-import { MessageBarStyles as styles } from './Styles'
+import Utils from './../common/utils';
+import { Button, MessageBar as MsBar, MessageBarType, Label, Link } from './../../../../node_modules/office-ui-fabric-react/lib/index';
 
 interface MessageBarProps {
-    messageType: MessageType,
+    messageType: MessageBarType,
     message: string,
     showMessage: boolean
 }
@@ -26,48 +25,26 @@ export default class MessageBar extends React.Component<MessageBarProps, Message
         this.setState({
             showMessage: this.props.showMessage
         });
-        if (this.props.showMessage) {
-            this.startShowTimeOut();
-        }
-    }
-    startShowTimeOut() {
-        setTimeout(function () {
-            this.setState({ showMessage: false });
-        }.bind(this), 5000);
     }
     componentWillReceiveProps(nextProps: any) {
         this.setState({
             showMessage: nextProps.showMessage
         });
-        if (nextProps.showMessage) {
-            this.startShowTimeOut();
-        }
+    }
+    private onCloseClick(e: any) {
+        //e.preventDefault();
+        this.setState({
+            showMessage: false
+        });
+        return false;
     }
     public render() {
         if (!this.state.showMessage) {
-            return <div></div>;
+            return null;
         } else {
-            let messageTitle: string;
-            let containerStyle: any;
-            switch (this.props.messageType) {
-                case MessageType.Error:
-                    containerStyle = styles.Error
-                    messageTitle = "Error"
-                    break;
-                case MessageType.Success:
-                    containerStyle = styles.Success
-                    messageTitle = "Success"
-                    break;
-                case MessageType.Info:
-                    containerStyle = styles.Info
-                    messageTitle = "Info"
-                    break;
-            }
-            return <div style={containerStyle}>
-                <span style={styles.span}>
-                    <strong>{messageTitle} </strong>{this.props.message}
-                </span>
-            </div>
+            return <MsBar messageBarType={ this.props.messageType } onDismiss={ (e) => { this.onCloseClick(e); return false; } }>
+                {Utils.capitalize(MessageBarType[this.props.messageType]) } - {this.props.message}
+            </MsBar>;
         }
     }
 }

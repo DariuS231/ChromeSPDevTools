@@ -1,8 +1,3 @@
-export enum MessageType {
-    Error,
-    Success,
-    Info
-};
 
 export enum OperationType {
     Create,
@@ -21,4 +16,9 @@ export enum FeatureOperationType {
     Activate,
     Deactivate,
     None
+}
+
+export enum CustomActionType{
+    Site,
+    Web
 }

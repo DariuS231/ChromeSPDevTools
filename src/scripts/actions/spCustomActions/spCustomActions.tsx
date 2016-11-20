@@ -1,27 +1,27 @@
 /// <reference path="../../../../typings/index.d.ts"/>
-/// <reference path="./../common/styles.ts"/>
 /// <reference path="./../common/interfaces.ts"/>
 
 import * as React from 'react';
-import WorkingOnIt from './../common/WorkingOnIt';
+import { WorkingOnIt } from './../common/WorkingOnIt';
 import MessageBar from './../common/MessageBar';
 import Utils from './../common/utils';
-import { MessageType, ViewMode } from './../common/enums';
+import { ViewMode, CustomActionType } from './../common/enums';
 import SpCustomActionItem from './customActionItem'
-import SpCustomActionEdit from './customActionEdit'
-import { SpCustomActionsStyles as styles, ButtonsStyle as buttonsStyle } from './../common/Styles'
+import { SpCustomActionList } from './spCustomActionList'
+import { MessageBarType, FocusZone, FocusZoneDirection, List, Button, ButtonType, SearchBox } from './../../../../node_modules/office-ui-fabric-react/lib/index';
 
 interface SpCustomActionsProps {
-    appContainerId: string,
-    closeWindowFunction: any
+    closeWindowFunction: any,
+    customActionType: CustomActionType
 }
 interface SpCustomActionsState {
     isWorkingOnIt: boolean,
     showMessage: boolean,
-    messageType: MessageType,
+    messageType: MessageBarType,
     mode: ViewMode,
     message: string,
-    customActions: Array<ICustomAction>
+    customActions: Array<ICustomAction>,
+    filterText: string
 }
 
 export default class SpCustomActions extends React.Component<SpCustomActionsProps, SpCustomActionsState> {
@@ -30,29 +30,35 @@ export default class SpCustomActions extends React.Component<SpCustomActionsProp
         this.state = {
             isWorkingOnIt: true,
             showMessage: false,
-            messageType: MessageType.Info,
+            messageType: MessageBarType.info,
             mode: ViewMode.View,
             message: '',
-            customActions: []
+            customActions: [],
+            filterText: ''
         } as SpCustomActionsState;
+        this.onFilterChange = this.onFilterChange.bind(this);
     }
     private workingOnIt(show: boolean): void {
         this.setState({
             isWorkingOnIt: show
         } as SpCustomActionsState);
     }
-    private showMessage(messageType: MessageType, message: string): void {
+    private showMessage(messageType: MessageBarType, message: string): void {
         this.setState({ messageType: messageType, message: message, showMessage: true } as SpCustomActionsState)
     }
 
-    private getCustomActions(): void {
+    private getCustomActions(message: string, messageType: MessageBarType): void {
         let ctx = SP.ClientContext.get_current();
-        let web = ctx.get_web();
-        let sca = web.get_userCustomActions();
+        let site: SP.Site = ctx.get_site();
+        let web: SP.Web = ctx.get_web();
+        let sca: SP.UserCustomActionCollection = (this.props.customActionType === CustomActionType.Web) 
+            ? web.get_userCustomActions()
+            : site.get_userCustomActions();
 
         ctx.load(web);
+        ctx.load(site);
         ctx.load(sca);
-        let onSuccess: Function = Function.createDelegate(this, (sender: any, err: any) => {
+        let onSuccess = (sender: any, err: any) => {
             let enumerator = sca.getEnumerator();
             let items: Array<ICustomAction> = [];
 
@@ -72,21 +78,32 @@ export default class SpCustomActions extends React.Component<SpCustomActionsProp
                     sequence: current.get_sequence()
                 } as ICustomAction);
             }
-            items.sort(function (a, b) {
-                return a.name.localeCompare(b.name);
+
+            items = items.filter((item, index) => {
+                return item.scriptBlock !== '' || item.scriptSrc !== '';
+            }).sort((a, b) => {
+                return a.sequence > b.sequence ? 1 : -1;
             });
             this.setState({
                 customActions: items,
                 mode: ViewMode.View,
+                message: message,
+                messageType: messageType,
+                showMessage: message !== '',
                 isWorkingOnIt: false
             } as SpCustomActionsState);
-        });
-        let onError: Function = Function.createDelegate(this, (sender: any, err: any) => {
-            SP.UI.Notify.addNotification("Failed to get web custom actions...<br>" + err.get_message(), false);
+        };
+        let onError = (sender: any, err: any) => {
+            
+            SP.UI.Notify.addNotification(`Failed to get ${this.props.customActionType} custom actions...<br> ${err.get_message()}`, false);
             console.log(err);
-            this.props.closeWindowFunction(this.props.appContainerId);
-        });
+            this.props.closeWindowFunction();
+        };
         ctx.executeQueryAsync(onSuccess, onError);
+    }
+
+    private onFilterChange(str: string) {
+        this.setState({ filterText: str } as SpCustomActionsState);
     }
     private onNewCuatomActionClick(e: any): void {
         this.setState({
@@ -98,32 +115,58 @@ export default class SpCustomActions extends React.Component<SpCustomActionsProp
     }
 
     private componentDidMount(): void {
-        this.getCustomActions();
+        this.getCustomActions('', MessageBarType.success);
     }
     public render(): JSX.Element {
         if (this.state.isWorkingOnIt) {
-            return <WorkingOnIt/>
+            return <WorkingOnIt />
         } else {
             if (this.state.mode === ViewMode.View) {
-                let newBtnStyle = Utils.mergeObjects(buttonsStyle.newBtnStyle, buttonsStyle.caNewBtnStyle);
-                var customActions = this.state.customActions.map((list: ICustomAction, index: number) => {
-                    return (<SpCustomActionItem item={list} key={index} workingOnIt={this.workingOnIt.bind(this) }  showMessage={this.showMessage.bind(this) } reloadCActions={this.getCustomActions.bind(this) } />);
-                });
+                const filter: string = this.state.filterText.toLowerCase();
+                const list = filter !== ''
+                    ? this.state.customActions.filter((ca: ICustomAction, index: number) => {
+                        return ca.name.toLowerCase().indexOf(filter) >= 0;
+                    })
+                    : this.state.customActions;
                 return (
-                    <div style={styles.contentStyles}>
+                    <div className="action-container sp-customActions">
                         {
                             (this.state.showMessage && this.state.message) ?
-                                 <MessageBar message={this.state.message} messageType={this.state.messageType} showMessage={this.state.showMessage} />
-                            :
+                                <MessageBar
+                                    message={this.state.message}
+                                    messageType={this.state.messageType}
+                                    showMessage={this.state.showMessage} />
+                                :
                                 null
                         }
-                        <ul style={styles.list}>
-                            {customActions}
-                        </ul>
-                        <input style={newBtnStyle} type="button" onClick={this.onNewCuatomActionClick.bind(this)} value="New Custom Action"/>
+                        <div className="ms-Grid filters-container">
+                            <div className="ms-Grid-row">
+                                <div className="ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6">
+                                    <SearchBox onChange={this.onFilterChange} />
+                                </div>
+                                <div className="ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6"> </div>
+                            </div>
+                        </div>
+                        <SpCustomActionList
+                            customActions={list}
+                            workingOnIt={this.workingOnIt.bind(this)}
+                            showMessage={this.showMessage.bind(this)}
+                            reloadCActions={this.getCustomActions.bind(this)} 
+                             type={this.props.customActionType}/>
+                        <Button buttonType={ButtonType.primary}
+                            onClick={this.onNewCuatomActionClick.bind(this)} >
+                            New Custom Action
+                        </Button>
                     </div>);
             } else {
-                return (<SpCustomActionEdit changeModefunction={this.changeMode.bind(this) }  workingOnIt={this.workingOnIt.bind(this) }  showMessage={this.showMessage.bind(this) } reloadCActions={this.getCustomActions.bind(this) } />);
+                return (
+                    <div className="action-container sp-customActions">
+                        <SpCustomActionItem
+                            workingOnIt={this.workingOnIt.bind(this)}
+                            showMessage={this.showMessage.bind(this)}
+                            reloadCActions={this.getCustomActions.bind(this)}
+                            caType={this.props.customActionType} />
+                    </div>);
             }
         }
     }

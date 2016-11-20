@@ -1,14 +1,15 @@
 {
+    "NODE_ENV": "production",
     "paths": {
         "chromeExt": {
             "vendors": {
-                "entries":  [ ],
+                "entries": [],
                 "outputFolder": "dist/chromeExtension/dev/scripts/",
                 "outputFileName": "vendorBundle.js"
             },
             "styles": {
                 "watchFiles": [
-                    "./src/**/*.scss"
+                    "./src/styles/**/*.scss"
                 ],
                 "bundle": "bundle.css",
                 "dist": "dist/chromeExtension/dev/styles/"
@@ -81,17 +82,29 @@
                 "outputFolder": "dist/actions/SpSiteContent",
                 "outputFileName": "SpSiteContent.js"
             },
-            "spCustomActions": {
+            "spWebCustomActions": {
                 "watchFiles": [
                     "src/scripts/actions/spCustomActions/**/*.tsx",
                     "src/scripts/actions/common/spCustomModalWrapper.tsx",
                     "src/scripts/actions/common/styles.ts"
                 ],
                 "entries": [
-                    "src/scripts/actions/spCustomActions/main.tsx"
+                    "src/scripts/actions/spCustomActions/mainWebCa.tsx"
                 ],
-                "outputFolder": "dist/actions/spCustomActions",
-                "outputFileName": "spCustomActions.js"
+                "outputFolder": "dist/actions/spWebCustomActions",
+                "outputFileName": "spWebCustomActions.js"
+            },
+            "spSiteCustomActions": {
+                "watchFiles": [
+                    "src/scripts/actions/spCustomActions/**/*.tsx",
+                    "src/scripts/actions/common/spCustomModalWrapper.tsx",
+                    "src/scripts/actions/common/styles.ts"
+                ],
+                "entries": [
+                    "src/scripts/actions/spCustomActions/mainSiteCa.tsx"
+                ],
+                "outputFolder": "dist/actions/spSiteCustomActions",
+                "outputFileName": "spSiteCustomActions.js"
             },
             "spFeatures": {
                 "watchFiles": [
@@ -104,6 +117,13 @@
                 ],
                 "outputFolder": "dist/actions/spFeatures",
                 "outputFileName": "spFeatures.js"
+            },
+            "styles": {
+                "watchFiles": [
+                    "./src/scripts/actions/styles/components.scss"
+                ],
+                "bundle": "bundle.css",
+                "dist": "dist/actions/styles"
             }
         }
     },

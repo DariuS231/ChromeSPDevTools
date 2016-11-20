@@ -3,26 +3,19 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import SpCustomModalWrapper from './../common/spCustomModalWrapper';
-import SpFeatures from './SpFeatures.tsx'
+import { AppBase } from './../common/AppBase';
+import SpFeatures from './SpFeatures';
+import Utils from './../common/utils';
 
-class App {
-    baseDivId: string = 'spPropBaseDiv';
+class App extends AppBase {
     constructor() {
-        let baseDiv: HTMLElement = document.getElementById(this.baseDivId);
-        if (!baseDiv) {
-            baseDiv = document.createElement('div');
-            baseDiv.setAttribute('id', this.baseDivId)
-            document.querySelector('form').appendChild(baseDiv);
-        }
-    }
-    remove(containerId:string) {
-        ReactDOM.unmountComponentAtNode(document.getElementById(containerId));
+        super('spPropBaseDiv')
     }
     public show(showOnlyIconsInButtons: boolean) {
         let that = this;
-        SP.SOD.executeFunc('sp.js', 'SP.ClientContext', function () {
-            ReactDOM.render(<SpCustomModalWrapper appContainerId={that.baseDivId} onCloseClick={that.remove.bind(this) } modalDialogTitle="Web/Site Features" modalWidth="800px">
-                <SpFeatures showOnlyIconsInButtons={showOnlyIconsInButtons} appContainerId={that.baseDivId} closeWindowFunction={that.remove.bind(this) } />
+        Utils.ensureSPObject().then(() => {
+            ReactDOM.render(<SpCustomModalWrapper onCloseClick={that.remove.bind(this)} modalDialogTitle="Web/Site Features" modalWidth="800px">
+                <SpFeatures showOnlyIconsInButtons={showOnlyIconsInButtons} closeWindowFunction={that.remove.bind(this)} />
             </SpCustomModalWrapper>, document.getElementById(that.baseDivId));
         });
     }

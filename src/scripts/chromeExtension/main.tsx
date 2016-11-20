@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import PopUp from './popUp.tsx'
+import PopUp from './popUp'
 
 
 ReactDOM.render(<PopUp/>, document.getElementById('popUpContent'));;

@@ -1,26 +1,32 @@
 /// <reference path="../../../../typings/index.d.ts"/>
-/// <reference path="./../common/styles.ts"/>
 /// <reference path="./../common/interfaces.ts"/>
 
 import * as React from 'react';
-import WorkingOnIt from './../common/WorkingOnIt';
+import { WorkingOnIt } from './../common/WorkingOnIt';
 import MessageBar from './../common/MessageBar';
-import { MessageType } from './../common/enums';
-import { SpSiteContentStyles as styles } from './../common/Styles'
-import SpSiteContentItem  from './spSiteContentItem';
+
+import {
+    Checkbox,
+    MessageBarType,
+    TextField,
+    Image,
+    ImageFit,
+    List,
+    SearchBox
+} from './../../../../node_modules/office-ui-fabric-react/lib/index';
 
 interface SpSiteContentProps {
-    appContainerId: string,
     closeWindowFunction: any
 }
 interface SpSiteContentState {
     isWorkingOnIt: boolean,
     siteLists: Array<ISiteContent>,
     showMessage: boolean,
-    messageType: MessageType,
+    messageType: MessageBarType,
     message: string,
-    showHidden: boolean,
-    openInNewTab: boolean
+    showAll: boolean,
+    openInNewTab: boolean,
+    filterText:string
 }
 
 export default class SpSiteContent extends React.Component<SpSiteContentProps, SpSiteContentState> {
@@ -30,11 +36,14 @@ export default class SpSiteContent extends React.Component<SpSiteContentProps, S
             isWorkingOnIt: true,
             siteLists: [],
             showMessage: false,
-            messageType: MessageType.Info,
+            messageType: MessageBarType.info,
             message: '',
-            showHidden: true,
-            openInNewTab: true
+            showAll: false,
+            openInNewTab: true,
+            filterText: ''
         } as SpSiteContentState;
+        
+        this.onFilterChange = this.onFilterChange.bind(this);
     }
     private getLists() {
         let ctx = SP.ClientContext.get_current();
@@ -44,7 +53,7 @@ export default class SpSiteContent extends React.Component<SpSiteContentProps, S
         ctx.load(web);
         ctx.load(siteConetent, 'Include(RootFolder,Title,Id,Hidden,ItemCount,Created,ImageUrl,LastItemModifiedDate,Description,ParentWebUrl)');
 
-        let onSuccess: Function = Function.createDelegate(this, (sender: any, err: any) => {
+        const onSuccess =  (sender: any, err: any) => {
 
             let items: Array<ISiteContent> = [], listEnumerator: any = siteConetent.getEnumerator();
 
@@ -72,71 +81,97 @@ export default class SpSiteContent extends React.Component<SpSiteContentProps, S
                 siteLists: items,
                 isWorkingOnIt: false
             } as SpSiteContentState);
-        });
-        let onError: Function = Function.createDelegate(this, (sender: any, err: any) => {
+        };
+        let onError=  (sender: any, err: any) => {
             SP.UI.Notify.addNotification("Failed to get web lists...<br>" + err.get_message(), false);
             console.log(err);
-            this.props.closeWindowFunction(this.props.appContainerId);
-        });
+            this.props.closeWindowFunction();
+        };
         ctx.executeQueryAsync(onSuccess, onError);
     }
-    private showHidden(e: any) {
-        let showHiddenNewVal: boolean = e.target.checked;
-        let messageText:string = showHiddenNewVal ?  
-        'Showing hidden lists and libraries.': 
-        'Not showing hidden lists and libraries.';
+    private showAll(e: any) {
+        let showAllNewVal: boolean = e.target.checked;
+        let messageText: string = showAllNewVal ?
+            'Showing all lists and libraries.' :
+            'Showing only hidden lists and libraries.';
         this.setState({
-            showHidden: showHiddenNewVal,
-            messageType:MessageType.Info,
-            showMessage:true,
-            message:messageText
+            showAll: showAllNewVal,
+            messageType: MessageBarType.info,
+            showMessage: true,
+            message: messageText
         } as SpSiteContentState);
     }
     private openInNewTab(e: any) {
         let openInNewTabNewVal: boolean = e.target.checked;
-        let messageText:string = openInNewTabNewVal ?  
-        'List and libraries links will open in a new tab.': 
-        'List and libraries links will open in the current tab.';
+        let messageText: string = openInNewTabNewVal ?
+            'List and libraries links will open in a new tab.' :
+            'List and libraries links will open in the current tab.';
         this.setState({
             openInNewTab: openInNewTabNewVal,
-            messageType:MessageType.Info,
-            showMessage:true,
-            message:messageText
+            messageType: MessageBarType.info,
+            showMessage: true,
+            message: messageText
         } as SpSiteContentState);
     }
     private componentDidMount() {
         this.getLists();
     }
+    
+    private onFilterChange(str: string) {
+        this.setState({ filterText: str } as SpSiteContentState);
+    }
     public render() {
         if (this.state.isWorkingOnIt) {
-            return <WorkingOnIt/>
+            return <WorkingOnIt />
         } else {
             var lists: any;
-            if (this.state.showHidden) {
+            if (this.state.showAll) {
                 lists = this.state.siteLists;
             } else {
                 lists = this.state.siteLists.filter((list: ISiteContent, index: number) => {
-                    return !list.hidden;
+                    return list.hidden;
                 });
             }
-
-            var siteContent = lists.map((list: ISiteContent, index: number) => { return (<SpSiteContentItem item={list} key={index} openInNewTab={this.state.openInNewTab} />); });
+            const filter = this.state.filterText.toLowerCase();
+            if(filter !== ''){
+                lists = lists.filter((list: ISiteContent, index: number) => {
+                    return list.title.toLowerCase().indexOf(filter) >= 0;
+                });
+            }
+            let target = this.state.openInNewTab ? '_blank' : '_self';
             return (
-                <div style={styles.contentStyles}>
+                <div className="action-container sp-siteContent">
                     <MessageBar message={this.state.message} messageType={this.state.messageType} showMessage={this.state.showMessage} />
-                    <div style={styles.checksContainer}>
-                        <div style={styles.check}>
-                            <label htmlFor="showHiddenInput">Show hidden</label>
-                            <input type="checkbox" id="showHiddenInput" checked={this.state.showHidden} onChange={this.showHidden.bind(this) }/>
-                        </div>
-                        <div style={styles.lastCheck}>
-                            <label htmlFor="openInNewTabInput">Open links in new tab</label>
-                            <input type="checkbox" id="openInNewTabInput" checked={this.state.openInNewTab} onChange={this.openInNewTab.bind(this) }/>
+                    <div className="ms-Grid filters-container"> 
+                        <div className="ms-Grid-row">
+                            <div className="ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6">
+                                <SearchBox onChange={this.onFilterChange}/>
+                            </div>
+                            <div className="ms-Grid-col ms-u-sm3 ms-u-md3 ms-u-lg3">
+                                <Checkbox label='Show all' defaultChecked={this.state.showAll} onChange={this.showAll.bind(this)} /></div>
+                            <div className="ms-Grid-col ms-u-sm3 ms-u-md3 ms-u-lg3">
+                                <Checkbox label='Open in new Tab' defaultChecked={this.state.openInNewTab} onChange={this.openInNewTab.bind(this)} />
+                            </div>
                         </div>
                     </div>
-                    <ul style={styles.list}>
-                        {siteContent}
-                    </ul>
+                   
+                        <List
+                            items={lists}
+                            onRenderCell={(item, index) => (
+                                <div className='ms-ListBasicExample-itemCell' data-is-focusable={true}>
+                                    <Image className='ms-ListBasicExample-itemImage' src={item.imageUrl} width={25} height={25} />
+                                    <div className='ms-ListBasicExample-itemContent'>
+                                        <a title={item.title} alt={item.title} href={item.listUrl} className='ms-ListBasicExample-itemName ms-font-l ms-fontColor-themePrimary ms-fontWeight-semibold' target={target}>
+                                            {item.title}
+                                        </a>
+                                        <div className='ms-ListBasicExample-itemIndex'>{`${item.itemCount} Items`}</div>
+                                    </div>
+                                    <div className="ms-ListItem-actions">
+                                        <a target={target} href={item.settingsUrl} title="Settings" className="ms-ListItem-action"><i className="ms-Icon ms-Icon--Settings"></i></a>
+                                    </div>
+                                </div>
+                            )}
+                            />
                 </div>);
 
         }

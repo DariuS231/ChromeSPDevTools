@@ -1,5 +1,5 @@
 {
-    "name": "Chrome SP Dev Tools",
+  "name": "Chrome SP Dev Tools",
     "version": "0.2.0",
     "manifest_version": 2,
     "description": "Chrome SP Dev Tools",

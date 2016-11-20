@@ -1,20 +1,20 @@
 /// <reference path="../../../../typings/index.d.ts"/>
 /// <reference path="./../common/interfaces.ts"/>
 /// <reference path="./../common/enums.ts"/>
-/// <reference path="./../common/styles.ts"/>
+
 import * as React from 'react';
 
 import NewKeyValueItem from './../common/newKeyValueItem';
 import KeyValueItem from './../common/KeyValueItem';
-import WorkingOnIt from './../common/WorkingOnIt';
+import { WorkingOnIt } from './../common/WorkingOnIt';
 import MessageBar from './../common/MessageBar';
-import { MessageType, OperationType } from './../common/enums';
-import { SpPropertyBagStyles as spPropStyles } from './../common/Styles'
+import { OperationType } from './../common/enums';
+import { MessageBarType, List, SearchBox, FocusZone, FocusZoneDirection } from './../../../../node_modules/office-ui-fabric-react/lib/index';
+
 
 interface SpPropertyBagProps {
-    showOnlyIconsInButtons:boolean,
-    appContainerId: string,
-    closeWindowFunction:any
+    showOnlyIconsInButtons: boolean,
+    closeWindowFunction: any
 }
 interface SpPropertyBagState {
     currentUserHasPermissions: boolean,
@@ -22,8 +22,9 @@ interface SpPropertyBagState {
     noPermissionsMessage: string,
     webProperties: Array<IKeyValue>,
     showMessage: boolean,
-    messageType: MessageType,
-    message: string
+    messageType: MessageBarType,
+    message: string,
+    filterText: string
 }
 
 export default class SpPropertyBag extends React.Component<SpPropertyBagProps, SpPropertyBagState> {
@@ -39,10 +40,13 @@ export default class SpPropertyBag extends React.Component<SpPropertyBagProps, S
             webProperties: [],
             isWorkingOnIt: true,
             showMessage: false,
-            messageType: MessageType.Info,
-            message: ''
+            messageType: MessageBarType.info,
+            message: '',
+            filterText: ''
         } as SpPropertyBagState;
         this.reloadPage = false;
+        this.onFilterChange = this.onFilterChange.bind(this);
+        this.spErrorHandler = this.spErrorHandler.bind(this);
     }
     private onUpdatingNewProperty(key: string, value: string) {
         this.setState({ isWorkingOnIt: true } as SpPropertyBagState);
@@ -64,26 +68,26 @@ export default class SpPropertyBag extends React.Component<SpPropertyBagProps, S
     }
     private spErrorHandler(sender: any, err: any) {
         console.log(err.get_message());
-        this.setState({ isWorkingOnIt: false, messageType: MessageType.Error, message: 'An error ocurred, check the log for more information.', showMessage: true } as SpPropertyBagState)
+        this.setState({ isWorkingOnIt: false, messageType: MessageBarType.error, message: 'An error ocurred, check the log for more information.', showMessage: true } as SpPropertyBagState)
     }
     private executeChanges(opType: OperationType, msg: string) {
         this.ctx.get_web().update();
-        let onSuccess: Function = Function.createDelegate(this, function (sender: any, err: any) {
+        let onSuccess = (sender: any, err: any) => {
             if (this.reloadPage) {
                 window.location.reload();
             } else {
                 this.getWebProperties(opType, msg);
             }
-        });
-        let onError: Function = Function.createDelegate(this, this.spErrorHandler);
-        this.ctx.executeQueryAsync(onSuccess, onError);
+        };
+
+        this.ctx.executeQueryAsync(onSuccess, this.spErrorHandler);
     };
     private getWebProperties(opType: OperationType, msg: string) {
         this.allProperties = this.web.get_allProperties();
         this.ctx.load(this.web);
         this.ctx.load(this.allProperties);
 
-        let onSuccess: Function = Function.createDelegate(this, (sender: any, err: any) => {
+        let onSuccess = (sender: any, err: any) => {
             let propsKeyVal: any = this.allProperties.get_fieldValues();
 
             let items: Array<IKeyValue> = [];
@@ -99,10 +103,16 @@ export default class SpPropertyBag extends React.Component<SpPropertyBagProps, S
             items.sort(function (a, b) {
                 return a.key.localeCompare(b.key);
             });
-            this.setState({ webProperties: items, isWorkingOnIt: false, messageType: MessageType.Success, message: msg, showMessage: (opType !== OperationType.None) } as SpPropertyBagState);
-        });
-        let onError: Function = Function.createDelegate(this, this.spErrorHandler);
-        this.ctx.executeQueryAsync(onSuccess, onError);
+            this.setState({
+                webProperties: items,
+                isWorkingOnIt: false,
+                messageType: MessageBarType.success,
+                message: msg,
+                showMessage: (opType !== OperationType.None),
+                filterText: ''
+            } as SpPropertyBagState);
+        };
+        this.ctx.executeQueryAsync(onSuccess, this.spErrorHandler);
     }
     private checkUserPermissions() {
         if (typeof this.web.doesUserHavePermissions !== "function") {
@@ -116,7 +126,7 @@ export default class SpPropertyBag extends React.Component<SpPropertyBagProps, S
             ob.set(SP.PermissionKind.manageWeb);
             let per: any = this.web.doesUserHavePermissions(ob);
 
-            let onSuccess: Function = Function.createDelegate(this, (sender: any, err: any) => {
+            let onSuccess = (sender: any, err: any) => {
                 var hasPermissions = per.get_value();
                 if (hasPermissions) {
                     this.getWebProperties(OperationType.None, '');
@@ -128,14 +138,17 @@ export default class SpPropertyBag extends React.Component<SpPropertyBagProps, S
                         isWorkingOnIt: false
                     } as SpPropertyBagState);
                 }
-            });
-            let onError: Function = Function.createDelegate(this, (sender: any, err: any) => {
+            };
+            let onError = (sender: any, err: any) => {
                 SP.UI.Notify.addNotification("Failed to get web properties...<br>" + err.get_message(), false);
                 console.log(err);
-                this.props.closeWindowFunction(this.props.appContainerId);
-            });
+                this.props.closeWindowFunction();
+            };
             this.ctx.executeQueryAsync(onSuccess, onError);
         }
+    }
+    private onFilterChange(str: string) {
+        this.setState({ filterText: str } as SpPropertyBagState);
     }
     private componentDidMount() {
         this.ctx = SP.ClientContext.get_current();
@@ -144,30 +157,35 @@ export default class SpPropertyBag extends React.Component<SpPropertyBagProps, S
     }
     public render() {
         if (this.state.isWorkingOnIt) {
-            return <WorkingOnIt/>;
+            return <WorkingOnIt />;
         } else {
-            if (this.state.currentUserHasPermissions) {
-                var props = this.state.webProperties.map((prop: IKeyValue, index: number) => {
-                    return (<KeyValueItem item={prop} key={prop.key} itemIndex={index} onUpdateClick={this.onUpdatingNewProperty.bind(this) } onDeleteClick={this.onDeletingProperty.bind(this) } showOnlyIconsInButtons={this.props.showOnlyIconsInButtons} />);
-                });
-                return (<div style={spPropStyles.contentStyles}>
-                    <MessageBar message={this.state.message} messageType={this.state.messageType} showMessage={this.state.showMessage} />
-                    <div style={spPropStyles.tableContainer}>
-                        <table style={spPropStyles.tableStyles}>
-                            <tbody>
-                                {props}
-                            </tbody>
-                        </table>
-                        <hr/>
-                        <NewKeyValueItem moduleTitle="New web property" keyDisplayName="Property Name" valueDisplayName="Property Value" onNewItemClick={this.onAddingNewProperty.bind(this) } showOnlyIconsInButtons={this.props.showOnlyIconsInButtons} />
+            const filter: string = this.state.filterText.toLowerCase();
+            const props: Array<IKeyValue> = filter !== '' ? this.state.webProperties.filter((prop: IKeyValue, index: number) => {
+                return prop.key.toLowerCase().indexOf(filter) >= 0 || prop.value.toLowerCase().indexOf(filter) >= 0;
+            }) : this.state.webProperties;
+            return (<div className="action-container sp-peropertyBags">
+                <MessageBar message={this.state.message} messageType={this.state.messageType} showMessage={this.state.showMessage} />
+                <div className="ms-Grid filters-container"> 
+                        <div className="ms-Grid-row">
+                            <div className="ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6">
+                                <SearchBox onChange={this.onFilterChange}/>
+                            </div>
+                            <div className="ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6"> </div>
+                        </div>
                     </div>
-                </div>);
-            } else {
-                return (
-                    <div style={spPropStyles.contentStyles}>
-                        <h2>{this.state.noPermissionsMessage}</h2>
-                    </div>);
-            }
+                    <List items={props} onRenderCell={(item, index) => (
+                        <KeyValueItem
+                            item={item}
+                            key={item.key}
+                            itemIndex={index}
+                            onUpdateClick={this.onUpdatingNewProperty.bind(this)}
+                            onDeleteClick={this.onDeletingProperty.bind(this)} />
+                    )} />
+
+
+                <NewKeyValueItem moduleTitle="New web property" keyDisplayName="Property Name" valueDisplayName="Property Value" onNewItemClick={this.onAddingNewProperty.bind(this)} />
+            </div>);
+
         }
     }
 }

@@ -2,24 +2,30 @@
         "title": "Property bags",
         "description": "Create, Update or Delete Web Property Bags.",
         "image": "/images/sp-bag-64-blue.png",
-        "scriptUrl": "https://cdn.rawgit.com/DariuS231/ChromeSPDevTools/9daddf9e3b79d3363e51b02f7b15e679290f81ec/dist/actions/SpPropertyBag/SpPropertyBag.js"
+        "scriptUrl": "https://rawgit.com/DariuS231/ChromeSPDevTools/fabricui/dist/actions/SpPropertyBag/SpPropertyBag.js"
     },
     {
         "title": "Site lists",
         "description": "All site lists, including hidden.",
         "image": "/images/content-management-64-blue.png",
-        "scriptUrl": "https://cdn.rawgit.com/DariuS231/ChromeSPDevTools/a203cfed1b881690ddcf497bebacb484aa999fc7/dist/actions/SpSiteContent/SpSiteContent.js"
+        "scriptUrl": "https://rawgit.com/DariuS231/ChromeSPDevTools/fabricui/dist/actions/SpSiteContent/SpSiteContent.js"
     },
     {
-        "title": "Custom Actions",
-        "description": "Create, Update or Delete Web Custom Actions.",
+        "title": "Site Custom Actions",
+        "description": "Create, Update or Delete Site Custom Actions.",
         "image": "/images/hammer-nailing-a-nail-in-a-wall-64-blue.png",
-        "scriptUrl": "https://cdn.rawgit.com/DariuS231/ChromeSPDevTools/9daddf9e3b79d3363e51b02f7b15e679290f81ec/dist/actions/SpCustomActions/spCustomActions.js"
+        "scriptUrl": "https://rawgit.com/DariuS231/ChromeSPDevTools/fabricui/dist/actions/spSiteCustomActions/spSiteCustomActions.js"
+    },
+    {
+        "title": "Web Custom Actions",
+        "description": "Create, Update or Delete Web Custom Actions.",
+        "image": "/images/hammer-nailing-a-nail-in-a-wall-64-blue.png", 
+        "scriptUrl": "https://rawgit.com/DariuS231/ChromeSPDevTools/fabricui/dist/actions/spWebCustomActions/spWebCustomActions.js"
     },
     {
         "title": "Site/Web Features",
         "description": "Activate, Deactivate site and web features.",
         "image": "/images/switch-64-blue.png",
-        "scriptUrl": "https://cdn.rawgit.com/DariuS231/ChromeSPDevTools/49e9e4b497a555f00cb9c1fabf01d48bc9852459/dist/actions/spFeatures/spFeatures.js"
+        "scriptUrl": "https://rawgit.com/DariuS231/ChromeSPDevTools/fabricui/dist/actions/spFeatures/spFeatures.js"
     }
 ]
