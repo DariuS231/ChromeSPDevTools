@@ -1,29 +1,36 @@
 {
   "name": "Chrome SP Dev Tools",
-  "version": "0.2.0",
-  "manifest_version": 2,
-  "description": "Chrome SP Dev Tools",
-  "icons": {
-    "16": "images/icon-16.png",
-    "128": "images/icon-128.png"
-  },
-  "background": {
-    "scripts": [
-      "scripts/background.js"
-    ]
-  },
-  "permissions": [
-     "tabs",
-    "http://*/*",
-    "https://*/*",
-    "background"
-  ],
-  "browser_action": {
-    "default_icon": {
-      "19": "images/icon-19.png",
-      "38": "images/icon-38.png"
+    "version": "0.2.0",
+    "manifest_version": 2,
+    "description": "Chrome SP Dev Tools",
+    "icons": {
+        "16": "images/sharepoint-logotype-16-blue.png",
+        "19": "images/sharepoint-logotype-19-blue.png",
+        "32": "images/sharepoint-logotype-32-blue.png",
+        "38": "images/sharepoint-logotype-38-blue.png",
+        "64": "images/sharepoint-logotype-64-blue.png",
+        "128": "images/sharepoint-logotype-128-blue.png"
     },
-    "default_title": "Chrome SP Dev Tools",
-    "default_popup": "index.html"
-  }
+    "background": {
+        "scripts": [
+            "scripts/background.js"
+        ]
+    },
+    "permissions": [
+        "tabs",
+        "http://*/*",
+        "https://*/*",
+        "background"
+    ],
+    "browser_action": {
+        "default_icon": {
+            "16": "images/sharepoint-logotype-16-blue.png",
+            "19": "images/sharepoint-logotype-19-blue.png",
+            "32": "images/sharepoint-logotype-32-blue.png",
+            "38": "images/sharepoint-logotype-38-blue.png",
+            "64": "images/sharepoint-logotype-64-blue.png"
+        },
+        "default_title": "Chrome SP Dev Tools",
+        "default_popup": "index.html"
+    }
 }
