@@ -15,6 +15,7 @@ body {
             }
             >img {
                 @include actionBtnChild;
+                width: 32px;
             }
             &>div {
                 @include actionBtnChild;
