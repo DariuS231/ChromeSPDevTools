@@ -150,9 +150,9 @@ gulp.task('build-actions', ["build-sppropertyBagFile", "build-spSiteContentFile"
 gulp.task('watch', ["build-sppropertyBagFile", "build-spSiteContentFile", "build-spWebCustomActionsFile", "build-spSiteCustomActionsFile", "build-spFeatureFile"], function (noUglify) {
     gulp.watch(config.paths.actions.spPropertyBag.watchFiles, ['build-sppropertyBagFile']);
     gulp.watch(config.paths.actions.spSiteContent.watchFiles, ['build-spSiteContentFile']);
-    gulp.watch(config.paths.actions.spCustomActions.watchFiles, ['build-spWebCustomActionsFile']);
-    gulp.watch(config.paths.actions.spCustomActions.watchFiles, ['build-spSiteCustomActionsFile']);
-    gulp.watch(config.paths.actions.spCustomActions.watchFiles, ['build-spFeatureFile']);
+    gulp.watch(config.paths.actions.spWebCustomActions.watchFiles, ['build-spWebCustomActionsFile']);
+    gulp.watch(config.paths.actions.spSiteCustomActions.watchFiles, ['build-spSiteCustomActionsFile']);
+    gulp.watch(config.paths.actions.spFeatures.watchFiles, ['build-spFeatureFile']);
     gulp.watch(config.paths.chromeExt.scripts.background.watchFiles, ['build-chromeExt-background']);
     gulp.watch(config.paths.chromeExt.scripts.popup.watchFiles, ['build-chromeExt-popUp']);
     gulp.watch(config.paths.chromeExt.styles.watchFiles, ['build-chromeExt-styles']);
