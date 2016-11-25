@@ -1,11 +1,9 @@
 /// <reference path="../../../../typings/index.d.ts"/>
 /// <reference path="./interfaces.ts"/>
 import * as React from 'react';
-import {
-    TextField,
-    Button,
-    ButtonType
-} from './../../../../node_modules/office-ui-fabric-react/lib/index';
+import { Button, ButtonType } from 'office-ui-fabric-react/lib/Button';
+import { TextField } from 'office-ui-fabric-react/lib/TextField';
+
 interface KeyValueItemState {
     itemInputValue: string,
     inEditMode: boolean

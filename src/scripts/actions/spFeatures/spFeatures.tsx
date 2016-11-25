@@ -11,18 +11,14 @@ import MessageBar from './../common/MessageBar';
 import Utils from './../common/utils';
 import { FeatureOperationType } from './../common/enums';
 
-import {
-    Checkbox,
-    MessageBarType,
-    FocusZone,
-    FocusZoneDirection,
-    TextField,
-    Image,
-    ImageFit,
-    List,
-    Toggle,
-    SearchBox
-} from './../../../../node_modules/office-ui-fabric-react/lib/index';
+import { MessageBarType } from 'office-ui-fabric-react/lib/MessageBar';
+import { List } from 'office-ui-fabric-react/lib/List';
+import { SearchBox } from 'office-ui-fabric-react/lib/SearchBox';
+import { FocusZone, FocusZoneDirection } from 'office-ui-fabric-react/lib/FocusZone';
+import { Checkbox } from 'office-ui-fabric-react/lib/Checkbox';
+import { TextField } from 'office-ui-fabric-react/lib/TextField';
+import { Toggle } from 'office-ui-fabric-react/lib/Toggle';
+import { Image, ImageFit } from 'office-ui-fabric-react/lib/Image';
 
 
 

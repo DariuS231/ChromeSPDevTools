@@ -3,9 +3,7 @@
 
 import * as React from 'react';
 
-import {
-    Toggle
-} from './../../../../node_modules/office-ui-fabric-react/lib/index';
+import { Toggle } from 'office-ui-fabric-react/lib/Toggle';
 
 interface FeatureItemState {
 }

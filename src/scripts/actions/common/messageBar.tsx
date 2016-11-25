@@ -2,7 +2,10 @@
 /// <reference path="./interfaces.ts"/>
 import * as React from 'react';
 import Utils from './../common/utils';
-import { Button, MessageBar as MsBar, MessageBarType, Label, Link } from './../../../../node_modules/office-ui-fabric-react/lib/index';
+import { Button } from 'office-ui-fabric-react/lib/Button';
+import { MessageBar as MsBar, MessageBarType } from 'office-ui-fabric-react/lib/MessageBar';
+import { Label } from 'office-ui-fabric-react/lib/Label';
+import { Link } from 'office-ui-fabric-react/lib/Link';
 
 interface MessageBarProps {
     messageType: MessageBarType,

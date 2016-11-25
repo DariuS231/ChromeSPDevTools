@@ -5,15 +5,12 @@ import * as React from 'react';
 import { WorkingOnIt } from './../common/WorkingOnIt';
 import MessageBar from './../common/MessageBar';
 
-import {
-    Checkbox,
-    MessageBarType,
-    TextField,
-    Image,
-    ImageFit,
-    List,
-    SearchBox
-} from './../../../../node_modules/office-ui-fabric-react/lib/index';
+import { Checkbox } from 'office-ui-fabric-react/lib/Checkbox';
+import { MessageBarType } from 'office-ui-fabric-react/lib/MessageBar';
+import { TextField } from 'office-ui-fabric-react/lib/TextField';
+import { Image, ImageFit } from 'office-ui-fabric-react/lib/Image';
+import { List } from 'office-ui-fabric-react/lib/List';
+import { SearchBox } from 'office-ui-fabric-react/lib/SearchBox';
 
 interface SpSiteContentProps {
     closeWindowFunction: any

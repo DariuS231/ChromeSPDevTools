@@ -4,12 +4,10 @@
 import * as React from 'react';
 import SpCustomActionItem from './customActionItem'
 import { CustomActionType } from './../common/enums';
-import {
-    MessageBarType,
-    List,
-    Button,
-    ButtonType
-} from './../../../../node_modules/office-ui-fabric-react/lib/index';
+
+import { MessageBarType } from 'office-ui-fabric-react/lib/MessageBar';
+import { List } from 'office-ui-fabric-react/lib/List';
+import { Button, ButtonType } from 'office-ui-fabric-react/lib/Button';
 
 export const SpCustomActionList = (props: { customActions: Array<ICustomAction>, reloadCActions: any, showMessage: any, workingOnIt: any, type:CustomActionType }) =>
     

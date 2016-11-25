@@ -8,7 +8,11 @@ import Utils from './../common/utils';
 import { ViewMode, CustomActionType } from './../common/enums';
 import SpCustomActionItem from './customActionItem'
 import { SpCustomActionList } from './spCustomActionList'
-import { MessageBarType, FocusZone, FocusZoneDirection, List, Button, ButtonType, SearchBox } from './../../../../node_modules/office-ui-fabric-react/lib/index';
+import { MessageBarType } from 'office-ui-fabric-react/lib/MessageBar';
+import { List } from 'office-ui-fabric-react/lib/List';
+import { SearchBox } from 'office-ui-fabric-react/lib/SearchBox';
+import { FocusZone, FocusZoneDirection } from 'office-ui-fabric-react/lib/FocusZone';
+import { Button, ButtonType } from 'office-ui-fabric-react/lib/Button';
 
 interface SpCustomActionsProps {
     closeWindowFunction: any,

@@ -9,7 +9,11 @@ import KeyValueItem from './../common/KeyValueItem';
 import { WorkingOnIt } from './../common/WorkingOnIt';
 import MessageBar from './../common/MessageBar';
 import { OperationType } from './../common/enums';
-import { MessageBarType, List, SearchBox, FocusZone, FocusZoneDirection } from './../../../../node_modules/office-ui-fabric-react/lib/index';
+
+import { MessageBarType } from 'office-ui-fabric-react/lib/MessageBar';
+import { List } from 'office-ui-fabric-react/lib/List';
+import { SearchBox } from 'office-ui-fabric-react/lib/SearchBox';
+import { FocusZone, FocusZoneDirection } from 'office-ui-fabric-react/lib/FocusZone';
 
 
 interface SpPropertyBagProps {

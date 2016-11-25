@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import ActionItem from './ActionItem'
-import { List } from 'office-ui-fabric-react/lib/index';
+import { List } from 'office-ui-fabric-react/lib/List';
 
 interface IActionData {
     title: string,

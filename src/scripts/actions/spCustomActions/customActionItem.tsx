@@ -4,13 +4,11 @@
 import * as React from 'react';
 import { ViewMode, CustomActionType } from './../common/enums';
 import Utils from './../common/utils';
-import {
-    TextField,
-    Button,
-    ButtonType,
-    MessageBarType,
-    ChoiceGroup
-} from './../../../../node_modules/office-ui-fabric-react/lib/index';
+import { MessageBarType } from 'office-ui-fabric-react/lib/MessageBar';
+import { TextField } from 'office-ui-fabric-react/lib/TextField';
+import { Checkbox } from 'office-ui-fabric-react/lib/Checkbox';
+import { Button, ButtonType } from 'office-ui-fabric-react/lib/Button';
+import { ChoiceGroup } from 'office-ui-fabric-react/lib/ChoiceGroup';
 
 interface CustomActionItemProps {
     item?: ICustomAction,

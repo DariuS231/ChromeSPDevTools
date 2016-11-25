@@ -2,11 +2,8 @@
 /// <reference path="./interfaces.ts"/>
 import * as React from 'react';
 import Utils from './utils';
-import {
-    TextField,
-    Button,
-    ButtonType
-} from './../../../../node_modules/office-ui-fabric-react/lib/index';
+import { Button, ButtonType } from 'office-ui-fabric-react/lib/Button';
+import { TextField } from 'office-ui-fabric-react/lib/TextField';
 
 interface NewKeyValueItemState {
     newKey: string,
