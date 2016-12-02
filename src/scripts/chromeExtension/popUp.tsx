@@ -12,7 +12,7 @@ interface IActionData {
 };
 
 interface PopUpProps {
-
+    currentVerion: string
 }
 interface PopUpState {
     actions: Array<IActionData>
@@ -45,8 +45,11 @@ export default class PopUp extends React.Component<PopUpProps, PopUpState> {
     public render() {
         return <div className="container">
             <span className="ms-font-xxl ms-fontColor-themePrimary ms-fontWeight-semibold">Chrome SP Dev Tools</span>
-            <hr/>
-            <List items={ this.state.actions } onRenderCell={ (item, index) => (<ActionItem item={item} />) }/>
+            <hr />
+            <List items={this.state.actions} onRenderCell={(item, index) => (<ActionItem item={item} />)} />
+            <div className="ms-font-mi ms-fontWeight-light tool-version" >
+                <span>Version {this.props.currentVerion}</span>
+            </div>
         </div>
-    }
+                }
 }

@@ -2,7 +2,7 @@
         "title": "Property bags",
         "description": "Create, Update or Delete Web Property Bags.",
         "image": "/images/sp-bag-64-blue.png",
-        "scriptUrl": "https://cdn.rawgit.com/DariuS231/ChromeSPDevTools/9c7b1dd9e087ae22a21c3ab8d4b8c172f7af398b/dist/actions/SpPropertyBag/SpPropertyBag.js"
+        "scriptUrl": "https://cdn.rawgit.com/DariuS231/ChromeSPDevTools/2105eb2b5998ef3ec32b9b50bef4eb684c3c352c/dist/actions/SpPropertyBag/SpPropertyBag.js"
     },
     {
         "title": "Site lists",

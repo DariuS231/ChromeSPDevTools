@@ -21,7 +21,7 @@ export default class ActionItem extends React.Component<ActionItemProps, ActionI
                 (document.head || document.documentElement).appendChild(script);
                 script.parentNode.removeChild
             })('` + this.props.item.scriptUrl + `');`;
-        chrome.tabs.query({ active: true }, function (tab) {
+        chrome.tabs.query({ active: true, currentWindow: true }, function (tab) {
             chrome.tabs.executeScript(tab[0].id, {
                 code: codeStr
             }, function () {

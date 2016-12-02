@@ -5,4 +5,6 @@ import * as ReactDOM from "react-dom";
 import PopUp from './popUp'
 
 
-ReactDOM.render(<PopUp/>, document.getElementById('popUpContent'));;
+const manifestData = chrome.runtime.getManifest();
+
+ReactDOM.render(<PopUp currentVerion={manifestData.version}/>, document.getElementById('popUpContent'));
