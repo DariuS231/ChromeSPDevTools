@@ -58,7 +58,7 @@ export default class NewKeyValueItem extends React.Component<NewKeyValueItemProp
                     <TextField placeholder='New property name' onGetErrorMessage={ this.getErrorMessage.bind(this) } label="Property Name" value={this.state.newKey} onChanged={this.onKeyInputChange.bind(this) } />
                 </div>
                 <div className="ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6">
-                    <TextField placeholder='New property value' onGetErrorMessage={ this.getErrorMessage.bind(this) } label="Property Name" value={this.state.newValue} onChanged={this.onValueInputChange.bind(this) } />
+                    <TextField placeholder='New property value' onGetErrorMessage={ this.getErrorMessage.bind(this) } label="Property Value" value={this.state.newValue} onChanged={this.onValueInputChange.bind(this) } />
                 </div>
             </div>
             <div className="ms-Grid-row">
