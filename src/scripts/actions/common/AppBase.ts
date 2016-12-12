@@ -27,7 +27,7 @@ export class AppBase {
         style.type = 'text/css';
         style.rel = 'stylesheet';
         style.id = this.styleLinkId;
-        style.href = 'https://rawgit.com/DariuS231/ChromeSPDevTools/fabricui/dist/actions/styles/bundle.css';
+        style.href = 'https://cdn.rawgit.com/DariuS231/ChromeSPDevTools/92a48bd7dff4e8696ecf9e1a6321eae4556ac88a/dist/actions/styles/bundle.css';
         head.appendChild(style);
     }
     remove = (): void => {
