@@ -12,7 +12,8 @@ interface ISiteContent {
     created: any,
     lastModified: any,
     listUrl: any,
-    settingsUrl: string
+    settingsUrl: string,
+    newFormUrl:string
 }
 interface ICustomAction {
     name: any,

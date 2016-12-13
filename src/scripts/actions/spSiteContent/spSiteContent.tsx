@@ -48,7 +48,7 @@ export default class SpSiteContent extends React.Component<SpSiteContentProps, S
 
         let siteConetent = web.get_lists();
         ctx.load(web);
-        ctx.load(siteConetent, 'Include(RootFolder,Title,Id,Hidden,ItemCount,Created,ImageUrl,LastItemModifiedDate,Description,ParentWebUrl)');
+        ctx.load(siteConetent, 'Include(RootFolder,Title,Id,Hidden,ItemCount,Created,ImageUrl,LastItemModifiedDate,Description,ParentWebUrl,DefaultNewFormUrl)');
 
         const onSuccess =  (sender: any, err: any) => {
 
@@ -67,7 +67,8 @@ export default class SpSiteContent extends React.Component<SpSiteContentProps, S
                     created: oList.get_created(),
                     lastModified: oList.get_lastItemModifiedDate(),
                     listUrl: oList.get_rootFolder().get_serverRelativeUrl(),
-                    settingsUrl: oList.get_parentWebUrl() + '/_layouts/15/listedit.aspx?List=' + listId
+                    settingsUrl: oList.get_parentWebUrl() + '/_layouts/15/listedit.aspx?List=' + listId,
+                    newFormUrl:oList.get_defaultNewFormUrl()
                 }
                 items.push(listItem);
             }
