@@ -91,7 +91,7 @@ gulp.task('build-chromeExt-styles', function (noUglify) {
 gulp.task("generate-chrome-dev", ["copy-images", 'copy-data', "copy-rootFolderFiles", 'build-chromeExt-background', 'build-chromeExt-popUp', 'build-chromeExt-styles'], function (noUglify) {
 
 });
-gulp.task("generate-chrome-package", ["generate-chrome-dev"], function () {
+gulp.task("generate-chrome-package", function () {
     return gulp.src(config.paths.chromeExt.package.packageFiles)
         .pipe(zip(config.paths.chromeExt.package.name))
         .pipe(gulp.dest(config.paths.chromeExt.package.distFolder));

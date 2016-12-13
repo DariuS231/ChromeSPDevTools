@@ -2,30 +2,30 @@
         "title": "Property bags",
         "description": "Create, Update or Delete Web Property Bags.",
         "image": "/images/sp-bag-64-blue.png",
-        "scriptUrl": "https://cdn.rawgit.com/DariuS231/ChromeSPDevTools/2105eb2b5998ef3ec32b9b50bef4eb684c3c352c/dist/actions/SpPropertyBag/SpPropertyBag.js"
+        "scriptUrl": "https://cdn.rawgit.com/DariuS231/ChromeSPDevTools/be5d0b4ac493ea0c9a199cfb401046ebc3fa7706/dist/actions/SpPropertyBag/SpPropertyBag.js"
     },
     {
         "title": "Site lists",
         "description": "All site lists, including hidden.",
         "image": "/images/content-management-64-blue.png",
-        "scriptUrl": "https://cdn.rawgit.com/DariuS231/ChromeSPDevTools/9c7b1dd9e087ae22a21c3ab8d4b8c172f7af398b/dist/actions/SpSiteContent/SpSiteContent.js"
+        "scriptUrl": "https://cdn.rawgit.com/DariuS231/ChromeSPDevTools/be5d0b4ac493ea0c9a199cfb401046ebc3fa7706/dist/actions/SpSiteContent/SpSiteContent.js"
     },
     {
         "title": "Site Custom Actions",
         "description": "Create, Update or Delete Site Custom Actions.",
         "image": "/images/hammer-nailing-a-nail-in-a-wall-64-blue.png",
-        "scriptUrl": "https://cdn.rawgit.com/DariuS231/ChromeSPDevTools/9c7b1dd9e087ae22a21c3ab8d4b8c172f7af398b/dist/actions/spSiteCustomActions/spSiteCustomActions.js"
+        "scriptUrl": "https://cdn.rawgit.com/DariuS231/ChromeSPDevTools/be5d0b4ac493ea0c9a199cfb401046ebc3fa7706/dist/actions/spSiteCustomActions/spSiteCustomActions.js"
     },
     {
         "title": "Web Custom Actions",
         "description": "Create, Update or Delete Web Custom Actions.",
         "image": "/images/hammer-nailing-a-nail-in-a-wall-64-blue.png", 
-        "scriptUrl": "https://cdn.rawgit.com/DariuS231/ChromeSPDevTools/9c7b1dd9e087ae22a21c3ab8d4b8c172f7af398b/dist/actions/spWebCustomActions/spWebCustomActions.js"
+        "scriptUrl": "https://cdn.rawgit.com/DariuS231/ChromeSPDevTools/be5d0b4ac493ea0c9a199cfb401046ebc3fa7706/dist/actions/spWebCustomActions/spWebCustomActions.js"
     },
     {
         "title": "Site/Web Features",
         "description": "Activate, Deactivate site and web features.",
         "image": "/images/switch-64-blue.png",
-        "scriptUrl": "https://cdn.rawgit.com/DariuS231/ChromeSPDevTools/9c7b1dd9e087ae22a21c3ab8d4b8c172f7af398b/dist/actions/spFeatures/spFeatures.js"
+        "scriptUrl": "https://cdn.rawgit.com/DariuS231/ChromeSPDevTools/be5d0b4ac493ea0c9a199cfb401046ebc3fa7706/dist/actions/spFeatures/spFeatures.js"
     }
 ]
