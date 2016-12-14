@@ -163,15 +163,14 @@ export default class SpSiteContent extends React.Component<SpSiteContentProps, S
                                             {item.title}
                                         </a>
                                         <div className='ms-ListBasicExample-itemIndex'>{`${item.itemCount} Items`}</div>
+                                        {
+                                            item.newFormUrl 
+                                                ?   <a target={target} href={item.newFormUrl} title="New Item" className="ms-ListItem-action"><i className="ms-Icon ms-Icon--AddTo"></i>New Item</a>
+                                                : null 
+                                        }
                                     </div>
                                     <div className="ms-ListItem-actions">
                                         <a target={target} href={item.settingsUrl} title="Settings" className="ms-ListItem-action"><i className="ms-Icon ms-Icon--Settings"></i></a>
-                                        {
-                                            item.newFormUrl 
-                                                ?   <a target={target} href={item.newFormUrl} title="New Item" className="ms-ListItem-action"><i className="ms-Icon ms-Icon--CirclePlus"></i></a>
-                                                : null 
-                                        }
-                                        
                                     </div>
                                 </div>
                             )}

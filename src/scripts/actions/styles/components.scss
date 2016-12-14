@@ -108,7 +108,7 @@ $dividerColor: $ms-color-neutralLight;
 
 .ms-ListBasicExample-itemCell {
     @include focus-border();
-    min-height: 54px;
+    min-height: 89px;
     padding: 10px;
     box-sizing: border-box;
     border-bottom: 1px solid $dividerColor;
@@ -272,9 +272,6 @@ $dividerColor: $ms-color-neutralLight;
         &:nth-child(odd) {
             .ms-ListBasicExample-itemCell {
                 margin-right: 5px;
-                .hidden-spList {
-                    opacity: 0.5;
-                }
             }
         }
         &:nth-child(even) {
@@ -282,9 +279,20 @@ $dividerColor: $ms-color-neutralLight;
                 margin-left: 5px;
             }
         }
+        .hidden-spList {
+            opacity: 0.5;
+        }
     }
     i.ms-Icon {
-        font-size: large;
+        &.ms-Icon--AddTo{
+            vertical-align: middle;
+            padding-bottom: 3px;
+            padding-right: 3px;
+        }
+        &.ms-Icon--Settings{
+            font-size: large;
+        }
+        
     }
 }
 
