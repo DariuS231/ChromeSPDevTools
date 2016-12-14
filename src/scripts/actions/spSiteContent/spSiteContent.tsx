@@ -157,7 +157,7 @@ export default class SpSiteContent extends React.Component<SpSiteContentProps, S
                             items={lists}
                             onRenderCell={(item, index) => (
                                 <div className='ms-ListBasicExample-itemCell' data-is-focusable={true}>
-                                    <Image className='ms-ListBasicExample-itemImage' src={item.imageUrl} width={25} height={25} />
+                                    <Image className={'ms-ListBasicExample-itemImage' + (item.hidden ? ' hidden-spList' : '')} src={item.imageUrl} width={25} height={25} />
                                     <div className='ms-ListBasicExample-itemContent'>
                                         <a title={item.title} alt={item.title} href={item.listUrl} className='ms-ListBasicExample-itemName ms-font-l ms-fontColor-themePrimary ms-fontWeight-semibold' target={target}>
                                             {item.title}
@@ -166,6 +166,12 @@ export default class SpSiteContent extends React.Component<SpSiteContentProps, S
                                     </div>
                                     <div className="ms-ListItem-actions">
                                         <a target={target} href={item.settingsUrl} title="Settings" className="ms-ListItem-action"><i className="ms-Icon ms-Icon--Settings"></i></a>
+                                        {
+                                            item.newFormUrl 
+                                                ?   <a target={target} href={item.newFormUrl} title="New Item" className="ms-ListItem-action"><i className="ms-Icon ms-Icon--CirclePlus"></i></a>
+                                                : null 
+                                        }
+                                        
                                     </div>
                                 </div>
                             )}

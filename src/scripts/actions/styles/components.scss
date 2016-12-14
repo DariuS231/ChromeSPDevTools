@@ -272,6 +272,9 @@ $dividerColor: $ms-color-neutralLight;
         &:nth-child(odd) {
             .ms-ListBasicExample-itemCell {
                 margin-right: 5px;
+                .hidden-spList {
+                    opacity: 0.5;
+                }
             }
         }
         &:nth-child(even) {
@@ -280,7 +283,7 @@ $dividerColor: $ms-color-neutralLight;
             }
         }
     }
-    i.ms-Icon.ms-Icon--Settings {
+    i.ms-Icon {
         font-size: large;
     }
 }
