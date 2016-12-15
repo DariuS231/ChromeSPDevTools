@@ -1,7 +1,7 @@
 import ApiBase from './apiBase'
 import { SpSiteContentConstants as constants } from './../constants/SpSiteContent'
 
-class SpSiteContentApi extends ApiBase {
+export default class SpSiteContentApi extends ApiBase {
     public getLists():Promise<Array<ISiteContent>> {
         return new Promise((resolve,reject) =>{
             const siteConetent = this.web.get_lists();
@@ -41,6 +41,3 @@ class SpSiteContentApi extends ApiBase {
         });
     }
 }
-
-const api = new SpSiteContentApi();
-export default api;

@@ -4,7 +4,7 @@
 import * as React from 'react';
 import { WorkingOnIt } from './../common/WorkingOnIt';
 import MessageBar from './../common/MessageBar';
-import api from './../api/SpSiteContent'
+import SpSiteContentApi from './../api/SpSiteContent'
 
 import { Checkbox } from 'office-ui-fabric-react/lib/Checkbox';
 import { MessageBarType } from 'office-ui-fabric-react/lib/MessageBar';
@@ -28,6 +28,7 @@ interface SpSiteContentState {
 }
 
 export default class SpSiteContent extends React.Component<SpSiteContentProps, SpSiteContentState> {
+    api:SpSiteContentApi;
     constructor() {
         super();
         this.state = {
@@ -42,6 +43,7 @@ export default class SpSiteContent extends React.Component<SpSiteContentProps, S
         } as SpSiteContentState;
 
         this.onFilterChange = this.onFilterChange.bind(this);
+        this.api = new SpSiteContentApi();
     }
     private showAll(e: any) {
         let showAllNewVal: boolean = e.target.checked;
@@ -68,7 +70,7 @@ export default class SpSiteContent extends React.Component<SpSiteContentProps, S
         } as SpSiteContentState);
     }
     private componentDidMount() {
-        api.getLists().then((items: Array<ISiteContent>) => {
+        this.api.getLists().then((items: Array<ISiteContent>) => {
             this.setState({
                 siteLists: items,
                 isWorkingOnIt: false
