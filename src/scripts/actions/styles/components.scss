@@ -108,7 +108,7 @@ $dividerColor: $ms-color-neutralLight;
 
 .ms-ListBasicExample-itemCell {
     @include focus-border();
-    min-height: 89px;
+    min-height: 90px;
     padding: 10px;
     box-sizing: border-box;
     border-bottom: 1px solid $dividerColor;
@@ -283,16 +283,22 @@ $dividerColor: $ms-color-neutralLight;
             opacity: 0.5;
         }
     }
+    a.ms-ListItem-action {
+        display: block;
+    }
     i.ms-Icon {
-        &.ms-Icon--AddTo{
+        &.ms-Icon--AddTo {
             vertical-align: middle;
             padding-bottom: 3px;
             padding-right: 3px;
         }
-        &.ms-Icon--Settings{
+        &.ms-Icon--Settings,
+        &.ms-Icon--SecurityGroup {
             font-size: large;
         }
-        
+        &.ms-Icon--SecurityGroup {
+            margin-top: 10px;
+        }
     }
 }
 

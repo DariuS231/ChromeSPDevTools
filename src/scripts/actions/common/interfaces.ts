@@ -13,7 +13,8 @@ interface ISiteContent {
     lastModified: any,
     listUrl: any,
     settingsUrl: string,
-    newFormUrl:string
+    newFormUrl: string,
+    permissionsPageUrl: string
 }
 interface ICustomAction {
     name: any,

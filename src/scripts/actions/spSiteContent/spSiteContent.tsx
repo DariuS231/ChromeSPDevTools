@@ -68,7 +68,8 @@ export default class SpSiteContent extends React.Component<SpSiteContentProps, S
                     lastModified: oList.get_lastItemModifiedDate(),
                     listUrl: oList.get_rootFolder().get_serverRelativeUrl(),
                     settingsUrl: oList.get_parentWebUrl() + '/_layouts/15/listedit.aspx?List=' + listId,
-                    newFormUrl:oList.get_defaultNewFormUrl()
+                    newFormUrl:oList.get_defaultNewFormUrl(),
+                    permissionsPageUrl: `${oList.get_parentWebUrl()}/_layouts/15/user.aspx?obj=%7B${listId}%7D,list&List=%7B${listId}%7D`,
                 }
                 items.push(listItem);
             }
@@ -171,6 +172,7 @@ export default class SpSiteContent extends React.Component<SpSiteContentProps, S
                                     </div>
                                     <div className="ms-ListItem-actions">
                                         <a target={target} href={item.settingsUrl} title="Settings" className="ms-ListItem-action"><i className="ms-Icon ms-Icon--Settings"></i></a>
+                                        <a target={target} href={item.permissionsPageUrl} title={`Permissions: ${item.title}`} className="ms-ListItem-action"><i className="ms-Icon ms-Icon--SecurityGroup"></i></a>
                                     </div>
                                 </div>
                             )}
