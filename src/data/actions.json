@@ -8,7 +8,7 @@
         "title": "Site lists",
         "description": "All site lists, including hidden.",
         "image": "/images/content-management-64-blue.png",
-        "scriptUrl": "https://cdn.rawgit.com/DariuS231/ChromeSPDevTools/be5d0b4ac493ea0c9a199cfb401046ebc3fa7706/dist/actions/SpSiteContent/SpSiteContent.js"
+        "scriptUrl": "https://cdn.rawgit.com/DariuS231/ChromeSPDevTools/ba6188c9667ab1b6fbfc7e068d25a125944f5538/dist/actions/SpSiteContent/SpSiteContent.js"
     },
     {
         "title": "Site Custom Actions",
