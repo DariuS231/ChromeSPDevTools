@@ -1,5 +1,3 @@
-
-
 declare var reject: any;
 
 export default class ApiBase {

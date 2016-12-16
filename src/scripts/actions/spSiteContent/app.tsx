@@ -4,7 +4,7 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import SpCustomModalWrapper from './../common/spCustomModalWrapper';
 import {AppBase} from './../common/AppBase';
-import SpSiteContent from './spSiteContent';
+import SpSiteContent from './components/spSiteContent';
 import Utils from './../common/utils';
 
 class App extends AppBase {
@@ -20,6 +20,5 @@ class App extends AppBase {
         });
     }
 }
-
 window.SpSiteContentObj = new App();
 window.SpSiteContentObj.show();

@@ -1,16 +1,14 @@
-/// <reference path="../../../../typings/index.d.ts"/>
-/// <reference path="./../common/interfaces.ts"/>
+/// <reference path="../../../../../typings/index.d.ts"/>
+/// <reference path="./../../common/interfaces.ts"/>
 
 import * as React from 'react';
-import { WorkingOnIt } from './../common/WorkingOnIt';
-import MessageBar from './../common/MessageBar';
-import SpSiteContentApi from './../api/SpSiteContent'
-
+import { WorkingOnIt } from './../../common/WorkingOnIt';
+import MessageBar from './../../common/MessageBar';
+import SpSiteContentApi from './../api/spSiteContentApi'
+import {SpSiteContentList} from './spSiteContentList' 
 import { Checkbox } from 'office-ui-fabric-react/lib/Checkbox';
 import { MessageBarType } from 'office-ui-fabric-react/lib/MessageBar';
-import { TextField } from 'office-ui-fabric-react/lib/TextField';
-import { Image, ImageFit } from 'office-ui-fabric-react/lib/Image';
-import { List } from 'office-ui-fabric-react/lib/List';
+
 import { SearchBox } from 'office-ui-fabric-react/lib/SearchBox';
 
 interface SpSiteContentProps {
@@ -26,6 +24,7 @@ interface SpSiteContentState {
     openInNewTab: boolean,
     filterText: string
 }
+
 
 export default class SpSiteContent extends React.Component<SpSiteContentProps, SpSiteContentState> {
     api:SpSiteContentApi;
@@ -119,30 +118,7 @@ export default class SpSiteContent extends React.Component<SpSiteContentProps, S
                             </div>
                         </div>
                     </div>
-
-                    <List
-                        items={lists}
-                        onRenderCell={(item, index) => (
-                            <div className='ms-ListBasicExample-itemCell' data-is-focusable={true}>
-                                <Image className={'ms-ListBasicExample-itemImage' + (item.hidden ? ' hidden-spList' : '')} src={item.imageUrl} width={25} height={25} />
-                                <div className='ms-ListBasicExample-itemContent'>
-                                    <a title={item.title} alt={item.title} href={item.listUrl} className='ms-ListBasicExample-itemName ms-font-l ms-fontColor-themePrimary ms-fontWeight-semibold' target={target}>
-                                        {item.title}
-                                    </a>
-                                    <div className='ms-ListBasicExample-itemIndex'>{`${item.itemCount} Items`}</div>
-                                    {
-                                        item.newFormUrl
-                                            ? <a target={target} href={item.newFormUrl} title="New Item" className="ms-ListItem-action"><i className="ms-Icon ms-Icon--AddTo"></i>New Item</a>
-                                            : null
-                                    }
-                                </div>
-                                <div className="ms-ListItem-actions">
-                                    <a target={target} href={item.settingsUrl} title="Settings" className="ms-ListItem-action"><i className="ms-Icon ms-Icon--Settings"></i></a>
-                                    <a target={target} href={item.permissionsPageUrl} title={`Permissions: ${item.title}`} className="ms-ListItem-action"><i className="ms-Icon ms-Icon--SecurityGroup"></i></a>
-                                </div>
-                            </div>
-                        )}
-                        />
+                    <SpSiteContentList items={lists} linkTarget={target} />
                 </div>);
 
         }

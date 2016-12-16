@@ -1,5 +1,5 @@
-import ApiBase from './apiBase'
-import { SpSiteContentConstants as constants } from './../constants/SpSiteContent'
+import ApiBase from './../../common/apiBase'
+import { SpSiteContentConstants as constants } from './../constants/SpSiteContentConstants'
 
 export default class SpSiteContentApi extends ApiBase {
     public getLists():Promise<Array<ISiteContent>> {
@@ -9,7 +9,6 @@ export default class SpSiteContentApi extends ApiBase {
             this.ctx.load(siteConetent, `Include(${constants.selectFields.join(',')})`);
 
             const onSuccess = (sender: any, args: SP.ClientRequestSucceededEventArgs) => {
-
                 const items: Array<ISiteContent> = [], listEnumerator: any = siteConetent.getEnumerator();
 
                 while (listEnumerator.moveNext()) {
