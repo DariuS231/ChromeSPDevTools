@@ -1,20 +1,8 @@
+
+
 interface IKeyValue {
     key: string,
     value: any
-}
-interface ISiteContent {
-    id: any,
-    title: any,
-    description: any,
-    hidden: any,
-    itemCount: any,
-    imageUrl: any,
-    created: any,
-    lastModified: any,
-    listUrl: any,
-    settingsUrl: string,
-    newFormUrl: string,
-    permissionsPageUrl: string
 }
 interface ICustomAction {
     name: any,
@@ -37,4 +25,11 @@ interface IFeature {
     activated: any,
     scope: any,
     logo: any
+}
+
+
+interface IMessageData {
+    showMessage: boolean,
+    message: string,
+    type: any
 }

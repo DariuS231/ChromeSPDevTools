@@ -10,6 +10,8 @@
   "devDependencies": {
     "@types/chrome": "0.0.35",
     "@types/core-js": "^0.9.34",
+    "@types/fbemitter": "^2.0.32",
+    "@types/flux": "0.0.33",
     "@types/jquery": "^2.0.34",
     "@types/microsoft-ajax": "0.0.31",
     "@types/react": "^0.14.46",
@@ -20,6 +22,8 @@
     "babelify": "^7.3.0",
     "browserify": "^13.1.1",
     "es6-promise": "4.0.5",
+    "fbemitter": "^2.1.1",
+    "flux": "^3.1.0",
     "gulp": "^3.9.1",
     "gulp-concat": "^2.6.0",
     "gulp-param": "^1.0.3",
