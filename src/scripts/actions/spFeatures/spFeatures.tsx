@@ -126,7 +126,22 @@ export default class SpFeatures extends React.Component<SpFeatureProps, SpFeatur
             this.setState({ isWorkingOnIt: false } as SpFeatureState);
 
         };
-        ctx.executeQueryAsync( onSuccess,  this.spErrorHandler);
+
+        let onFeatureFailed =  (sender: any, err: any) => {
+
+            let onSuccessCustom = (sender: any, err: any) => {
+                this.getFeatures(SP.FeatureDefinitionScope.none, FeatureOperationType.Activate, msg);
+                this.setState({ isWorkingOnIt: false } as SpFeatureState);
+            };
+
+            web.get_features().add(new SP.Guid(id), true, SP.FeatureDefinitionScope.site);
+
+            ctx.executeQueryAsync( onSuccessCustom,  this.spErrorHandler);
+
+        };
+
+
+        ctx.executeQueryAsync( onSuccess,  onFeatureFailed);
     }
 
     private onSiteActionClick(id: string, name: string, operation: boolean, scope: SP.FeatureDefinitionScope) {
@@ -150,8 +165,23 @@ export default class SpFeatures extends React.Component<SpFeatureProps, SpFeatur
             this.setState({ isWorkingOnIt: false } as SpFeatureState);
 
         };
+
+        let onFeatureFailed =  (sender: any, err: any) => {
+
+            let onSuccessCustom = (sender: any, err: any) => {
+                this.getFeatures(SP.FeatureDefinitionScope.site, FeatureOperationType.Activate, msg);
+                this.setState({ isWorkingOnIt: false } as SpFeatureState);
+            };
+
+            site.get_features().add(new SP.Guid(id), true, SP.FeatureDefinitionScope.site);
+
+            ctx.executeQueryAsync( onSuccessCustom,  this.spErrorHandler);
+
+
+
+        };
         
-        ctx.executeQueryAsync(onSuccess, this.spErrorHandler);
+        ctx.executeQueryAsync(onSuccess, onFeatureFailed);
     }
 
     private checkUserPermissions() {
