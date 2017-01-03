@@ -6,6 +6,8 @@ import SpCustomModalWrapper from './../common/spCustomModalWrapper';
 import { AppBase } from './../common/AppBase';
 import Utils from './../common/utils';
 import SpPropertyBag from './spPropertyBag'
+import { Provider } from 'react-redux';
+import { configureStore } from './store/configureStore'
 
 class App extends AppBase {
     constructor() {
@@ -14,9 +16,14 @@ class App extends AppBase {
     public show(showOnlyIconsInButtons: boolean) {
         let that = this;
         Utils.ensureSPObject().then(() => {
-            ReactDOM.render(<SpCustomModalWrapper onCloseClick={that.remove.bind(this)} modalDialogTitle="Web Property bags" modalWidth="700px">
-                <SpPropertyBag showOnlyIconsInButtons={showOnlyIconsInButtons} closeWindowFunction={that.remove.bind(this)} />
-            </SpCustomModalWrapper>, document.getElementById(that.baseDivId));
+            const store = configureStore({});
+            ReactDOM.render(
+                <Provider store={store}>
+                    <SpCustomModalWrapper onCloseClick={that.remove} modalDialogTitle="Web Property bags" modalWidth="700px">
+                        <SpPropertyBag showOnlyIconsInButtons={showOnlyIconsInButtons} closeWindowFunction={that.remove} />
+                    </SpCustomModalWrapper>
+                </Provider>, document.getElementById(that.baseDivId)
+            );
         });
     }
 }

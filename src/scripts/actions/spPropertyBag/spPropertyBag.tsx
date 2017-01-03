@@ -3,7 +3,7 @@
 /// <reference path="./../common/enums.ts"/>
 
 import * as React from 'react';
-
+import { connect } from 'react-redux'
 import NewKeyValueItem from './../common/newKeyValueItem';
 import KeyValueItem from './../common/KeyValueItem';
 import { WorkingOnIt } from './../common/WorkingOnIt';
@@ -31,7 +31,7 @@ interface SpPropertyBagState {
     filterText: string
 }
 
-export default class SpPropertyBag extends React.Component<SpPropertyBagProps, SpPropertyBagState> {
+class SpPropertyBag extends React.Component<SpPropertyBagProps, SpPropertyBagState> {
     ctx: SP.ClientContext;
     web: any;
     allProperties: any;
@@ -169,22 +169,22 @@ export default class SpPropertyBag extends React.Component<SpPropertyBagProps, S
             }) : this.state.webProperties;
             return (<div className="action-container sp-peropertyBags">
                 <MessageBar message={this.state.message} messageType={this.state.messageType} showMessage={this.state.showMessage} />
-                <div className="ms-Grid filters-container"> 
-                        <div className="ms-Grid-row">
-                            <div className="ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6">
-                                <SearchBox onChange={this.onFilterChange}/>
-                            </div>
-                            <div className="ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6"> </div>
+                <div className="ms-Grid filters-container">
+                    <div className="ms-Grid-row">
+                        <div className="ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6">
+                            <SearchBox onChange={this.onFilterChange} />
                         </div>
+                        <div className="ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6"> </div>
                     </div>
-                    <List items={props} onRenderCell={(item, index) => (
-                        <KeyValueItem
-                            item={item}
-                            key={item.key}
-                            itemIndex={index}
-                            onUpdateClick={this.onUpdatingNewProperty.bind(this)}
-                            onDeleteClick={this.onDeletingProperty.bind(this)} />
-                    )} />
+                </div>
+                <List items={props} onRenderCell={(item, index) => (
+                    <KeyValueItem
+                        item={item}
+                        key={item.key}
+                        itemIndex={index}
+                        onUpdateClick={this.onUpdatingNewProperty.bind(this)}
+                        onDeleteClick={this.onDeletingProperty.bind(this)} />
+                )} />
 
 
                 <NewKeyValueItem moduleTitle="New web property" keyDisplayName="Property Name" valueDisplayName="Property Value" onNewItemClick={this.onAddingNewProperty.bind(this)} />
@@ -193,3 +193,14 @@ export default class SpPropertyBag extends React.Component<SpPropertyBagProps, S
         }
     }
 }
+const mapStateToProps = (state, ownProps) => { 
+    return{
+
+    }
+}
+
+const mapDispatchToProps = () => { 
+
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SpPropertyBag);
