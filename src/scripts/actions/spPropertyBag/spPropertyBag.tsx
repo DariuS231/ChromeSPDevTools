@@ -17,54 +17,36 @@ import { FocusZone, FocusZoneDirection } from 'office-ui-fabric-react/lib/FocusZ
 
 
 interface SpPropertyBagProps {
-    showOnlyIconsInButtons: boolean,
-    closeWindowFunction: any
-}
-interface SpPropertyBagState {
+    closeWindowFunction: any,
     currentUserHasPermissions: boolean,
     isWorkingOnIt: boolean,
-    noPermissionsMessage: string,
     webProperties: Array<IKeyValue>,
-    showMessage: boolean,
-    messageType: MessageBarType,
-    message: string,
+    messageData: IMessageData,
     filterText: string
 }
 
-class SpPropertyBag extends React.Component<SpPropertyBagProps, SpPropertyBagState> {
+class SpPropertyBag extends React.Component<SpPropertyBagProps, {}> {
     ctx: SP.ClientContext;
     web: any;
     allProperties: any;
     reloadPage: boolean;
     constructor() {
         super();
-        this.state = {
-            currentUserHasPermissions: true,
-            noPermissionsMessage: '',
-            webProperties: [],
-            isWorkingOnIt: true,
-            showMessage: false,
-            messageType: MessageBarType.info,
-            message: '',
-            filterText: ''
-        } as SpPropertyBagState;
         this.reloadPage = false;
         this.onFilterChange = this.onFilterChange.bind(this);
         this.spErrorHandler = this.spErrorHandler.bind(this);
     }
     private onUpdatingNewProperty(key: string, value: string) {
-        this.setState({ isWorkingOnIt: true } as SpPropertyBagState);
         this.allProperties.set_item(key, value);
         this.executeChanges(OperationType.Update, 'The selected property has been updated.');
     }
     private onAddingNewProperty(key: string, value: string) {
-        this.setState({ isWorkingOnIt: true } as SpPropertyBagState);
         this.allProperties.set_item(key, value);
         this.executeChanges(OperationType.Create, 'A new property has been created');
     }
     private onDeletingProperty(key: string) {
         if (confirm('Are you sure you want to remove this property? The page will be refreshed after the property has been deleted.')) {
-            this.setState({ isWorkingOnIt: true } as SpPropertyBagState)
+           
             this.reloadPage = true;
             this.allProperties.set_item(key);
             this.executeChanges(OperationType.Delete, '');
@@ -72,7 +54,6 @@ class SpPropertyBag extends React.Component<SpPropertyBagProps, SpPropertyBagSta
     }
     private spErrorHandler(sender: any, err: any) {
         console.log(err.get_message());
-        this.setState({ isWorkingOnIt: false, messageType: MessageBarType.error, message: 'An error ocurred, check the log for more information.', showMessage: true } as SpPropertyBagState)
     }
     private executeChanges(opType: OperationType, msg: string) {
         this.ctx.get_web().update();
@@ -107,24 +88,12 @@ class SpPropertyBag extends React.Component<SpPropertyBagProps, SpPropertyBagSta
             items.sort(function (a, b) {
                 return a.key.localeCompare(b.key);
             });
-            this.setState({
-                webProperties: items,
-                isWorkingOnIt: false,
-                messageType: MessageBarType.success,
-                message: msg,
-                showMessage: (opType !== OperationType.None),
-                filterText: ''
-            } as SpPropertyBagState);
         };
         this.ctx.executeQueryAsync(onSuccess, this.spErrorHandler);
     }
     private checkUserPermissions() {
         if (typeof this.web.doesUserHavePermissions !== "function") {
-            this.setState({
-                currentUserHasPermissions: false,
-                noPermissionsMessage: 'Cannot check permissions against a non-securable object.',
-                isWorkingOnIt: false
-            } as SpPropertyBagState);
+            
         } else {
             let ob: SP.BasePermissions = new SP.BasePermissions();
             ob.set(SP.PermissionKind.manageWeb);
@@ -136,11 +105,7 @@ class SpPropertyBag extends React.Component<SpPropertyBagProps, SpPropertyBagSta
                     this.getWebProperties(OperationType.None, '');
                 }
                 else {
-                    this.setState({
-                        currentUserHasPermissions: false,
-                        noPermissionsMessage: 'Current user does not have the required permissions tu moduifyu the web properties.',
-                        isWorkingOnIt: false
-                    } as SpPropertyBagState);
+                    
                 }
             };
             let onError = (sender: any, err: any) => {
@@ -152,7 +117,6 @@ class SpPropertyBag extends React.Component<SpPropertyBagProps, SpPropertyBagSta
         }
     }
     private onFilterChange(str: string) {
-        this.setState({ filterText: str } as SpPropertyBagState);
     }
     private componentDidMount() {
         this.ctx = SP.ClientContext.get_current();
@@ -160,15 +124,15 @@ class SpPropertyBag extends React.Component<SpPropertyBagProps, SpPropertyBagSta
         this.checkUserPermissions();
     }
     public render() {
-        if (this.state.isWorkingOnIt) {
+        if (this.props.isWorkingOnIt) {
             return <WorkingOnIt />;
         } else {
-            const filter: string = this.state.filterText.toLowerCase();
-            const props: Array<IKeyValue> = filter !== '' ? this.state.webProperties.filter((prop: IKeyValue, index: number) => {
+            const filter: string = this.props.filterText.toLowerCase();
+            const props: Array<IKeyValue> = filter !== '' ? this.props.webProperties.filter((prop: IKeyValue, index: number) => {
                 return prop.key.toLowerCase().indexOf(filter) >= 0 || prop.value.toLowerCase().indexOf(filter) >= 0;
-            }) : this.state.webProperties;
+            }) : this.props.webProperties;
             return (<div className="action-container sp-peropertyBags">
-                <MessageBar message={this.state.message} messageType={this.state.messageType} showMessage={this.state.showMessage} />
+                <MessageBar message={this.props.messageData.message} messageType={this.props.messageData.type} showMessage={this.props.messageData.showMessage} />
                 <div className="ms-Grid filters-container">
                     <div className="ms-Grid-row">
                         <div className="ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6">
@@ -193,14 +157,14 @@ class SpPropertyBag extends React.Component<SpPropertyBagProps, SpPropertyBagSta
         }
     }
 }
-const mapStateToProps = (state, ownProps) => { 
+const mapStateToProps = (state:any, ownProps:any) => { 
     return{
-
+        currentUserHasPermissions: state,
+        webProperties: state.properties,
+        isWorkingOnIt: state.isWorkingOnIt,
+        messageData: state.messageData,
+        filterText: state.filterText
     }
 }
 
-const mapDispatchToProps = () => { 
-
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(SpPropertyBag);
+export default connect(mapStateToProps)(SpPropertyBag);
