@@ -3,6 +3,8 @@
 import { WindowActionID as actions } from './../constants/spPropertyBagActionsIDs'
 import { MessageBarType } from 'office-ui-fabric-react/lib/MessageBar';
 
+import { IWindowsState, IAction } from '../interfaces/spPropertyBagInterfaces'
+
 const initialState = {
     isWorkingOnIt: true,
     userHasPermission: false,
@@ -13,16 +15,16 @@ const initialState = {
         type: MessageBarType.info
     }
 }
-export const spwindowReducer = (state:any = initialState, action:any) => {
+export const spwindowReducer = (state: IWindowsState = initialState, action: IAction<actions, any>) => {
     switch (action.type) {
         case actions.SET_FILTER_TEXT:
-            return Object.assign({}, state, { filterText: action.filterText });
+            return Object.assign({}, state, { filterText: action.payload });
         case actions.SET_MESSAGE_DATA:
-            return Object.assign({}, state, { messageData: action.messageData });
+            return Object.assign({}, state, { messageData: action.payload });
         case actions.SET_USER_PERMISSIONS:
-            return Object.assign({}, state, { userHasPermission: action.userHasPermission });
+            return Object.assign({}, state, { userHasPermission: action.payload });
         case actions.SET_WORKING_ON_IT:
-            return Object.assign({}, state, { isWorkingOnIt: action.isWorkingOnIt });
+            return Object.assign({}, state, { isWorkingOnIt: action.payload });
         default:
             return state;
     }

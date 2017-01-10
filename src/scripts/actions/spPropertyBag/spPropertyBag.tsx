@@ -4,26 +4,27 @@
 
 import * as React from 'react';
 import { connect } from 'react-redux'
+import { bindActionCreators, ActionCreatorsMapObject, Dispatch } from 'redux'
 import NewKeyValueItem from './../common/newKeyValueItem';
 import KeyValueItem from './../common/KeyValueItem';
 import { WorkingOnIt } from './../common/WorkingOnIt';
 import MessageBar from './../common/MessageBar';
 import { OperationType } from './../common/enums';
-
+import windowsActionsCreatorsMap from './actions/windowActions'
 import { MessageBarType } from 'office-ui-fabric-react/lib/MessageBar';
 import { List } from 'office-ui-fabric-react/lib/List';
 import { SearchBox } from 'office-ui-fabric-react/lib/SearchBox';
 import { FocusZone, FocusZoneDirection } from 'office-ui-fabric-react/lib/FocusZone';
+import { SpPropertyBagProps, 
+    IWindowsState,
+    IOwnProps, 
+    IMapStateToPropsState, 
+    IMapStateToProps, 
+    IMapDispatchToProps,
+    IActions 
+} from './interfaces/spPropertyBagInterfaces'
 
 
-interface SpPropertyBagProps {
-    closeWindowFunction: any,
-    currentUserHasPermissions: boolean,
-    isWorkingOnIt: boolean,
-    webProperties: Array<IKeyValue>,
-    messageData: IMessageData,
-    filterText: string
-}
 
 class SpPropertyBag extends React.Component<SpPropertyBagProps, {}> {
     ctx: SP.ClientContext;
@@ -46,7 +47,7 @@ class SpPropertyBag extends React.Component<SpPropertyBagProps, {}> {
     }
     private onDeletingProperty(key: string) {
         if (confirm('Are you sure you want to remove this property? The page will be refreshed after the property has been deleted.')) {
-           
+
             this.reloadPage = true;
             this.allProperties.set_item(key);
             this.executeChanges(OperationType.Delete, '');
@@ -93,7 +94,7 @@ class SpPropertyBag extends React.Component<SpPropertyBagProps, {}> {
     }
     private checkUserPermissions() {
         if (typeof this.web.doesUserHavePermissions !== "function") {
-            
+
         } else {
             let ob: SP.BasePermissions = new SP.BasePermissions();
             ob.set(SP.PermissionKind.manageWeb);
@@ -105,7 +106,7 @@ class SpPropertyBag extends React.Component<SpPropertyBagProps, {}> {
                     this.getWebProperties(OperationType.None, '');
                 }
                 else {
-                    
+
                 }
             };
             let onError = (sender: any, err: any) => {
@@ -117,17 +118,17 @@ class SpPropertyBag extends React.Component<SpPropertyBagProps, {}> {
         }
     }
     private onFilterChange(str: string) {
+        this.props.actions.setFilterText(str);
     }
     private componentDidMount() {
-        this.ctx = SP.ClientContext.get_current();
-        this.web = this.ctx.get_web();
-        this.checkUserPermissions();
+        
     }
     public render() {
         if (this.props.isWorkingOnIt) {
             return <WorkingOnIt />;
         } else {
             const filter: string = this.props.filterText.toLowerCase();
+            console.log(filter);
             const props: Array<IKeyValue> = filter !== '' ? this.props.webProperties.filter((prop: IKeyValue, index: number) => {
                 return prop.key.toLowerCase().indexOf(filter) >= 0 || prop.value.toLowerCase().indexOf(filter) >= 0;
             }) : this.props.webProperties;
@@ -157,14 +158,21 @@ class SpPropertyBag extends React.Component<SpPropertyBagProps, {}> {
         }
     }
 }
-const mapStateToProps = (state:any, ownProps:any) => { 
-    return{
-        currentUserHasPermissions: state,
+
+const mapStateToProps = (state: IMapStateToPropsState, ownProps: any): IMapStateToProps => {
+    return {
+        currentUserHasPermissions: state.window.userHasPermission,
         webProperties: state.properties,
-        isWorkingOnIt: state.isWorkingOnIt,
-        messageData: state.messageData,
-        filterText: state.filterText
+        isWorkingOnIt: state.window.isWorkingOnIt,
+        messageData: state.window.messageData,
+        filterText: state.window.filterText
     }
 }
 
-export default connect(mapStateToProps)(SpPropertyBag);
+const mapDispatchToProps = (dispatch: Dispatch<any>): IMapDispatchToProps => {
+    return {
+        actions: bindActionCreators(windowsActionsCreatorsMap, dispatch) as any
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SpPropertyBag);

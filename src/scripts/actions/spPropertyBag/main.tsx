@@ -20,7 +20,7 @@ class App extends AppBase {
             ReactDOM.render(
                 <Provider store={store}>
                     <SpCustomModalWrapper onCloseClick={that.remove} modalDialogTitle="Web Property bags" modalWidth="700px">
-                        <SpPropertyBag showOnlyIconsInButtons={showOnlyIconsInButtons} closeWindowFunction={that.remove} />
+                        <SpPropertyBag closeWindowFunction={that.remove} />
                     </SpCustomModalWrapper>
                 </Provider>, document.getElementById(that.baseDivId)
             );
