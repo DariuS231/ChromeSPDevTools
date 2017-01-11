@@ -5,7 +5,8 @@
   "dependencies": {
     "office-ui-fabric-react": "^0.68.1",
     "react": "^15.3.2",
-    "react-dom": "^15.3.2"
+    "react-dom": "^15.3.2",
+    "redux-thunk": "^2.1.0"
   },
   "devDependencies": {
     "@types/chrome": "0.0.35",
@@ -18,6 +19,7 @@
     "@types/react-dom": "^0.14.18",
     "@types/react-redux": "^4.4.35",
     "@types/redux-immutable-state-invariant": "^1.2.29",
+    "@types/redux-thunk": "^2.1.32",
     "@types/sharepoint": "^2013.0.31",
     "@types/whatwg-fetch": "0.0.32",
     "@types/whatwg-streams": "0.0.1",

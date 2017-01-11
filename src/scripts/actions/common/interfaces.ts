@@ -1,9 +1,6 @@
 
 
-interface IKeyValue {
-    key: string,
-    value: any
-}
+
 interface ICustomAction {
     name: any,
     description: any,

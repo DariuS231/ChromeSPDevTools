@@ -1,23 +1,23 @@
-import { PropertyActionID as actions } from './../constants/spPropertyBagActionsIDs'
+import { PropertyActionID as actions } from './../constants/enums'
+import { IProperty, IAction } from '../interfaces/spPropertyBagInterfaces'
+import { ActionCreator, ActionCreatorsMapObject } from 'redux'
 
-export default class spPropertyBagActions {
-
-    public static createProperty(property: IKeyValue) {
-        return {
-            type: actions.CREATE_PROPERTY,
-            property
-        }
-    }
-    public static updateProperty(property: IKeyValue) {
-        return {
-            type: actions.UPDATE_PROPERTY,
-            property
-        }
-    }
-    public static deleteProperty(property: IKeyValue) {
-        return {
-            type: actions.DELETE_PROPERTY,
-            property
-        }
+const updateProperty: ActionCreator<IAction<actions, IProperty>> = (property: IProperty): IAction<actions, IProperty> => {
+    return {
+        type: actions.UPDATE_PROPERTY,
+        payload: property
     }
 }
+const deleteProperty: ActionCreator<IAction<actions, IProperty>> = (property: IProperty): IAction<actions, IProperty> => {
+    return {
+        type: actions.DELETE_PROPERTY,
+        payload: property
+    }
+}
+
+const propertyActionsCreatorsMap: ActionCreatorsMapObject = {
+    updateProperty,
+    deleteProperty
+}
+
+export default propertyActionsCreatorsMap;

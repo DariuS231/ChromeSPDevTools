@@ -1,6 +1,7 @@
-import { PropertyActionID as actions } from './../constants/spPropertyBagActionsIDs'
+import { PropertyActionID as actions } from './../constants/enums'
+import { IProperty } from '../interfaces/spPropertyBagInterfaces'
 
-export const spPropertyBagReducer = (properties:Array<IKeyValue> = [], action:any) => {
+export const spPropertyBagReducer = (properties:Array<IProperty> = [], action:any) => {
     switch (action.type) {
         case actions.CREATE_PROPERTY:
             return [...properties, Object.assign({}, action.property)]

@@ -9,3 +9,9 @@ export enum WindowActionID {
     SET_MESSAGE_DATA,
     SET_USER_PERMISSIONS    
 }
+
+export enum ItemMode {
+    EDIT,
+    CREATE,
+    VIEW  
+}

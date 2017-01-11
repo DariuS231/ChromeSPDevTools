@@ -1,16 +1,19 @@
-/// <reference path="../../../../typings/index.d.ts"/>
-/// <reference path="./../common/interfaces.ts"/>
-/// <reference path="./../common/enums.ts"/>
+/// <reference path="../../../../../typings/index.d.ts"/>
+/// <reference path="./../../common/interfaces.ts"/>
+/// <reference path="./../../common/enums.ts"/>
 
 import * as React from 'react';
 import { connect } from 'react-redux'
 import { bindActionCreators, ActionCreatorsMapObject, Dispatch } from 'redux'
-import NewKeyValueItem from './../common/newKeyValueItem';
-import KeyValueItem from './../common/KeyValueItem';
-import { WorkingOnIt } from './../common/WorkingOnIt';
-import MessageBar from './../common/MessageBar';
-import { OperationType } from './../common/enums';
-import windowsActionsCreatorsMap from './actions/windowActions'
+import NewKeyValueItem from './SpPropertyBagNewItem';
+import SpPropertyBagFilter from './spPropertyBagFilter';
+import {SpPropertyBagList} from './spPropertyBagList';
+import KeyValueItem from './SpPropertyBagItem';
+import { WorkingOnIt } from './../../common/WorkingOnIt';
+import MessageBar from './../../common/MessageBar';
+import { OperationType } from './../../common/enums';
+import windowsActionsCreatorsMap from '../actions/windowActions'
+import propertyActionsCreatorsMap from '../actions/spPropertyBagActions'
 import { MessageBarType } from 'office-ui-fabric-react/lib/MessageBar';
 import { List } from 'office-ui-fabric-react/lib/List';
 import { SearchBox } from 'office-ui-fabric-react/lib/SearchBox';
@@ -21,8 +24,10 @@ import { SpPropertyBagProps,
     IMapStateToPropsState, 
     IMapStateToProps, 
     IMapDispatchToProps,
-    IActions 
-} from './interfaces/spPropertyBagInterfaces'
+    IActions, 
+    IProperty
+} from '../interfaces/spPropertyBagInterfaces'
+import { ItemMode } from './../constants/enums'
 
 
 
@@ -34,7 +39,6 @@ class SpPropertyBag extends React.Component<SpPropertyBagProps, {}> {
     constructor() {
         super();
         this.reloadPage = false;
-        this.onFilterChange = this.onFilterChange.bind(this);
         this.spErrorHandler = this.spErrorHandler.bind(this);
     }
     private onUpdatingNewProperty(key: string, value: string) {
@@ -76,13 +80,17 @@ class SpPropertyBag extends React.Component<SpPropertyBagProps, {}> {
         let onSuccess = (sender: any, err: any) => {
             let propsKeyVal: any = this.allProperties.get_fieldValues();
 
-            let items: Array<IKeyValue> = [];
+            let items: Array<IProperty> = [];
             for (let p in propsKeyVal) {
                 if (propsKeyVal.hasOwnProperty(p)) {
                     let propVal: any = propsKeyVal[p];
                     let type: string = typeof (propVal);
                     if (type === "string") {
-                        items.push({ key: p, value: propVal.replace(/"/g, '&quot;') });
+                        items.push({ 
+                            key: p, 
+                            value: propVal.replace(/"/g, '&quot;'),
+                            itemMode: ItemMode.VIEW
+                        });
                     }
                 }
             }
@@ -117,45 +125,26 @@ class SpPropertyBag extends React.Component<SpPropertyBagProps, {}> {
             this.ctx.executeQueryAsync(onSuccess, onError);
         }
     }
-    private onFilterChange(str: string) {
-        this.props.actions.setFilterText(str);
-    }
     private componentDidMount() {
         
     }
     public render() {
-        if (this.props.isWorkingOnIt) {
-            return <WorkingOnIt />;
-        } else {
+        // if (this.props.isWorkingOnIt) {
+        //     return <WorkingOnIt />;
+        // } else {
             const filter: string = this.props.filterText.toLowerCase();
             console.log(filter);
-            const props: Array<IKeyValue> = filter !== '' ? this.props.webProperties.filter((prop: IKeyValue, index: number) => {
-                return prop.key.toLowerCase().indexOf(filter) >= 0 || prop.value.toLowerCase().indexOf(filter) >= 0;
-            }) : this.props.webProperties;
+            // const props: Array<IKeyValue> = filter !== '' ? this.props.webProperties.filter((prop: IKeyValue, index: number) => {
+            //     return prop.key.toLowerCase().indexOf(filter) >= 0 || prop.value.toLowerCase().indexOf(filter) >= 0;
+            // }) : this.props.webProperties;
             return (<div className="action-container sp-peropertyBags">
                 <MessageBar message={this.props.messageData.message} messageType={this.props.messageData.type} showMessage={this.props.messageData.showMessage} />
-                <div className="ms-Grid filters-container">
-                    <div className="ms-Grid-row">
-                        <div className="ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6">
-                            <SearchBox onChange={this.onFilterChange} />
-                        </div>
-                        <div className="ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6"> </div>
-                    </div>
-                </div>
-                <List items={props} onRenderCell={(item, index) => (
-                    <KeyValueItem
-                        item={item}
-                        key={item.key}
-                        itemIndex={index}
-                        onUpdateClick={this.onUpdatingNewProperty.bind(this)}
-                        onDeleteClick={this.onDeletingProperty.bind(this)} />
-                )} />
-
-
+                <SpPropertyBagFilter filterStr={this.props.filterText} />
+                <SpPropertyBagList items={[]}  />
                 <NewKeyValueItem moduleTitle="New web property" keyDisplayName="Property Name" valueDisplayName="Property Value" onNewItemClick={this.onAddingNewProperty.bind(this)} />
             </div>);
 
-        }
+        // }
     }
 }
 
@@ -171,7 +160,8 @@ const mapStateToProps = (state: IMapStateToPropsState, ownProps: any): IMapState
 
 const mapDispatchToProps = (dispatch: Dispatch<any>): IMapDispatchToProps => {
     return {
-        actions: bindActionCreators(windowsActionsCreatorsMap, dispatch) as any
+        actions: bindActionCreators(windowsActionsCreatorsMap, dispatch) as any,
+        propertyActions: bindActionCreators(propertyActionsCreatorsMap, dispatch) as any
     }
 }
 

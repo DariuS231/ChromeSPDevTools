@@ -1,9 +1,9 @@
 /// <reference path="./../../common/interfaces.ts"/>
 
-import { WindowActionID as actions } from './../constants/spPropertyBagActionsIDs'
+import { WindowActionID as actions } from './../constants/enums'
 import { ActionCreator, ActionCreatorsMapObject } from 'redux'
 
-import { IAction } from '../interfaces/spPropertyBagInterfaces'
+import { IAction, IProperty } from '../interfaces/spPropertyBagInterfaces'
 
 const setFilterText: ActionCreator<IAction<actions, string>> = (filterText: string): IAction<actions, string> => {
     return {

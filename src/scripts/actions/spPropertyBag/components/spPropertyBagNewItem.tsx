@@ -1,7 +1,9 @@
-/// <reference path="../../../../typings/index.d.ts"/>
-/// <reference path="./interfaces.ts"/>
+/// <reference path="../../../../../typings/index.d.ts"/>
+/// <reference path="./../../common/interfaces.ts"/>
+/// <reference path="./../../common/enums.ts"/>
+
 import * as React from 'react';
-import Utils from './utils';
+import Utils from './../../common/utils';
 import { Button, ButtonType } from 'office-ui-fabric-react/lib/Button';
 import { TextField } from 'office-ui-fabric-react/lib/TextField';
 

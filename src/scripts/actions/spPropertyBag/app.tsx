@@ -5,7 +5,7 @@ import * as ReactDOM from "react-dom";
 import SpCustomModalWrapper from './../common/spCustomModalWrapper';
 import { AppBase } from './../common/AppBase';
 import Utils from './../common/utils';
-import SpPropertyBag from './spPropertyBag'
+import SpPropertyBag from './components/spPropertyBag'
 import { Provider } from 'react-redux';
 import { configureStore } from './store/configureStore'
 

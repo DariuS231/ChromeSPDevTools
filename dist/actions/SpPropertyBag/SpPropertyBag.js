@@ -21160,7 +21160,7 @@ function whenMapDispatchToPropsIsObject(mapDispatchToProps) {
 }
 
 exports.default = [whenMapDispatchToPropsIsFunction, whenMapDispatchToPropsIsMissing, whenMapDispatchToPropsIsObject];
-},{"./wrapMapToProps":214,"redux":254}],210:[function(require,module,exports){
+},{"./wrapMapToProps":214,"redux":255}],210:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -24942,6 +24942,30 @@ module.exports = exports["default"];
 'use strict';
 
 exports.__esModule = true;
+function createThunkMiddleware(extraArgument) {
+  return function (_ref) {
+    var dispatch = _ref.dispatch;
+    var getState = _ref.getState;
+    return function (next) {
+      return function (action) {
+        if (typeof action === 'function') {
+          return action(dispatch, getState, extraArgument);
+        }
+
+        return next(action);
+      };
+    };
+  };
+}
+
+var thunk = createThunkMiddleware();
+thunk.withExtraArgument = createThunkMiddleware;
+
+exports['default'] = thunk;
+},{}],250:[function(require,module,exports){
+'use strict';
+
+exports.__esModule = true;
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
@@ -24997,7 +25021,7 @@ function applyMiddleware() {
     };
   };
 }
-},{"./compose":252}],250:[function(require,module,exports){
+},{"./compose":253}],251:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -25049,7 +25073,7 @@ function bindActionCreators(actionCreators, dispatch) {
   }
   return boundActionCreators;
 }
-},{}],251:[function(require,module,exports){
+},{}],252:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -25192,7 +25216,7 @@ function combineReducers(reducers) {
     return hasChanged ? nextState : state;
   };
 }
-},{"./createStore":253,"./utils/warning":255,"lodash/isPlainObject":37}],252:[function(require,module,exports){
+},{"./createStore":254,"./utils/warning":256,"lodash/isPlainObject":37}],253:[function(require,module,exports){
 "use strict";
 
 exports.__esModule = true;
@@ -25231,7 +25255,7 @@ function compose() {
     }, last.apply(undefined, arguments));
   };
 }
-},{}],253:[function(require,module,exports){
+},{}],254:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -25493,7 +25517,7 @@ function createStore(reducer, preloadedState, enhancer) {
     replaceReducer: replaceReducer
   }, _ref2[_symbolObservable2['default']] = observable, _ref2;
 }
-},{"lodash/isPlainObject":37,"symbol-observable":256}],254:[function(require,module,exports){
+},{"lodash/isPlainObject":37,"symbol-observable":257}],255:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -25540,7 +25564,7 @@ exports.combineReducers = _combineReducers2['default'];
 exports.bindActionCreators = _bindActionCreators2['default'];
 exports.applyMiddleware = _applyMiddleware2['default'];
 exports.compose = _compose2['default'];
-},{"./applyMiddleware":249,"./bindActionCreators":250,"./combineReducers":251,"./compose":252,"./createStore":253,"./utils/warning":255}],255:[function(require,module,exports){
+},{"./applyMiddleware":250,"./bindActionCreators":251,"./combineReducers":252,"./compose":253,"./createStore":254,"./utils/warning":256}],256:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -25566,10 +25590,10 @@ function warning(message) {
   } catch (e) {}
   /* eslint-enable no-empty */
 }
-},{}],256:[function(require,module,exports){
+},{}],257:[function(require,module,exports){
 module.exports = require('./lib/index');
 
-},{"./lib/index":257}],257:[function(require,module,exports){
+},{"./lib/index":258}],258:[function(require,module,exports){
 (function (global){
 'use strict';
 
@@ -25602,7 +25626,7 @@ var result = (0, _ponyfill2['default'])(root);
 exports['default'] = result;
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
-},{"./ponyfill":258}],258:[function(require,module,exports){
+},{"./ponyfill":259}],259:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -25626,31 +25650,53 @@ function symbolObservablePonyfill(root) {
 
 	return result;
 };
-},{}],259:[function(require,module,exports){
+},{}],260:[function(require,module,exports){
+"use strict";
+var enums_1 = require('./../constants/enums');
+var updateProperty = function (property) {
+    return {
+        type: enums_1.PropertyActionID.UPDATE_PROPERTY,
+        payload: property
+    };
+};
+var deleteProperty = function (property) {
+    return {
+        type: enums_1.PropertyActionID.DELETE_PROPERTY,
+        payload: property
+    };
+};
+var propertyActionsCreatorsMap = {
+    updateProperty: updateProperty,
+    deleteProperty: deleteProperty
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.default = propertyActionsCreatorsMap;
+
+},{"./../constants/enums":268}],261:[function(require,module,exports){
 /// <reference path="./../../common/interfaces.ts"/>
 "use strict";
-var spPropertyBagActionsIDs_1 = require('./../constants/spPropertyBagActionsIDs');
+var enums_1 = require('./../constants/enums');
 var setFilterText = function (filterText) {
     return {
-        type: spPropertyBagActionsIDs_1.WindowActionID.SET_FILTER_TEXT,
+        type: enums_1.WindowActionID.SET_FILTER_TEXT,
         payload: filterText
     };
 };
 var setWorkingOnIt = function (isWorkingOnIt) {
     return {
-        type: spPropertyBagActionsIDs_1.WindowActionID.SET_WORKING_ON_IT,
+        type: enums_1.WindowActionID.SET_WORKING_ON_IT,
         payload: isWorkingOnIt
     };
 };
 var setUserHasPermissions = function (userHasPermission) {
     return {
-        type: spPropertyBagActionsIDs_1.WindowActionID.SET_USER_PERMISSIONS,
+        type: enums_1.WindowActionID.SET_USER_PERMISSIONS,
         payload: userHasPermission
     };
 };
 var setMessageData = function (messageData) {
     return {
-        type: spPropertyBagActionsIDs_1.WindowActionID.SET_USER_PERMISSIONS,
+        type: enums_1.WindowActionID.SET_USER_PERMISSIONS,
         payload: messageData
     };
 };
@@ -25663,23 +25709,7 @@ var windowsActionsCreatorsMap = {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = windowsActionsCreatorsMap;
 
-},{"./../constants/spPropertyBagActionsIDs":260}],260:[function(require,module,exports){
-"use strict";
-(function (PropertyActionID) {
-    PropertyActionID[PropertyActionID["CREATE_PROPERTY"] = 0] = "CREATE_PROPERTY";
-    PropertyActionID[PropertyActionID["UPDATE_PROPERTY"] = 1] = "UPDATE_PROPERTY";
-    PropertyActionID[PropertyActionID["DELETE_PROPERTY"] = 2] = "DELETE_PROPERTY";
-})(exports.PropertyActionID || (exports.PropertyActionID = {}));
-var PropertyActionID = exports.PropertyActionID;
-(function (WindowActionID) {
-    WindowActionID[WindowActionID["SET_FILTER_TEXT"] = 0] = "SET_FILTER_TEXT";
-    WindowActionID[WindowActionID["SET_WORKING_ON_IT"] = 1] = "SET_WORKING_ON_IT";
-    WindowActionID[WindowActionID["SET_MESSAGE_DATA"] = 2] = "SET_MESSAGE_DATA";
-    WindowActionID[WindowActionID["SET_USER_PERMISSIONS"] = 3] = "SET_USER_PERMISSIONS";
-})(exports.WindowActionID || (exports.WindowActionID = {}));
-var WindowActionID = exports.WindowActionID;
-
-},{}],261:[function(require,module,exports){
+},{"./../constants/enums":268}],262:[function(require,module,exports){
 /// <reference path="../../../../typings/index.d.ts"/>
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
@@ -25692,7 +25722,7 @@ var ReactDOM = require("react-dom");
 var spCustomModalWrapper_1 = require('./../common/spCustomModalWrapper');
 var AppBase_1 = require('./../common/AppBase');
 var utils_1 = require('./../common/utils');
-var spPropertyBag_1 = require('./spPropertyBag');
+var spPropertyBag_1 = require('./components/spPropertyBag');
 var react_redux_1 = require('react-redux');
 var configureStore_1 = require('./store/configureStore');
 var App = (function (_super) {
@@ -25716,277 +25746,16 @@ var App = (function (_super) {
 window.SpPropertyBagObj = new App();
 window.SpPropertyBagObj.show(true);
 
-},{"./../common/AppBase":267,"./../common/spCustomModalWrapper":273,"./../common/utils":274,"./spPropertyBag":265,"./store/configureStore":266,"react":245,"react-dom":79,"react-redux":215}],262:[function(require,module,exports){
-"use strict";
-var redux_1 = require('redux');
-var spPropertyBagReducer_1 = require('./spPropertyBagReducer');
-var windowReducer_1 = require('./windowReducer');
-exports.rootReducer = redux_1.combineReducers({
-    properties: spPropertyBagReducer_1.spPropertyBagReducer,
-    window: windowReducer_1.spwindowReducer
-});
-
-},{"./spPropertyBagReducer":263,"./windowReducer":264,"redux":254}],263:[function(require,module,exports){
-"use strict";
-var spPropertyBagActionsIDs_1 = require('./../constants/spPropertyBagActionsIDs');
-exports.spPropertyBagReducer = function (properties, action) {
-    if (properties === void 0) { properties = []; }
-    switch (action.type) {
-        case spPropertyBagActionsIDs_1.PropertyActionID.CREATE_PROPERTY:
-            return properties.concat([Object.assign({}, action.property)]);
-        case spPropertyBagActionsIDs_1.PropertyActionID.DELETE_PROPERTY:
-            return properties.filter(function (prop) { return prop.key !== action.prop.key; }).slice();
-        case spPropertyBagActionsIDs_1.PropertyActionID.UPDATE_PROPERTY:
-            return properties.filter(function (prop) { return prop.key !== action.prop.key; }).concat([Object.assign({}, action.property)]);
-        default:
-            return properties;
-    }
-};
-
-},{"./../constants/spPropertyBagActionsIDs":260}],264:[function(require,module,exports){
+},{"./../common/AppBase":273,"./../common/spCustomModalWrapper":276,"./../common/utils":277,"./components/spPropertyBag":265,"./store/configureStore":272,"react":245,"react-dom":79,"react-redux":215}],263:[function(require,module,exports){
+/// <reference path="../../../../../typings/index.d.ts"/>
 /// <reference path="./../../common/interfaces.ts"/>
-"use strict";
-var spPropertyBagActionsIDs_1 = require('./../constants/spPropertyBagActionsIDs');
-var MessageBar_1 = require('office-ui-fabric-react/lib/MessageBar');
-var initialState = {
-    isWorkingOnIt: true,
-    userHasPermission: false,
-    filterText: '',
-    messageData: {
-        showMessage: false,
-        message: '',
-        type: MessageBar_1.MessageBarType.info
-    }
-};
-exports.spwindowReducer = function (state, action) {
-    if (state === void 0) { state = initialState; }
-    switch (action.type) {
-        case spPropertyBagActionsIDs_1.WindowActionID.SET_FILTER_TEXT:
-            return Object.assign({}, state, { filterText: action.payload });
-        case spPropertyBagActionsIDs_1.WindowActionID.SET_MESSAGE_DATA:
-            return Object.assign({}, state, { messageData: action.payload });
-        case spPropertyBagActionsIDs_1.WindowActionID.SET_USER_PERMISSIONS:
-            return Object.assign({}, state, { userHasPermission: action.payload });
-        case spPropertyBagActionsIDs_1.WindowActionID.SET_WORKING_ON_IT:
-            return Object.assign({}, state, { isWorkingOnIt: action.payload });
-        default:
-            return state;
-    }
-};
-
-},{"./../constants/spPropertyBagActionsIDs":260,"office-ui-fabric-react/lib/MessageBar":42}],265:[function(require,module,exports){
-/// <reference path="../../../../typings/index.d.ts"/>
-/// <reference path="./../common/interfaces.ts"/>
-/// <reference path="./../common/enums.ts"/>
+/// <reference path="./../../common/enums.ts"/>
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var React = require('react');
-var react_redux_1 = require('react-redux');
-var redux_1 = require('redux');
-var newKeyValueItem_1 = require('./../common/newKeyValueItem');
-var KeyValueItem_1 = require('./../common/KeyValueItem');
-var WorkingOnIt_1 = require('./../common/WorkingOnIt');
-var MessageBar_1 = require('./../common/MessageBar');
-var enums_1 = require('./../common/enums');
-var windowActions_1 = require('./actions/windowActions');
-var List_1 = require('office-ui-fabric-react/lib/List');
-var SearchBox_1 = require('office-ui-fabric-react/lib/SearchBox');
-var SpPropertyBag = (function (_super) {
-    __extends(SpPropertyBag, _super);
-    function SpPropertyBag() {
-        _super.call(this);
-        this.reloadPage = false;
-        this.onFilterChange = this.onFilterChange.bind(this);
-        this.spErrorHandler = this.spErrorHandler.bind(this);
-    }
-    SpPropertyBag.prototype.onUpdatingNewProperty = function (key, value) {
-        this.allProperties.set_item(key, value);
-        this.executeChanges(enums_1.OperationType.Update, 'The selected property has been updated.');
-    };
-    SpPropertyBag.prototype.onAddingNewProperty = function (key, value) {
-        this.allProperties.set_item(key, value);
-        this.executeChanges(enums_1.OperationType.Create, 'A new property has been created');
-    };
-    SpPropertyBag.prototype.onDeletingProperty = function (key) {
-        if (confirm('Are you sure you want to remove this property? The page will be refreshed after the property has been deleted.')) {
-            this.reloadPage = true;
-            this.allProperties.set_item(key);
-            this.executeChanges(enums_1.OperationType.Delete, '');
-        }
-    };
-    SpPropertyBag.prototype.spErrorHandler = function (sender, err) {
-        console.log(err.get_message());
-    };
-    SpPropertyBag.prototype.executeChanges = function (opType, msg) {
-        var _this = this;
-        this.ctx.get_web().update();
-        var onSuccess = function (sender, err) {
-            if (_this.reloadPage) {
-                window.location.reload();
-            }
-            else {
-                _this.getWebProperties(opType, msg);
-            }
-        };
-        this.ctx.executeQueryAsync(onSuccess, this.spErrorHandler);
-    };
-    ;
-    SpPropertyBag.prototype.getWebProperties = function (opType, msg) {
-        var _this = this;
-        this.allProperties = this.web.get_allProperties();
-        this.ctx.load(this.web);
-        this.ctx.load(this.allProperties);
-        var onSuccess = function (sender, err) {
-            var propsKeyVal = _this.allProperties.get_fieldValues();
-            var items = [];
-            for (var p in propsKeyVal) {
-                if (propsKeyVal.hasOwnProperty(p)) {
-                    var propVal = propsKeyVal[p];
-                    var type = typeof (propVal);
-                    if (type === "string") {
-                        items.push({ key: p, value: propVal.replace(/"/g, '&quot;') });
-                    }
-                }
-            }
-            items.sort(function (a, b) {
-                return a.key.localeCompare(b.key);
-            });
-        };
-        this.ctx.executeQueryAsync(onSuccess, this.spErrorHandler);
-    };
-    SpPropertyBag.prototype.checkUserPermissions = function () {
-        var _this = this;
-        if (typeof this.web.doesUserHavePermissions !== "function") {
-        }
-        else {
-            var ob = new SP.BasePermissions();
-            ob.set(SP.PermissionKind.manageWeb);
-            var per_1 = this.web.doesUserHavePermissions(ob);
-            var onSuccess = function (sender, err) {
-                var hasPermissions = per_1.get_value();
-                if (hasPermissions) {
-                    _this.getWebProperties(enums_1.OperationType.None, '');
-                }
-                else {
-                }
-            };
-            var onError = function (sender, err) {
-                SP.UI.Notify.addNotification("Failed to get web properties...<br>" + err.get_message(), false);
-                console.log(err);
-                _this.props.closeWindowFunction();
-            };
-            this.ctx.executeQueryAsync(onSuccess, onError);
-        }
-    };
-    SpPropertyBag.prototype.onFilterChange = function (str) {
-        //debugger;//
-        this.props.actions.setFilterText(str);
-    };
-    SpPropertyBag.prototype.componentDidMount = function () {
-    };
-    SpPropertyBag.prototype.render = function () {
-        var _this = this;
-        //debugger;
-        // if (this.props.isWorkingOnIt) {
-        //     return React.createElement(WorkingOnIt_1.WorkingOnIt, null);
-        // }
-        // else {
-            var filter_1 = this.props.filterText.toLowerCase();
-            console.log(filter_1);
-            // var props = filter_1 !== '' ? this.props.webProperties.filter(function (prop, index) {
-            //     return prop.key.toLowerCase().indexOf(filter_1) >= 0 || prop.value.toLowerCase().indexOf(filter_1) >= 0;
-            // }) : this.props.webProperties;
-            return (React.createElement("div", {className: "action-container sp-peropertyBags"}, 
-                React.createElement(MessageBar_1.default, {message: this.props.messageData.message, messageType: this.props.messageData.type, showMessage: this.props.messageData.showMessage}), 
-                React.createElement("div", {className: "ms-Grid filters-container"}, 
-                    React.createElement("div", {className: "ms-Grid-row"}, 
-                        React.createElement("div", {className: "ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6"}, 
-                            React.createElement(SearchBox_1.SearchBox, {onChange: this.onFilterChange})
-                        ), 
-                        React.createElement("div", {className: "ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6"}, " "))
-                ), 
-                React.createElement(List_1.List, {items: [], onRenderCell: function (item, index) { return (React.createElement(KeyValueItem_1.default, {item: item, key: item.key, itemIndex: index, onUpdateClick: _this.onUpdatingNewProperty.bind(_this), onDeleteClick: _this.onDeletingProperty.bind(_this)})); }}), 
-                React.createElement(newKeyValueItem_1.default, {moduleTitle: "New web property", keyDisplayName: "Property Name", valueDisplayName: "Property Value", onNewItemClick: this.onAddingNewProperty.bind(this)})));
-        //}
-    };
-    return SpPropertyBag;
-}(React.Component));
-var mapStateToProps = function (state, ownProps) {
-    return {
-        currentUserHasPermissions: state.window.userHasPermission,
-        webProperties: state.properties,
-        isWorkingOnIt: state.window.isWorkingOnIt,
-        messageData: state.window.messageData,
-        filterText: state.window.filterText
-    };
-};
-var mapDispatchToProps = function (dispatch) {
-    return {
-        actions: redux_1.bindActionCreators(windowActions_1.default, dispatch)
-    };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.default = react_redux_1.connect(mapStateToProps, mapDispatchToProps)(SpPropertyBag);
-
-},{"./../common/KeyValueItem":268,"./../common/MessageBar":269,"./../common/WorkingOnIt":270,"./../common/enums":271,"./../common/newKeyValueItem":272,"./actions/windowActions":259,"office-ui-fabric-react/lib/List":41,"office-ui-fabric-react/lib/SearchBox":43,"react":245,"react-redux":215,"redux":254}],266:[function(require,module,exports){
-"use strict";
-var redux_1 = require('redux');
-var index_1 = require('../reducers/index');
-var inmmutable = require('redux-immutable-state-invariant');
-exports.configureStore = function (initialState) {
-    return redux_1.createStore(index_1.rootReducer, initialState, redux_1.applyMiddleware(inmmutable()));
-};
-
-},{"../reducers/index":262,"redux":254,"redux-immutable-state-invariant":246}],267:[function(require,module,exports){
-/// <reference path="../../../../typings/index.d.ts"/>
-"use strict";
-var ReactDOM = require("react-dom");
-var AppBase = (function () {
-    function AppBase(divId) {
-        var _this = this;
-        this.remove = function () {
-            var style = document.getElementById(_this.styleLinkId);
-            style.parentElement.removeChild(style);
-            ReactDOM.unmountComponentAtNode(document.getElementById(_this.baseDivId));
-        };
-        this.baseDivId = divId;
-        this.styleLinkId = 'spChromeDevToolStyles';
-        this.remove = this.remove.bind(this);
-        var baseDiv = document.getElementById(this.baseDivId);
-        if (!baseDiv) {
-            baseDiv = document.createElement('div');
-            baseDiv.setAttribute('id', this.baseDivId);
-            var parentEl = document.querySelector('form');
-            if (!parentEl) {
-                parentEl = document.querySelector('body');
-            }
-            parentEl.appendChild(baseDiv);
-        }
-        var head = document.head || document.getElementsByTagName('head')[0];
-        var style = document.createElement('link');
-        style.type = 'text/css';
-        style.rel = 'stylesheet';
-        style.id = this.styleLinkId;
-        style.href = 'https://cdn.rawgit.com/DariuS231/ChromeSPDevTools/b45f0470f67fa29bfe1ae45e8faa0e04837c175c/dist/actions/styles/bundle.css';
-        head.appendChild(style);
-    }
-    return AppBase;
-}());
-exports.AppBase = AppBase;
-
-},{"react-dom":79}],268:[function(require,module,exports){
-"use strict";
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
-/// <reference path="../../../../typings/index.d.ts"/>
-/// <reference path="./interfaces.ts"/>
 var React = require('react');
 var Button_1 = require('office-ui-fabric-react/lib/Button');
 var TextField_1 = require('office-ui-fabric-react/lib/TextField');
@@ -26073,105 +25842,16 @@ var KeyValueItem = (function (_super) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = KeyValueItem;
 
-},{"office-ui-fabric-react/lib/Button":39,"office-ui-fabric-react/lib/TextField":44,"react":245}],269:[function(require,module,exports){
+},{"office-ui-fabric-react/lib/Button":39,"office-ui-fabric-react/lib/TextField":44,"react":245}],264:[function(require,module,exports){
+/// <reference path="../../../../../typings/index.d.ts"/>
+/// <reference path="./../../common/interfaces.ts"/>
+/// <reference path="./../../common/enums.ts"/>
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-/// <reference path="../../../../typings/index.d.ts"/>
-/// <reference path="./interfaces.ts"/>
-var React = require('react');
-var utils_1 = require('./../common/utils');
-var MessageBar_1 = require('office-ui-fabric-react/lib/MessageBar');
-var MessageBar = (function (_super) {
-    __extends(MessageBar, _super);
-    function MessageBar() {
-        _super.call(this);
-        this.state = {
-            showMessage: false
-        };
-    }
-    MessageBar.prototype.componentDidMount = function () {
-        this.setState({
-            showMessage: this.props.showMessage
-        });
-    };
-    MessageBar.prototype.componentWillReceiveProps = function (nextProps) {
-        this.setState({
-            showMessage: nextProps.showMessage
-        });
-    };
-    MessageBar.prototype.onCloseClick = function (e) {
-        //e.preventDefault();
-        this.setState({
-            showMessage: false
-        });
-        return false;
-    };
-    MessageBar.prototype.render = function () {
-        var _this = this;
-        if (!this.state.showMessage) {
-            return null;
-        }
-        else {
-            return React.createElement(MessageBar_1.MessageBar, {messageBarType: this.props.messageType, onDismiss: function (e) { _this.onCloseClick(e); return false; }}, 
-                utils_1.default.capitalize(MessageBar_1.MessageBarType[this.props.messageType]), 
-                " - ", 
-                this.props.message);
-        }
-    };
-    return MessageBar;
-}(React.Component));
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.default = MessageBar;
-
-},{"./../common/utils":274,"office-ui-fabric-react/lib/MessageBar":42,"react":245}],270:[function(require,module,exports){
-"use strict";
-/// <reference path="../../../../typings/index.d.ts"/>
-/// <reference path="./interfaces.ts"/>
-var React = require('react');
-exports.WorkingOnIt = function () { return React.createElement("div", {className: "working-on-it-wrapper"}, 
-    React.createElement("img", {src: "/_layouts/15/images/gears_anv4.gif", alt: "Working on it..."}), 
-    React.createElement("h2", null, "Working on it...")); };
-
-},{"react":245}],271:[function(require,module,exports){
-"use strict";
-(function (OperationType) {
-    OperationType[OperationType["Create"] = 0] = "Create";
-    OperationType[OperationType["Update"] = 1] = "Update";
-    OperationType[OperationType["Delete"] = 2] = "Delete";
-    OperationType[OperationType["None"] = 3] = "None";
-})(exports.OperationType || (exports.OperationType = {}));
-var OperationType = exports.OperationType;
-(function (ViewMode) {
-    ViewMode[ViewMode["New"] = 0] = "New";
-    ViewMode[ViewMode["Edit"] = 1] = "Edit";
-    ViewMode[ViewMode["View"] = 2] = "View";
-})(exports.ViewMode || (exports.ViewMode = {}));
-var ViewMode = exports.ViewMode;
-(function (FeatureOperationType) {
-    FeatureOperationType[FeatureOperationType["Activate"] = 0] = "Activate";
-    FeatureOperationType[FeatureOperationType["Deactivate"] = 1] = "Deactivate";
-    FeatureOperationType[FeatureOperationType["None"] = 2] = "None";
-})(exports.FeatureOperationType || (exports.FeatureOperationType = {}));
-var FeatureOperationType = exports.FeatureOperationType;
-(function (CustomActionType) {
-    CustomActionType[CustomActionType["Site"] = 0] = "Site";
-    CustomActionType[CustomActionType["Web"] = 1] = "Web";
-})(exports.CustomActionType || (exports.CustomActionType = {}));
-var CustomActionType = exports.CustomActionType;
-
-},{}],272:[function(require,module,exports){
-"use strict";
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
-/// <reference path="../../../../typings/index.d.ts"/>
-/// <reference path="./interfaces.ts"/>
 var React = require('react');
 var Button_1 = require('office-ui-fabric-react/lib/Button');
 var TextField_1 = require('office-ui-fabric-react/lib/TextField');
@@ -26229,7 +25909,413 @@ var NewKeyValueItem = (function (_super) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = NewKeyValueItem;
 
-},{"office-ui-fabric-react/lib/Button":39,"office-ui-fabric-react/lib/TextField":44,"react":245}],273:[function(require,module,exports){
+},{"office-ui-fabric-react/lib/Button":39,"office-ui-fabric-react/lib/TextField":44,"react":245}],265:[function(require,module,exports){
+/// <reference path="../../../../../typings/index.d.ts"/>
+/// <reference path="./../../common/interfaces.ts"/>
+/// <reference path="./../../common/enums.ts"/>
+"use strict";
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+var React = require('react');
+var react_redux_1 = require('react-redux');
+var redux_1 = require('redux');
+var SpPropertyBagNewItem_1 = require('./SpPropertyBagNewItem');
+var spPropertyBagFilter_1 = require('./spPropertyBagFilter');
+var spPropertyBagList_1 = require('./spPropertyBagList');
+var MessageBar_1 = require('./../../common/MessageBar');
+var enums_1 = require('./../../common/enums');
+var windowActions_1 = require('../actions/windowActions');
+var spPropertyBagActions_1 = require('../actions/spPropertyBagActions');
+var enums_2 = require('./../constants/enums');
+var SpPropertyBag = (function (_super) {
+    __extends(SpPropertyBag, _super);
+    function SpPropertyBag() {
+        _super.call(this);
+        this.reloadPage = false;
+        this.spErrorHandler = this.spErrorHandler.bind(this);
+    }
+    SpPropertyBag.prototype.onUpdatingNewProperty = function (key, value) {
+        this.allProperties.set_item(key, value);
+        this.executeChanges(enums_1.OperationType.Update, 'The selected property has been updated.');
+    };
+    SpPropertyBag.prototype.onAddingNewProperty = function (key, value) {
+        this.allProperties.set_item(key, value);
+        this.executeChanges(enums_1.OperationType.Create, 'A new property has been created');
+    };
+    SpPropertyBag.prototype.onDeletingProperty = function (key) {
+        if (confirm('Are you sure you want to remove this property? The page will be refreshed after the property has been deleted.')) {
+            this.reloadPage = true;
+            this.allProperties.set_item(key);
+            this.executeChanges(enums_1.OperationType.Delete, '');
+        }
+    };
+    SpPropertyBag.prototype.spErrorHandler = function (sender, err) {
+        console.log(err.get_message());
+    };
+    SpPropertyBag.prototype.executeChanges = function (opType, msg) {
+        var _this = this;
+        this.ctx.get_web().update();
+        var onSuccess = function (sender, err) {
+            if (_this.reloadPage) {
+                window.location.reload();
+            }
+            else {
+                _this.getWebProperties(opType, msg);
+            }
+        };
+        this.ctx.executeQueryAsync(onSuccess, this.spErrorHandler);
+    };
+    ;
+    SpPropertyBag.prototype.getWebProperties = function (opType, msg) {
+        var _this = this;
+        this.allProperties = this.web.get_allProperties();
+        this.ctx.load(this.web);
+        this.ctx.load(this.allProperties);
+        var onSuccess = function (sender, err) {
+            var propsKeyVal = _this.allProperties.get_fieldValues();
+            var items = [];
+            for (var p in propsKeyVal) {
+                if (propsKeyVal.hasOwnProperty(p)) {
+                    var propVal = propsKeyVal[p];
+                    var type = typeof (propVal);
+                    if (type === "string") {
+                        items.push({
+                            key: p,
+                            value: propVal.replace(/"/g, '&quot;'),
+                            itemMode: enums_2.ItemMode.VIEW
+                        });
+                    }
+                }
+            }
+            items.sort(function (a, b) {
+                return a.key.localeCompare(b.key);
+            });
+        };
+        this.ctx.executeQueryAsync(onSuccess, this.spErrorHandler);
+    };
+    SpPropertyBag.prototype.checkUserPermissions = function () {
+        var _this = this;
+        if (typeof this.web.doesUserHavePermissions !== "function") {
+        }
+        else {
+            var ob = new SP.BasePermissions();
+            ob.set(SP.PermissionKind.manageWeb);
+            var per_1 = this.web.doesUserHavePermissions(ob);
+            var onSuccess = function (sender, err) {
+                var hasPermissions = per_1.get_value();
+                if (hasPermissions) {
+                    _this.getWebProperties(enums_1.OperationType.None, '');
+                }
+                else {
+                }
+            };
+            var onError = function (sender, err) {
+                SP.UI.Notify.addNotification("Failed to get web properties...<br>" + err.get_message(), false);
+                console.log(err);
+                _this.props.closeWindowFunction();
+            };
+            this.ctx.executeQueryAsync(onSuccess, onError);
+        }
+    };
+    SpPropertyBag.prototype.componentDidMount = function () {
+    };
+    SpPropertyBag.prototype.render = function () {
+        // if (this.props.isWorkingOnIt) {
+        //     return <WorkingOnIt />;
+        // } else {
+        var filter = this.props.filterText.toLowerCase();
+        console.log(filter);
+        // const props: Array<IKeyValue> = filter !== '' ? this.props.webProperties.filter((prop: IKeyValue, index: number) => {
+        //     return prop.key.toLowerCase().indexOf(filter) >= 0 || prop.value.toLowerCase().indexOf(filter) >= 0;
+        // }) : this.props.webProperties;
+        return (React.createElement("div", {className: "action-container sp-peropertyBags"}, 
+            React.createElement(MessageBar_1.default, {message: this.props.messageData.message, messageType: this.props.messageData.type, showMessage: this.props.messageData.showMessage}), 
+            React.createElement(spPropertyBagFilter_1.default, {filterStr: this.props.filterText}), 
+            React.createElement(spPropertyBagList_1.SpPropertyBagList, {items: []}), 
+            React.createElement(SpPropertyBagNewItem_1.default, {moduleTitle: "New web property", keyDisplayName: "Property Name", valueDisplayName: "Property Value", onNewItemClick: this.onAddingNewProperty.bind(this)})));
+        // }
+    };
+    return SpPropertyBag;
+}(React.Component));
+var mapStateToProps = function (state, ownProps) {
+    return {
+        currentUserHasPermissions: state.window.userHasPermission,
+        webProperties: state.properties,
+        isWorkingOnIt: state.window.isWorkingOnIt,
+        messageData: state.window.messageData,
+        filterText: state.window.filterText
+    };
+};
+var mapDispatchToProps = function (dispatch) {
+    return {
+        actions: redux_1.bindActionCreators(windowActions_1.default, dispatch),
+        propertyActions: redux_1.bindActionCreators(spPropertyBagActions_1.default, dispatch)
+    };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.default = react_redux_1.connect(mapStateToProps, mapDispatchToProps)(SpPropertyBag);
+
+},{"../actions/spPropertyBagActions":260,"../actions/windowActions":261,"./../../common/MessageBar":274,"./../../common/enums":275,"./../constants/enums":268,"./SpPropertyBagNewItem":264,"./spPropertyBagFilter":266,"./spPropertyBagList":267,"react":245,"react-redux":215,"redux":255}],266:[function(require,module,exports){
+"use strict";
+var React = require('react');
+var react_redux_1 = require('react-redux');
+var redux_1 = require('redux');
+var SearchBox_1 = require('office-ui-fabric-react/lib/SearchBox');
+var windowActions_1 = require('../actions/windowActions');
+var SpPropertyBagFilter = function (props) {
+    var onSearchBoxChange = function (str) {
+        props.actions.setFilterText(str);
+    };
+    return React.createElement("div", {className: "ms-Grid filters-container"}, 
+        React.createElement("div", {className: "ms-Grid-row"}, 
+            React.createElement("div", {className: "ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6"}, 
+                React.createElement(SearchBox_1.SearchBox, {value: props.filterStr, onChange: onSearchBoxChange})
+            ), 
+            React.createElement("div", {className: "ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6"}, " "))
+    );
+};
+var mapStateToProps = function (state, ownProps) {
+    return {};
+};
+var mapDispatchToProps = function (dispatch) {
+    return {
+        actions: redux_1.bindActionCreators(windowActions_1.default, dispatch)
+    };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.default = react_redux_1.connect(mapStateToProps, mapDispatchToProps)(SpPropertyBagFilter);
+
+},{"../actions/windowActions":261,"office-ui-fabric-react/lib/SearchBox":43,"react":245,"react-redux":215,"redux":255}],267:[function(require,module,exports){
+"use strict";
+/// <reference path="../../../../../typings/index.d.ts"/>
+/// <reference path="./../../common/interfaces.ts"/>
+/// <reference path="./../../common/enums.ts"/>
+var React = require('react');
+var List_1 = require('office-ui-fabric-react/lib/List');
+var SpPropertyBagItem_1 = require('./SpPropertyBagItem');
+exports.SpPropertyBagList = function (props) {
+    var onUpdateClick = function () {
+    };
+    var onDeleteClick = function () {
+    };
+    var rendeItem = function (item, index) {
+        return (React.createElement(SpPropertyBagItem_1.default, {item: item, key: item.key, itemIndex: index, onUpdateClick: onUpdateClick, onDeleteClick: onDeleteClick}));
+    };
+    return (React.createElement(List_1.List, {items: props.items, onRenderCell: rendeItem}));
+};
+
+},{"./SpPropertyBagItem":263,"office-ui-fabric-react/lib/List":41,"react":245}],268:[function(require,module,exports){
+"use strict";
+(function (PropertyActionID) {
+    PropertyActionID[PropertyActionID["CREATE_PROPERTY"] = 0] = "CREATE_PROPERTY";
+    PropertyActionID[PropertyActionID["UPDATE_PROPERTY"] = 1] = "UPDATE_PROPERTY";
+    PropertyActionID[PropertyActionID["DELETE_PROPERTY"] = 2] = "DELETE_PROPERTY";
+})(exports.PropertyActionID || (exports.PropertyActionID = {}));
+var PropertyActionID = exports.PropertyActionID;
+(function (WindowActionID) {
+    WindowActionID[WindowActionID["SET_FILTER_TEXT"] = 0] = "SET_FILTER_TEXT";
+    WindowActionID[WindowActionID["SET_WORKING_ON_IT"] = 1] = "SET_WORKING_ON_IT";
+    WindowActionID[WindowActionID["SET_MESSAGE_DATA"] = 2] = "SET_MESSAGE_DATA";
+    WindowActionID[WindowActionID["SET_USER_PERMISSIONS"] = 3] = "SET_USER_PERMISSIONS";
+})(exports.WindowActionID || (exports.WindowActionID = {}));
+var WindowActionID = exports.WindowActionID;
+(function (ItemMode) {
+    ItemMode[ItemMode["EDIT"] = 0] = "EDIT";
+    ItemMode[ItemMode["CREATE"] = 1] = "CREATE";
+    ItemMode[ItemMode["VIEW"] = 2] = "VIEW";
+})(exports.ItemMode || (exports.ItemMode = {}));
+var ItemMode = exports.ItemMode;
+
+},{}],269:[function(require,module,exports){
+"use strict";
+var redux_1 = require('redux');
+var spPropertyBagReducer_1 = require('./spPropertyBagReducer');
+var windowReducer_1 = require('./windowReducer');
+exports.rootReducer = redux_1.combineReducers({
+    properties: spPropertyBagReducer_1.spPropertyBagReducer,
+    window: windowReducer_1.spwindowReducer
+});
+
+},{"./spPropertyBagReducer":270,"./windowReducer":271,"redux":255}],270:[function(require,module,exports){
+"use strict";
+var enums_1 = require('./../constants/enums');
+exports.spPropertyBagReducer = function (properties, action) {
+    if (properties === void 0) { properties = []; }
+    switch (action.type) {
+        case enums_1.PropertyActionID.CREATE_PROPERTY:
+            return properties.concat([Object.assign({}, action.property)]);
+        case enums_1.PropertyActionID.DELETE_PROPERTY:
+            return properties.filter(function (prop) { return prop.key !== action.prop.key; }).slice();
+        case enums_1.PropertyActionID.UPDATE_PROPERTY:
+            return properties.filter(function (prop) { return prop.key !== action.prop.key; }).concat([Object.assign({}, action.property)]);
+        default:
+            return properties;
+    }
+};
+
+},{"./../constants/enums":268}],271:[function(require,module,exports){
+/// <reference path="./../../common/interfaces.ts"/>
+"use strict";
+var enums_1 = require('./../constants/enums');
+var MessageBar_1 = require('office-ui-fabric-react/lib/MessageBar');
+var initialState = {
+    isWorkingOnIt: true,
+    userHasPermission: false,
+    filterText: '',
+    messageData: {
+        showMessage: false,
+        message: '',
+        type: MessageBar_1.MessageBarType.info
+    }
+};
+exports.spwindowReducer = function (state, action) {
+    if (state === void 0) { state = initialState; }
+    switch (action.type) {
+        case enums_1.WindowActionID.SET_FILTER_TEXT:
+            return Object.assign({}, state, { filterText: action.payload });
+        case enums_1.WindowActionID.SET_MESSAGE_DATA:
+            return Object.assign({}, state, { messageData: action.payload });
+        case enums_1.WindowActionID.SET_USER_PERMISSIONS:
+            return Object.assign({}, state, { userHasPermission: action.payload });
+        case enums_1.WindowActionID.SET_WORKING_ON_IT:
+            return Object.assign({}, state, { isWorkingOnIt: action.payload });
+        default:
+            return state;
+    }
+};
+
+},{"./../constants/enums":268,"office-ui-fabric-react/lib/MessageBar":42}],272:[function(require,module,exports){
+"use strict";
+var redux_1 = require('redux');
+var index_1 = require('../reducers/index');
+var inmmutable = require('redux-immutable-state-invariant');
+var redux_thunk_1 = require('redux-thunk');
+exports.configureStore = function (initialState) {
+    return redux_1.createStore(index_1.rootReducer, initialState, redux_1.applyMiddleware(redux_thunk_1.default, inmmutable()));
+};
+
+},{"../reducers/index":269,"redux":255,"redux-immutable-state-invariant":246,"redux-thunk":249}],273:[function(require,module,exports){
+/// <reference path="../../../../typings/index.d.ts"/>
+"use strict";
+var ReactDOM = require("react-dom");
+var AppBase = (function () {
+    function AppBase(divId) {
+        var _this = this;
+        this.remove = function () {
+            var style = document.getElementById(_this.styleLinkId);
+            style.parentElement.removeChild(style);
+            ReactDOM.unmountComponentAtNode(document.getElementById(_this.baseDivId));
+        };
+        this.baseDivId = divId;
+        this.styleLinkId = 'spChromeDevToolStyles';
+        this.remove = this.remove.bind(this);
+        var baseDiv = document.getElementById(this.baseDivId);
+        if (!baseDiv) {
+            baseDiv = document.createElement('div');
+            baseDiv.setAttribute('id', this.baseDivId);
+            var parentEl = document.querySelector('form');
+            if (!parentEl) {
+                parentEl = document.querySelector('body');
+            }
+            parentEl.appendChild(baseDiv);
+        }
+        var head = document.head || document.getElementsByTagName('head')[0];
+        var style = document.createElement('link');
+        style.type = 'text/css';
+        style.rel = 'stylesheet';
+        style.id = this.styleLinkId;
+        style.href = 'https://cdn.rawgit.com/DariuS231/ChromeSPDevTools/b45f0470f67fa29bfe1ae45e8faa0e04837c175c/dist/actions/styles/bundle.css';
+        head.appendChild(style);
+    }
+    return AppBase;
+}());
+exports.AppBase = AppBase;
+
+},{"react-dom":79}],274:[function(require,module,exports){
+"use strict";
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+/// <reference path="../../../../typings/index.d.ts"/>
+/// <reference path="./interfaces.ts"/>
+var React = require('react');
+var utils_1 = require('./../common/utils');
+var MessageBar_1 = require('office-ui-fabric-react/lib/MessageBar');
+var MessageBar = (function (_super) {
+    __extends(MessageBar, _super);
+    function MessageBar() {
+        _super.call(this);
+        this.state = {
+            showMessage: false
+        };
+    }
+    MessageBar.prototype.componentDidMount = function () {
+        this.setState({
+            showMessage: this.props.showMessage
+        });
+    };
+    MessageBar.prototype.componentWillReceiveProps = function (nextProps) {
+        this.setState({
+            showMessage: nextProps.showMessage
+        });
+    };
+    MessageBar.prototype.onCloseClick = function (e) {
+        //e.preventDefault();
+        this.setState({
+            showMessage: false
+        });
+        return false;
+    };
+    MessageBar.prototype.render = function () {
+        var _this = this;
+        if (!this.state.showMessage) {
+            return null;
+        }
+        else {
+            return React.createElement(MessageBar_1.MessageBar, {messageBarType: this.props.messageType, onDismiss: function (e) { _this.onCloseClick(e); return false; }}, 
+                utils_1.default.capitalize(MessageBar_1.MessageBarType[this.props.messageType]), 
+                " - ", 
+                this.props.message);
+        }
+    };
+    return MessageBar;
+}(React.Component));
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.default = MessageBar;
+
+},{"./../common/utils":277,"office-ui-fabric-react/lib/MessageBar":42,"react":245}],275:[function(require,module,exports){
+"use strict";
+(function (OperationType) {
+    OperationType[OperationType["Create"] = 0] = "Create";
+    OperationType[OperationType["Update"] = 1] = "Update";
+    OperationType[OperationType["Delete"] = 2] = "Delete";
+    OperationType[OperationType["None"] = 3] = "None";
+})(exports.OperationType || (exports.OperationType = {}));
+var OperationType = exports.OperationType;
+(function (ViewMode) {
+    ViewMode[ViewMode["New"] = 0] = "New";
+    ViewMode[ViewMode["Edit"] = 1] = "Edit";
+    ViewMode[ViewMode["View"] = 2] = "View";
+})(exports.ViewMode || (exports.ViewMode = {}));
+var ViewMode = exports.ViewMode;
+(function (FeatureOperationType) {
+    FeatureOperationType[FeatureOperationType["Activate"] = 0] = "Activate";
+    FeatureOperationType[FeatureOperationType["Deactivate"] = 1] = "Deactivate";
+    FeatureOperationType[FeatureOperationType["None"] = 2] = "None";
+})(exports.FeatureOperationType || (exports.FeatureOperationType = {}));
+var FeatureOperationType = exports.FeatureOperationType;
+(function (CustomActionType) {
+    CustomActionType[CustomActionType["Site"] = 0] = "Site";
+    CustomActionType[CustomActionType["Web"] = 1] = "Web";
+})(exports.CustomActionType || (exports.CustomActionType = {}));
+var CustomActionType = exports.CustomActionType;
+
+},{}],276:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -26267,7 +26353,7 @@ var SpCustomModalWrapper = (function (_super) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = SpCustomModalWrapper;
 
-},{"react":245}],274:[function(require,module,exports){
+},{"react":245}],277:[function(require,module,exports){
 "use strict";
 var Utils = (function () {
     function Utils() {
@@ -26345,7 +26431,7 @@ var Utils = (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = Utils;
 
-},{}]},{},[261])
+},{}]},{},[262])
 
 
 //# sourceMappingURL=SpPropertyBag.js.map

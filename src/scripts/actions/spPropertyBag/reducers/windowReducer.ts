@@ -1,6 +1,6 @@
 /// <reference path="./../../common/interfaces.ts"/>
 
-import { WindowActionID as actions } from './../constants/spPropertyBagActionsIDs'
+import { WindowActionID as actions } from './../constants/enums'
 import { MessageBarType } from 'office-ui-fabric-react/lib/MessageBar';
 
 import { IWindowsState, IAction } from '../interfaces/spPropertyBagInterfaces'
