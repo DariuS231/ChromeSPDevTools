@@ -19,22 +19,26 @@ export const spPropertyBagReducer = (state: IInitialState = initialState, action
         case actions.CREATE_PROPERTY:
             const newPropperty: IProperty = action.payload;
             return Object.assign({}, state, {
-                webProperties: [...state.webProperties, Object.assign({}, newPropperty)]
+                webProperties: [...state.webProperties, Object.assign({}, newPropperty)],
+                isWorkingOnIt: false
             });
         case actions.DELETE_PROPERTY:
             const delPropperty: IProperty = action.payload;
             return Object.assign({}, state, {
-                webProperties: [...state.webProperties.filter(prop => prop.key !== delPropperty.key)]
+                webProperties: [...state.webProperties.filter(prop => prop.key !== delPropperty.key)],
+                isWorkingOnIt: false
             });
         case actions.UPDATE_PROPERTY:
             const updtdPropperty: IProperty = action.payload;
             return Object.assign({}, state, {
-                webProperties: [...state.webProperties.filter(prop => prop.key !== delPropperty.key), Object.assign({}, updtdPropperty)]
+                webProperties: [...state.webProperties.filter(prop => prop.key !== delPropperty.key), Object.assign({}, updtdPropperty)],
+                isWorkingOnIt: false
             });
         case actions.SET_ALL_PROPERTIES:
             const properties: Array<IProperty> = action.payload;
             return Object.assign({}, state, {
-                webProperties: properties
+                webProperties: properties,
+                isWorkingOnIt: false
             });
         case actions.SET_FILTER_TEXT:
             const filterText: string = action.payload;

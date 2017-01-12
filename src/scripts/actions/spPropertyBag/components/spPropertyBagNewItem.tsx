@@ -14,8 +14,7 @@ interface NewKeyValueItemState {
 interface NewKeyValueItemProps {
     moduleTitle: string,
     keyDisplayName: string,
-    valueDisplayName: string,
-    onNewItemClick: any
+    valueDisplayName: string
 }
 
 export default class NewKeyValueItem extends React.Component<NewKeyValueItemProps, NewKeyValueItemState> {
@@ -29,7 +28,7 @@ export default class NewKeyValueItem extends React.Component<NewKeyValueItemProp
     private addBtnClick(e: any) {
         e.preventDefault();
         if (this.state.newKey !== '' && this.state.newValue !== '') {
-            this.props.onNewItemClick(this.state.newKey, this.state.newValue);
+            //this.props.onNewItemClick(this.state.newKey, this.state.newValue);
             this.setState({
                 newKey: '',
                 newValue: ''

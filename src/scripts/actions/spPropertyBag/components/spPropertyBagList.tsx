@@ -8,8 +8,19 @@ import KeyValueItem from './SpPropertyBagItem';
 import { IProperty } from '../interfaces/spPropertyBagInterfaces'
 
 interface SpPropertyBagListProps {
-    items: IProperty[]
+    items: IProperty[],
+    filterString:string
 }
+
+
+const applyFilter = (properties:Array<IProperty>, filterStr:string): Array<IProperty> =>{
+    const filter: string = filterStr.toLowerCase();
+    const props: Array<IProperty> = filter !== '' ? properties.filter((prop: IProperty, index: number) => {
+        return prop.key.toLowerCase().indexOf(filter) >= 0 || prop.value.toLowerCase().indexOf(filter) >= 0;
+    }) : properties;
+    return props;
+}
+
 export const SpPropertyBagList: React.StatelessComponent<SpPropertyBagListProps> = (props: SpPropertyBagListProps) => {
     const onUpdateClick = () =>{
         
@@ -25,6 +36,6 @@ export const SpPropertyBagList: React.StatelessComponent<SpPropertyBagListProps>
                         onUpdateClick={onUpdateClick}
                         onDeleteClick={onDeleteClick} />)
     }
-    return (<List items={props.items} onRenderCell={rendeItem} />)
+    return (<List items={applyFilter(props.items, props.filterString)} onRenderCell={rendeItem} />)
 };
 
