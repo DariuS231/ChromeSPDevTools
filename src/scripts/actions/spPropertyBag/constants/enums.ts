@@ -1,7 +1,8 @@
 export enum PropertyActionID {
     CREATE_PROPERTY,
     UPDATE_PROPERTY,
-    DELETE_PROPERTY
+    DELETE_PROPERTY,
+    SET_ALL_PROPERTIES
 }
 export enum WindowActionID {
     SET_FILTER_TEXT,

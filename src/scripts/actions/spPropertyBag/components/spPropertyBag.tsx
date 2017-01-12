@@ -126,7 +126,7 @@ class SpPropertyBag extends React.Component<SpPropertyBagProps, {}> {
         }
     }
     private componentDidMount() {
-        
+        this.props.propertyActions.getAllProperties();
     }
     public render() {
         // if (this.props.isWorkingOnIt) {
@@ -134,13 +134,13 @@ class SpPropertyBag extends React.Component<SpPropertyBagProps, {}> {
         // } else {
             const filter: string = this.props.filterText.toLowerCase();
             console.log(filter);
-            // const props: Array<IKeyValue> = filter !== '' ? this.props.webProperties.filter((prop: IKeyValue, index: number) => {
-            //     return prop.key.toLowerCase().indexOf(filter) >= 0 || prop.value.toLowerCase().indexOf(filter) >= 0;
-            // }) : this.props.webProperties;
+            const props: Array<IProperty> = filter !== '' ? this.props.webProperties.filter((prop: IProperty, index: number) => {
+                 return prop.key.toLowerCase().indexOf(filter) >= 0 || prop.value.toLowerCase().indexOf(filter) >= 0;
+             }) : this.props.webProperties;
             return (<div className="action-container sp-peropertyBags">
                 <MessageBar message={this.props.messageData.message} messageType={this.props.messageData.type} showMessage={this.props.messageData.showMessage} />
                 <SpPropertyBagFilter filterStr={this.props.filterText} />
-                <SpPropertyBagList items={[]}  />
+                <SpPropertyBagList items={props}  />
                 <NewKeyValueItem moduleTitle="New web property" keyDisplayName="Property Name" valueDisplayName="Property Value" onNewItemClick={this.onAddingNewProperty.bind(this)} />
             </div>);
 

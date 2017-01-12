@@ -29,7 +29,8 @@ export interface IActions {
 
 export interface IPropertyActions {
     updateProperty: Function,
-    deleteProperty: Function
+    deleteProperty: Function,
+    getAllProperties: Function
 }
 
 export interface IMapDispatchToProps {

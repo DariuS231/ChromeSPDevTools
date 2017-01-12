@@ -25653,6 +25653,8 @@ function symbolObservablePonyfill(root) {
 },{}],260:[function(require,module,exports){
 "use strict";
 var enums_1 = require('./../constants/enums');
+var spPropertyBagApi_1 = require('../api/spPropertyBagApi');
+var api = new spPropertyBagApi_1.default();
 var updateProperty = function (property) {
     return {
         type: enums_1.PropertyActionID.UPDATE_PROPERTY,
@@ -25665,14 +25667,28 @@ var deleteProperty = function (property) {
         payload: property
     };
 };
+var setAllProperties = function (properties) {
+    return {
+        type: enums_1.PropertyActionID.SET_ALL_PROPERTIES,
+        payload: properties
+    };
+};
+var getAllProperties = function () {
+    return function (dispatch) {
+        return api.getProperties().then(function (properties) {
+            dispatch(setAllProperties(properties));
+        });
+    };
+};
 var propertyActionsCreatorsMap = {
     updateProperty: updateProperty,
-    deleteProperty: deleteProperty
+    deleteProperty: deleteProperty,
+    getAllProperties: getAllProperties
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = propertyActionsCreatorsMap;
 
-},{"./../constants/enums":268}],261:[function(require,module,exports){
+},{"../api/spPropertyBagApi":262,"./../constants/enums":269}],261:[function(require,module,exports){
 /// <reference path="./../../common/interfaces.ts"/>
 "use strict";
 var enums_1 = require('./../constants/enums');
@@ -25709,7 +25725,58 @@ var windowsActionsCreatorsMap = {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = windowsActionsCreatorsMap;
 
-},{"./../constants/enums":268}],262:[function(require,module,exports){
+},{"./../constants/enums":269}],262:[function(require,module,exports){
+"use strict";
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+var apiBase_1 = require('./../../common/apiBase');
+var enums_1 = require('./../constants/enums');
+var SpPropertyBagApi = (function (_super) {
+    __extends(SpPropertyBagApi, _super);
+    function SpPropertyBagApi() {
+        _super.apply(this, arguments);
+    }
+    SpPropertyBagApi.prototype.getProperties = function () {
+        var _this = this;
+        return new Promise(function (resolve, reject) {
+            var ctx = SP.ClientContext.get_current();
+            var web = ctx.get_web();
+            var allProperties = web.get_allProperties();
+            ctx.load(web);
+            ctx.load(allProperties);
+            var onSuccess = function (sender, err) {
+                var propsKeyVal = allProperties.get_fieldValues();
+                var items = [];
+                for (var p in propsKeyVal) {
+                    if (propsKeyVal.hasOwnProperty(p)) {
+                        var propVal = propsKeyVal[p];
+                        var type = typeof (propVal);
+                        if (type === "string") {
+                            items.push({
+                                key: p,
+                                value: propVal.replace(/"/g, '&quot;'),
+                                itemMode: enums_1.ItemMode.VIEW
+                            });
+                        }
+                    }
+                }
+                items.sort(function (a, b) {
+                    return a.key.localeCompare(b.key);
+                });
+                resolve(items);
+            };
+            ctx.executeQueryAsync(onSuccess, _this.requestErrorEventHandler);
+        });
+    };
+    return SpPropertyBagApi;
+}(apiBase_1.default));
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.default = SpPropertyBagApi;
+
+},{"./../../common/apiBase":276,"./../constants/enums":269}],263:[function(require,module,exports){
 /// <reference path="../../../../typings/index.d.ts"/>
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
@@ -25746,7 +25813,7 @@ var App = (function (_super) {
 window.SpPropertyBagObj = new App();
 window.SpPropertyBagObj.show(true);
 
-},{"./../common/AppBase":273,"./../common/spCustomModalWrapper":276,"./../common/utils":277,"./components/spPropertyBag":265,"./store/configureStore":272,"react":245,"react-dom":79,"react-redux":215}],263:[function(require,module,exports){
+},{"./../common/AppBase":274,"./../common/spCustomModalWrapper":278,"./../common/utils":279,"./components/spPropertyBag":266,"./store/configureStore":273,"react":245,"react-dom":79,"react-redux":215}],264:[function(require,module,exports){
 /// <reference path="../../../../../typings/index.d.ts"/>
 /// <reference path="./../../common/interfaces.ts"/>
 /// <reference path="./../../common/enums.ts"/>
@@ -25842,7 +25909,7 @@ var KeyValueItem = (function (_super) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = KeyValueItem;
 
-},{"office-ui-fabric-react/lib/Button":39,"office-ui-fabric-react/lib/TextField":44,"react":245}],264:[function(require,module,exports){
+},{"office-ui-fabric-react/lib/Button":39,"office-ui-fabric-react/lib/TextField":44,"react":245}],265:[function(require,module,exports){
 /// <reference path="../../../../../typings/index.d.ts"/>
 /// <reference path="./../../common/interfaces.ts"/>
 /// <reference path="./../../common/enums.ts"/>
@@ -25909,7 +25976,7 @@ var NewKeyValueItem = (function (_super) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = NewKeyValueItem;
 
-},{"office-ui-fabric-react/lib/Button":39,"office-ui-fabric-react/lib/TextField":44,"react":245}],265:[function(require,module,exports){
+},{"office-ui-fabric-react/lib/Button":39,"office-ui-fabric-react/lib/TextField":44,"react":245}],266:[function(require,module,exports){
 /// <reference path="../../../../../typings/index.d.ts"/>
 /// <reference path="./../../common/interfaces.ts"/>
 /// <reference path="./../../common/enums.ts"/>
@@ -26021,6 +26088,7 @@ var SpPropertyBag = (function (_super) {
         }
     };
     SpPropertyBag.prototype.componentDidMount = function () {
+        this.props.propertyActions.getAllProperties();
     };
     SpPropertyBag.prototype.render = function () {
         // if (this.props.isWorkingOnIt) {
@@ -26028,13 +26096,13 @@ var SpPropertyBag = (function (_super) {
         // } else {
         var filter = this.props.filterText.toLowerCase();
         console.log(filter);
-        // const props: Array<IKeyValue> = filter !== '' ? this.props.webProperties.filter((prop: IKeyValue, index: number) => {
-        //     return prop.key.toLowerCase().indexOf(filter) >= 0 || prop.value.toLowerCase().indexOf(filter) >= 0;
-        // }) : this.props.webProperties;
+        var props = filter !== '' ? this.props.webProperties.filter(function (prop, index) {
+            return prop.key.toLowerCase().indexOf(filter) >= 0 || prop.value.toLowerCase().indexOf(filter) >= 0;
+        }) : this.props.webProperties;
         return (React.createElement("div", {className: "action-container sp-peropertyBags"}, 
             React.createElement(MessageBar_1.default, {message: this.props.messageData.message, messageType: this.props.messageData.type, showMessage: this.props.messageData.showMessage}), 
             React.createElement(spPropertyBagFilter_1.default, {filterStr: this.props.filterText}), 
-            React.createElement(spPropertyBagList_1.SpPropertyBagList, {items: []}), 
+            React.createElement(spPropertyBagList_1.SpPropertyBagList, {items: props}), 
             React.createElement(SpPropertyBagNewItem_1.default, {moduleTitle: "New web property", keyDisplayName: "Property Name", valueDisplayName: "Property Value", onNewItemClick: this.onAddingNewProperty.bind(this)})));
         // }
     };
@@ -26058,7 +26126,7 @@ var mapDispatchToProps = function (dispatch) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = react_redux_1.connect(mapStateToProps, mapDispatchToProps)(SpPropertyBag);
 
-},{"../actions/spPropertyBagActions":260,"../actions/windowActions":261,"./../../common/MessageBar":274,"./../../common/enums":275,"./../constants/enums":268,"./SpPropertyBagNewItem":264,"./spPropertyBagFilter":266,"./spPropertyBagList":267,"react":245,"react-redux":215,"redux":255}],266:[function(require,module,exports){
+},{"../actions/spPropertyBagActions":260,"../actions/windowActions":261,"./../../common/MessageBar":275,"./../../common/enums":277,"./../constants/enums":269,"./SpPropertyBagNewItem":265,"./spPropertyBagFilter":267,"./spPropertyBagList":268,"react":245,"react-redux":215,"redux":255}],267:[function(require,module,exports){
 "use strict";
 var React = require('react');
 var react_redux_1 = require('react-redux');
@@ -26088,7 +26156,7 @@ var mapDispatchToProps = function (dispatch) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = react_redux_1.connect(mapStateToProps, mapDispatchToProps)(SpPropertyBagFilter);
 
-},{"../actions/windowActions":261,"office-ui-fabric-react/lib/SearchBox":43,"react":245,"react-redux":215,"redux":255}],267:[function(require,module,exports){
+},{"../actions/windowActions":261,"office-ui-fabric-react/lib/SearchBox":43,"react":245,"react-redux":215,"redux":255}],268:[function(require,module,exports){
 "use strict";
 /// <reference path="../../../../../typings/index.d.ts"/>
 /// <reference path="./../../common/interfaces.ts"/>
@@ -26107,12 +26175,13 @@ exports.SpPropertyBagList = function (props) {
     return (React.createElement(List_1.List, {items: props.items, onRenderCell: rendeItem}));
 };
 
-},{"./SpPropertyBagItem":263,"office-ui-fabric-react/lib/List":41,"react":245}],268:[function(require,module,exports){
+},{"./SpPropertyBagItem":264,"office-ui-fabric-react/lib/List":41,"react":245}],269:[function(require,module,exports){
 "use strict";
 (function (PropertyActionID) {
     PropertyActionID[PropertyActionID["CREATE_PROPERTY"] = 0] = "CREATE_PROPERTY";
     PropertyActionID[PropertyActionID["UPDATE_PROPERTY"] = 1] = "UPDATE_PROPERTY";
     PropertyActionID[PropertyActionID["DELETE_PROPERTY"] = 2] = "DELETE_PROPERTY";
+    PropertyActionID[PropertyActionID["SET_ALL_PROPERTIES"] = 3] = "SET_ALL_PROPERTIES";
 })(exports.PropertyActionID || (exports.PropertyActionID = {}));
 var PropertyActionID = exports.PropertyActionID;
 (function (WindowActionID) {
@@ -26129,7 +26198,7 @@ var WindowActionID = exports.WindowActionID;
 })(exports.ItemMode || (exports.ItemMode = {}));
 var ItemMode = exports.ItemMode;
 
-},{}],269:[function(require,module,exports){
+},{}],270:[function(require,module,exports){
 "use strict";
 var redux_1 = require('redux');
 var spPropertyBagReducer_1 = require('./spPropertyBagReducer');
@@ -26139,24 +26208,26 @@ exports.rootReducer = redux_1.combineReducers({
     window: windowReducer_1.spwindowReducer
 });
 
-},{"./spPropertyBagReducer":270,"./windowReducer":271,"redux":255}],270:[function(require,module,exports){
+},{"./spPropertyBagReducer":271,"./windowReducer":272,"redux":255}],271:[function(require,module,exports){
 "use strict";
 var enums_1 = require('./../constants/enums');
 exports.spPropertyBagReducer = function (properties, action) {
     if (properties === void 0) { properties = []; }
     switch (action.type) {
         case enums_1.PropertyActionID.CREATE_PROPERTY:
-            return properties.concat([Object.assign({}, action.property)]);
+            return properties.concat([Object.assign({}, action.payload)]);
         case enums_1.PropertyActionID.DELETE_PROPERTY:
-            return properties.filter(function (prop) { return prop.key !== action.prop.key; }).slice();
+            return properties.filter(function (prop) { return prop.key !== action.payload.key; }).slice();
         case enums_1.PropertyActionID.UPDATE_PROPERTY:
-            return properties.filter(function (prop) { return prop.key !== action.prop.key; }).concat([Object.assign({}, action.property)]);
+            return properties.filter(function (prop) { return prop.key !== action.payload.key; }).concat([Object.assign({}, action.payload)]);
+        case enums_1.PropertyActionID.SET_ALL_PROPERTIES:
+            return action.payload;
         default:
             return properties;
     }
 };
 
-},{"./../constants/enums":268}],271:[function(require,module,exports){
+},{"./../constants/enums":269}],272:[function(require,module,exports){
 /// <reference path="./../../common/interfaces.ts"/>
 "use strict";
 var enums_1 = require('./../constants/enums');
@@ -26187,7 +26258,7 @@ exports.spwindowReducer = function (state, action) {
     }
 };
 
-},{"./../constants/enums":268,"office-ui-fabric-react/lib/MessageBar":42}],272:[function(require,module,exports){
+},{"./../constants/enums":269,"office-ui-fabric-react/lib/MessageBar":42}],273:[function(require,module,exports){
 "use strict";
 var redux_1 = require('redux');
 var index_1 = require('../reducers/index');
@@ -26197,7 +26268,7 @@ exports.configureStore = function (initialState) {
     return redux_1.createStore(index_1.rootReducer, initialState, redux_1.applyMiddleware(redux_thunk_1.default, inmmutable()));
 };
 
-},{"../reducers/index":269,"redux":255,"redux-immutable-state-invariant":246,"redux-thunk":249}],273:[function(require,module,exports){
+},{"../reducers/index":270,"redux":255,"redux-immutable-state-invariant":246,"redux-thunk":249}],274:[function(require,module,exports){
 /// <reference path="../../../../typings/index.d.ts"/>
 "use strict";
 var ReactDOM = require("react-dom");
@@ -26234,7 +26305,7 @@ var AppBase = (function () {
 }());
 exports.AppBase = AppBase;
 
-},{"react-dom":79}],274:[function(require,module,exports){
+},{"react-dom":79}],275:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -26288,7 +26359,40 @@ var MessageBar = (function (_super) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = MessageBar;
 
-},{"./../common/utils":277,"office-ui-fabric-react/lib/MessageBar":42,"react":245}],275:[function(require,module,exports){
+},{"./../common/utils":279,"office-ui-fabric-react/lib/MessageBar":42,"react":245}],276:[function(require,module,exports){
+"use strict";
+var ApiBase = (function () {
+    function ApiBase() {
+    }
+    ApiBase.prototype.requestErrorEventHandler = function (sender, err) {
+        reject(err.get_message());
+    };
+    ApiBase.prototype.checkUserPermissions = function (permKind) {
+        var _this = this;
+        return new Promise(function (resolve, reject) {
+            var ctx = SP.ClientContext.get_current();
+            var web = ctx.get_web();
+            if (typeof web.doesUserHavePermissions !== "function") {
+                reject('Cannot check permissions against a non-securable object.');
+            }
+            else {
+                var ob = new SP.BasePermissions();
+                ob.set(permKind);
+                var per_1 = web.doesUserHavePermissions(ob);
+                var onSuccess = function (sender, args) {
+                    var hasPermissions = per_1.get_value();
+                    resolve(hasPermissions);
+                };
+                ctx.executeQueryAsync(onSuccess, _this.requestErrorEventHandler);
+            }
+        });
+    };
+    return ApiBase;
+}());
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.default = ApiBase;
+
+},{}],277:[function(require,module,exports){
 "use strict";
 (function (OperationType) {
     OperationType[OperationType["Create"] = 0] = "Create";
@@ -26315,7 +26419,7 @@ var FeatureOperationType = exports.FeatureOperationType;
 })(exports.CustomActionType || (exports.CustomActionType = {}));
 var CustomActionType = exports.CustomActionType;
 
-},{}],276:[function(require,module,exports){
+},{}],278:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -26353,7 +26457,7 @@ var SpCustomModalWrapper = (function (_super) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = SpCustomModalWrapper;
 
-},{"react":245}],277:[function(require,module,exports){
+},{"react":245}],279:[function(require,module,exports){
 "use strict";
 var Utils = (function () {
     function Utils() {
@@ -26431,7 +26535,7 @@ var Utils = (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = Utils;
 
-},{}]},{},[262])
+},{}]},{},[263])
 
 
 //# sourceMappingURL=SpPropertyBag.js.map

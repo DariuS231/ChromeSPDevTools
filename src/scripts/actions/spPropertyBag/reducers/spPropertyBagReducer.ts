@@ -4,11 +4,13 @@ import { IProperty } from '../interfaces/spPropertyBagInterfaces'
 export const spPropertyBagReducer = (properties:Array<IProperty> = [], action:any) => {
     switch (action.type) {
         case actions.CREATE_PROPERTY:
-            return [...properties, Object.assign({}, action.property)]
+            return [...properties, Object.assign({}, action.payload)]
         case actions.DELETE_PROPERTY:
-            return [...properties.filter(prop => prop.key !== action.prop.key)]
+            return [...properties.filter(prop => prop.key !== action.payload.key)]
         case actions.UPDATE_PROPERTY:
-            return [...properties.filter(prop => prop.key !== action.prop.key), Object.assign({}, action.property)]
+            return [...properties.filter(prop => prop.key !== action.payload.key), Object.assign({}, action.payload)]
+        case actions.SET_ALL_PROPERTIES:
+            return action.payload;
         default:
             return properties;
     }
