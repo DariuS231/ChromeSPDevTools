@@ -4,6 +4,7 @@ import { ActionCreator, ActionCreatorsMapObject } from 'redux'
 import SpPropertyBagApi from '../api/spPropertyBagApi'
 
 const api = new SpPropertyBagApi();
+
 const updateProperty: ActionCreator<IAction<string, IProperty>> = (property: IProperty): IAction<string, IProperty> => {
     return {
         type: actions.UPDATE_PROPERTY,
@@ -23,8 +24,34 @@ const setAllProperties: ActionCreator<IAction<string, Array<IProperty>>> = (prop
     }
 }
 
+
+const setFilterText: ActionCreator<IAction<string, string>> = (filterText: string): IAction<string, string> => {
+    return {
+        type: actions.SET_FILTER_TEXT,
+        payload: filterText
+    }
+}
+const setWorkingOnIt: ActionCreator<IAction<string, boolean>> = (isWorkingOnIt: boolean): IAction<string, boolean> => {
+    return {
+        type: actions.SET_WORKING_ON_IT,
+        payload: isWorkingOnIt
+    }
+}
+const setUserHasPermissions: ActionCreator<IAction<string, boolean>> = (userHasPermission: boolean): IAction<string, boolean> => {
+    return {
+        type: actions.SET_USER_PERMISSIONS,
+        payload: userHasPermission
+    }
+}
+const setMessageData: ActionCreator<IAction<string, IMessageData>> = (messageData: IMessageData): IAction<string, IMessageData> => {
+    return {
+        type: actions.SET_USER_PERMISSIONS,
+        payload: messageData
+    }
+}
+
 const getAllProperties: any = (): any => {
-    return function (dispatch:any) {
+    return function (dispatch: any) {
         return api.getProperties().then(
             (properties: Array<IProperty>) => {
                 dispatch(setAllProperties(properties))
@@ -32,10 +59,15 @@ const getAllProperties: any = (): any => {
         );
     };
 }
-const propertyActionsCreatorsMap: ActionCreatorsMapObject = {
+const spPropertyBagActionsCreatorMap: ActionCreatorsMapObject = {
     updateProperty,
     deleteProperty,
-    getAllProperties
+    getAllProperties,
+    setAllProperties,
+    setFilterText,
+    setWorkingOnIt,
+    setUserHasPermissions,
+    setMessageData
 }
 
-export default propertyActionsCreatorsMap;
+export default spPropertyBagActionsCreatorMap;

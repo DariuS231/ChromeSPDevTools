@@ -1,18 +1,20 @@
 import * as React from 'react';
 import { connect } from 'react-redux'
-import { bindActionCreators, Dispatch } from 'redux'
+import { Dispatch } from 'redux'
 import { SearchBox } from 'office-ui-fabric-react/lib/SearchBox';
-import windowsActionsCreatorsMap from '../actions/windowActions'
-import { IMapStateToPropsState, IMapStateToProps, IMapDispatchToPropsFilter, IActions } from '../interfaces/spPropertyBagInterfaces'
+import propertyActionsCreatorsMap from '../actions/spPropertyBagActions';
+import { IMapStateToPropsState, IMapStateToProps } from '../interfaces/spPropertyBagInterfaces'
 
+interface SpPropertyBagFilterActions {
+    setFilterText: Function
+}
 interface SpPropertyBagFilterProps {
-    actions: IActions,
-    filterStr:string
+    actions: SpPropertyBagFilterActions,
+    filterStr: string
 }
 
-
 const SpPropertyBagFilter: React.StatelessComponent<SpPropertyBagFilterProps> = (props: SpPropertyBagFilterProps) => {
-    const onSearchBoxChange= (str: string) => {
+    const onSearchBoxChange = (str: string) => {
         props.actions.setFilterText(str);
     }
     return <div className="ms-Grid filters-container">
@@ -29,9 +31,11 @@ const mapStateToProps = (state: IMapStateToPropsState, ownProps: any): any => {
     return {}
 }
 
-const mapDispatchToProps = (dispatch: Dispatch<any>): IMapDispatchToPropsFilter => {
+const mapDispatchToProps = (dispatch: Dispatch<any>): SpPropertyBagFilterActions => {
     return {
-        actions: bindActionCreators(windowsActionsCreatorsMap, dispatch) as any
+        setFilterText: (strFilter:string) => {
+            dispatch(propertyActionsCreatorsMap["setFilterText"](strFilter))
+        }
     }
 }
 

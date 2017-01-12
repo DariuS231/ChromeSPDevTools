@@ -12,19 +12,17 @@ import KeyValueItem from './SpPropertyBagItem';
 import { WorkingOnIt } from './../../common/WorkingOnIt';
 import MessageBar from './../../common/MessageBar';
 import { OperationType } from './../../common/enums';
-import windowsActionsCreatorsMap from '../actions/windowActions'
-import propertyActionsCreatorsMap from '../actions/spPropertyBagActions'
+import propertyActionsCreatorsMap from '../actions/spPropertyBagActions';
 import { MessageBarType } from 'office-ui-fabric-react/lib/MessageBar';
 import { List } from 'office-ui-fabric-react/lib/List';
 import { SearchBox } from 'office-ui-fabric-react/lib/SearchBox';
 import { FocusZone, FocusZoneDirection } from 'office-ui-fabric-react/lib/FocusZone';
-import { SpPropertyBagProps, 
-    IWindowsState,
+import { 
+    SpPropertyBagProps, 
     IOwnProps, 
     IMapStateToPropsState, 
     IMapStateToProps, 
-    IMapDispatchToProps,
-    IActions, 
+    IMapDispatchToProps, 
     IProperty
 } from '../interfaces/spPropertyBagInterfaces'
 import { ItemMode } from './../constants/enums'
@@ -126,7 +124,7 @@ class SpPropertyBag extends React.Component<SpPropertyBagProps, {}> {
         }
     }
     private componentDidMount() {
-        this.props.propertyActions.getAllProperties();
+        this.props.actions.getAllProperties();
     }
     public render() {
         // if (this.props.isWorkingOnIt) {
@@ -148,20 +146,19 @@ class SpPropertyBag extends React.Component<SpPropertyBagProps, {}> {
     }
 }
 
-const mapStateToProps = (state: IMapStateToPropsState, ownProps: any): IMapStateToProps => {
+const mapStateToProps = (state: IMapStateToPropsState, ownProps: any): IMapStateToProps => {debugger;
     return {
-        currentUserHasPermissions: state.window.userHasPermission,
-        webProperties: state.properties,
-        isWorkingOnIt: state.window.isWorkingOnIt,
-        messageData: state.window.messageData,
-        filterText: state.window.filterText
+        currentUserHasPermissions: state.spPropertyBag.userHasPermission,
+        webProperties: state.spPropertyBag.webProperties,
+        isWorkingOnIt: state.spPropertyBag.isWorkingOnIt,
+        messageData: state.spPropertyBag.messageData,
+        filterText: state.spPropertyBag.filterText
     }
 }
 
 const mapDispatchToProps = (dispatch: Dispatch<any>): IMapDispatchToProps => {
     return {
-        actions: bindActionCreators(windowsActionsCreatorsMap, dispatch) as any,
-        propertyActions: bindActionCreators(propertyActionsCreatorsMap, dispatch) as any
+        actions: bindActionCreators(propertyActionsCreatorsMap, dispatch) as any
     }
 }
 

@@ -13,33 +13,26 @@ export interface IAction<T, P> {
     readonly payload: P
 }
 
-export interface IWindowsState {
+export interface IInitialState {
     isWorkingOnIt: boolean,
     userHasPermission: boolean,
     filterText: string,
-    messageData: IMessageData
+    messageData: IMessageData,
+    webProperties: Array<IProperty>,
 }
 
-export interface IActions {
+export interface IPropertyBagActions {
+    updateProperty: Function,
+    deleteProperty: Function,
+    getAllProperties: Function,
     setFilterText: Function,
     setWorkingOnIt: Function,
     setUserHasPermissions: Function,
     setMessageData: Function
 }
 
-export interface IPropertyActions {
-    updateProperty: Function,
-    deleteProperty: Function,
-    getAllProperties: Function
-}
-
 export interface IMapDispatchToProps {
-    actions: IActions,
-    propertyActions:IPropertyActions 
-}
-
-export interface IMapDispatchToPropsFilter {
-    actions: IActions
+    actions:IPropertyBagActions 
 }
 
 export interface SpPropertyBagProps {
@@ -49,8 +42,7 @@ export interface SpPropertyBagProps {
     webProperties: Array<IProperty>,
     messageData: IMessageData,
     filterText: string,
-    actions: IActions,
-    propertyActions:IPropertyActions 
+    actions: IPropertyBagActions
 }
 
 export interface IMapStateToProps {
@@ -61,23 +53,17 @@ export interface IMapStateToProps {
     filterText: string
 }
 export interface IMapStateToPropsState {
-    window: IWindowsState,
-    properties: Array<IProperty>
+    spPropertyBag: IInitialState
 }
 
 export interface IOwnProps {
     closeWindowFunction: Function
 }
 
-
 export interface IMapStateToProps {
     currentUserHasPermissions: boolean,
     webProperties: Array<IProperty>,
     isWorkingOnIt: boolean,
     messageData: IMessageData,
     filterText: string
-}
-export interface IMapStateToPropsState {
-    window: IWindowsState,
-    properties: Array<IProperty>
 }
