@@ -146,7 +146,7 @@ class SpPropertyBag extends React.Component<SpPropertyBagProps, {}> {
     }
 }
 
-const mapStateToProps = (state: IMapStateToPropsState, ownProps: any): IMapStateToProps => {debugger;
+const mapStateToProps = (state: IMapStateToPropsState, ownProps: any): IMapStateToProps => {
     return {
         currentUserHasPermissions: state.spPropertyBag.userHasPermission,
         webProperties: state.spPropertyBag.webProperties,

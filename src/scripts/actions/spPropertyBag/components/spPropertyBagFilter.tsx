@@ -9,13 +9,13 @@ interface SpPropertyBagFilterActions {
     setFilterText: Function
 }
 interface SpPropertyBagFilterProps {
-    actions: SpPropertyBagFilterActions,
+    setFilterText: Function,
     filterStr: string
 }
 
 const SpPropertyBagFilter: React.StatelessComponent<SpPropertyBagFilterProps> = (props: SpPropertyBagFilterProps) => {
-    const onSearchBoxChange = (str: string) => {
-        props.actions.setFilterText(str);
+    const onSearchBoxChange = (str: string) => {debugger;
+        props.setFilterText(str);
     }
     return <div className="ms-Grid filters-container">
         <div className="ms-Grid-row">
