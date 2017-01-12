@@ -15,7 +15,7 @@ const initialState = {
         type: MessageBarType.info
     }
 }
-export const spwindowReducer = (state: IWindowsState = initialState, action: IAction<actions, any>) => {
+export const spwindowReducer = (state: IWindowsState = initialState, action: IAction<string, any>) => {
     switch (action.type) {
         case actions.SET_FILTER_TEXT:
             return Object.assign({}, state, { filterText: action.payload });

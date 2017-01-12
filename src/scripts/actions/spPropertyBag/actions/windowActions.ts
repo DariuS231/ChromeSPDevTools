@@ -5,25 +5,25 @@ import { ActionCreator, ActionCreatorsMapObject } from 'redux'
 
 import { IAction, IProperty } from '../interfaces/spPropertyBagInterfaces'
 
-const setFilterText: ActionCreator<IAction<actions, string>> = (filterText: string): IAction<actions, string> => {
+const setFilterText: ActionCreator<IAction<string, string>> = (filterText: string): IAction<string, string> => {
     return {
         type: actions.SET_FILTER_TEXT,
         payload: filterText
     }
 }
-const setWorkingOnIt: ActionCreator<IAction<actions, boolean>> = (isWorkingOnIt: boolean): IAction<actions, boolean> => {
+const setWorkingOnIt: ActionCreator<IAction<string, boolean>> = (isWorkingOnIt: boolean): IAction<string, boolean> => {
     return {
         type: actions.SET_WORKING_ON_IT,
         payload: isWorkingOnIt
     }
 }
-const setUserHasPermissions: ActionCreator<IAction<actions, boolean>> = (userHasPermission: boolean): IAction<actions, boolean> => {
+const setUserHasPermissions: ActionCreator<IAction<string, boolean>> = (userHasPermission: boolean): IAction<string, boolean> => {
     return {
         type: actions.SET_USER_PERMISSIONS,
         payload: userHasPermission
     }
 }
-const setMessageData: ActionCreator<IAction<actions, IMessageData>> = (messageData: IMessageData): IAction<actions, IMessageData> => {
+const setMessageData: ActionCreator<IAction<string, IMessageData>> = (messageData: IMessageData): IAction<string, IMessageData> => {
     return {
         type: actions.SET_USER_PERMISSIONS,
         payload: messageData
