@@ -3,72 +3,67 @@
 /// <reference path="./../../common/enums.ts"/>
 
 import * as React from 'react';
+import { connect } from 'react-redux'
+import { Dispatch } from 'redux'
 import { Button, ButtonType } from 'office-ui-fabric-react/lib/Button';
 import { TextField } from 'office-ui-fabric-react/lib/TextField';
-import { IProperty } from '../interfaces/spPropertyBagInterfaces'
+import { IProperty } from '../interfaces/spPropertyBagInterfaces';
+import { ItemMode } from './../constants/enums';
+import propertyActionsCreatorsMap from '../actions/spPropertyBagActions';
+import { IMapStateToPropsState, IMapStateToProps } from '../interfaces/spPropertyBagInterfaces'
+
+
+interface SpPropertyBagItemActions {
+    updateProperty: Function,
+    deleteProperty: Function
+}
 
 interface KeyValueItemState {
-    itemInputValue: string,
-    inEditMode: boolean
 }
 interface KeyValueItemProps {
-    item: IProperty
-    onUpdateClick: any,
-    onDeleteClick: any,
-    itemIndex: number
+    item: IProperty,
+    itemIndex: number,
+    updateProperty: Function,
+    deleteProperty: Function
 }
 
-export default class KeyValueItem extends React.Component<KeyValueItemProps, KeyValueItemState> {
+class SpPropertyBagItem extends React.Component<KeyValueItemProps, KeyValueItemState> {
     constructor() {
         super();
-        this.state = {
-            itemInputValue: '',
-            inEditMode: false
-        };
         this.buttons.bind(this);
     }
     componentDidUpdate() {
-        if (this.state.inEditMode) {
+        /*if (this.props.item.itemMode) {
             let inputId: string = this.getInputId();
             let input = document.getElementById(inputId);
             if (input !== null && typeof input !== "undefined")
                 input.focus();
         }
+        */
     }
     private getInputId() {
         return 'spPropInput_' + this.props.item.key.trim();
     }
     componentDidMount() {
-        this.setState({
-            itemInputValue: this.props.item.value
-        } as KeyValueItemState);
     }
     private onDeleteClick(e: any) {
         e.preventDefault()
-        this.props.onDeleteClick(this.props.item.key);
+        //this.props.onDeleteClick(this.props.item.key);
+        this.props.deleteProperty(this.props.item);
         return false;
     }
     private onUpdateClick(e: any) {
-        e.preventDefault()
-        if (this.state.itemInputValue !== '') {
-            this.props.onUpdateClick(this.props.item.key, this.state.itemInputValue);
-        }
+        e.preventDefault();
         return false;
     }
     private onValueInputChange(inputText: string) {
-        this.setState({ itemInputValue: inputText } as KeyValueItemState);
+        this.props.updateProperty(Object.assign({}, this.props.item, { value: inputText }));        
         return false;
     }
     private onUpdateBtnClick(e: any) {
         e.preventDefault()
-        let isEditModeNew: boolean = !this.state.inEditMode;
-        let newState: any = { inEditMode: isEditModeNew };
-
-        if (!isEditModeNew) {
-            newState.itemInputValue = this.props.item.value;
-        }
-        this.setState(newState as KeyValueItemState);
-
+        const newMode = this.props.item.itemMode === ItemMode.EDIT ? ItemMode.VIEW : ItemMode.EDIT;
+        this.props.updateProperty(Object.assign({}, this.props.item, { itemMode: newMode }));
         return false;
     }
 
@@ -81,26 +76,43 @@ export default class KeyValueItem extends React.Component<KeyValueItemProps, Key
     private buttons(isEditMode: Boolean) {
         if (isEditMode) {
             return <div className="ms-ListItem-actions ms-Grid-col ms-u-sm1 ms-u-md1 ms-u-lg1">
-                <Button  buttonType={ ButtonType.icon } icon='Save' rootProps={ { title: 'Save' } } ariaLabel='Save' onClick={this.onUpdateClick.bind(this) } />
-                <Button  buttonType={ ButtonType.icon } icon='Cancel' rootProps={ { title: 'Cancel' } } ariaLabel='Cancel' onClick={this.onUpdateBtnClick.bind(this) } />
+                <Button buttonType={ButtonType.icon} icon='Save' rootProps={{ title: 'Save' }} ariaLabel='Save' onClick={this.onUpdateClick.bind(this)} />
+                <Button buttonType={ButtonType.icon} icon='Cancel' rootProps={{ title: 'Cancel' }} ariaLabel='Cancel' onClick={this.onUpdateBtnClick.bind(this)} />
             </div>
         } else {
             return <div className="ms-ListItem-actions ms-Grid-col ms-u-sm1 ms-u-md1 ms-u-lg1">
-                <Button  buttonType={ ButtonType.icon } icon='Delete' rootProps={ { title: 'Delete' } } ariaLabel='Delete' onClick={this.onDeleteClick.bind(this) } />
-                <Button  buttonType={ ButtonType.icon } icon='Edit' rootProps={ { title: 'Edit' } } ariaLabel='Edit' onClick={this.onUpdateBtnClick.bind(this) } />
+                <Button buttonType={ButtonType.icon} icon='Delete' rootProps={{ title: 'Delete' }} ariaLabel='Delete' onClick={this.onDeleteClick.bind(this)} />
+                <Button buttonType={ButtonType.icon} icon='Edit' rootProps={{ title: 'Edit' }} ariaLabel='Edit' onClick={this.onUpdateBtnClick.bind(this)} />
             </div>
         }
     }
     public render() {
-        let isEditMode: boolean = this.state.inEditMode;
+        let isEditMode: boolean = this.props.item.itemMode === ItemMode.EDIT;
         let inputId: string = this.getInputId();
 
 
-        return <div className='ms-ListBasicExample-itemCell  ms-Grid-row' data-is-focusable={ true }>
+        return <div className='ms-ListBasicExample-itemCell  ms-Grid-row' data-is-focusable={true}>
             <div className='ms-ListBasicExample-itemContent ms-Grid-col ms-u-sm11 ms-u-md11 ms-u-lg11'>
-                <TextField id={inputId} onGetErrorMessage={ this.getErrorMessage.bind(this) } label={this.props.item.key} value={this.state.itemInputValue} disabled={ !isEditMode } onChanged={this.onValueInputChange.bind(this) } />
+                <TextField id={inputId} onGetErrorMessage={this.getErrorMessage.bind(this)} label={this.props.item.key} value={this.props.item.value} disabled={!isEditMode} onChanged={this.onValueInputChange.bind(this)} />
             </div>
-            { this.buttons(isEditMode) }
+            {this.buttons(isEditMode)}
         </div>;
     }
 }
+
+const mapStateToProps = (state: IMapStateToPropsState, ownProps: any): any => {
+    return {}
+}
+
+const mapDispatchToProps = (dispatch: Dispatch<any>): SpPropertyBagItemActions => {
+    return {
+        updateProperty: (property: IProperty) => {
+            dispatch(propertyActionsCreatorsMap["updateProperty"](property));
+        },
+        deleteProperty: (property: IProperty) => {
+            dispatch(propertyActionsCreatorsMap["deleteProperty"](property));
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SpPropertyBagItem);

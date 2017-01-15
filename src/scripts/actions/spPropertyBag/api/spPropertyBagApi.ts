@@ -1,5 +1,5 @@
 import ApiBase from './../../common/apiBase';
-import { ItemMode } from './../constants/enums'
+import { ItemMode } from './../constants/enums';
 import { IProperty } from '../interfaces/spPropertyBagInterfaces'
 
 export default class SpPropertyBagApi extends ApiBase {
@@ -29,9 +29,6 @@ export default class SpPropertyBagApi extends ApiBase {
                         }
                     }
                 }
-                items.sort(function (a, b) {
-                    return a.key.localeCompare(b.key);
-                });
                 resolve(items);
             };
             ctx.executeQueryAsync(onSuccess, this.requestErrorEventHandler);

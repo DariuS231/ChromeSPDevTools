@@ -30,8 +30,15 @@ export const spPropertyBagReducer = (state: IInitialState = initialState, action
             });
         case actions.UPDATE_PROPERTY:
             const updtdPropperty: IProperty = action.payload;
+            const filtered = state.webProperties.map((prop: IProperty) => {
+                if(prop.key === updtdPropperty.key){
+                    return updtdPropperty;
+                } else {
+                    return prop;
+                }
+            });
             return Object.assign({}, state, {
-                webProperties: [...state.webProperties.filter(prop => prop.key !== delPropperty.key), Object.assign({}, updtdPropperty)],
+                webProperties: filtered,
                 isWorkingOnIt: false
             });
         case actions.SET_ALL_PROPERTIES:
