@@ -42,7 +42,7 @@ export interface SpPropertyBagProps {
     webProperties: Array<IProperty>,
     messageData: IMessageData,
     filterText: string,
-    actions: IPropertyBagActions
+    getAllProperties: Function
 }
 
 export interface IMapStateToProps {

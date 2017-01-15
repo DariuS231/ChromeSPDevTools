@@ -17,7 +17,7 @@ interface NewKeyValueItemProps {
     valueDisplayName: string
 }
 
-export default class NewKeyValueItem extends React.Component<NewKeyValueItemProps, NewKeyValueItemState> {
+export default class SpPropertyBagNewItem extends React.Component<NewKeyValueItemProps, NewKeyValueItemState> {
     constructor() {
         super();
         this.state = {
