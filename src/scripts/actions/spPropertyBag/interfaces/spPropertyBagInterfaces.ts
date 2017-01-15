@@ -19,6 +19,7 @@ export interface IInitialState {
     filterText: string,
     messageData: IMessageData,
     webProperties: Array<IProperty>,
+    newProperty:IProperty
 }
 
 export interface IPropertyBagActions {
@@ -42,6 +43,7 @@ export interface SpPropertyBagProps {
     webProperties: Array<IProperty>,
     messageData: IMessageData,
     filterText: string,
+    newProperty:IProperty,
     getAllProperties: Function
 }
 
@@ -50,7 +52,8 @@ export interface IMapStateToProps {
     webProperties: Array<IProperty>,
     isWorkingOnIt: boolean,
     messageData: IMessageData,
-    filterText: string
+    filterText: string,
+    newProperty:IProperty
 }
 export interface IMapStateToPropsState {
     spPropertyBag: IInitialState

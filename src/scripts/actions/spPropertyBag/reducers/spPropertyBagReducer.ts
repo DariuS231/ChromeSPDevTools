@@ -1,6 +1,7 @@
 import { PropertyActionID as actions } from './../constants/enums'
 import { IProperty, IAction, IInitialState } from '../interfaces/spPropertyBagInterfaces'
 import { MessageBarType } from 'office-ui-fabric-react/lib/MessageBar';
+import { ItemMode } from './../constants/enums';
 
 const initialState: IInitialState = {
     isWorkingOnIt: true,
@@ -11,6 +12,11 @@ const initialState: IInitialState = {
         showMessage: false,
         message: '',
         type: MessageBarType.info
+    },
+    newProperty: {
+        key: '',
+        value: '',
+        itemMode: ItemMode.CREATE
     }
 }
 
@@ -20,18 +26,28 @@ export const spPropertyBagReducer = (state: IInitialState = initialState, action
             const newPropperty: IProperty = action.payload;
             return Object.assign({}, state, {
                 webProperties: [...state.webProperties, Object.assign({}, newPropperty)],
-                isWorkingOnIt: false
+                isWorkingOnIt: false,
+                newProperty: {
+                    key: '',
+                    value: '',
+                    itemMode: ItemMode.CREATE
+                }
             });
         case actions.DELETE_PROPERTY:
             const delPropperty: IProperty = action.payload;
             return Object.assign({}, state, {
                 webProperties: [...state.webProperties.filter(prop => prop.key !== delPropperty.key)],
-                isWorkingOnIt: false
+                isWorkingOnIt: false,
+                messageData: {
+                    showMessage: true,
+                    message: 'The selected property has been deleted.',
+                    type: MessageBarType.success
+                }
             });
         case actions.UPDATE_PROPERTY:
             const updtdPropperty: IProperty = action.payload;
             const filtered = state.webProperties.map((prop: IProperty) => {
-                if(prop.key === updtdPropperty.key){
+                if (prop.key === updtdPropperty.key) {
                     return updtdPropperty;
                 } else {
                     return prop;
@@ -46,6 +62,11 @@ export const spPropertyBagReducer = (state: IInitialState = initialState, action
             return Object.assign({}, state, {
                 webProperties: properties,
                 isWorkingOnIt: false
+            });
+        case actions.UPDATE_NEW_PROPERTY:
+            const newPropTuUpdt: Array<IProperty> = action.payload;
+            return Object.assign({}, state, {
+                newProperty: newPropTuUpdt
             });
         case actions.SET_FILTER_TEXT:
             const filterText: string = action.payload;

@@ -12,14 +12,11 @@ import { ItemMode } from './../constants/enums';
 import propertyActionsCreatorsMap from '../actions/spPropertyBagActions';
 import { IMapStateToPropsState, IMapStateToProps } from '../interfaces/spPropertyBagInterfaces'
 
-
 interface SpPropertyBagItemActions {
     updateProperty: Function,
     deleteProperty: Function
 }
 
-interface KeyValueItemState {
-}
 interface KeyValueItemProps {
     item: IProperty,
     itemIndex: number,
@@ -27,37 +24,26 @@ interface KeyValueItemProps {
     deleteProperty: Function
 }
 
-class SpPropertyBagItem extends React.Component<KeyValueItemProps, KeyValueItemState> {
+class SpPropertyBagItem extends React.Component<KeyValueItemProps, {}> {
     constructor() {
         super();
         this.buttons.bind(this);
     }
-    componentDidUpdate() {
-        /*if (this.props.item.itemMode) {
-            let inputId: string = this.getInputId();
-            let input = document.getElementById(inputId);
-            if (input !== null && typeof input !== "undefined")
-                input.focus();
-        }
-        */
-    }
     private getInputId() {
         return 'spPropInput_' + this.props.item.key.trim();
     }
-    componentDidMount() {
-    }
     private onDeleteClick(e: any) {
         e.preventDefault()
-        //this.props.onDeleteClick(this.props.item.key);
         this.props.deleteProperty(this.props.item);
         return false;
     }
     private onUpdateClick(e: any) {
-        e.preventDefault();
+        e.preventDefault()
+        this.props.updateProperty(Object.assign({}, this.props.item, { itemMode: ItemMode.VIEW }));
         return false;
     }
     private onValueInputChange(inputText: string) {
-        this.props.updateProperty(Object.assign({}, this.props.item, { value: inputText }));        
+        this.props.updateProperty(Object.assign({}, this.props.item, { value: inputText }));
         return false;
     }
     private onUpdateBtnClick(e: any) {
@@ -89,7 +75,6 @@ class SpPropertyBagItem extends React.Component<KeyValueItemProps, KeyValueItemS
     public render() {
         let isEditMode: boolean = this.props.item.itemMode === ItemMode.EDIT;
         let inputId: string = this.getInputId();
-
 
         return <div className='ms-ListBasicExample-itemCell  ms-Grid-row' data-is-focusable={true}>
             <div className='ms-ListBasicExample-itemContent ms-Grid-col ms-u-sm11 ms-u-md11 ms-u-lg11'>

@@ -7,19 +7,20 @@ import { connect } from 'react-redux'
 import { bindActionCreators, Dispatch } from 'redux'
 import SpPropertyBagNewItem from './SpPropertyBagNewItem';
 import SpPropertyBagFilter from './spPropertyBagFilter';
-import {SpPropertyBagList} from './spPropertyBagList';
+import { SpPropertyBagList } from './spPropertyBagList';
 import { WorkingOnIt } from './../../common/WorkingOnIt';
 import MessageBar from './../../common/MessageBar';
 import propertyActionsCreatorsMap from '../actions/spPropertyBagActions';
-import { 
-    SpPropertyBagProps, 
-    IMapStateToPropsState, 
-    IMapStateToProps, 
-    IMapDispatchToProps
+import {
+    SpPropertyBagProps,
+    IMapStateToPropsState,
+    IMapStateToProps,
+    IMapDispatchToProps,
+    IProperty
 } from '../interfaces/spPropertyBagInterfaces'
 
-interface IMapDispatchToSpPropertyBagProps{
-    getAllProperties:Function
+interface IMapDispatchToSpPropertyBagProps {
+    getAllProperties: Function
 }
 class SpPropertyBag extends React.Component<SpPropertyBagProps, {}> {
     private componentDidMount() {
@@ -32,11 +33,11 @@ class SpPropertyBag extends React.Component<SpPropertyBagProps, {}> {
             return (<div className="action-container sp-peropertyBags">
                 <MessageBar message={this.props.messageData.message} messageType={this.props.messageData.type} showMessage={this.props.messageData.showMessage} />
                 <SpPropertyBagFilter filterStr={this.props.filterText} />
-                <SpPropertyBagList items={this.props.webProperties} filterString={this.props.filterText}  />
-                <SpPropertyBagNewItem moduleTitle="New web property" keyDisplayName="Property Name" valueDisplayName="Property Value"  />
+                <SpPropertyBagList items={this.props.webProperties} filterString={this.props.filterText} />
+                <SpPropertyBagNewItem newProperty={this.props.newProperty} />
             </div>);
 
-         }
+        }
     }
 }
 
@@ -46,7 +47,8 @@ const mapStateToProps = (state: IMapStateToPropsState, ownProps: any): IMapState
         webProperties: state.spPropertyBag.webProperties,
         isWorkingOnIt: state.spPropertyBag.isWorkingOnIt,
         messageData: state.spPropertyBag.messageData,
-        filterText: state.spPropertyBag.filterText
+        filterText: state.spPropertyBag.filterText,
+        newProperty: state.spPropertyBag.newProperty
     }
 }
 

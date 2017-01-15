@@ -17,14 +17,24 @@ const deleteProperty: ActionCreator<IAction<string, IProperty>> = (property: IPr
         payload: property
     }
 }
+const createProperty: ActionCreator<IAction<string, IProperty>> = (property: IProperty): IAction<string, IProperty> => {
+    return {
+        type: actions.CREATE_PROPERTY,
+        payload: property
+    }
+}
 const setAllProperties: ActionCreator<IAction<string, Array<IProperty>>> = (properties: Array<IProperty>): IAction<string, Array<IProperty>> => {
     return {
         type: actions.SET_ALL_PROPERTIES,
         payload: properties
     }
 }
-
-
+const updateNewProperty: ActionCreator<IAction<string, IProperty>> = (property: IProperty): IAction<string, IProperty> => {
+    return {
+        type: actions.UPDATE_NEW_PROPERTY,
+        payload: property
+    }
+}
 const setFilterText: ActionCreator<IAction<string, string>> = (filterText: string): IAction<string, string> => {
     return {
         type: actions.SET_FILTER_TEXT,
@@ -60,10 +70,12 @@ const getAllProperties: any = (): any => {
     };
 }
 const spPropertyBagActionsCreatorMap: ActionCreatorsMapObject = {
+    createProperty,
     updateProperty,
     deleteProperty,
     getAllProperties,
     setAllProperties,
+    updateNewProperty,
     setFilterText,
     setWorkingOnIt,
     setUserHasPermissions,
