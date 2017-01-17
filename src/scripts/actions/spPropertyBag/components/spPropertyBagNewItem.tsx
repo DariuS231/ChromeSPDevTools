@@ -15,15 +15,14 @@ interface SpPropertyBagNewItemState {
 }
 
 export default class SpPropertyBagNewItem extends React.Component<SpPropertyBagNewItemProps, SpPropertyBagNewItemState> {
-    constructor() {
-        super()
-        this.state = {
-            newProperty: {
+    cleanProperty:IProperty =  {
                 key: '',
                 value: '',
                 itemMode: ItemMode.CREATE
-            }
-        }
+            };
+    constructor() {
+        super()
+        this.state = { newProperty:this.cleanProperty }
         this.getErrorMessage = this.getErrorMessage.bind(this);
         this.addBtnClick = this.addBtnClick.bind(this);
         this.onKeyInputChange = this.onKeyInputChange.bind(this);
@@ -33,13 +32,7 @@ export default class SpPropertyBagNewItem extends React.Component<SpPropertyBagN
     private addBtnClick(e: any) {
         e.preventDefault();
         this.props.createProperty(Object.assign({}, this.state.newProperty, { itemMode: ItemMode.VIEW }));
-        this.setState({
-            newProperty: {
-                key: '',
-                value: '',
-                itemMode: ItemMode.CREATE
-            }
-        });
+        this.setState({ newProperty: this.cleanProperty });
         return false;
     }
     private onKeyInputChange(str: string) {

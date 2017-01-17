@@ -22,15 +22,15 @@ export interface IInitialState {
 }
 
 export interface IPropertyBagActions {
-    createProperty: Function,
-    updateProperty: Function,
-    deleteProperty: Function,
-    getAllProperties: Function,
-    setAllProperties: Function,
-    setFilterText: Function,
-    setWorkingOnIt: Function,
-    setUserHasPermissions: Function,
-    setMessageData: Function
+    createProperty: (property: IProperty) => IAction<string, IProperty>,
+    updateProperty: (property: IProperty) => IAction<string, IProperty>,
+    deleteProperty: (property: IProperty) => IAction<string, IProperty>,
+    getAllProperties: () => Function,
+    setAllProperties: (properties: Array<IProperty>) => IAction<string, Array<IProperty>>,
+    setFilterText: (filterText: string) => IAction<string, string>,
+    setWorkingOnIt: (isWorkingOnIt: boolean) => IAction<string, boolean>,
+    setUserHasPermissions: (userHasPermissions: boolean) => IAction<string, boolean>,
+    setMessageData: (messageData: IMessageData) => IAction<string, IMessageData>
 }
 
 export interface IMapDispatchToProps {

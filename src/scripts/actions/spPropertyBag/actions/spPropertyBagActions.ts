@@ -54,7 +54,7 @@ const setMessageData: ActionCreator<IAction<string, IMessageData>> = (messageDat
     }
 }
 
-const getAllProperties: any = (): any => {
+const getAllProperties = (): Function => {
     return function (dispatch: any) {
         return api.getProperties().then(
             (properties: Array<IProperty>) => {
