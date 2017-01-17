@@ -33,7 +33,7 @@ class SpPropertyBag extends React.Component<SpPropertyBagProps, {}> {
         } else {
             return (<div className="action-container sp-peropertyBags">
                 <MessageBar message={this.props.messageData.message} messageType={this.props.messageData.type} showMessage={this.props.messageData.showMessage} />
-                <SpPropertyBagFilter filterStr={this.props.filterText} />
+                <SpPropertyBagFilter filterStr={this.props.filterText} setFilterText={this.props.actions.setFilterText} />
                 <SpPropertyBagList items={this.props.webProperties} filterString={this.props.filterText} />
                 <SpPropertyBagNewItem createProperty={this.props.actions.createProperty} />
             </div>);
