@@ -5,40 +5,60 @@
 import * as React from 'react';
 import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
-import { Button, ButtonType } from 'office-ui-fabric-react/lib/Button';
-import { TextField } from 'office-ui-fabric-react/lib/TextField';
+import { SpPropertyBagNewItemForm } from './spPropertyBagNewItemForm';
 import { IProperty } from '../interfaces/spPropertyBagInterfaces';
 import { ItemMode } from './../constants/enums';
 import propertyActionsCreatorsMap from '../actions/spPropertyBagActions';
 import { IMapStateToPropsState, IMapStateToProps } from '../interfaces/spPropertyBagInterfaces'
 
 interface SpPropertyBagNewItemProps {
-    newProperty: IProperty,
-    updateNewProperty: Function,
     createProperty: Function
 }
-interface SpPropertyBagNewItemActions{
-    updateNewProperty: Function,
+interface SpPropertyBagNewItemState {
+    newProperty: IProperty
+}
+interface SpPropertyBagNewItemActions {
     createProperty: Function
 }
 
-class SpPropertyBagNewItem extends React.Component<SpPropertyBagNewItemProps, {}> {
-    constructor(){
+class SpPropertyBagNewItem extends React.Component<SpPropertyBagNewItemProps, SpPropertyBagNewItemState> {
+    constructor() {
         super()
+        this.state = {
+            newProperty: {
+                key: '',
+                value: '',
+                itemMode: ItemMode.CREATE
+            }
+        }
         this.getErrorMessage = this.getErrorMessage.bind(this);
+        this.addBtnClick = this.addBtnClick.bind(this);
+        this.onKeyInputChange = this.onKeyInputChange.bind(this);
+        this.onValueInputChange = this.onValueInputChange.bind(this);
     }
 
     private addBtnClick(e: any) {
         e.preventDefault();
-        this.props.createProperty(Object.assign({}, this.props.newProperty, { itemMode: ItemMode.VIEW }));
+        this.props.createProperty(Object.assign({}, this.state.newProperty, { itemMode: ItemMode.VIEW }));
+        this.setState({
+            newProperty: {
+                key: '',
+                value: '',
+                itemMode: ItemMode.CREATE
+            }
+        });
         return false;
     }
-    private onKeyInputChange(str: string) {    
-        this.props.updateNewProperty(Object.assign({}, this.props.newProperty, { key: str }));
+    private onKeyInputChange(str: string) {
+        this.setState({
+            newProperty: Object.assign({}, this.state.newProperty, { key: str })
+        })
     }
 
     private onValueInputChange(str: string) {
-        this.props.updateNewProperty(Object.assign({}, this.props.newProperty, { value: str }));
+        this.setState({
+            newProperty: Object.assign({}, this.state.newProperty, { value: str })
+        })
     }
     private getErrorMessage(value: string): string {
         return value === ''
@@ -46,29 +66,12 @@ class SpPropertyBagNewItem extends React.Component<SpPropertyBagNewItemProps, {}
             : '';
     }
     public render() {
-
-        return <div className="ms-Grid">
-            <div className="ms-Grid-row">
-                <h2>New web property</h2>
-            </div>
-            <div className="ms-Grid-row">
-                <div className="ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6">
-                    <TextField placeholder='New property name' onGetErrorMessage={ this.getErrorMessage } label="Property Name" value={this.props.newProperty.key} onChanged={this.onKeyInputChange.bind(this) } />
-                </div>
-                <div className="ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6">
-                    <TextField placeholder='New property value' onGetErrorMessage={ this.getErrorMessage } label="Property Value" value={this.props.newProperty.value} onChanged={this.onValueInputChange.bind(this) } />
-                </div>
-            </div>
-            <div className="ms-Grid-row">
-                <div className="ms-Grid-col ms-u-sm10 ms-u-md10 ms-u-lg10">
-                </div>
-                <div className="ms-Grid-col ms-u-sm2 ms-u-md2 ms-u-lg2 spProp-create-button">
-                    <Button buttonType={ ButtonType.primary } onClick={this.addBtnClick.bind(this) } >
-                        Create
-                    </Button>
-                </div>
-            </div>
-        </div>;
+        return <SpPropertyBagNewItemForm
+            addBtnClick={this.addBtnClick}
+            newProperty={this.state.newProperty}
+            onKeyInputChange={this.onKeyInputChange}
+            onValueInputChange={this.onValueInputChange}
+            getErrorMessage={this.getErrorMessage} />;
     }
 }
 
@@ -78,9 +81,6 @@ const mapStateToProps = (state: IMapStateToPropsState, ownProps: any): any => {
 
 const mapDispatchToProps = (dispatch: Dispatch<any>): SpPropertyBagNewItemActions => {
     return {
-        updateNewProperty: (property: IProperty) => {
-            dispatch(propertyActionsCreatorsMap["updateNewProperty"](property));
-        },
         createProperty: (property: IProperty) => {
             dispatch(propertyActionsCreatorsMap["createProperty"](property));
         }

@@ -63,11 +63,6 @@ export const spPropertyBagReducer = (state: IInitialState = initialState, action
                 webProperties: properties,
                 isWorkingOnIt: false
             });
-        case actions.UPDATE_NEW_PROPERTY:
-            const newPropTuUpdt: Array<IProperty> = action.payload;
-            return Object.assign({}, state, {
-                newProperty: newPropTuUpdt
-            });
         case actions.SET_FILTER_TEXT:
             const filterText: string = action.payload;
             return Object.assign({}, state, { filterText: filterText });
