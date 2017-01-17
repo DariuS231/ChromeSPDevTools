@@ -4,7 +4,7 @@
 
 import * as React from 'react';
 import { connect } from 'react-redux'
-import { bindActionCreators, Dispatch } from 'redux'
+import { bindActionCreators, ActionCreatorsMapObject, Dispatch } from 'redux'
 import SpPropertyBagNewItem from './SpPropertyBagNewItem';
 import SpPropertyBagFilter from './spPropertyBagFilter';
 import { SpPropertyBagList } from './spPropertyBagList';
@@ -16,15 +16,16 @@ import {
     IMapStateToPropsState,
     IMapStateToProps,
     IMapDispatchToProps,
-    IProperty
+    IProperty,
+    IPropertyBagActions
 } from '../interfaces/spPropertyBagInterfaces'
 
 interface IMapDispatchToSpPropertyBagProps {
-    getAllProperties: Function
+    actions: IPropertyBagActions
 }
 class SpPropertyBag extends React.Component<SpPropertyBagProps, {}> {
     private componentDidMount() {
-        this.props.getAllProperties();
+        this.props.actions.getAllProperties();
     }
     public render() {
         if (this.props.isWorkingOnIt) {
@@ -34,9 +35,8 @@ class SpPropertyBag extends React.Component<SpPropertyBagProps, {}> {
                 <MessageBar message={this.props.messageData.message} messageType={this.props.messageData.type} showMessage={this.props.messageData.showMessage} />
                 <SpPropertyBagFilter filterStr={this.props.filterText} />
                 <SpPropertyBagList items={this.props.webProperties} filterString={this.props.filterText} />
-                <SpPropertyBagNewItem newProperty={this.props.newProperty} />
+                <SpPropertyBagNewItem createProperty={this.props.actions.createProperty} />
             </div>);
-
         }
     }
 }
@@ -47,17 +47,15 @@ const mapStateToProps = (state: IMapStateToPropsState, ownProps: any): IMapState
         webProperties: state.spPropertyBag.webProperties,
         isWorkingOnIt: state.spPropertyBag.isWorkingOnIt,
         messageData: state.spPropertyBag.messageData,
-        filterText: state.spPropertyBag.filterText,
-        newProperty: state.spPropertyBag.newProperty
+        filterText: state.spPropertyBag.filterText
     }
 }
 
 const mapDispatchToProps = (dispatch: Dispatch<any>): IMapDispatchToSpPropertyBagProps => {
     return {
-        getAllProperties: () => {
-            dispatch(propertyActionsCreatorsMap["getAllProperties"]());
-        }
+        actions: bindActionCreators(propertyActionsCreatorsMap, dispatch) as any
     }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SpPropertyBag);
+

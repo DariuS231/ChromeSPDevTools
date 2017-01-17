@@ -3,13 +3,9 @@
 /// <reference path="./../../common/enums.ts"/>
 
 import * as React from 'react';
-import { connect } from 'react-redux'
-import { Dispatch } from 'redux'
 import { SpPropertyBagNewItemForm } from './spPropertyBagNewItemForm';
 import { IProperty } from '../interfaces/spPropertyBagInterfaces';
 import { ItemMode } from './../constants/enums';
-import propertyActionsCreatorsMap from '../actions/spPropertyBagActions';
-import { IMapStateToPropsState, IMapStateToProps } from '../interfaces/spPropertyBagInterfaces'
 
 interface SpPropertyBagNewItemProps {
     createProperty: Function
@@ -17,11 +13,8 @@ interface SpPropertyBagNewItemProps {
 interface SpPropertyBagNewItemState {
     newProperty: IProperty
 }
-interface SpPropertyBagNewItemActions {
-    createProperty: Function
-}
 
-class SpPropertyBagNewItem extends React.Component<SpPropertyBagNewItemProps, SpPropertyBagNewItemState> {
+export default class SpPropertyBagNewItem extends React.Component<SpPropertyBagNewItemProps, SpPropertyBagNewItemState> {
     constructor() {
         super()
         this.state = {
@@ -74,17 +67,3 @@ class SpPropertyBagNewItem extends React.Component<SpPropertyBagNewItemProps, Sp
             getErrorMessage={this.getErrorMessage} />;
     }
 }
-
-const mapStateToProps = (state: IMapStateToPropsState, ownProps: any): any => {
-    return {}
-}
-
-const mapDispatchToProps = (dispatch: Dispatch<any>): SpPropertyBagNewItemActions => {
-    return {
-        createProperty: (property: IProperty) => {
-            dispatch(propertyActionsCreatorsMap["createProperty"](property));
-        }
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(SpPropertyBagNewItem);

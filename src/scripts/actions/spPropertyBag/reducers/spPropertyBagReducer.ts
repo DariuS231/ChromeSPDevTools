@@ -12,11 +12,6 @@ const initialState: IInitialState = {
         showMessage: false,
         message: '',
         type: MessageBarType.info
-    },
-    newProperty: {
-        key: '',
-        value: '',
-        itemMode: ItemMode.CREATE
     }
 }
 

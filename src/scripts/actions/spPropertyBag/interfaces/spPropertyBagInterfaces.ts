@@ -18,14 +18,15 @@ export interface IInitialState {
     userHasPermission: boolean,
     filterText: string,
     messageData: IMessageData,
-    webProperties: Array<IProperty>,
-    newProperty:IProperty
+    webProperties: Array<IProperty>
 }
 
 export interface IPropertyBagActions {
+    createProperty: Function,
     updateProperty: Function,
     deleteProperty: Function,
     getAllProperties: Function,
+    setAllProperties: Function,
     setFilterText: Function,
     setWorkingOnIt: Function,
     setUserHasPermissions: Function,
@@ -33,7 +34,7 @@ export interface IPropertyBagActions {
 }
 
 export interface IMapDispatchToProps {
-    actions:IPropertyBagActions 
+    actions: IPropertyBagActions
 }
 
 export interface SpPropertyBagProps {
@@ -43,8 +44,7 @@ export interface SpPropertyBagProps {
     webProperties: Array<IProperty>,
     messageData: IMessageData,
     filterText: string,
-    newProperty:IProperty,
-    getAllProperties: Function
+    actions: IPropertyBagActions
 }
 
 export interface IMapStateToProps {
@@ -52,8 +52,7 @@ export interface IMapStateToProps {
     webProperties: Array<IProperty>,
     isWorkingOnIt: boolean,
     messageData: IMessageData,
-    filterText: string,
-    newProperty:IProperty
+    filterText: string
 }
 export interface IMapStateToPropsState {
     spPropertyBag: IInitialState
