@@ -5,8 +5,7 @@ import { IMessageData } from './../../common/interfaces'
 
 export interface IProperty {
     key: string,
-    value: string,
-    itemMode: ItemMode
+    value: string
 }
 
 export interface IAction<T> {

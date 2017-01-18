@@ -23,8 +23,7 @@ export default class SpPropertyBagApi extends ApiBase {
                         if (type === "string") {
                             items.push({
                                 key: p,
-                                value: propVal.replace(/"/g, '&quot;'),
-                                itemMode: ItemMode.VIEW
+                                value: propVal.replace(/"/g, '&quot;')
                             });
                         }
                     }
