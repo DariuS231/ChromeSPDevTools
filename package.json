@@ -42,7 +42,7 @@
     "redux": "^3.6.0",
     "redux-immutable-state-invariant": "^1.2.4",
     "tsify": "^2.0.2",
-    "typescript": "^2.0.8",
+    "typescript": "^2.1.5",
     "typings": "^2.0.0",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
