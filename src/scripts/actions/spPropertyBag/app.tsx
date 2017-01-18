@@ -13,8 +13,7 @@ class App extends AppBase {
     constructor() {
         super('spPropBaseDiv')
     }
-    public show(showOnlyIconsInButtons: boolean) {
-        debugger;
+    public show() {
         let that = this;
         Utils.ensureSPObject().then(() => {
             const store = configureStore({});
@@ -30,4 +29,4 @@ class App extends AppBase {
 }
 
 window.SpPropertyBagObj = new App();
-window.SpPropertyBagObj.show(true);
+window.SpPropertyBagObj.show();

@@ -1,13 +1,21 @@
-declare var reject: any;
+import * as axios from 'axios'
 
 export default class ApiBase {
+    
+    reject: (reason?: any) => void;
 
     public requestErrorEventHandler(sender: any, err: SP.ClientRequestFailedEventArgs): void {
-        reject(err.get_message());
+        this.reject(err.get_message());
+    }
+
+    public getRequest(url: string) {
+        return axios.get(url, {
+            headers: { 'accept': 'application/json;odata=verbose' }
+        });
     }
 
     public checkUserPermissions(permKind: SP.PermissionKind): Promise<boolean> {
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve: (value?: {} | PromiseLike<{}>) => void, reject: (reason?: any) => void) => {
             const ctx = SP.ClientContext.get_current();
             const web = ctx.get_web();
 

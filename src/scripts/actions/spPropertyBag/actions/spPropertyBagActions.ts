@@ -71,7 +71,8 @@ const createProperty = (property: IProperty) => {
         dispatch(setWorkingOnIt(true));
         return api.createProperty(property).then(
             (property: IProperty) => {
-                dispatch(addProperty(property));
+               //dispatch(addProperty(property));
+               dispatch(getAllProperties());
             }
         );
     };
@@ -82,7 +83,8 @@ const updateProperty = (property: IProperty) => {
         dispatch(setWorkingOnIt(true));
         return api.updateProperty(property).then(
             (property: IProperty) => {
-                dispatch(addProperty(property));
+                //dispatch(addProperty(property));
+               dispatch(getAllProperties());
             }
         );
     };
@@ -93,7 +95,8 @@ const deleteProperty = (property: IProperty) => {
         dispatch(setWorkingOnIt(true));
         return api.deleteProperty(property).then(
             (property: IProperty) => {
-                dispatch(addProperty(property));
+                //dispatch(addProperty(property));
+               dispatch(getAllProperties());
             }
         );
     };

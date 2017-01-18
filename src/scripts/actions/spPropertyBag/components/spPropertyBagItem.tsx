@@ -65,7 +65,7 @@ class SpPropertyBagItem extends React.Component<SpPropertyBagItemProps, SpProper
         return false;
     }
     private onUpdateClick(e: any) {
-        e.preventDefault();debugger;
+        e.preventDefault(); 
         this.props.updateProperty(Object.assign({}, this.props.item, { value: this.state.itemInputValue }));
         return false;
     }
@@ -89,16 +89,18 @@ class SpPropertyBagItem extends React.Component<SpPropertyBagItemProps, SpProper
     }
 
     private buttons(isEditMode: Boolean) {
+        const topBtnText: string = isEditMode ? 'Save' : 'Delete';
+        const bottomBtnText: string = isEditMode ? 'Cancel' : 'Edit';
         return <div className="ms-ListItem-actions ms-Grid-col ms-u-sm1 ms-u-md1 ms-u-lg1">
             <Button buttonType={ButtonType.icon}
-                icon={isEditMode ? 'Save' : 'Delete'}
-                rootProps={{ title: isEditMode ? 'Save' : 'Delete' }}
-                ariaLabel={isEditMode ? 'Save' : 'Delete'}
+                icon={topBtnText}
+                rootProps={{ title: topBtnText }}
+                ariaLabel={topBtnText}
                 onClick={isEditMode ? this.onUpdateClick : this.onDeleteClick} />
             <Button buttonType={ButtonType.icon}
-                icon={isEditMode ? 'Cancel' : 'Edit'}
-                rootProps={{ title: isEditMode ? 'Cancel' : 'Edit' }}
-                ariaLabel={isEditMode ? 'Cancel' : 'Edit'}
+                icon={bottomBtnText}
+                rootProps={{ title: bottomBtnText }}
+                ariaLabel={bottomBtnText}
                 onClick={this.onUpdateBtnClick} />
         </div>
     }
