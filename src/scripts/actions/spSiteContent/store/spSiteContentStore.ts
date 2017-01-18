@@ -7,6 +7,7 @@ import Dispatcher from "../dispatcher/spSiteContentDispatcher";
 import { ActionsID } from "../enums/spSiteContentEnum";
 import { SpSiteContentConstants as constants } from '../constants/spSiteContentConstants'
 import { MessageBarType } from 'office-ui-fabric-react/lib/MessageBar';
+import { IMessageData } from './../../common/interfaces'
 
 interface IPayLoad {
     type: ActionsID,

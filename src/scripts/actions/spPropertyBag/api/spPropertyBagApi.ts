@@ -8,7 +8,7 @@ export default class SpPropertyBagApi extends ApiBase {
             const ctx = SP.ClientContext.get_current();
             const web = ctx.get_web();
             const allProperties = web.get_allProperties();
-            
+
             ctx.load(web);
             ctx.load(allProperties);
 
@@ -21,8 +21,8 @@ export default class SpPropertyBagApi extends ApiBase {
                         let propVal: any = propsKeyVal[p];
                         let type: string = typeof (propVal);
                         if (type === "string") {
-                            items.push({ 
-                                key: p, 
+                            items.push({
+                                key: p,
                                 value: propVal.replace(/"/g, '&quot;'),
                                 itemMode: ItemMode.VIEW
                             });
@@ -35,108 +35,30 @@ export default class SpPropertyBagApi extends ApiBase {
         });
     }
 
-    public deleteProperty(key:string): Promise<boolean> {
-        return new Promise((resolve, reject) => {
-            const ctx = SP.ClientContext.get_current();
-            const web = ctx.get_web();
-            const allProperties = web.get_allProperties();
-            
-            ctx.load(web);
-            ctx.load(allProperties);
-
-            let onSuccess = (sender: any, err: any) => {
-                let propsKeyVal: any = allProperties.get_fieldValues();
-
-                let items: Array<IProperty> = [];
-                for (let p in propsKeyVal) {
-                    if (propsKeyVal.hasOwnProperty(p)) {
-                        let propVal: any = propsKeyVal[p];
-                        let type: string = typeof (propVal);
-                        if (type === "string") {
-                            items.push({ 
-                                key: p, 
-                                value: propVal.replace(/"/g, '&quot;'),
-                                itemMode: ItemMode.VIEW
-                            });
-                        }
-                    }
-                }
-                items.sort(function (a, b) {
-                    return a.key.localeCompare(b.key);
-                });
-                resolve(items);
-            };
-            ctx.executeQueryAsync(onSuccess, this.requestErrorEventHandler);
-        });
+    public deleteProperty(property: IProperty): Promise<IProperty> {
+        return this.setProperty(Object.assign({}, property, { value: null }));
     }
 
-    public createProperty(key:string, value:string): Promise<IProperty> {
-        return new Promise((resolve, reject) => {
-            const ctx = SP.ClientContext.get_current();
-            const web = ctx.get_web();
-            const allProperties = web.get_allProperties();
-            
-            ctx.load(web);
-            ctx.load(allProperties);
-
-            let onSuccess = (sender: any, err: any) => {
-                let propsKeyVal: any = allProperties.get_fieldValues();
-
-                let items: Array<IProperty> = [];
-                for (let p in propsKeyVal) {
-                    if (propsKeyVal.hasOwnProperty(p)) {
-                        let propVal: any = propsKeyVal[p];
-                        let type: string = typeof (propVal);
-                        if (type === "string") {
-                            items.push({ 
-                                key: p, 
-                                value: propVal.replace(/"/g, '&quot;'),
-                                itemMode: ItemMode.VIEW
-                            });
-                        }
-                    }
-                }
-                items.sort(function (a, b) {
-                    return a.key.localeCompare(b.key);
-                });
-                resolve(items);
-            };
-            ctx.executeQueryAsync(onSuccess, this.requestErrorEventHandler);
-        });
+    public createProperty(property: IProperty): Promise<IProperty> {
+        return this.setProperty(property);
     }
 
-    public updateProperty(key:string, value:string): Promise<IProperty> {
+    public updateProperty(property: IProperty): Promise<IProperty> {
+        return this.setProperty(property);
+    }
+
+    private setProperty(property: IProperty): Promise<IProperty> {
         return new Promise((resolve, reject) => {
             const ctx = SP.ClientContext.get_current();
             const web = ctx.get_web();
             const allProperties = web.get_allProperties();
-            
-            ctx.load(web);
-            ctx.load(allProperties);
 
-            let onSuccess = (sender: any, err: any) => {
-                let propsKeyVal: any = allProperties.get_fieldValues();
+            allProperties.set_item(property.key, property.value);
+            web.update();
 
-                let items: Array<IProperty> = [];
-                for (let p in propsKeyVal) {
-                    if (propsKeyVal.hasOwnProperty(p)) {
-                        let propVal: any = propsKeyVal[p];
-                        let type: string = typeof (propVal);
-                        if (type === "string") {
-                            items.push({ 
-                                key: p, 
-                                value: propVal.replace(/"/g, '&quot;'),
-                                itemMode: ItemMode.VIEW
-                            });
-                        }
-                    }
-                }
-                items.sort(function (a, b) {
-                    return a.key.localeCompare(b.key);
-                });
-                resolve(items);
-            };
-            ctx.executeQueryAsync(onSuccess, this.requestErrorEventHandler);
+            ctx.executeQueryAsync((sender: any, err: any) => {
+                resolve(property);
+            }, this.requestErrorEventHandler);
         });
     }
 }

@@ -14,6 +14,7 @@ class App extends AppBase {
         super('spPropBaseDiv')
     }
     public show(showOnlyIconsInButtons: boolean) {
+        debugger;
         let that = this;
         Utils.ensureSPObject().then(() => {
             const store = configureStore({});

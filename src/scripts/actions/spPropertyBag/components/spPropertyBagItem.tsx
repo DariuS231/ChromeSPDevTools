@@ -92,10 +92,10 @@ const mapStateToProps = (state: IMapStateToPropsState, ownProps: any): any => {
 const mapDispatchToProps = (dispatch: Dispatch<any>): SpPropertyBagItemActions => {
     return {
         updateProperty: (property: IProperty) => {
-            dispatch(propertyActionsCreatorsMap["updateProperty"](property));
+            dispatch(propertyActionsCreatorsMap.updateProperty(property));
         },
         deleteProperty: (property: IProperty) => {
-            dispatch(propertyActionsCreatorsMap["deleteProperty"](property));
+            dispatch(propertyActionsCreatorsMap.deleteProperty(property));
         }
     }
 }

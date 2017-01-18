@@ -12,6 +12,7 @@ import { SpSiteContentFilter } from './spSiteContentFilter';
 import { MessageBarType } from 'office-ui-fabric-react/lib/MessageBar';
 import { WorkingOnIt } from './../../common/WorkingOnIt';
 import MessageBar from './../../common/MessageBar';
+import { IMessageData } from './../../common/interfaces'
 
 interface SpSiteContentProps { }
 interface SpSiteContentState {

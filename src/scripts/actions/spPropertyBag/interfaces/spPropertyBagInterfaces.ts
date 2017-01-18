@@ -1,6 +1,7 @@
 
-import { ActionCreatorsMapObject } from 'redux'
+import { ActionCreator, ActionCreatorsMapObject, Dispatch } from 'redux'
 import { ItemMode } from './../constants/enums'
+import { IMessageData } from './../../common/interfaces'
 
 export interface IProperty {
     key: string,
@@ -8,9 +9,9 @@ export interface IProperty {
     itemMode: ItemMode
 }
 
-export interface IAction<T, P> {
-    readonly type: T
-    readonly payload: P
+export interface IAction<T> {
+    readonly type: string
+    readonly payload: T
 }
 
 export interface IInitialState {
@@ -21,20 +22,20 @@ export interface IInitialState {
     webProperties: Array<IProperty>
 }
 
-export interface IPropertyBagActions {
-    createProperty: (property: IProperty) => IAction<string, IProperty>,
-    updateProperty: (property: IProperty) => IAction<string, IProperty>,
-    deleteProperty: (property: IProperty) => IAction<string, IProperty>,
-    getAllProperties: () => Function,
-    setAllProperties: (properties: Array<IProperty>) => IAction<string, Array<IProperty>>,
-    setFilterText: (filterText: string) => IAction<string, string>,
-    setWorkingOnIt: (isWorkingOnIt: boolean) => IAction<string, boolean>,
-    setUserHasPermissions: (userHasPermissions: boolean) => IAction<string, boolean>,
-    setMessageData: (messageData: IMessageData) => IAction<string, IMessageData>
+export interface ISpPropertyBagActionCreatorsMapObject extends ActionCreatorsMapObject {
+    createProperty: (property: IProperty) => (dispatch: Dispatch<IAction<IProperty>>) => Promise<void>,
+    updateProperty: (property: IProperty) => (dispatch: Dispatch<IAction<IProperty>>) => Promise<void>,
+    deleteProperty: (property: IProperty) => (dispatch: Dispatch<IAction<IProperty>>) => Promise<void>,
+    getAllProperties: () => (dispatch: Dispatch<IAction<Array<IProperty>>>) => Promise<void>,
+    setFilterText: ActionCreator<IAction<string>>,
+    setWorkingOnIt: ActionCreator<IAction<boolean>>,
+    setUserHasPermissions: ActionCreator<IAction<boolean>>,
+    setMessageData: ActionCreator<IAction<IMessageData>>
+
 }
 
 export interface IMapDispatchToProps {
-    actions: IPropertyBagActions
+    actions: ISpPropertyBagActionCreatorsMapObject
 }
 
 export interface SpPropertyBagProps {
@@ -44,7 +45,7 @@ export interface SpPropertyBagProps {
     webProperties: Array<IProperty>,
     messageData: IMessageData,
     filterText: string,
-    actions: IPropertyBagActions
+    actions: ISpPropertyBagActionCreatorsMapObject
 }
 
 export interface IMapStateToProps {

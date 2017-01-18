@@ -17,11 +17,11 @@ import {
     IMapStateToProps,
     IMapDispatchToProps,
     IProperty,
-    IPropertyBagActions
+    ISpPropertyBagActionCreatorsMapObject
 } from '../interfaces/spPropertyBagInterfaces'
 
 interface IMapDispatchToSpPropertyBagProps {
-    actions: IPropertyBagActions
+    actions: ISpPropertyBagActionCreatorsMapObject
 }
 class SpPropertyBag extends React.Component<SpPropertyBagProps, {}> {
     private componentDidMount() {
@@ -35,7 +35,7 @@ class SpPropertyBag extends React.Component<SpPropertyBagProps, {}> {
                 <MessageBar message={this.props.messageData.message} messageType={this.props.messageData.type} showMessage={this.props.messageData.showMessage} />
                 <SpPropertyBagFilter filterStr={this.props.filterText} setFilterText={this.props.actions.setFilterText} />
                 <SpPropertyBagList items={this.props.webProperties} filterString={this.props.filterText} />
-                <SpPropertyBagNewItem createProperty={this.props.actions.createProperty} />
+                <SpPropertyBagNewItem addProperty={this.props.actions.createProperty} />
             </div>);
         }
     }

@@ -9,6 +9,7 @@ import { TextField } from 'office-ui-fabric-react/lib/TextField';
 import { Checkbox } from 'office-ui-fabric-react/lib/Checkbox';
 import { Button, ButtonType } from 'office-ui-fabric-react/lib/Button';
 import { ChoiceGroup } from 'office-ui-fabric-react/lib/ChoiceGroup';
+import { ICustomAction } from './../common/interfaces'
 
 interface CustomActionItemProps {
     item?: ICustomAction,

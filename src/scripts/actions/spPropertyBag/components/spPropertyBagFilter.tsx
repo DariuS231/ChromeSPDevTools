@@ -3,7 +3,7 @@ import { SearchBox } from 'office-ui-fabric-react/lib/SearchBox';
 import { IAction } from '../interfaces/spPropertyBagInterfaces';
 
 interface SpPropertyBagFilterProps {
-    setFilterText: (filterText: string) => IAction<string, string>,
+    setFilterText: (filterText: string) => IAction<string>,
     filterStr: string
 }
 

@@ -1,7 +1,6 @@
+import { MessageBarType } from 'office-ui-fabric-react/lib/MessageBar';
 
-
-
-interface ICustomAction {
+export interface ICustomAction {
     name: any,
     description: any,
     id: any,
@@ -15,7 +14,7 @@ interface ICustomAction {
     [key: string]: string //To allow index references with ICustomAction objects 
 }
 
-interface IFeature {
+export interface IFeature {
     id: any,
     name: any,
     description: any,
@@ -25,8 +24,8 @@ interface IFeature {
 }
 
 
-interface IMessageData {
+export interface IMessageData {
     showMessage: boolean,
     message: string,
-    type: any
+    type: MessageBarType
 }

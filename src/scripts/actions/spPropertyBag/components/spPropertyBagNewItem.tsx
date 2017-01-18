@@ -8,7 +8,7 @@ import { IProperty } from '../interfaces/spPropertyBagInterfaces';
 import { ItemMode } from './../constants/enums';
 
 interface SpPropertyBagNewItemProps {
-    createProperty: Function
+    addProperty: Function
 }
 interface SpPropertyBagNewItemState {
     newProperty: IProperty
@@ -31,7 +31,7 @@ export default class SpPropertyBagNewItem extends React.Component<SpPropertyBagN
 
     private addBtnClick(e: any) {
         e.preventDefault();
-        this.props.createProperty(Object.assign({}, this.state.newProperty, { itemMode: ItemMode.VIEW }));
+        this.props.addProperty(Object.assign({}, this.state.newProperty, { itemMode: ItemMode.VIEW }));
         this.setState({ newProperty: this.cleanProperty });
         return false;
     }

@@ -1,74 +1,109 @@
 import { PropertyActionID as actions } from './../constants/enums'
-import { IProperty, IAction } from '../interfaces/spPropertyBagInterfaces'
-import { ActionCreator, ActionCreatorsMapObject } from 'redux'
+import { IProperty, IAction, ISpPropertyBagActionCreatorsMapObject } from '../interfaces/spPropertyBagInterfaces'
+import { ActionCreator, ActionCreatorsMapObject, Dispatch } from 'redux'
 import SpPropertyBagApi from '../api/spPropertyBagApi'
+import { IMessageData } from './../../common/interfaces'
+
 
 const api = new SpPropertyBagApi();
 
-const updateProperty: ActionCreator<IAction<string, IProperty>> = (property: IProperty): IAction<string, IProperty> => {
+const modifyProperty: ActionCreator<IAction<IProperty>> = (property: IProperty): IAction<IProperty> => {
     return {
         type: actions.UPDATE_PROPERTY,
         payload: property
     }
 }
-const deleteProperty: ActionCreator<IAction<string, IProperty>> = (property: IProperty): IAction<string, IProperty> => {
+const removeProperty: ActionCreator<IAction<IProperty>> = (property: IProperty): IAction<IProperty> => {
     return {
         type: actions.DELETE_PROPERTY,
         payload: property
     }
 }
-const createProperty: ActionCreator<IAction<string, IProperty>> = (property: IProperty): IAction<string, IProperty> => {
+const addProperty: ActionCreator<IAction<IProperty>> = (property: IProperty): IAction<IProperty> => {
     return {
         type: actions.CREATE_PROPERTY,
         payload: property
     }
 }
-const setAllProperties: ActionCreator<IAction<string, Array<IProperty>>> = (properties: Array<IProperty>): IAction<string, Array<IProperty>> => {
+const setAllProperties: ActionCreator<IAction<Array<IProperty>>> = (properties: Array<IProperty>): IAction<Array<IProperty>> => {
     return {
         type: actions.SET_ALL_PROPERTIES,
         payload: properties
     }
 }
-const setFilterText: ActionCreator<IAction<string, string>> = (filterText: string): IAction<string, string> => {
+const setFilterText: ActionCreator<IAction<string>> = (filterText: string): IAction<string> => {
     return {
         type: actions.SET_FILTER_TEXT,
         payload: filterText
     }
 }
-const setWorkingOnIt: ActionCreator<IAction<string, boolean>> = (isWorkingOnIt: boolean): IAction<string, boolean> => {
+const setWorkingOnIt: ActionCreator<IAction<boolean>> = (isWorkingOnIt: boolean): IAction<boolean> => {
     return {
         type: actions.SET_WORKING_ON_IT,
         payload: isWorkingOnIt
     }
 }
-const setUserHasPermissions: ActionCreator<IAction<string, boolean>> = (userHasPermission: boolean): IAction<string, boolean> => {
+const setUserHasPermissions: ActionCreator<IAction<boolean>> = (userHasPermission: boolean): IAction<boolean> => {
     return {
         type: actions.SET_USER_PERMISSIONS,
         payload: userHasPermission
     }
 }
-const setMessageData: ActionCreator<IAction<string, IMessageData>> = (messageData: IMessageData): IAction<string, IMessageData> => {
+const setMessageData: ActionCreator<IAction<IMessageData>> = (messageData: IMessageData): IAction<IMessageData> => {
     return {
         type: actions.SET_USER_PERMISSIONS,
         payload: messageData
     }
 }
 
-const getAllProperties = (): Function => {
-    return function (dispatch: any) {
+const getAllProperties = () => {
+    return function (dispatch: Dispatch<IAction<Array<IProperty>>>) {
         return api.getProperties().then(
             (properties: Array<IProperty>) => {
-                dispatch(setAllProperties(properties))
+                dispatch(setAllProperties(properties));
             }
         );
     };
 }
-const spPropertyBagActionsCreatorMap: ActionCreatorsMapObject = {
+
+const createProperty = (property: IProperty) => {
+    return function (dispatch: Dispatch<IAction<IProperty>>) {
+        dispatch(setWorkingOnIt(true));
+        return api.createProperty(property).then(
+            (property: IProperty) => {
+                dispatch(addProperty(property));
+            }
+        );
+    };
+}
+
+const updateProperty = (property: IProperty) => {
+    return function (dispatch: Dispatch<IAction<IProperty>>) {
+        dispatch(setWorkingOnIt(true));
+        return api.updateProperty(property).then(
+            (property: IProperty) => {
+                dispatch(addProperty(property));
+            }
+        );
+    };
+}
+
+const deleteProperty = (property: IProperty) => {
+    return function (dispatch: Dispatch<IAction<IProperty>>) {
+        dispatch(setWorkingOnIt(true));
+        return api.deleteProperty(property).then(
+            (property: IProperty) => {
+                dispatch(addProperty(property));
+            }
+        );
+    };
+}
+
+const spPropertyBagActionsCreatorMap: ISpPropertyBagActionCreatorsMapObject = {
     createProperty,
     updateProperty,
     deleteProperty,
     getAllProperties,
-    setAllProperties,
     setFilterText,
     setWorkingOnIt,
     setUserHasPermissions,
