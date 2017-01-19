@@ -1,7 +1,6 @@
 import { PropertyActionID as actions } from './../constants/enums'
 import { IProperty, IAction, IInitialState } from '../interfaces/spPropertyBagInterfaces'
 import { MessageBarType } from 'office-ui-fabric-react/lib/MessageBar';
-import { ItemMode } from './../constants/enums';
 import { IMessageData } from './../../common/interfaces'
 
 const initialState: IInitialState = {

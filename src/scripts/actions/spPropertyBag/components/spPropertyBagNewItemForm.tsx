@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { StatelessComponent } from 'react';
 import { IProperty } from '../interfaces/spPropertyBagInterfaces'
 import { Button as ButtonUIF, ButtonType } from 'office-ui-fabric-react/lib/Button';
 import { TextField } from 'office-ui-fabric-react/lib/TextField';

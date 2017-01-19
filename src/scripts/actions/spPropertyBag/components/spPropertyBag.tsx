@@ -4,7 +4,7 @@
 
 import * as React from 'react';
 import { connect } from 'react-redux'
-import { bindActionCreators, ActionCreatorsMapObject, Dispatch } from 'redux'
+import { bindActionCreators, Dispatch } from 'redux'
 import SpPropertyBagNewItem from './SpPropertyBagNewItem';
 import SpPropertyBagFilter from './spPropertyBagFilter';
 import { SpPropertyBagList } from './spPropertyBagList';
@@ -16,8 +16,6 @@ import {
     SpPropertyBagProps,
     IMapStateToPropsState,
     IMapStateToProps,
-    IMapDispatchToProps,
-    IProperty,
     ISpPropertyBagActionCreatorsMapObject
 } from '../interfaces/spPropertyBagInterfaces'
 

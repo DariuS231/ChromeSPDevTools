@@ -1,5 +1,4 @@
 import ApiBase from './../../common/apiBase';
-import { ItemMode } from './../constants/enums';
 import { IProperty } from '../interfaces/spPropertyBagInterfaces'
 
 export default class SpPropertyBagApi extends ApiBase {

@@ -1,6 +1,5 @@
 
 import { ActionCreator, ActionCreatorsMapObject, Dispatch } from 'redux'
-import { ItemMode } from './../constants/enums'
 import { IMessageData } from './../../common/interfaces'
 
 export interface IProperty {
@@ -56,10 +55,6 @@ export interface IMapStateToProps {
 }
 export interface IMapStateToPropsState {
     spPropertyBag: IInitialState
-}
-
-export interface IOwnProps {
-    closeWindowFunction: Function
 }
 
 export interface IMapStateToProps {

@@ -8,9 +8,3 @@ export const PropertyActionID  = {
     SET_MESSAGE_DATA: 'SET_MESSAGE_DATA',
     SET_USER_PERMISSIONS: 'SET_USER_PERMISSIONS'
 }
-
-export enum ItemMode {
-    EDIT,
-    CREATE,
-    VIEW  
-}

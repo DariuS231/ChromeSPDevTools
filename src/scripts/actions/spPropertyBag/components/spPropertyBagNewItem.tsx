@@ -1,11 +1,6 @@
-/// <reference path="../../../../../typings/index.d.ts"/>
-/// <reference path="./../../common/interfaces.ts"/>
-/// <reference path="./../../common/enums.ts"/>
-
 import * as React from 'react';
 import { SpPropertyBagNewItemForm } from './spPropertyBagNewItemForm';
 import { IProperty } from '../interfaces/spPropertyBagInterfaces';
-import { ItemMode } from './../constants/enums';
 
 interface SpPropertyBagNewItemProps {
     addProperty: Function
@@ -29,7 +24,7 @@ export default class SpPropertyBagNewItem extends React.Component<SpPropertyBagN
 
     private addBtnClick(e: any) {
         e.preventDefault();
-        this.props.addProperty(Object.assign({}, this.state.newProperty, { itemMode: ItemMode.VIEW }));
+        this.props.addProperty(this.state.newProperty);
         this.setState({ newProperty: this.cleanProperty });
         return false;
     }
