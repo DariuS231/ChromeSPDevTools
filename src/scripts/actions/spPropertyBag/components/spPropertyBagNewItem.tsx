@@ -21,8 +21,7 @@ export default class SpPropertyBagNewItem extends React.Component<SpPropertyBagN
     };
     constructor() {
         super()
-        this.state = { newProperty: this.cleanProperty }
-        this.getErrorMessage = this.getErrorMessage.bind(this);
+        this.state = { newProperty: this.cleanProperty };
         this.addBtnClick = this.addBtnClick.bind(this);
         this.onKeyInputChange = this.onKeyInputChange.bind(this);
         this.onValueInputChange = this.onValueInputChange.bind(this);
@@ -45,17 +44,11 @@ export default class SpPropertyBagNewItem extends React.Component<SpPropertyBagN
             newProperty: Object.assign({}, this.state.newProperty, { value: str })
         })
     }
-    private getErrorMessage(value: string): string {
-        return value === ''
-            ? 'This fields can not be empty'
-            : '';
-    }
     public render() {
         return <SpPropertyBagNewItemForm
             addBtnClick={this.addBtnClick}
             newProperty={this.state.newProperty}
             onKeyInputChange={this.onKeyInputChange}
-            onValueInputChange={this.onValueInputChange}
-            getErrorMessage={this.getErrorMessage} />;
+            onValueInputChange={this.onValueInputChange}/>;
     }
 }
