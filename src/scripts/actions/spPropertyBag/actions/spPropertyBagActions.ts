@@ -51,7 +51,7 @@ const setUserHasPermissions: ActionCreator<IAction<boolean>> = (userHasPermissio
 }
 const setMessageData: ActionCreator<IAction<IMessageData>> = (messageData: IMessageData): IAction<IMessageData> => {
     return {
-        type: actions.SET_USER_PERMISSIONS,
+        type: actions.SET_MESSAGE_DATA,
         payload: messageData
     }
 }
@@ -71,8 +71,8 @@ const createProperty = (property: IProperty) => {
         dispatch(setWorkingOnIt(true));
         return api.createProperty(property).then(
             (property: IProperty) => {
-               //dispatch(addProperty(property));
-               dispatch(getAllProperties());
+               dispatch(addProperty(property));
+               //dispatch(getAllProperties());
             }
         );
     };
@@ -83,8 +83,8 @@ const updateProperty = (property: IProperty) => {
         dispatch(setWorkingOnIt(true));
         return api.updateProperty(property).then(
             (property: IProperty) => {
-                //dispatch(addProperty(property));
-               dispatch(getAllProperties());
+                dispatch(modifyProperty(property));
+               //dispatch(getAllProperties());
             }
         );
     };
@@ -95,8 +95,8 @@ const deleteProperty = (property: IProperty) => {
         dispatch(setWorkingOnIt(true));
         return api.deleteProperty(property).then(
             (property: IProperty) => {
-                //dispatch(addProperty(property));
-               dispatch(getAllProperties());
+                dispatch(removeProperty(property));
+               //dispatch(getAllProperties());
             }
         );
     };

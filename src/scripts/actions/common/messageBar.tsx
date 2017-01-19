@@ -10,7 +10,8 @@ import { Link } from 'office-ui-fabric-react/lib/Link';
 interface MessageBarProps {
     messageType: MessageBarType,
     message: string,
-    showMessage: boolean
+    showMessage: boolean,
+    onCloseMessageClick?: Function
 }
 interface MessageBarState {
     showMessage: boolean
@@ -35,10 +36,13 @@ export default class MessageBar extends React.Component<MessageBarProps, Message
         });
     }
     private onCloseClick(e: any) {
-        //e.preventDefault();
+        e.preventDefault();
         this.setState({
             showMessage: false
         });
+        if(this.props.onCloseMessageClick !== null){
+            this.props.onCloseMessageClick();
+        }
         return false;
     }
     public render() {

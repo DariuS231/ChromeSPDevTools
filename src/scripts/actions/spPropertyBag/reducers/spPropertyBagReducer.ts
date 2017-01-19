@@ -23,10 +23,10 @@ export const spPropertyBagReducer = (state: IInitialState = initialState, action
             return Object.assign({}, state, {
                 webProperties: [...state.webProperties, Object.assign({}, newPropperty)],
                 isWorkingOnIt: false,
-                newProperty: {
-                    key: '',
-                    value: '',
-                    itemMode: ItemMode.CREATE
+                messageData: {
+                    showMessage: true,
+                    message: 'A new property has been created.',
+                    type: MessageBarType.success
                 }
             });
         case actions.DELETE_PROPERTY:
@@ -51,7 +51,12 @@ export const spPropertyBagReducer = (state: IInitialState = initialState, action
             });
             return Object.assign({}, state, {
                 webProperties: filtered,
-                isWorkingOnIt: false
+                isWorkingOnIt: false,
+                messageData: {
+                    showMessage: true,
+                    message: 'The selected property has been updated.',
+                    type: MessageBarType.success
+                }
             });
         case actions.SET_ALL_PROPERTIES:
             const properties: Array<IProperty> = action.payload;

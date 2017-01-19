@@ -10,6 +10,7 @@ import SpPropertyBagFilter from './spPropertyBagFilter';
 import { SpPropertyBagList } from './spPropertyBagList';
 import { WorkingOnIt } from './../../common/WorkingOnIt';
 import MessageBar from './../../common/MessageBar';
+import { MessageBarType } from 'office-ui-fabric-react/lib/MessageBar';
 import propertyActionsCreatorsMap from '../actions/spPropertyBagActions';
 import {
     SpPropertyBagProps,
@@ -24,15 +25,26 @@ interface IMapDispatchToSpPropertyBagProps {
     actions: ISpPropertyBagActionCreatorsMapObject
 }
 class SpPropertyBag extends React.Component<SpPropertyBagProps, {}> {
+    constructor(){
+        super();
+        this.onMessageClose = this.onMessageClose.bind(this);
+    }
     private componentDidMount() {
         this.props.actions.getAllProperties();
+    }
+    private onMessageClose(){
+        this.props.actions.setMessageData({
+            showMessage: false,
+            message: '',
+            type: MessageBarType.info
+        });
     }
     public render() {
         if (this.props.isWorkingOnIt) {
             return <WorkingOnIt />;
         } else {
             return (<div className="action-container sp-peropertyBags">
-                <MessageBar message={this.props.messageData.message} messageType={this.props.messageData.type} showMessage={this.props.messageData.showMessage} />
+                <MessageBar onCloseMessageClick={this.onMessageClose} message={this.props.messageData.message} messageType={this.props.messageData.type} showMessage={this.props.messageData.showMessage} />
                 <SpPropertyBagFilter filterStr={this.props.filterText} setFilterText={this.props.actions.setFilterText} />
                 <SpPropertyBagList items={this.props.webProperties} filterString={this.props.filterText} />
                 <SpPropertyBagNewItem addProperty={this.props.actions.createProperty} />

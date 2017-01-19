@@ -61,7 +61,9 @@ class SpPropertyBagItem extends React.Component<SpPropertyBagItemProps, SpProper
     }
     private onDeleteClick(e: any) {
         e.preventDefault()
-        this.props.deleteProperty(this.props.item);
+        if (confirm('Are you sure you want to remove this property?')) {
+            this.props.deleteProperty(this.props.item);
+        }
         return false;
     }
     private onUpdateClick(e: any) {
