@@ -7,7 +7,9 @@ import { AppBase } from './../common/AppBase';
 import Utils from './../common/utils';
 import SpPropertyBag from './components/spPropertyBag'
 import { Provider } from 'react-redux';
-import { configureStore } from './store/configureStore'
+//import { configureStore } from './store/configureStore-dev'
+import { configureStore } from './store/configureStore-prod'
+
 
 class App extends AppBase {
     constructor() {
