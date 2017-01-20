@@ -1,4 +1,4 @@
-import { PropertyActionID as actions } from './../constants/enums'
+import { ActionsId as actions, constants } from './../constants/constants'
 import { IProperty, IAction, IInitialState } from '../interfaces/spPropertyBagInterfaces'
 import { MessageBarType } from 'office-ui-fabric-react/lib/MessageBar';
 import { IMessageData } from './../../common/interfaces'
@@ -7,10 +7,10 @@ const initialState: IInitialState = {
     isWorkingOnIt: true,
     userHasPermission: false,
     webProperties: [],
-    filterText: '',
+    filterText: constants.EMPTY_STRING,
     messageData: {
         showMessage: false,
-        message: '',
+        message: constants.EMPTY_STRING,
         type: MessageBarType.info
     }
 }
@@ -24,7 +24,7 @@ export const spPropertyBagReducer = (state: IInitialState = initialState, action
                 isWorkingOnIt: false,
                 messageData: {
                     showMessage: true,
-                    message: 'A new property has been created.',
+                    message: constants.MESSAGE_PROPERTY_CREATED,
                     type: MessageBarType.success
                 }
             });
@@ -35,7 +35,7 @@ export const spPropertyBagReducer = (state: IInitialState = initialState, action
                 isWorkingOnIt: false,
                 messageData: {
                     showMessage: true,
-                    message: 'The selected property has been deleted.',
+                    message: constants.MESSAGE_PROPERTY_DELETED,
                     type: MessageBarType.success
                 }
             });
@@ -53,7 +53,7 @@ export const spPropertyBagReducer = (state: IInitialState = initialState, action
                 isWorkingOnIt: false,
                 messageData: {
                     showMessage: true,
-                    message: 'The selected property has been updated.',
+                    message: constants.MESSAGE_PROPERTY_UPDATED,
                     type: MessageBarType.success
                 }
             });

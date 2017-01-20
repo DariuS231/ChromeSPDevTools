@@ -7,13 +7,13 @@ import { AppBase } from './../common/AppBase';
 import Utils from './../common/utils';
 import SpPropertyBag from './components/spPropertyBag'
 import { Provider } from 'react-redux';
-//import { configureStore } from './store/configureStore-dev'
+import { constants } from './constants/constants'
 import { configureStore } from './store/configureStore-prod'
 
 
 class App extends AppBase {
     constructor() {
-        super('spPropBaseDiv')
+        super(constants.COMPONENT_DIV_ID)
     }
     public show() {
         let that = this;
@@ -21,7 +21,7 @@ class App extends AppBase {
             const store = configureStore({});
             ReactDOM.render(
                 <Provider store={store}>
-                    <SpCustomModalWrapper onCloseClick={that.remove} modalDialogTitle="Web Property bags" modalWidth="700px">
+                    <SpCustomModalWrapper onCloseClick={that.remove} modalDialogTitle={constants.MODAL_DIALOG_TITLE} modalWidth={constants.MODAL_DIALOG_WIDTH}>
                         <SpPropertyBag closeWindowFunction={that.remove} />
                     </SpCustomModalWrapper>
                 </Provider>, document.getElementById(that.baseDivId)

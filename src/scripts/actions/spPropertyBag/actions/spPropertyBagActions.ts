@@ -1,4 +1,4 @@
-import { PropertyActionID as actions } from './../constants/enums'
+import { ActionsId as actions, constants } from './../constants/constants'
 import { IProperty, IAction, ISpPropertyBagActionCreatorsMapObject } from '../interfaces/spPropertyBagInterfaces'
 import { ActionCreator, ActionCreatorsMapObject, Dispatch } from 'redux'
 import { MessageBarType } from 'office-ui-fabric-react/lib/MessageBar';
@@ -73,7 +73,6 @@ const createProperty = (property: IProperty) => {
         return api.createProperty(property).then(
             (property: IProperty) => {
                 dispatch(addProperty(property));
-                //dispatch(getAllProperties());
             }
         );
     };
@@ -85,7 +84,6 @@ const updateProperty = (property: IProperty) => {
         return api.updateProperty(property).then(
             (property: IProperty) => {
                 dispatch(modifyProperty(property));
-                //dispatch(getAllProperties());
             }
         );
     };
@@ -97,7 +95,6 @@ const deleteProperty = (property: IProperty) => {
         return api.deleteProperty(property).then(
             (property: IProperty) => {
                 dispatch(removeProperty(property));
-                //dispatch(getAllProperties());
             }
         );
     };
@@ -113,7 +110,7 @@ const checkUserPermissions = (permissionKing: SP.PermissionKind) => {
                     dispatch(setWorkingOnIt(false));
                     dispatch(setMessageData({
                         showMessage: true,
-                        message: 'The current user does NOT have permissions to work with the web property bags.',
+                        message: constants.MESSAGE_USER_NO_PERMISSIONS,
                         type: MessageBarType.error
                     }));
                 }

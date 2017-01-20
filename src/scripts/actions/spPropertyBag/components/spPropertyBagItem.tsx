@@ -4,7 +4,8 @@ import { Dispatch } from 'redux'
 import { IProperty } from '../interfaces/spPropertyBagInterfaces';
 import propertyActionsCreatorsMap from '../actions/spPropertyBagActions';
 import { IMapStateToPropsState, IMapStateToProps } from '../interfaces/spPropertyBagInterfaces'
-import { SpPropertyBagItemForm } from './spPropertyBagItemForm'
+import { SpPropertyBagItemForm } from './spPropertyBagItemForm';
+import { constants } from './../constants/constants';
 
 interface SpPropertyBagItemActions {
     updateProperty: Function,
@@ -27,7 +28,7 @@ class SpPropertyBagItem extends React.Component<SpPropertyBagItemProps, SpProper
     constructor() {
         super();
         this.state = {
-            itemInputValue: '',
+            itemInputValue: constants.EMPTY_STRING,
             inEditMode: false
         }
         this.onUpdateClick = this.onUpdateClick.bind(this);
@@ -40,7 +41,7 @@ class SpPropertyBagItem extends React.Component<SpPropertyBagItemProps, SpProper
         if (this.state.inEditMode) {
             let inputId: string = this.getInputId();
             let input = document.getElementById(inputId);
-            if (input !== null && typeof input !== "undefined")
+            if (input !== null && typeof input !== constants.UNDEFINED_STRING)
                 input.focus();
         }
     }
@@ -54,7 +55,7 @@ class SpPropertyBagItem extends React.Component<SpPropertyBagItemProps, SpProper
     }
     private onDeleteClick(e: any) {
         e.preventDefault()
-        if (confirm('Are you sure you want to remove this property?')) {
+        if (confirm(constants.CONFIRM_DELETE_PROPERTY)) {
             this.props.deleteProperty(this.props.item);
         }
         return false;
@@ -78,9 +79,9 @@ class SpPropertyBagItem extends React.Component<SpPropertyBagItemProps, SpProper
     }
 
     private getErrorMessage(value: string): string {
-        return (value === '' && this.state.inEditMode)
-            ? 'The value can not be empty'
-            : '';
+        return (value === constants.EMPTY_STRING && this.state.inEditMode)
+            ? constants.EMPTY_TEXTBOX_ERROR_MESSAGE
+            : constants.EMPTY_STRING;
     }
 
     public render() {
