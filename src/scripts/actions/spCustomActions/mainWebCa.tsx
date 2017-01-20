@@ -5,7 +5,7 @@ import * as ReactDOM from "react-dom";
 import SpCustomModalWrapper from './../common/spCustomModalWrapper';
 import { AppBase } from './../common/AppBase';
 import { CustomActionType } from './../common/enums';
-import SpCustomActions from './spCustomActions';
+import SpCustomActions from './components/spCustomActions';
 import Utils from './../common/utils';
 
 class App extends AppBase {

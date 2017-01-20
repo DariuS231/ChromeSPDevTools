@@ -1,11 +1,8 @@
-/// <reference path="../../../../typings/index.d.ts"/>
-/// <reference path="./../common/interfaces.ts"/>
-
 import * as React from 'react';
-import { WorkingOnIt } from './../common/WorkingOnIt';
-import MessageBar from './../common/MessageBar';
-import Utils from './../common/utils';
-import { ViewMode, CustomActionType } from './../common/enums';
+import { WorkingOnIt } from './../../common/WorkingOnIt';
+import MessageBar from './../../common/MessageBar';
+import Utils from './../../common/utils';
+import { ViewMode, CustomActionType } from './../../common/enums';
 import SpCustomActionItem from './customActionItem'
 import { SpCustomActionList } from './spCustomActionList'
 import { MessageBarType } from 'office-ui-fabric-react/lib/MessageBar';
@@ -13,7 +10,7 @@ import { List } from 'office-ui-fabric-react/lib/List';
 import { SearchBox } from 'office-ui-fabric-react/lib/SearchBox';
 import { FocusZone, FocusZoneDirection } from 'office-ui-fabric-react/lib/FocusZone';
 import { Button, ButtonType } from 'office-ui-fabric-react/lib/Button';
-import { ICustomAction } from './../common/interfaces'
+import { ICustomAction } from './../../common/interfaces'
 
 interface SpCustomActionsProps {
     closeWindowFunction: any,
