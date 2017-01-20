@@ -54,30 +54,22 @@
         "actions": {
             "spPropertyBag": {
                 "watchFiles": [
-                    "src/scripts/actions/SpPropertyBag/**/*.tsx",
-                    "src/scripts/actions/common/enums.ts",
-                    "src/scripts/actions/common/interfaces.ts",
-                    "src/scripts/actions/common/keyValueItem.tsx",
-                    "src/scripts/actions/common/messageBar.tsx",
-                    "src/scripts/actions/common/newKeyValueItem.tsx",
-                    "src/scripts/actions/common/spCustomModalWrapper.tsx",
-                    "src/scripts/actions/common/styles.ts",
-                    "src/scripts/actions/common/workingOnIt.tsx"
+                    "src/scripts/actions/SpPropertyBag/**/*.{ts,tsx}",
+                    "src/scripts/actions/common/**/*.{ts,tsx}"
                 ],
                 "entries": [
-                    "src/scripts/actions/SpPropertyBag/main.tsx"
+                    "src/scripts/actions/SpPropertyBag/app.tsx"
                 ],
                 "outputFolder": "dist/actions/SpPropertyBag",
                 "outputFileName": "SpPropertyBag.js"
             },
             "spSiteContent": {
                 "watchFiles": [
-                    "src/scripts/actions/SpSiteContent/**/*.tsx",
-                    "src/scripts/actions/common/spCustomModalWrapper.tsx",
-                    "src/scripts/actions/common/styles.ts"
+                    "src/scripts/actions/SpSiteContent/**/*.{ts,tsx}",
+                    "src/scripts/actions/common//**/*.{ts,tsx}"
                 ],
                 "entries": [
-                    "src/scripts/actions/SpSiteContent/main.tsx"
+                    "src/scripts/actions/SpSiteContent/app.tsx"
                 ],
                 "outputFolder": "dist/actions/SpSiteContent",
                 "outputFileName": "SpSiteContent.js"

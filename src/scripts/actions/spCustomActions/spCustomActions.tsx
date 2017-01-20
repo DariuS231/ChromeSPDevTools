@@ -13,6 +13,7 @@ import { List } from 'office-ui-fabric-react/lib/List';
 import { SearchBox } from 'office-ui-fabric-react/lib/SearchBox';
 import { FocusZone, FocusZoneDirection } from 'office-ui-fabric-react/lib/FocusZone';
 import { Button, ButtonType } from 'office-ui-fabric-react/lib/Button';
+import { ICustomAction } from './../common/interfaces'
 
 interface SpCustomActionsProps {
     closeWindowFunction: any,

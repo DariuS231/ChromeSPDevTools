@@ -1,22 +1,6 @@
-interface IKeyValue {
-    key: string,
-    value: any
-}
-interface ISiteContent {
-    id: any,
-    title: any,
-    description: any,
-    hidden: any,
-    itemCount: any,
-    imageUrl: any,
-    created: any,
-    lastModified: any,
-    listUrl: any,
-    settingsUrl: string,
-    newFormUrl: string,
-    permissionsPageUrl: string
-}
-interface ICustomAction {
+import { MessageBarType } from 'office-ui-fabric-react/lib/MessageBar';
+
+export interface ICustomAction {
     name: any,
     description: any,
     id: any,
@@ -30,11 +14,18 @@ interface ICustomAction {
     [key: string]: string //To allow index references with ICustomAction objects 
 }
 
-interface IFeature {
+export interface IFeature {
     id: any,
     name: any,
     description: any,
     activated: any,
     scope: any,
     logo: any
+}
+
+
+export interface IMessageData {
+    showMessage: boolean,
+    message: string,
+    type: MessageBarType
 }

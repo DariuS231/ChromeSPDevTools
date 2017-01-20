@@ -1,15 +1,19 @@
-import ApiBase from './apiBase'
-import { SpSiteContentConstants as constants } from './../constants/SpSiteContent'
+/// <reference path="../interfaces/spSiteContentInterfaces.ts"/>
+
+import ApiBase from './../../common/apiBase';
+import { SpSiteContentConstants as constants } from './../constants/spSiteContentConstants';
 
 export default class SpSiteContentApi extends ApiBase {
-    public getLists():Promise<Array<ISiteContent>> {
-        return new Promise((resolve,reject) =>{
-            const siteConetent = this.web.get_lists();
-            this.ctx.load(this.web);
-            this.ctx.load(siteConetent, `Include(${constants.selectFields.join(',')})`);
+    public getLists(): Promise<Array<ISiteContent>> {
+        return new Promise((resolve, reject) => {
+            const ctx = SP.ClientContext.get_current();
+            const web = ctx.get_web();
+            const siteConetent = web.get_lists();
+            
+            ctx.load(web);
+            ctx.load(siteConetent, `Include(${constants.selectFields.join(',')})`);
 
             const onSuccess = (sender: any, args: SP.ClientRequestSucceededEventArgs) => {
-
                 const items: Array<ISiteContent> = [], listEnumerator: any = siteConetent.getEnumerator();
 
                 while (listEnumerator.moveNext()) {
@@ -28,7 +32,7 @@ export default class SpSiteContentApi extends ApiBase {
                         listUrl: oList.get_rootFolder().get_serverRelativeUrl(),
                         settingsUrl: paretnUrl + constants.settingsRelativeUrl + listId,
                         newFormUrl: oList.get_defaultNewFormUrl(),
-                        permissionsPageUrl: paretnUrl + constants.permissionsPageUrlOpen + listId + constants.permissionsPageUrlMiddle + listId +constants.permissionsPageUrlClose,
+                        permissionsPageUrl: paretnUrl + constants.permissionsPageUrlOpen + listId + constants.permissionsPageUrlMiddle + listId + constants.permissionsPageUrlClose,
                     }
                     items.push(listItem);
                 }
@@ -37,7 +41,7 @@ export default class SpSiteContentApi extends ApiBase {
                 });
                 resolve(items);
             };
-            this.ctx.executeQueryAsync(onSuccess, this.requestErrorEventHandler);
+            ctx.executeQueryAsync(onSuccess, this.requestErrorEventHandler);
         });
     }
 }
