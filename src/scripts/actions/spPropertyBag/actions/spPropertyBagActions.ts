@@ -1,6 +1,7 @@
 import { PropertyActionID as actions } from './../constants/enums'
 import { IProperty, IAction, ISpPropertyBagActionCreatorsMapObject } from '../interfaces/spPropertyBagInterfaces'
 import { ActionCreator, ActionCreatorsMapObject, Dispatch } from 'redux'
+import { MessageBarType } from 'office-ui-fabric-react/lib/MessageBar';
 import SpPropertyBagApi from '../api/spPropertyBagApi'
 import { IMessageData } from './../../common/interfaces'
 
@@ -71,8 +72,8 @@ const createProperty = (property: IProperty) => {
         dispatch(setWorkingOnIt(true));
         return api.createProperty(property).then(
             (property: IProperty) => {
-               dispatch(addProperty(property));
-               //dispatch(getAllProperties());
+                dispatch(addProperty(property));
+                //dispatch(getAllProperties());
             }
         );
     };
@@ -84,7 +85,7 @@ const updateProperty = (property: IProperty) => {
         return api.updateProperty(property).then(
             (property: IProperty) => {
                 dispatch(modifyProperty(property));
-               //dispatch(getAllProperties());
+                //dispatch(getAllProperties());
             }
         );
     };
@@ -96,7 +97,26 @@ const deleteProperty = (property: IProperty) => {
         return api.deleteProperty(property).then(
             (property: IProperty) => {
                 dispatch(removeProperty(property));
-               //dispatch(getAllProperties());
+                //dispatch(getAllProperties());
+            }
+        );
+    };
+}
+const checkUserPermissions = (permissionKing: SP.PermissionKind) => {
+    return function (dispatch: Dispatch<IAction<IProperty>>) {
+        return api.checkUserPermissions(permissionKing).then(
+            (hasPermissions: boolean) => {
+                if (hasPermissions) {
+                    dispatch(setUserHasPermissions(true));
+                    dispatch(getAllProperties());
+                } else {
+                    dispatch(setWorkingOnIt(false));
+                    dispatch(setMessageData({
+                        showMessage: true,
+                        message: 'The current user does NOT have permissions to work with the web property bags.',
+                        type: MessageBarType.error
+                    }));
+                }
             }
         );
     };
@@ -107,6 +127,7 @@ const spPropertyBagActionsCreatorMap: ISpPropertyBagActionCreatorsMapObject = {
     updateProperty,
     deleteProperty,
     getAllProperties,
+    checkUserPermissions,
     setFilterText,
     setWorkingOnIt,
     setUserHasPermissions,

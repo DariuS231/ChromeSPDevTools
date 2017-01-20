@@ -25,6 +25,7 @@ export interface ISpPropertyBagActionCreatorsMapObject extends ActionCreatorsMap
     updateProperty: (property: IProperty) => (dispatch: Dispatch<IAction<IProperty>>) => Promise<void>,
     deleteProperty: (property: IProperty) => (dispatch: Dispatch<IAction<IProperty>>) => Promise<void>,
     getAllProperties: () => (dispatch: Dispatch<IAction<Array<IProperty>>>) => Promise<void>,
+    checkUserPermissions: (permissionKing: SP.PermissionKind) => (dispatch: Dispatch<IAction<Array<IProperty>>>) => Promise<void>,
     setFilterText: ActionCreator<IAction<string>>,
     setWorkingOnIt: ActionCreator<IAction<boolean>>,
     setUserHasPermissions: ActionCreator<IAction<boolean>>,

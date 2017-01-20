@@ -23,14 +23,14 @@ interface IMapDispatchToSpPropertyBagProps {
     actions: ISpPropertyBagActionCreatorsMapObject
 }
 class SpPropertyBag extends React.Component<SpPropertyBagProps, {}> {
-    constructor(){
+    constructor() {
         super();
         this.onMessageClose = this.onMessageClose.bind(this);
     }
     private componentDidMount() {
-        this.props.actions.getAllProperties();
+        this.props.actions.checkUserPermissions(SP.PermissionKind.manageWeb);
     }
-    private onMessageClose(){
+    private onMessageClose() {
         this.props.actions.setMessageData({
             showMessage: false,
             message: '',
@@ -41,12 +41,13 @@ class SpPropertyBag extends React.Component<SpPropertyBagProps, {}> {
         if (this.props.isWorkingOnIt) {
             return <WorkingOnIt />;
         } else {
-            return (<div className="action-container sp-peropertyBags">
+            const hasPermissions: boolean = this.props.currentUserHasPermissions;
+            return <div className="action-container sp-peropertyBags">
                 <MessageBar onCloseMessageClick={this.onMessageClose} message={this.props.messageData.message} messageType={this.props.messageData.type} showMessage={this.props.messageData.showMessage} />
-                <SpPropertyBagFilter filterStr={this.props.filterText} setFilterText={this.props.actions.setFilterText} />
-                <SpPropertyBagList items={this.props.webProperties} filterString={this.props.filterText} />
-                <SpPropertyBagNewItem addProperty={this.props.actions.createProperty} />
-            </div>);
+                {hasPermissions && <SpPropertyBagFilter filterStr={this.props.filterText} setFilterText={this.props.actions.setFilterText} />}
+                {hasPermissions && <SpPropertyBagList items={this.props.webProperties} filterString={this.props.filterText} />}
+                {hasPermissions && <SpPropertyBagNewItem addProperty={this.props.actions.createProperty} />}
+            </div>;
         }
     }
 }
