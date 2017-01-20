@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Button, ButtonType } from 'office-ui-fabric-react/lib/Button';
 import { TextField } from 'office-ui-fabric-react/lib/TextField';
+import { constants } from './../constants/constants';
 
 interface SpPropertyBagItemFormProps {
     inputId: string,
@@ -14,8 +15,8 @@ interface SpPropertyBagItemFormProps {
 }
 
 export const SpPropertyBagItemForm: React.StatelessComponent<SpPropertyBagItemFormProps> = (props: SpPropertyBagItemFormProps) => {
-    const topBtnText: string = props.isEditMode ? 'Save' : 'Delete';
-    const bottomBtnText: string = props.isEditMode ? 'Cancel' : 'Edit';
+    const topBtnText: string = props.isEditMode ? constants.SAVE_TEXT : constants.DELETE_TEXT;
+    const bottomBtnText: string = props.isEditMode ? constants.CANCEL_TEXT : constants.EDIT_TEXT;
 
     return (<div className='ms-ListBasicExample-itemCell  ms-Grid-row' data-is-focusable={true}>
         <div className='ms-ListBasicExample-itemContent ms-Grid-col ms-u-sm11 ms-u-md11 ms-u-lg11'>

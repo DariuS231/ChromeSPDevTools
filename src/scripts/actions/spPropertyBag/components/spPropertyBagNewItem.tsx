@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { SpPropertyBagNewItemForm } from './spPropertyBagNewItemForm';
 import { IProperty } from '../interfaces/spPropertyBagInterfaces';
+import { constants } from './../constants/constants';
 
 interface SpPropertyBagNewItemProps {
     addProperty: Function
@@ -11,8 +12,8 @@ interface SpPropertyBagNewItemState {
 
 export default class SpPropertyBagNewItem extends React.Component<SpPropertyBagNewItemProps, SpPropertyBagNewItemState> {
     cleanProperty: IProperty = {
-        key: '',
-        value: ''
+        key: constants.EMPTY_STRING,
+        value: constants.EMPTY_STRING
     };
     constructor() {
         super()

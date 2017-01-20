@@ -1,13 +1,14 @@
 import ApiBase from './../../common/apiBase';
 import { IProperty } from '../interfaces/spPropertyBagInterfaces'
+import { constants } from './../constants/constants'
 
 export default class SpPropertyBagApi extends ApiBase {
     public decodeSpCharacters(strToDecode: string): string {
-        strToDecode = strToDecode.replace('OData_','');
-        var matchesArray = strToDecode.match(/_x00([0-9A-F]{2})_/gi);
+        strToDecode = strToDecode.replace(constants.PROPERTY_REST_PREFIX, constants.EMPTY_STRING);
+        var matchesArray = strToDecode.match(constants.PROPERTY_REST_DECODE_REGEX);
         if (!!matchesArray) {
             matchesArray.forEach(function (str) {
-                var decoded = decodeURIComponent(str.replace(/_/gi, '').replace(/x00/gi, '%'));
+                var decoded = decodeURIComponent(str.replace(constants.PROPERTY_REST_UNDERSCORE_REGEX, constants.EMPTY_STRING).replace(constants.PROPERTY_REST_UNDERSCORE_PREFIX_REGEX, constants.PERCET_STRING));
                 strToDecode = strToDecode.replace(str, decoded);
             });
         }
@@ -15,15 +16,15 @@ export default class SpPropertyBagApi extends ApiBase {
     }
     public getProperties(): Promise<Array<IProperty>> {
         return new Promise((resolve, reject) => {
-            this.getRequest(`${_spPageContextInfo.webAbsoluteUrl}/_api/web/allProperties`).then((response:any) =>{
+            this.getRequest(`${_spPageContextInfo.webAbsoluteUrl}${constants.PROPERTY_REST_REQUEST_URL}`).then((response:any) =>{
                 let props: Array<IProperty> = [];
                 let rawData = response.data;
                 for (let prop in rawData) {
                     let propVal: any = rawData[prop];
-                    if (typeof (propVal) === "string") {
+                    if (typeof (propVal) === constants.STRING_STRING) {
                         props.push({
                             key: this.decodeSpCharacters(prop),
-                            value: propVal.replace(/"/g, '&quot;')
+                            value: propVal.replace(constants.PROPERTY_REST_DOUBLEQUOTES_REGEX, constants.PROPERTY_REST_DOUBLEQUOTES)
                         });
                     }
                 }

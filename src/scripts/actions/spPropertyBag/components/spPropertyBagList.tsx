@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { List } from 'office-ui-fabric-react/lib/List';
 import SpPropertyBagItem from './SpPropertyBagItem';
-import { IProperty } from '../interfaces/spPropertyBagInterfaces'
+import { IProperty } from '../interfaces/spPropertyBagInterfaces';
+import { constants } from './../constants/constants';
 
 interface SpPropertyBagListProps {
     items: IProperty[],
@@ -10,7 +11,7 @@ interface SpPropertyBagListProps {
 export const SpPropertyBagList: React.StatelessComponent<SpPropertyBagListProps> = (props: SpPropertyBagListProps) => {
 
     const filter: string = props.filterString.toLowerCase();
-    const properties: Array<IProperty> = filter !== '' ? props.items.filter((prop: IProperty, index: number) => {
+    const properties: Array<IProperty> = filter !== constants.EMPTY_STRING ? props.items.filter((prop: IProperty, index: number) => {
         return prop.key.toLowerCase().indexOf(filter) >= 0 || prop.value.toLowerCase().indexOf(filter) >= 0;
     }) : props.items;
 
