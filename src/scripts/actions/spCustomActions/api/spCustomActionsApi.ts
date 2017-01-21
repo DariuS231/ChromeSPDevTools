@@ -1,34 +1,35 @@
 import ApiBase from './../../common/apiBase';
 import { ICustomAction } from '../interfaces/spCustomActionsInterfaces'
-import { constants } from './../constants/constants'
+import { constants } from './../constants/constants';
+import { CustomActionType } from './../constants/enums';
 
 export default class SpCustomActionsApi extends ApiBase {
-    public decodeSpCharacters(strToDecode: string): string {
-        strToDecode = strToDecode.replace(constants.CUSTOM_ACTION_REST_PREFIX, constants.EMPTY_STRING);
-        var matchesArray = strToDecode.match(constants.CUSTOM_ACTION_REST_DECODE_REGEX);
-        if (!!matchesArray) {
-            matchesArray.forEach(function (str) {
-                var decoded = decodeURIComponent(str.replace(constants.CUSTOM_ACTION_REST_UNDERSCORE_REGEX, constants.EMPTY_STRING).replace(constants.CUSTOM_ACTION_REST_UNDERSCORE_PREFIX_REGEX, constants.PERCET_STRING));
-                strToDecode = strToDecode.replace(str, decoded);
-            });
-        }
-        return strToDecode;
-    }
-    public getCustomActions(): Promise<Array<ICustomAction>> {
-        return new Promise((resolve, reject) => {
-            this.getRequest(`${_spPageContextInfo.webAbsoluteUrl}${constants.CUSTOM_ACTION_REST_REQUEST_URL}`).then((response:any) =>{
-                let props: Array<ICustomAction> = [];
-                let rawData = response.data;
-                for (let prop in rawData) {
-                    let propVal: any = rawData[prop];
-                    if (typeof (propVal) === constants.STRING_STRING) {
-                        // props.push({
-                        //     key: this.decodeSpCharacters(prop),
-                        //     value: propVal.replace(constants.CUSTOM_ACTION_REST_DOUBLEQUOTES_REGEX, constants.CUSTOM_ACTION_REST_DOUBLEQUOTES)
-                        // });
-                    }
+
+    public getCustomActions(caType: CustomActionType): Promise<Array<ICustomAction>> {
+        return new Promise((resolve, reject) => {debugger;
+            const reqUrl = `${_spPageContextInfo.webAbsoluteUrl}/_api/${caType === CustomActionType.Site 
+                ? 'site' : 'web'}${constants.CUSTOM_ACTION_REST_REQUEST_URL}`;
+            this.getRequest(reqUrl).then((response:any) =>{
+                let cusctomActions: Array<ICustomAction> = [];
+                let caArray = response.data.value;
+                const caArrayLength = caArray.length;
+                for (let i= 0; i < caArrayLength; i++) {
+                    let ca: any = caArray[i];
+                    cusctomActions.push({
+                        id: ca.Id,
+                        name: ca.Name,
+                        description: ca.Description,
+                        title: ca.Title,
+                        registrationType: ca.RegistrationType,
+                        scriptSrc: ca.ScriptSrc,
+                        scriptBlock: ca.ScriptBlock,
+                        location: ca.Location,
+                        locationInternal: ca.Location,
+                        sequence: ca.Sequence
+                    })
+                    debugger;
                 }
-                resolve(props);
+                resolve(cusctomActions);
             }).catch((error:any) =>{
                 reject(error);
             });
@@ -52,10 +53,6 @@ export default class SpCustomActionsApi extends ApiBase {
             this.reject = reject;
             const ctx = SP.ClientContext.get_current();
             const web = ctx.get_web();
-            //const allCustomActions = web.get_allCustomActions();
-
-            //allCustomActions.set_item(property.key, property.value);
-
             web.update();
 
             ctx.executeQueryAsync((sender: any, err: any) => {

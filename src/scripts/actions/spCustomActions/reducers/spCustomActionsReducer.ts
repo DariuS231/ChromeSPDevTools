@@ -2,6 +2,8 @@ import { ActionsId as actions, constants } from './../constants/constants'
 import { ICustomAction, IAction, IInitialState } from '../interfaces/spCustomActionsInterfaces'
 import { MessageBarType } from 'office-ui-fabric-react/lib/MessageBar';
 import { IMessageData } from './../../common/interfaces'
+import { ViewMode } from './../../common/enums';
+import { CustomActionType } from './../constants/enums';
 
 const initialState: IInitialState = {
     isWorkingOnIt: true,
@@ -12,7 +14,9 @@ const initialState: IInitialState = {
         showMessage: false,
         message: constants.EMPTY_STRING,
         type: MessageBarType.info
-    }
+    },
+    mode:ViewMode.View,
+    customActionType:CustomActionType.Web
 }
 
 export const spCustomActionsReducer = (state: IInitialState = initialState, action: IAction<any>): IInitialState => {

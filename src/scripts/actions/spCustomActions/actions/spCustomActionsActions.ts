@@ -4,6 +4,7 @@ import { ActionCreator, ActionCreatorsMapObject, Dispatch } from 'redux'
 import { MessageBarType } from 'office-ui-fabric-react/lib/MessageBar';
 import SpCustomActionsApi from '../api/spCustomActionsApi'
 import { IMessageData } from './../../common/interfaces'
+import { CustomActionType } from './../constants/enums';
 
 
 const api = new SpCustomActionsApi();
@@ -57,9 +58,9 @@ const setMessageData: ActionCreator<IAction<IMessageData>> = (messageData: IMess
     }
 }
 
-const getAllCustomActions = () => {
+const getAllCustomActions = (caType: CustomActionType) => {
     return function (dispatch: Dispatch<IAction<Array<ICustomAction>>>) {
-        return api.getCustomActions().then(
+        return api.getCustomActions(caType).then(
             (properties: Array<ICustomAction>) => {
                 dispatch(setAllProperties(properties));
             }
@@ -99,13 +100,13 @@ const deleteCustomAction = (customAction: ICustomAction) => {
         );
     };
 }
-const checkUserPermissions = (permissionKing: SP.PermissionKind) => {
+const checkUserPermissions = (permissionKing: SP.PermissionKind,caType: CustomActionType) => {
     return function (dispatch: Dispatch<IAction<ICustomAction>>) {
         return api.checkUserPermissions(permissionKing).then(
             (hasPermissions: boolean) => {
                 if (hasPermissions) {
                     dispatch(setUserHasPermissions(true));
-                    dispatch(getAllCustomActions());
+                    dispatch(getAllCustomActions(caType));
                 } else {
                     dispatch(setWorkingOnIt(false));
                     dispatch(setMessageData({
