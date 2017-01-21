@@ -1,6 +1,7 @@
 
 import * as React from 'react';
-import { ViewMode, CustomActionType } from './../../common/enums';
+import { CustomActionType } from './../constants/enums';
+import { ViewMode } from './../../common/enums';
 import Utils from './../../common/utils';
 import { MessageBarType } from 'office-ui-fabric-react/lib/MessageBar';
 import { TextField } from 'office-ui-fabric-react/lib/TextField';

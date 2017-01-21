@@ -4,7 +4,7 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import SpCustomModalWrapper from './../common/spCustomModalWrapper';
 import { AppBase } from './../common/AppBase';
-import { CustomActionType } from './../common/enums';
+import { CustomActionType } from './constants/enums';
 import Utils from './../common/utils';
 import SpCustomActions from './components/spCustomActions'
 import { Provider } from 'react-redux';

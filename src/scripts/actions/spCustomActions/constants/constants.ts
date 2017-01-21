@@ -35,7 +35,7 @@ export const constants  = {
     MESSAGE_CUSTOM_ACTION_CREATED:'A new property has been created.',
     MESSAGE_CUSTOM_ACTION_DELETED:'The selected property has been deleted.',
     MESSAGE_CUSTOM_ACTION_UPDATED:'The selected property has been updated.',
-    CUSTOM_ACTION_REST_REQUEST_URL: '/_api/web/allProperties',
+    CUSTOM_ACTION_REST_REQUEST_URL: '/usercustomactions',
     CUSTOM_ACTION_REST_PREFIX: 'OData_',
     CUSTOM_ACTION_REST_DECODE_REGEX:/_x00([0-9A-F]{2})_/gi,
     CUSTOM_ACTION_REST_UNDERSCORE_REGEX:/_/gi,

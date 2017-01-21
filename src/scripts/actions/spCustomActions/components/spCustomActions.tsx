@@ -2,7 +2,8 @@ import * as React from 'react';
 import { WorkingOnIt } from './../../common/WorkingOnIt';
 import MessageBar from './../../common/MessageBar';
 import Utils from './../../common/utils';
-import { ViewMode, CustomActionType } from './../../common/enums';
+import { ViewMode } from './../../common/enums';
+import { CustomActionType } from './../constants/enums';
 import SpCustomActionItem from './customActionItem'
 import { SpCustomActionList } from './spCustomActionList'
 import { MessageBarType } from 'office-ui-fabric-react/lib/MessageBar';
