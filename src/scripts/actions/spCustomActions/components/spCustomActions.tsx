@@ -6,12 +6,11 @@ import MessageBar from './../../common/MessageBar';
 import Utils from './../../common/utils';
 import { ViewMode } from './../../common/enums';
 import { CustomActionType } from './../constants/enums';
-import SpCustomActionItem from './customActionItem'
-import { SpCustomActionList } from './spCustomActionList'
+import SpCustomActionItem from './spCustomActionsItem'
+import { SpCustomActionList } from './spCustomActionsList'
+import SpCustomActionsFilter from './spCustomActionsFilter'
 import { MessageBarType } from 'office-ui-fabric-react/lib/MessageBar';
 import { List } from 'office-ui-fabric-react/lib/List';
-import { SearchBox } from 'office-ui-fabric-react/lib/SearchBox';
-import { FocusZone, FocusZoneDirection } from 'office-ui-fabric-react/lib/FocusZone';
 import { Button, ButtonType } from 'office-ui-fabric-react/lib/Button';
 import { ICustomAction } from './../../common/interfaces'
 import propertyActionsCreatorsMap from '../actions/SpCustomActionsActions';
@@ -73,20 +72,8 @@ class SpCustomActions extends React.Component<SpCustomActionsProps, {}> {
                     : this.props.customActions;
                 return (
                     <div className="action-container sp-customActions">
-
-                        <MessageBar
-                            message={this.props.messageData.message}
-                            messageType={this.props.messageData.type}
-                            showMessage={this.props.messageData.showMessage} />
-
-                        <div className="ms-Grid filters-container">
-                            <div className="ms-Grid-row">
-                                <div className="ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6">
-                                    <SearchBox onChange={this.onFilterChange} />
-                                </div>
-                                <div className="ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6"> </div>
-                            </div>
-                        </div>
+                        <MessageBar message={this.props.messageData.message} messageType={this.props.messageData.type} showMessage={this.props.messageData.showMessage} />
+                        <SpCustomActionsFilter setFilterText={this.props.actions.setFilterText} filterStr={this.props.filterText} />
                         <SpCustomActionList
                             customActions={list}
                             workingOnIt={this.workingOnIt.bind(this)}

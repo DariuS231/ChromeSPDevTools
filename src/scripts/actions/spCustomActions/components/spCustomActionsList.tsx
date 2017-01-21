@@ -1,5 +1,5 @@
 import * as React from 'react';
-import SpCustomActionItem from './customActionItem'
+import SpCustomActionItem from './spCustomActionsItem'
 import { CustomActionType } from './../constants/enums';
 import { MessageBarType } from 'office-ui-fabric-react/lib/MessageBar';
 import { List } from 'office-ui-fabric-react/lib/List';

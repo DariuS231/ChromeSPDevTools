@@ -6,14 +6,13 @@ import { CustomActionType } from './../constants/enums';
 export default class SpCustomActionsApi extends ApiBase {
 
     public getCustomActions(caType: CustomActionType): Promise<Array<ICustomAction>> {
-        return new Promise((resolve, reject) => {debugger;
-            const reqUrl = `${_spPageContextInfo.webAbsoluteUrl}/_api/${caType === CustomActionType.Site 
-                ? 'site' : 'web'}${constants.CUSTOM_ACTION_REST_REQUEST_URL}`;
-            this.getRequest(reqUrl).then((response:any) =>{
+        return new Promise((resolve, reject) => {
+            const reqUrl = `${_spPageContextInfo.webAbsoluteUrl}/_api/${CustomActionType[caType]}${constants.CUSTOM_ACTION_REST_REQUEST_URL}`;
+            this.getRequest(reqUrl).then((response: any) => {
                 let cusctomActions: Array<ICustomAction> = [];
                 let caArray = response.data.value;
                 const caArrayLength = caArray.length;
-                for (let i= 0; i < caArrayLength; i++) {
+                for (let i = 0; i < caArrayLength; i++) {
                     let ca: any = caArray[i];
                     cusctomActions.push({
                         id: ca.Id,
@@ -27,10 +26,9 @@ export default class SpCustomActionsApi extends ApiBase {
                         locationInternal: ca.Location,
                         sequence: ca.Sequence
                     })
-                    debugger;
                 }
                 resolve(cusctomActions);
-            }).catch((error:any) =>{
+            }).catch((error: any) => {
                 reject(error);
             });
         });
