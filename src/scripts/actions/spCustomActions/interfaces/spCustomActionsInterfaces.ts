@@ -34,9 +34,9 @@ export interface IInitialState {
 }
 
 export interface ISpCustomActionsActionCreatorsMapObject extends ActionCreatorsMapObject {
-    createCustomAction: (customAction: ICustomAction) => (dispatch: Dispatch<IAction<ICustomAction>>) => Promise<void>,
-    updateCustomAction: (customAction: ICustomAction) => (dispatch: Dispatch<IAction<ICustomAction>>) => Promise<void>,
-    deleteCustomAction: (customAction: ICustomAction) => (dispatch: Dispatch<IAction<ICustomAction>>) => Promise<void>,
+    createCustomAction: (customAction: ICustomAction, caType: CustomActionType) => (dispatch: Dispatch<IAction<ICustomAction>>) => Promise<void>,
+    updateCustomAction: (customAction: ICustomAction, caType: CustomActionType) => (dispatch: Dispatch<IAction<ICustomAction>>) => Promise<void>,
+    deleteCustomAction: (customAction: ICustomAction, caType: CustomActionType) => (dispatch: Dispatch<IAction<ICustomAction>>) => Promise<void>,
     getAllCustomActions: (caType: CustomActionType) => (dispatch: Dispatch<IAction<Array<ICustomAction>>>) => Promise<void>,
     checkUserPermissions: (permissionKing: SP.PermissionKind, caType: CustomActionType) => (dispatch: Dispatch<IAction<Array<ICustomAction>>>) => Promise<void>,
     setFilterText: ActionCreator<IAction<string>>,

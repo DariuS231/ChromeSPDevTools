@@ -68,10 +68,10 @@ const getAllCustomActions = (caType: CustomActionType) => {
     };
 }
 
-const createCustomAction = (customAction: ICustomAction) => {
+const createCustomAction = (customAction: ICustomAction, caType: CustomActionType) => {
     return function (dispatch: Dispatch<IAction<ICustomAction>>) {
         dispatch(setWorkingOnIt(true));
-        return api.createCustomAction(customAction).then(
+        return api.createCustomAction(customAction, caType).then(
             (customAction: ICustomAction) => {
                 dispatch(addCustomAction(customAction));
             }
@@ -79,10 +79,10 @@ const createCustomAction = (customAction: ICustomAction) => {
     };
 }
 
-const updateCustomAction = (customAction: ICustomAction) => {
+const updateCustomAction = (customAction: ICustomAction, caType: CustomActionType) => {
     return function (dispatch: Dispatch<IAction<ICustomAction>>) {
         dispatch(setWorkingOnIt(true));
-        return api.updateCustomAction(customAction).then(
+        return api.updateCustomAction(customAction, caType).then(
             (customAction: ICustomAction) => {
                 dispatch(modifyCustomAction(customAction));
             }
@@ -90,10 +90,10 @@ const updateCustomAction = (customAction: ICustomAction) => {
     };
 }
 
-const deleteCustomAction = (customAction: ICustomAction) => {
+const deleteCustomAction = (customAction: ICustomAction, caType: CustomActionType) => {
     return function (dispatch: Dispatch<IAction<ICustomAction>>) {
         dispatch(setWorkingOnIt(true));
-        return api.deleteCustomAction(customAction).then(
+        return api.deleteCustomAction(customAction, caType).then(
             (customAction: ICustomAction) => {
                 dispatch(removeCustomAction(customAction));
             }
