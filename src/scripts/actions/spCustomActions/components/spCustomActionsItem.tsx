@@ -12,9 +12,6 @@ import { ICustomAction } from './../../common/interfaces'
 
 interface CustomActionItemProps {
     item?: ICustomAction,
-    workingOnIt: any,
-    showMessage: any,
-    reloadCActions: any,
     caType:CustomActionType
 }
 interface CustomActionItemState {
@@ -35,8 +32,8 @@ export default class CustomActionItem extends React.Component<CustomActionItemPr
     private changeMode(e: any) {
         e.preventDefault();
         if (this.state.mode === ViewMode.New) {
-            this.props.workingOnIt(true);
-            this.props.reloadCActions('', MessageBarType.info);
+            // this.props.workingOnIt(true);
+            // this.props.reloadCActions('', MessageBarType.info);
         } else {
             this.setState({
                 mode: (this.state.mode === ViewMode.View ? ViewMode.Edit : ViewMode.View),
@@ -48,7 +45,7 @@ export default class CustomActionItem extends React.Component<CustomActionItemPr
 
     private onSaveBtnClick(e: any) {
 
-        this.props.workingOnIt(true);
+        //this.props.workingOnIt(true);
         if (this.state.mode === ViewMode.Edit) {
             this.saveCustomAction();
         } else {
@@ -61,26 +58,7 @@ export default class CustomActionItem extends React.Component<CustomActionItemPr
     private deleteCustomAction(e: any) {
         e.preventDefault();
         if (confirm("Are you sure you want to remove this Custom Action?")) {
-            this.props.workingOnIt(true);
-            let caGuid: SP.Guid = new SP.Guid(this.props.item.id.toString());
-            let ctx: SP.ClientContext = SP.ClientContext.get_current();
-            let site: SP.Site = ctx.get_site();
-            let web: SP.Web = ctx.get_web();
-            let ca: SP.UserCustomAction = (this.props.caType === CustomActionType.Web) 
-            ? web.get_userCustomActions().getById(caGuid)
-            : site.get_userCustomActions().getById(caGuid);
-
-            ca.deleteObject();
-            ctx.load(ca);
-            let onSuccess = (sender: any, err: any) => {
-                this.props.reloadCActions('The Custom action has been successfully deleted.', MessageBarType.success);
-            };
-            let onError = (a: any, b: any) => {
-                console.log(b.get_message());
-                this.props.showMessage(MessageBarType.error, 'An error ocurred while deleting the Custom Action.');
-            };
-
-            ctx.executeQueryAsync(onSuccess, onError);
+          
         }
         return false;
     }
@@ -116,66 +94,12 @@ export default class CustomActionItem extends React.Component<CustomActionItemPr
         }
     }
     private saveCustomAction() {
-        let caGuid: SP.Guid = new SP.Guid(this.props.item.id.toString());
-        let ctx: SP.ClientContext = SP.ClientContext.get_current();
-        let site: SP.Site = ctx.get_site();
-        let web: SP.Web = ctx.get_web();
-        let ca: SP.UserCustomAction = (this.props.caType === CustomActionType.Web) 
-        ? web.get_userCustomActions().getById(caGuid)
-        : site.get_userCustomActions().getById(caGuid);
-
-        ca = this.setCustomActionData(ca);
-        ca.update();
-        web.update();
-
-        ctx.load(ca);
-        let onSuccess = (sender: any, err: any) => {
-            //this.props.changeModefunction();
-            this.props.reloadCActions('The Custom action has been successfully updated.', MessageBarType.success);
-        };
-        let onError = (a: any, b: any) => {
-            console.log(b.get_message());
-            this.props.showMessage(MessageBarType.error, 'An error occured while created a new Custom Action.');
-        };
-        ctx.executeQueryAsync(onSuccess, onError);
+        
     }
     private createCustomAction(): void {
-        let ctx: SP.ClientContext = SP.ClientContext.get_current();
-        let site: SP.Site = ctx.get_site();
-        let web: SP.Web = ctx.get_web();
-        let ca: SP.UserCustomAction = (this.props.caType === CustomActionType.Web) 
-        ? web.get_userCustomActions().add()
-        : site.get_userCustomActions().add();
-
-        ca = this.setCustomActionData(ca);
-        ca.update();
-        web.update();
-        let onSuccess = (sender: any, err: any) => {
-            //this.props.changeModefunction();
-            this.props.reloadCActions('The Custom action has been successfully created.', MessageBarType.success);
-        };
-        let onError = (a: any, b: any) => {
-            console.log(b.get_message());
-            this.props.showMessage(MessageBarType.error, 'An error occured while created a new Custom Action.');
-        };
-        ctx.executeQueryAsync(onSuccess, onError);
+       
     }
-    private setCustomActionData(ca: SP.UserCustomAction): SP.UserCustomAction {
-        ca.set_title(this.state.item.title);
-        ca.set_name(this.state.item.name);
-        ca.set_description(this.state.item.description);
-        ca.set_sequence(this.state.item.sequence);
-        ca.set_location('ScriptLink');
-        if (this.state.item.locationInternal === 'ScriptLink') {
-            ca.set_scriptSrc(this.state.item.scriptSrc);
-            ca.set_scriptBlock('');
-        } else {
-            ca.set_scriptSrc('');
-            ca.set_scriptBlock(this.state.item.scriptBlock);
-        }
-
-        return ca;
-    }
+    
     private scriptInput(isViewMode: boolean, internalLocation: string) {
         if (internalLocation === 'ScriptBlock') {
             return <TextField
