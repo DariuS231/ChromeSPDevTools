@@ -1,6 +1,6 @@
 
 import { ActionCreator, ActionCreatorsMapObject, Dispatch } from 'redux'
-import { IMessageData } from './../../common/interfaces'
+import { IMessageData, IAction } from './../../common/interfaces'
 import { ViewMode } from './../../common/enums';
 import { CustomActionType } from './../constants/enums';
 
@@ -16,11 +16,6 @@ export interface ICustomAction {
     locationInternal: string,
     sequence: number,
     [key: string]: any //To allow index references with ICustomAction objects 
-}
-
-export interface IAction<T> {
-    readonly type: string
-    readonly payload: T
 }
 
 export interface IInitialState {

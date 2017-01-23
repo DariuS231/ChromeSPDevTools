@@ -1,9 +1,9 @@
 import { ActionsId as actions, constants } from './../constants/constants'
-import { ICustomAction, IAction, ISpCustomActionsActionCreatorsMapObject } from '../interfaces/spCustomActionsInterfaces'
+import { ICustomAction, ISpCustomActionsActionCreatorsMapObject } from '../interfaces/spCustomActionsInterfaces'
 import { ActionCreator, ActionCreatorsMapObject, Dispatch } from 'redux'
 import { MessageBarType } from 'office-ui-fabric-react/lib/MessageBar';
 import SpCustomActionsApi from '../api/spCustomActionsApi'
-import { IMessageData } from './../../common/interfaces'
+import { IMessageData, IAction } from './../../common/interfaces'
 import { CustomActionType } from './../constants/enums';
 
 

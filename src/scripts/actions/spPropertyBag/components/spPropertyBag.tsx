@@ -6,10 +6,10 @@ import * as React from 'react';
 import { connect } from 'react-redux'
 import { bindActionCreators, Dispatch } from 'redux'
 import SpPropertyBagNewItem from './SpPropertyBagNewItem';
-import SpPropertyBagFilter from './spPropertyBagFilter';
+import FilterTextBox from './../../common/components/filterTextBox';
 import { SpPropertyBagList } from './spPropertyBagList';
-import { WorkingOnIt } from './../../common/WorkingOnIt';
-import MessageBar from './../../common/MessageBar';
+import { WorkingOnIt } from './../../common/components/WorkingOnIt';
+import MessageBar from './../../common/components/MessageBar';
 import { MessageBarType } from 'office-ui-fabric-react/lib/MessageBar';
 import propertyActionsCreatorsMap from '../actions/spPropertyBagActions';
 import {
@@ -44,7 +44,7 @@ class SpPropertyBag extends React.Component<SpPropertyBagProps, {}> {
             const hasPermissions: boolean = this.props.currentUserHasPermissions;
             return <div className="action-container sp-peropertyBags">
                 <MessageBar onCloseMessageClick={this.onMessageClose} message={this.props.messageData.message} messageType={this.props.messageData.type} showMessage={this.props.messageData.showMessage} />
-                {hasPermissions && <SpPropertyBagFilter filterStr={this.props.filterText} setFilterText={this.props.actions.setFilterText} />}
+                {hasPermissions && <FilterTextBox filterStr={this.props.filterText} setFilterText={this.props.actions.setFilterText} />}
                 {hasPermissions && <SpPropertyBagList items={this.props.webProperties} filterString={this.props.filterText} />}
                 {hasPermissions && <SpPropertyBagNewItem addProperty={this.props.actions.createProperty} />}
             </div>;

@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import SpCustomModalWrapper from './../common/spCustomModalWrapper';
+import SpCustomModalWrapper from './../common/components/spCustomModalWrapper';
 import { AppBase } from './../common/AppBase';
 import { CustomActionType } from './constants/enums';
 import SpCustomActions from './components/spCustomActions';

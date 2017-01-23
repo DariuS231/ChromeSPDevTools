@@ -29,3 +29,8 @@ export interface IMessageData {
     message: string,
     type: MessageBarType
 }
+
+export interface IAction<T> {
+    readonly type: string
+    readonly payload: T
+}

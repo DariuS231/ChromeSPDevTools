@@ -1,14 +1,14 @@
 import * as React from 'react';
 import { connect } from 'react-redux'
 import { bindActionCreators, Dispatch } from 'redux'
-import { WorkingOnIt } from './../../common/WorkingOnIt';
-import MessageBar from './../../common/MessageBar';
+import { WorkingOnIt } from './../../common/components/WorkingOnIt';
+import MessageBar from './../../common/components/MessageBar';
 import Utils from './../../common/utils';
 import { ViewMode } from './../../common/enums';
 import { CustomActionType } from './../constants/enums';
 import SpCustomActionItem from './spCustomActionsItem'
 import { SpCustomActionList } from './spCustomActionsList'
-import SpCustomActionsFilter from './spCustomActionsFilter'
+import FilterTextBox from './../../common/components/filterTextBox';
 import { MessageBarType } from 'office-ui-fabric-react/lib/MessageBar';
 import { List } from 'office-ui-fabric-react/lib/List';
 import { Button, ButtonType } from 'office-ui-fabric-react/lib/Button';
@@ -73,7 +73,7 @@ class SpCustomActions extends React.Component<SpCustomActionsProps, {}> {
                 return (
                     <div className="action-container sp-customActions">
                         <MessageBar message={this.props.messageData.message} messageType={this.props.messageData.type} showMessage={this.props.messageData.showMessage} />
-                        <SpCustomActionsFilter setFilterText={this.props.actions.setFilterText} filterStr={this.props.filterText} />
+                        <FilterTextBox setFilterText={this.props.actions.setFilterText} filterStr={this.props.filterText} />
                         <SpCustomActionList
                             customActions={list}
                             workingOnIt={this.workingOnIt.bind(this)}

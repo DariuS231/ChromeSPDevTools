@@ -1,7 +1,7 @@
 import { ActionsId as actions, constants } from './../constants/constants'
-import { IProperty, IAction, IInitialState } from '../interfaces/spPropertyBagInterfaces'
+import { IProperty, IInitialState } from '../interfaces/spPropertyBagInterfaces'
 import { MessageBarType } from 'office-ui-fabric-react/lib/MessageBar';
-import { IMessageData } from './../../common/interfaces'
+import { IMessageData, IAction } from './../../common/interfaces'
 
 const initialState: IInitialState = {
     isWorkingOnIt: true,

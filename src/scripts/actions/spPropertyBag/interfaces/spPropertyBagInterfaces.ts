@@ -1,16 +1,12 @@
 
 import { ActionCreator, ActionCreatorsMapObject, Dispatch } from 'redux'
-import { IMessageData } from './../../common/interfaces'
+import { IMessageData, IAction } from './../../common/interfaces'
 
 export interface IProperty {
     key: string,
     value: string
 }
 
-export interface IAction<T> {
-    readonly type: string
-    readonly payload: T
-}
 
 export interface IInitialState {
     isWorkingOnIt: boolean,

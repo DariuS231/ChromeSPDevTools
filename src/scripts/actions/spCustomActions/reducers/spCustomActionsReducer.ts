@@ -1,7 +1,7 @@
 import { ActionsId as actions, constants } from './../constants/constants'
-import { ICustomAction, IAction, IInitialState } from '../interfaces/spCustomActionsInterfaces'
+import { ICustomAction, IInitialState } from '../interfaces/spCustomActionsInterfaces'
 import { MessageBarType } from 'office-ui-fabric-react/lib/MessageBar';
-import { IMessageData } from './../../common/interfaces'
+import { IMessageData, IAction } from './../../common/interfaces'
 import { ViewMode } from './../../common/enums';
 import { CustomActionType } from './../constants/enums';
 

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Image, ImageFit } from 'office-ui-fabric-react/lib/Image';
-import { IconLink } from './../../common/iconLink';
+import { IconLink } from './../../common/components/iconLink';
 import { SpSiteContentConstants as constants } from './../constants/spSiteContentConstants';
 
 interface SpSiteContentItemProps {

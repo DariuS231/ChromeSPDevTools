@@ -1,7 +1,3 @@
-/// <reference path="../../../../../typings/index.d.ts"/>
-/// <reference path="./../../common/interfaces.ts"/>
-/// <reference path="../interfaces/spSiteContentInterfaces.ts"/>
-
 import * as React from 'react';
 import { EventSubscription } from "fbemitter";
 import { SpSiteContentConstants as constants } from '../constants/spSiteContentConstants';
@@ -10,8 +6,8 @@ import { spSiteContentStore as store } from '../store/spSiteContentStore';
 import { SpSiteContentList } from './spSiteContentList';
 import { SpSiteContentFilter } from './spSiteContentFilter';
 import { MessageBarType } from 'office-ui-fabric-react/lib/MessageBar';
-import { WorkingOnIt } from './../../common/WorkingOnIt';
-import MessageBar from './../../common/MessageBar';
+import { WorkingOnIt } from './../../common/components/WorkingOnIt';
+import MessageBar from './../../common/components/MessageBar';
 import { IMessageData } from './../../common/interfaces'
 
 interface SpSiteContentProps { }
