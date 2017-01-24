@@ -1,34 +1,71 @@
 
 import * as React from 'react';
+import { connect } from 'react-redux'
+import { bindActionCreators, Dispatch } from 'redux'
 import { CustomActionType } from './../constants/enums';
 import { ViewMode } from './../../common/enums';
 import Utils from './../../common/utils';
-import { MessageBarType } from 'office-ui-fabric-react/lib/MessageBar';
-import { TextField } from 'office-ui-fabric-react/lib/TextField';
-import { Checkbox } from 'office-ui-fabric-react/lib/Checkbox';
-import { Button, ButtonType } from 'office-ui-fabric-react/lib/Button';
-import { ChoiceGroup } from 'office-ui-fabric-react/lib/ChoiceGroup';
-import { ICustomAction } from './../../common/interfaces'
+import { SpCustomActionsItemForm } from './SpCustomActionsItemForm'
+import { ICustomAction } from './../../common/interfaces';
+import propertyActionsCreatorsMap from '../actions/SpCustomActionsActions';
 
+interface IMapDispatchToCustomActionItemProps{
+    createCustomAction:(ca: ICustomAction, caType: CustomActionType) => void,
+    deleteCustomAction:(ca: ICustomAction, caType: CustomActionType) => void,
+    updateCustomAction:(ca: ICustomAction, caType: CustomActionType) => void
+}
 interface CustomActionItemProps {
     item?: ICustomAction,
-    caType:CustomActionType
+    caType: CustomActionType,
+    createCustomAction:(ca: ICustomAction, caType: CustomActionType) => void,
+    deleteCustomAction:(ca: ICustomAction, caType: CustomActionType) => void,
+    updateCustomAction:(ca: ICustomAction, caType: CustomActionType) => void
 }
 interface CustomActionItemState {
     mode: ViewMode,
     item: ICustomAction
 }
 
-export default class CustomActionItem extends React.Component<CustomActionItemProps, CustomActionItemState> {
+class CustomActionItem extends React.Component<CustomActionItemProps, CustomActionItemState> {
     constructor() {
         super();
         this.state = {
             mode: ViewMode.View,
             item: { locationInternal: 'ScriptLink' } as ICustomAction
         };
-        this.saveCustomAction = this.saveCustomAction.bind(this);
-        this.createCustomAction = this.createCustomAction.bind(this);
+        this.onInputChange = this.onInputChange.bind(this);
+        this.deleteCustomAction = this.deleteCustomAction.bind(this);
+        this.onSaveBtnClick = this.onSaveBtnClick.bind(this);
+        this.onInputChange = this.onInputChange.bind(this);
+        this.changeMode = this.changeMode.bind(this);
     }
+
+    private deleteCustomAction(e: any) {
+        e.preventDefault();
+        if (confirm("Are you sure you want to remove this Custom Action?")) {
+            this.props.deleteCustomAction(this.state.item,this.props.caType);
+        }
+        return false;
+    }
+
+
+    private onSaveBtnClick(e: any) {
+        e.preventDefault();
+        if (this.state.mode === ViewMode.Edit) {
+            this.props.updateCustomAction(this.state.item,this.props.caType);
+        } else {
+            this.props.createCustomAction(this.state.item,this.props.caType);
+        }
+        return false;
+    }
+    private onInputChange(value: string, key: string) {
+        let newObj: any = {};
+        newObj[key] = value;
+        this.setState({
+            item: Object.assign({}, this.state.item, newObj)
+        } as CustomActionItemState)
+    }
+
     private changeMode(e: any) {
         e.preventDefault();
         if (this.state.mode === ViewMode.New) {
@@ -43,233 +80,39 @@ export default class CustomActionItem extends React.Component<CustomActionItemPr
         return false;
     }
 
-    private onSaveBtnClick(e: any) {
-
-        //this.props.workingOnIt(true);
-        if (this.state.mode === ViewMode.Edit) {
-            this.saveCustomAction();
-        } else {
-            this.createCustomAction();
-        }
-
-        e.preventDefault();
-        return false;
-    }
-    private deleteCustomAction(e: any) {
-        e.preventDefault();
-        if (confirm("Are you sure you want to remove this Custom Action?")) {
-          
-        }
-        return false;
-    }
-    private buttons(isViewMode: Boolean) {
-        if (!isViewMode) {
-            return <div className="ms-ListItem-actions ms-Grid-col ms-u-sm1 ms-u-md1 ms-u-lg1">
-                <Button
-                    buttonType={ButtonType.icon}
-                    icon='Save'
-                    rootProps={{ title: 'Save' }}
-                    ariaLabel='Save'
-                    onClick={this.onSaveBtnClick.bind(this)} />
-                <Button
-                    buttonType={ButtonType.icon}
-                    icon='Cancel'
-                    rootProps={{ title: 'Cancel' }}
-                    ariaLabel='Cancel'
-                    onClick={this.changeMode.bind(this)} />
-            </div>
-        } else {
-            return <div className="ms-ListItem-actions ms-Grid-col ms-u-sm1 ms-u-md1 ms-u-lg1">
-                <Button
-                    buttonType={ButtonType.icon}
-                    icon='Delete' rootProps={{ title: 'Delete' }}
-                    ariaLabel='Delete'
-                    onClick={this.deleteCustomAction.bind(this)} />
-                <Button
-                    buttonType={ButtonType.icon}
-                    icon='Edit' rootProps={{ title: 'Edit' }}
-                    ariaLabel='Edit'
-                    onClick={this.changeMode.bind(this)} />
-            </div>
-        }
-    }
-    private saveCustomAction() {
-        
-    }
-    private createCustomAction(): void {
-       
-    }
-    
-    private scriptInput(isViewMode: boolean, internalLocation: string) {
-        if (internalLocation === 'ScriptBlock') {
-            return <TextField
-                label='Script Code'
-                disabled={isViewMode}
-                multiline
-                onGetErrorMessage={this.getErrorMessage.bind(this)}
-                onChanged={this.onScriptBlockChange.bind(this)}
-                value={this.state.item.scriptBlock} />
-        } else {
-            return <TextField
-                label='Script Src'
-                disabled={isViewMode}
-                onGetErrorMessage={this.getErrorMessage.bind(this)}
-                onChanged={this.onScriptSourceChange.bind(this)}
-                value={this.state.item.scriptSrc} />
-        }
-    }
-
-    private getErrorMessage(value: string): string {
-        let isScriptValid: Boolean = true;
-        let errorMessage: string = '';
-
-        if (value === '') {
-            errorMessage = 'The value can not be empty';
-            isScriptValid = false;
-        }
-
-        return errorMessage;
-    }
-
-    private getSequenceErrorMessage(value: string): string {
-        let isScriptValid: Boolean = true;
-        let errorMessage: string = '';
-
-        if (value === '') {
-            errorMessage = 'The value can not be empty';
-            isScriptValid = false;
-        } else if (!(/^\d+$/.test(value))) {
-            errorMessage = 'The value must be a Number';
-            isScriptValid = false;
-        }
-        return errorMessage;
-    }
-
-    private isScriptValid(): boolean {
-        if (this.state.item.locationInternal === 'ScriptBlock') {
-            return this.state.item.scriptBlock !== '';
-        } else {
-            return this.state.item.scriptSrc !== '';
-        }
-    }
-    private onTitleChange(inputText: string, b: any) {
-        let newItem = this.state.item;
-        newItem.title = inputText;
-        this.setState({ item: newItem } as CustomActionItemState);
-        return false;
-    }
-
-    private onNameChange(inputText: string, b: any) {
-        let newItem = this.state.item;
-        newItem.name = inputText;
-        this.setState({ item: newItem } as CustomActionItemState);
-        return false;
-    }
-    private onDescriptionChange(inputText: string, b: any) {
-        let newItem = this.state.item;
-        newItem.description = inputText;
-        this.setState({ item: newItem } as CustomActionItemState);
-        return false;
-    }
-    private onSequenceChange(inputText: string, b: any) {
-        let newItem = this.state.item;
-        newItem.sequence = parseInt(inputText);
-        this.setState({ item: newItem } as CustomActionItemState);
-        return false;
-    }
-    private onScriptBlockChange(inputText: string, b: any) {
-        let newItem = this.state.item;
-        newItem.scriptBlock = inputText;
-        this.setState({ item: newItem } as CustomActionItemState);
-        return false;
-    }
-    private onScriptSourceChange(inputText: string, b: any) {
-        let newItem = this.state.item;
-        newItem.scriptSrc = inputText;
-        this.setState({ item: newItem } as CustomActionItemState);
-        return false;
-    }
-
-    private locationInputChange(value: any) {
-        let newItem = this.state.item;
-        newItem.locationInternal = value.key;
-        this.setState({ item: newItem } as CustomActionItemState);
-        return false;
-    }
-
-
-    private getLocationOptions(isViewMode: boolean, locationInternal: string) {
-        return [{
-            key: 'ScriptBlock',
-            text: 'Script Block',
-            disabled: isViewMode,
-            isChecked: (locationInternal === 'ScriptBlock')
-        }, {
-            key: 'ScriptLink',
-            text: 'Script Link',
-            disabled: isViewMode,
-            isChecked: (locationInternal === 'ScriptLink')
-        }];
-    }
-    componentDidMount() {
-        let propIetm = this.props.item;
-        let caItem: ICustomAction = { locationInternal: 'ScriptLink' } as ICustomAction;
-        let caMode: ViewMode = ViewMode.View;
-        if (propIetm) {
-            caItem = propIetm;
-        } else {
-            caMode = ViewMode.New;
-        }
-        this.setState({
-            item: caItem,
-            mode: caMode
-        } as CustomActionItemState);
-    }
     public render() {
         let isViewMode: boolean = this.state.mode === ViewMode.View;
+        const topBtnText = !isViewMode ? 'Save' : 'Delete';
+        const bottomBtnText = !isViewMode ? 'Cancel' : 'Edit';
 
-        let choideOptions = this.getLocationOptions(isViewMode, this.state.item.locationInternal);
-        let buttons = this.buttons(isViewMode);
-        let scriptInput = this.scriptInput(isViewMode, this.state.item.locationInternal);
-        return <div className='ms-ListBasicExample-itemCell  ms-Grid-row' data-is-focusable={true}>
-            <div className='ms-ListBasicExample-itemContent ms-Grid-col ms-u-sm11 ms-u-md11 ms-u-lg11'>
-                {
-                    (!isViewMode)
-                        ? <TextField
-                            label="Title"
-                            value={this.state.item.title}
-                            disabled={isViewMode}
-                            onChanged={this.onTitleChange.bind(this)} />
-                        : null
-                }
-                <TextField
-                    label="Name"
-                    value={this.state.item.name}
-                    disabled={isViewMode}
-                    onChanged={this.onNameChange.bind(this)} />
-                {
-                    (!isViewMode)
-                        ? <TextField
-                            label="Description"
-                            value={this.state.item.description}
-                            disabled={isViewMode}
-                            onChanged={this.onDescriptionChange.bind(this)} />
-                        : null
-                }
-                <TextField
-                    onGetErrorMessage={this.getSequenceErrorMessage.bind(this)}
-                    label="Sequence"
-                    type="number"
-                    value={this.state.item.sequence.toString()}
-                    disabled={isViewMode}
-                    onChanged={this.onSequenceChange.bind(this)} />
-                <ChoiceGroup
-                    options={choideOptions}
-                    label="Location"
-                    onChanged={this.locationInputChange.bind(this)} />
-                {scriptInput}
-            </div>
-            {buttons}
-        </div>;
+        return <SpCustomActionsItemForm
+            item={this.state.item}
+            isViewMode={isViewMode}
+            onInputChange={this.onInputChange}
+            topButtonTex={topBtnText}
+            bottomButtonTex={bottomBtnText}
+            topButtonOnClick={isViewMode ? this.deleteCustomAction : this.onSaveBtnClick}
+            bottomButtonOnClick={this.changeMode} />;
     }
 }
+
+
+const mapStateToProps = (state: CustomActionItemState, ownProps: any): {} => {
+    return {}
+}
+
+const mapDispatchToProps = (dispatch: Dispatch<any>): IMapDispatchToCustomActionItemProps => {
+    return {
+        createCustomAction: (ca: ICustomAction, caType: CustomActionType) => {
+            dispatch(propertyActionsCreatorsMap.createCustomAction(ca, caType));
+        },
+        deleteCustomAction: (ca: ICustomAction, caType: CustomActionType) => {
+            dispatch(propertyActionsCreatorsMap.deleteCustomAction(ca, caType));
+        },
+        updateCustomAction: (ca: ICustomAction, caType: CustomActionType) => {
+            dispatch(propertyActionsCreatorsMap.updateCustomAction(ca, caType));
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CustomActionItem);
