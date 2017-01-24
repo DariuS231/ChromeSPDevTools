@@ -173,7 +173,7 @@ export default class CustomActionItem extends React.Component<CustomActionItemPr
     }
     private onSequenceChange(inputText: string, b: any) {
         let newItem = this.state.item;
-        newItem.sequence = inputText;
+        newItem.sequence = parseInt(inputText);
         this.setState({ item: newItem } as CustomActionItemState);
         return false;
     }
@@ -260,7 +260,7 @@ export default class CustomActionItem extends React.Component<CustomActionItemPr
                     onGetErrorMessage={this.getSequenceErrorMessage.bind(this)}
                     label="Sequence"
                     type="number"
-                    value={this.state.item.sequence}
+                    value={this.state.item.sequence.toString()}
                     disabled={isViewMode}
                     onChanged={this.onSequenceChange.bind(this)} />
                 <ChoiceGroup
