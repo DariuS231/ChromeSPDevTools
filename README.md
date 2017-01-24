@@ -19,11 +19,36 @@ After cloning this repo, execute in your favourite shell:
 * `npm install --global gulp` to make sure gulp is installed globally.
 * `npm install` to install npm dependencies and TypeScript typings.
 
-### Compilation
+### Certificate
+
+In order to run the local server and be able to fetch the local script files from localhost, a self-signed certificate is required it can be created with the following openssl command
+
+```
+openssl req -x509 -newkey rsa:2048 -keyout key.pem -out cert.pem -days 365
+```
+
+This step is very important as without *cert.pem* and *key.pem* files, the server wont be able to start up and hence no scripts file will be available for fetching
+
+For the windows users, [here](https://blog.didierstevens.com/2015/03/30/howto-make-your-own-cert-with-openssl-on-windows/) is a nice post explaining how to install and create a certificate.
+
+### Compilation Chrome extension
 
 Within the same shell window, execute:
 
-* `gulp` to execute the task that will create the content of the dist folder.
+* `gulp generate-chrome-dev` to execute the task that will create the content of the dist folder.
+
+### Compilation and watch Action files
+
+Within the same shell window, execute:
+
+* `gulp` to execute the task that will create the content of the dist folder and keep watching the source files fir changes
+
+### Local server
+IN another shell windows, run the the local server with:
+
+```
+http-server --ssl
+```
 
 ### Loading the extension
 
