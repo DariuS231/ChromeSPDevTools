@@ -4,8 +4,8 @@ import { TextField } from 'office-ui-fabric-react/lib/TextField';
 
 interface SpCustomActionsItemInputProps {
     label: string,
-    key: string,
-    value: string,
+    inputKey: string,
+    value: any,
     disabled: boolean,
     multipleLine?: boolean,
     required?: boolean,
@@ -15,11 +15,11 @@ interface SpCustomActionsItemInputProps {
 
 export const SpCustomActionsItemInput: React.StatelessComponent<SpCustomActionsItemInputProps> = (props: SpCustomActionsItemInputProps) => {
     const onTextBoxValueChange = (str: string) => {
-        props.onValueChange(str, props.key);
+        props.onValueChange(str, props.inputKey);
         return false;
     }
     const getErrorMessage = (value: string): string => {
-        return (this.props.required && value === '') ? 'The value can not be empty' : '';
+        return (props.required && value === '') ? 'The value can not be empty' : '';
     }
     return <TextField
         multiple={props.multipleLine}

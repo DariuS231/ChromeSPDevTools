@@ -14,16 +14,17 @@ export default class SpCustomActionsApi extends ApiBase {
                 const caArrayLength = caArray.length;
                 for (let i = 0; i < caArrayLength; i++) {
                     const ca: any = caArray[i];
+                    const scriptSrc:string = ca.ScriptSrc;
                     cusctomActions.push({
                         id: ca.Id,
                         name: ca.Name,
                         description: ca.Description,
                         title: ca.Title,
                         registrationType: ca.RegistrationType,
-                        scriptSrc: ca.ScriptSrc,
+                        scriptSrc: scriptSrc,
                         scriptBlock: ca.ScriptBlock,
                         location: ca.Location,
-                        locationInternal: ca.Location,
+                        locationInternal: (scriptSrc ? 'ScriptLink' : 'ScriptBlock'),
                         sequence: ca.Sequence
                     })
                 }

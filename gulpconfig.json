@@ -92,7 +92,7 @@
                     "src/scripts/actions/common/styles.ts"
                 ],
                 "entries": [
-                    "src/scripts/actions/spCustomActions/mainSiteCa.tsx"
+                    "src/scripts/actions/spCustomActions/app.tsx"
                 ],
                 "outputFolder": "dist/actions/spSiteCustomActions",
                 "outputFileName": "spSiteCustomActions.js"

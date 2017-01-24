@@ -40,6 +40,21 @@ class CustomActionItem extends React.Component<CustomActionItemProps, CustomActi
         this.changeMode = this.changeMode.bind(this);
     }
 
+    componentDidMount() {
+        let propIetm = this.props.item;
+        let caItem: ICustomAction = { locationInternal: 'ScriptLink' } as ICustomAction;
+        let caMode: ViewMode = ViewMode.View;
+        if (propIetm) {
+            caItem = propIetm;
+        } else {
+            caMode = ViewMode.New;
+        }
+        this.setState({
+            item: caItem,
+            mode: caMode
+        } as CustomActionItemState);
+    }
+    
     private deleteCustomAction(e: any) {
         e.preventDefault();
         if (confirm("Are you sure you want to remove this Custom Action?")) {
