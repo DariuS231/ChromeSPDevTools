@@ -17,6 +17,7 @@ interface IMapDispatchToCustomActionItemProps{
 interface CustomActionItemProps {
     item?: ICustomAction,
     caType: CustomActionType,
+    changeParentMode?:(e: any)=> void,
     createCustomAction:(ca: ICustomAction, caType: CustomActionType) => void,
     deleteCustomAction:(ca: ICustomAction, caType: CustomActionType) => void,
     updateCustomAction:(ca: ICustomAction, caType: CustomActionType) => void
@@ -54,7 +55,7 @@ class CustomActionItem extends React.Component<CustomActionItemProps, CustomActi
             mode: caMode
         } as CustomActionItemState);
     }
-    
+
     private deleteCustomAction(e: any) {
         e.preventDefault();
         if (confirm("Are you sure you want to remove this Custom Action?")) {
@@ -69,6 +70,7 @@ class CustomActionItem extends React.Component<CustomActionItemProps, CustomActi
         if (this.state.mode === ViewMode.Edit) {
             this.props.updateCustomAction(this.state.item,this.props.caType);
         } else {
+            this.props.changeParentMode(e); 
             this.props.createCustomAction(this.state.item,this.props.caType);
         }
         return false;
@@ -83,15 +85,10 @@ class CustomActionItem extends React.Component<CustomActionItemProps, CustomActi
 
     private changeMode(e: any) {
         e.preventDefault();
-        if (this.state.mode === ViewMode.New) {
-            // this.props.workingOnIt(true);
-            // this.props.reloadCActions('', MessageBarType.info);
-        } else {
-            this.setState({
-                mode: (this.state.mode === ViewMode.View ? ViewMode.Edit : ViewMode.View),
-                item: this.state.item
-            });
-        }
+        this.setState({
+            mode: (this.state.mode === ViewMode.View ? ViewMode.Edit : ViewMode.View),
+            item: this.state.item
+        });
         return false;
     }
 
@@ -107,7 +104,7 @@ class CustomActionItem extends React.Component<CustomActionItemProps, CustomActi
             topButtonTex={topBtnText}
             bottomButtonTex={bottomBtnText}
             topButtonOnClick={isViewMode ? this.deleteCustomAction : this.onSaveBtnClick}
-            bottomButtonOnClick={this.changeMode} />;
+            bottomButtonOnClick={this.props.changeParentMode || this.changeMode} />;
     }
 }
 

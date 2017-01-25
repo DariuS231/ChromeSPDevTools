@@ -23,8 +23,7 @@ export interface IInitialState {
     userHasPermission: boolean,
     filterText: string,
     messageData: IMessageData,
-    customActions: Array<ICustomAction>,
-    mode:ViewMode
+    customActions: Array<ICustomAction>
 }
 
 export interface ISpCustomActionsActionCreatorsMapObject extends ActionCreatorsMapObject {
@@ -51,7 +50,6 @@ export interface SpCustomActionsProps {
     customActions: Array<ICustomAction>,
     messageData: IMessageData,
     filterText: string,
-    mode:ViewMode,
     customActionType:CustomActionType,
     actions: ISpCustomActionsActionCreatorsMapObject
 }
@@ -61,8 +59,7 @@ export interface IMapStateToProps {
     customActions: Array<ICustomAction>,
     isWorkingOnIt: boolean,
     messageData: IMessageData,
-    filterText: string,
-    mode:ViewMode
+    filterText: string
 }
 export interface IMapStateToPropsState {
     spCustomActions: IInitialState
@@ -73,6 +70,5 @@ export interface IMapStateToProps {
     customActions: Array<ICustomAction>,
     isWorkingOnIt: boolean,
     messageData: IMessageData,
-    filterText: string,
-    mode:ViewMode
+    filterText: string
 }

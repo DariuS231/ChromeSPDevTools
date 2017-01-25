@@ -40,7 +40,7 @@ export default class SpCustomActionsApi extends ApiBase {
 
     public deleteCustomAction(caObj: ICustomAction, caType: CustomActionType): Promise<ICustomAction> {
         return new Promise((resolve, reject) => {
-            const caGuid: SP.Guid = new SP.Guid(caObj.id.toString());
+            const caGuid: SP.Guid = new SP.Guid(caObj.id);
             const ctx: SP.ClientContext = SP.ClientContext.get_current();
             const ca: SP.UserCustomAction = (caType === CustomActionType.Web)
                 ? ctx.get_web().get_userCustomActions().getById(caGuid)
@@ -73,7 +73,7 @@ export default class SpCustomActionsApi extends ApiBase {
             if(isNewCa){
                 ca = partenObj.get_userCustomActions().add() ;
             } else {
-                const caGuid: SP.Guid = new SP.Guid(caObj.id.toString());
+                const caGuid: SP.Guid = new SP.Guid(caObj.id);
                 ca = partenObj.get_userCustomActions().getById(caGuid);
             }
 
@@ -91,8 +91,9 @@ export default class SpCustomActionsApi extends ApiBase {
             }
 
             ca.update();
+            ctx.load(ca);
             ctx.executeQueryAsync((sender: any, err: any) => {
-                resolve(caObj);
+                resolve(Object.assign({}, caObj, {id: ca.get_id().toString()}));
             }, this.requestErrorEventHandler.bind(this));
         });
     }

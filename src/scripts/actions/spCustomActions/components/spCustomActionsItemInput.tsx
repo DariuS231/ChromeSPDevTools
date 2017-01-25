@@ -22,7 +22,8 @@ export const SpCustomActionsItemInput: React.StatelessComponent<SpCustomActionsI
         return (props.required && value === '') ? 'The value can not be empty' : '';
     }
     return <TextField
-        multiple={props.multipleLine}
+        multiline={props.multipleLine}
+        resizable={ false }
         onGetErrorMessage={getErrorMessage}
         label={props.label}
         value={props.value}

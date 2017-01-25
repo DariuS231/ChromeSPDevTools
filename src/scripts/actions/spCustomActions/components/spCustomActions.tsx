@@ -16,13 +16,21 @@ import { SpCustomActionsProps, IMapStateToPropsState, IMapStateToProps, ISpCusto
 interface IMapDispatchToSpCustomActionsProps {
     actions: ISpCustomActionsActionCreatorsMapObject
 }
-
-class SpCustomActions extends React.Component<SpCustomActionsProps, {}> {
+interface SpCustomActionsState{
+    mode: ViewMode
+}
+class SpCustomActions extends React.Component<SpCustomActionsProps, SpCustomActionsState> {
     constructor() {
         super();
+        this.state = {
+            mode: ViewMode.View
+        }
+        this.changeMode = this.changeMode.bind(this);
     }
-    private onNewCuatomActionClick(e: any): void {
-
+    private changeMode(e: any): void {
+        this.setState({
+            mode: (this.state.mode === ViewMode.View) ? ViewMode.New : ViewMode.View
+        });
     }
 
     private componentDidMount(): void {
@@ -33,18 +41,18 @@ class SpCustomActions extends React.Component<SpCustomActionsProps, {}> {
         if (this.props.isWorkingOnIt) {
             return <WorkingOnIt />
         } else {
-            if (this.props.mode === ViewMode.View) {
+            if (this.state.mode === ViewMode.View) {
                 return (
                     <div className="action-container sp-customActions">
                         <MessageBar message={this.props.messageData.message} messageType={this.props.messageData.type} showMessage={this.props.messageData.showMessage} />
                         <FilterTextBox setFilterText={this.props.actions.setFilterText} filterStr={this.props.filterText} />
                         <SpCustomActionList customActions={this.props.customActions} type={this.props.customActionType} filtertText={this.props.filterText} />
-                        <Button buttonType={ButtonType.primary} onClick={this.onNewCuatomActionClick.bind(this)} >New Custom Action</Button>
+                        <Button buttonType={ButtonType.primary} onClick={this.changeMode} >New Custom Action</Button>
                     </div>);
             } else {
                 return (
                     <div className="action-container sp-customActions">
-                        <SpCustomActionItem caType={this.props.customActionType} />
+                        <SpCustomActionItem caType={this.props.customActionType} changeParentMode={this.changeMode} />
                     </div>);
             }
         }
@@ -59,8 +67,7 @@ const mapStateToProps = (state: IMapStateToPropsState, ownProps: any): IMapState
         customActions: state.spCustomActions.customActions,
         isWorkingOnIt: state.spCustomActions.isWorkingOnIt,
         messageData: state.spCustomActions.messageData,
-        filterText: state.spCustomActions.filterText,
-        mode: state.spCustomActions.mode
+        filterText: state.spCustomActions.filterText
     }
 }
 
