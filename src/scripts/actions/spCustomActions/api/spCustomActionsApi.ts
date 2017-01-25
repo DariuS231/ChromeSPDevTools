@@ -48,7 +48,7 @@ export default class SpCustomActionsApi extends ApiBase {
 
             ca.deleteObject();
             ctx.executeQueryAsync((sender: any, err: any) => {
-                resolve(ca);
+                resolve(caObj);
             }, this.requestErrorEventHandler.bind(this));
         })
     }
@@ -92,7 +92,7 @@ export default class SpCustomActionsApi extends ApiBase {
 
             ca.update();
             ctx.executeQueryAsync((sender: any, err: any) => {
-                resolve(ca);
+                resolve(caObj);
             }, this.requestErrorEventHandler.bind(this));
         });
     }
