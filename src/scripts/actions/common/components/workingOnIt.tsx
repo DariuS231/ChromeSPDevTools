@@ -1,5 +1,4 @@
-/// <reference path="../../../../typings/index.d.ts"/>
-/// <reference path="./interfaces.ts"/>
+
 import * as React from 'react';
 
 export const  WorkingOnIt = () => <div className="working-on-it-wrapper">

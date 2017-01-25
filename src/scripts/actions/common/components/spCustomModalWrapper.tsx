@@ -1,7 +1,5 @@
-/// <reference path="../../../../typings/index.d.ts"/>
-/// <reference path="./interfaces.ts"/>
 import * as React from 'react';
-import Utils from './utils';
+import Utils from '../utils';
 
 interface SpCustomModalWrapperProps {
     modalDialogTitle: string,

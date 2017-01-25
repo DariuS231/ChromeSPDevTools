@@ -1,12 +1,14 @@
 import { ActionsId as actions, constants } from './../constants/constants'
-import { IProperty, IInitialState } from '../interfaces/spPropertyBagInterfaces'
+import { ICustomAction, IInitialState } from '../interfaces/spCustomActionsInterfaces'
 import { MessageBarType } from 'office-ui-fabric-react/lib/MessageBar';
 import { IMessageData, IAction } from './../../common/interfaces'
+import { ViewMode } from './../../common/enums';
+import { CustomActionType } from './../constants/enums';
 
 const initialState: IInitialState = {
     isWorkingOnIt: true,
     userHasPermission: false,
-    webProperties: [],
+    customActions: [],
     filterText: constants.EMPTY_STRING,
     messageData: {
         showMessage: false,
@@ -15,52 +17,52 @@ const initialState: IInitialState = {
     }
 }
 
-export const spPropertyBagReducer = (state: IInitialState = initialState, action: IAction<any>): IInitialState => {
+export const spCustomActionsReducer = (state: IInitialState = initialState, action: IAction<any>): IInitialState => {
     switch (action.type) {
-        case actions.CREATE_PROPERTY:
-            const newPropperty: IProperty = action.payload;
+        case actions.CREATE_CUSTOM_ACTION:
+            const newCustomAction: ICustomAction = action.payload;
             return Object.assign({}, state, {
-                webProperties: [...state.webProperties, Object.assign({}, newPropperty)],
+                customActions: [...state.customActions, Object.assign({}, newCustomAction)],
                 isWorkingOnIt: false,
                 messageData: {
                     showMessage: true,
-                    message: constants.MESSAGE_PROPERTY_CREATED,
+                    message: constants.MESSAGE_CUSTOM_ACTION_CREATED,
                     type: MessageBarType.success
                 }
             });
-        case actions.DELETE_PROPERTY:
-            const delPropperty: IProperty = action.payload;
+        case actions.DELETE_CUSTOM_ACTION:
+            const delCustomAction: ICustomAction = action.payload;
             return Object.assign({}, state, {
-                webProperties: [...state.webProperties.filter(prop => prop.key !== delPropperty.key)],
+                customActions: [...state.customActions.filter(prop => prop.id !== delCustomAction.id)],
                 isWorkingOnIt: false,
                 messageData: {
                     showMessage: true,
-                    message: constants.MESSAGE_PROPERTY_DELETED,
+                    message: constants.MESSAGE_CUSTOM_ACTION_DELETED,
                     type: MessageBarType.success
                 }
             });
-        case actions.UPDATE_PROPERTY:
-            const updtdPropperty: IProperty = action.payload;
-            const filtered = state.webProperties.map((prop: IProperty) => {
-                if (prop.key === updtdPropperty.key) {
-                    return updtdPropperty;
+        case actions.UPDATE_CUSTOM_ACTION:
+            const updtdCustomAction: ICustomAction = action.payload;
+            const filtered = state.customActions.map((prop: ICustomAction) => {
+                if (prop.id === updtdCustomAction.id) {
+                    return updtdCustomAction;
                 } else {
                     return prop;
                 }
             });
             return Object.assign({}, state, {
-                webProperties: filtered,
+                customActions: filtered,
                 isWorkingOnIt: false,
                 messageData: {
                     showMessage: true,
-                    message: constants.MESSAGE_PROPERTY_UPDATED,
+                    message: constants.MESSAGE_CUSTOM_ACTION_UPDATED,
                     type: MessageBarType.success
                 }
             });
-        case actions.SET_ALL_PROPERTIES:
-            const properties: Array<IProperty> = action.payload;
+        case actions.SET_ALL_CUSTOM_ACTIONS:
+            const properties: Array<ICustomAction> = action.payload;
             return Object.assign({}, state, {
-                webProperties: properties,
+                customActions: properties,
                 isWorkingOnIt: false
             });
         case actions.SET_FILTER_TEXT:

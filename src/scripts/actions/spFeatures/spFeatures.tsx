@@ -1,13 +1,9 @@
-/// <reference path="../../../../typings/index.d.ts"/>
-/// <reference path="./../common/interfaces.ts"/>
-/// <reference path="./../common/enums.ts"/>
-
 import * as React from 'react';
 import * as jQuery from 'jquery'
 import "whatwg-fetch";
 import FeatureToggle from './featureToggle';
-import { WorkingOnIt } from './../common/WorkingOnIt';
-import MessageBar from './../common/MessageBar';
+import { WorkingOnIt } from './../common/components/WorkingOnIt';
+import MessageBar from './../common/components/MessageBar';
 import Utils from './../common/utils';
 import { FeatureOperationType } from './../common/enums';
 import { IFeature } from './../common/interfaces'

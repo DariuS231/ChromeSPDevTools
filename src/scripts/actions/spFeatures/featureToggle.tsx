@@ -1,6 +1,3 @@
-/// <reference path="../../../../typings/index.d.ts"/>
-/// <reference path="./../common/interfaces.ts"/>
-
 import * as React from 'react';
 
 import { IFeature } from './../common/interfaces'

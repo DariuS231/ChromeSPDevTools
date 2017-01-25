@@ -1,17 +1,17 @@
 import { MessageBarType } from 'office-ui-fabric-react/lib/MessageBar';
 
 export interface ICustomAction {
-    name: any,
-    description: any,
-    id: any,
-    title: any,
-    registrationType: any,
-    scriptSrc: any,
-    scriptBlock: any,
-    location: any,
+    name: string,
+    description: string,
+    id: string,
+    title: string,
+    registrationType: number,
+    scriptSrc: string,
+    scriptBlock: string,
+    location: string,
     locationInternal: string,
-    sequence: any,
-    [key: string]: string //To allow index references with ICustomAction objects 
+    sequence: number,
+    [key: string]: any //To allow index references with ICustomAction objects 
 }
 
 export interface IFeature {
@@ -28,4 +28,9 @@ export interface IMessageData {
     showMessage: boolean,
     message: string,
     type: MessageBarType
+}
+
+export interface IAction<T> {
+    readonly type: string
+    readonly payload: T
 }

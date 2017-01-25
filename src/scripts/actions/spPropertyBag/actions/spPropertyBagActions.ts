@@ -1,9 +1,9 @@
 import { ActionsId as actions, constants } from './../constants/constants'
-import { IProperty, IAction, ISpPropertyBagActionCreatorsMapObject } from '../interfaces/spPropertyBagInterfaces'
+import { IProperty, ISpPropertyBagActionCreatorsMapObject } from '../interfaces/spPropertyBagInterfaces'
 import { ActionCreator, ActionCreatorsMapObject, Dispatch } from 'redux'
 import { MessageBarType } from 'office-ui-fabric-react/lib/MessageBar';
 import SpPropertyBagApi from '../api/spPropertyBagApi'
-import { IMessageData } from './../../common/interfaces'
+import { IMessageData, IAction } from './../../common/interfaces'
 
 
 const api = new SpPropertyBagApi();

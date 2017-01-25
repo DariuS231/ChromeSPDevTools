@@ -2,11 +2,12 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import SpCustomModalWrapper from './../common/components/spCustomModalWrapper';
 import { AppBase } from './../common/AppBase';
+import { CustomActionType } from './constants/enums';
 import Utils from './../common/utils';
-import SpPropertyBag from './components/spPropertyBag'
+import SpCustomActions from './components/spCustomActions'
 import { Provider } from 'react-redux';
 import { constants } from './constants/constants'
-import { configureStore } from './store/configureStore-prod'
+import { configureStore } from './store/configureStore-dev'
 
 
 class App extends AppBase {
@@ -20,7 +21,7 @@ class App extends AppBase {
             ReactDOM.render(
                 <Provider store={store}>
                     <SpCustomModalWrapper onCloseClick={that.remove} modalDialogTitle={constants.MODAL_DIALOG_TITLE} modalWidth={constants.MODAL_DIALOG_WIDTH}>
-                        <SpPropertyBag closeWindowFunction={that.remove} />
+                        <SpCustomActions closeWindowFunction={that.remove} customActionType={CustomActionType.Site} />
                     </SpCustomModalWrapper>
                 </Provider>, document.getElementById(that.baseDivId)
             );
@@ -28,5 +29,5 @@ class App extends AppBase {
     }
 }
 
-window.SpPropertyBagObj = new App();
-window.SpPropertyBagObj.show();
+window.SpCustomActionsObj = new App();
+window.SpCustomActionsObj.show();

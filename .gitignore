@@ -1,6 +1,7 @@
 node_modules
 typings/globals/
 !typings/globals/sharepoint/
+*.pem
 temp
 .tmp
 .sass-cache
