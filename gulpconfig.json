@@ -80,19 +80,18 @@
                     "src/scripts/actions/common/**/*.{ts,tsx}"
                 ],
                 "entries": [
-                    "src/scripts/actions/spCustomActions/app.tsx"
+                    "src/scripts/actions/spCustomActions/app_webCa.tsx"
                 ],
                 "outputFolder": "dist/actions/spWebCustomActions",
                 "outputFileName": "spWebCustomActions.js"
             },
             "spSiteCustomActions": {
                 "watchFiles": [
-                    "src/scripts/actions/spCustomActions/**/*.tsx",
-                    "src/scripts/actions/common/spCustomModalWrapper.tsx",
-                    "src/scripts/actions/common/styles.ts"
+                    "src/scripts/actions/spCustomActions/**/*.{ts,tsx}",
+                    "src/scripts/actions/common/**/*.{ts,tsx}"
                 ],
                 "entries": [
-                    "src/scripts/actions/spCustomActions/app.tsx"
+                    "src/scripts/actions/spCustomActions/app_siteCa.tsx"
                 ],
                 "outputFolder": "dist/actions/spSiteCustomActions",
                 "outputFileName": "spSiteCustomActions.js"
