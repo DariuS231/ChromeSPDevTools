@@ -1,5 +1,5 @@
 {
-     "files": [
+    "files": [
         "typings/index.d.ts"
     ],
     "compilerOptions": {
@@ -8,6 +8,7 @@
         "noImplicitAny": true,
         "module": "commonjs",
         "target": "es5",
-        "jsx": "react"
+        "jsx": "react",
+        "moduleResolution": "node"
     }
 }
