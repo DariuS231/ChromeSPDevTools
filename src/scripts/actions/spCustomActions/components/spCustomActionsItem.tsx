@@ -6,21 +6,21 @@ import { CustomActionType } from './../constants/enums';
 import { ViewMode } from './../../common/enums';
 import Utils from './../../common/utils';
 import { SpCustomActionsItemForm } from './SpCustomActionsItemForm'
-import { ICustomAction } from './../../common/interfaces';
+import { ICustomAction } from '../interfaces/spCustomActionsInterfaces';
 import propertyActionsCreatorsMap from '../actions/SpCustomActionsActions';
 
-interface IMapDispatchToCustomActionItemProps{
-    createCustomAction:(ca: ICustomAction, caType: CustomActionType) => void,
-    deleteCustomAction:(ca: ICustomAction, caType: CustomActionType) => void,
-    updateCustomAction:(ca: ICustomAction, caType: CustomActionType) => void
+interface IMapDispatchToCustomActionItemProps {
+    createCustomAction: (ca: ICustomAction, caType: CustomActionType) => void,
+    deleteCustomAction: (ca: ICustomAction, caType: CustomActionType) => void,
+    updateCustomAction: (ca: ICustomAction, caType: CustomActionType) => void
 }
 interface CustomActionItemProps {
     item?: ICustomAction,
     caType: CustomActionType,
-    changeParentMode?:(e: any)=> void,
-    createCustomAction:(ca: ICustomAction, caType: CustomActionType) => void,
-    deleteCustomAction:(ca: ICustomAction, caType: CustomActionType) => void,
-    updateCustomAction:(ca: ICustomAction, caType: CustomActionType) => void
+    changeParentMode?: (e: any) => void,
+    createCustomAction: (ca: ICustomAction, caType: CustomActionType) => void,
+    deleteCustomAction: (ca: ICustomAction, caType: CustomActionType) => void,
+    updateCustomAction: (ca: ICustomAction, caType: CustomActionType) => void
 }
 interface CustomActionItemState {
     mode: ViewMode,
@@ -28,11 +28,16 @@ interface CustomActionItemState {
 }
 
 class CustomActionItem extends React.Component<CustomActionItemProps, CustomActionItemState> {
+    emptyCa: ICustomAction = {
+        name: '', description: '', id: '', title: '',
+        scriptSrc: '', scriptBlock: '', location: '', url: '',
+        locationInternal: 'ScriptBlock', sequence: 3
+    } as ICustomAction;
     constructor() {
         super();
         this.state = {
             mode: ViewMode.View,
-            item: { locationInternal: 'ScriptLink' } as ICustomAction
+            item: this.emptyCa
         };
         this.onInputChange = this.onInputChange.bind(this);
         this.deleteCustomAction = this.deleteCustomAction.bind(this);
@@ -43,23 +48,20 @@ class CustomActionItem extends React.Component<CustomActionItemProps, CustomActi
 
     componentDidMount() {
         let propIetm = this.props.item;
-        let caItem: ICustomAction = { locationInternal: 'ScriptLink' } as ICustomAction;
+        let caItem: ICustomAction = this.emptyCa;
         let caMode: ViewMode = ViewMode.View;
         if (propIetm) {
             caItem = propIetm;
         } else {
             caMode = ViewMode.New;
         }
-        this.setState({
-            item: caItem,
-            mode: caMode
-        } as CustomActionItemState);
+        this.setState({ item: caItem, mode: caMode } as CustomActionItemState);
     }
 
     private deleteCustomAction(e: any) {
         e.preventDefault();
         if (confirm("Are you sure you want to remove this Custom Action?")) {
-            this.props.deleteCustomAction(this.state.item,this.props.caType);
+            this.props.deleteCustomAction(this.state.item, this.props.caType);
         }
         return false;
     }
@@ -68,10 +70,10 @@ class CustomActionItem extends React.Component<CustomActionItemProps, CustomActi
     private onSaveBtnClick(e: any) {
         e.preventDefault();
         if (this.state.mode === ViewMode.Edit) {
-            this.props.updateCustomAction(this.state.item,this.props.caType);
+            this.props.updateCustomAction(this.state.item, this.props.caType);
         } else {
-            this.props.changeParentMode(e); 
-            this.props.createCustomAction(this.state.item,this.props.caType);
+            this.props.changeParentMode(e);
+            this.props.createCustomAction(this.state.item, this.props.caType);
         }
         return false;
     }
@@ -100,6 +102,7 @@ class CustomActionItem extends React.Component<CustomActionItemProps, CustomActi
         return <SpCustomActionsItemForm
             item={this.state.item}
             isViewMode={isViewMode}
+            caType={this.props.caType}
             onInputChange={this.onInputChange}
             topButtonTex={topBtnText}
             bottomButtonTex={bottomBtnText}

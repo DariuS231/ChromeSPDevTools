@@ -5,11 +5,12 @@ import { ViewMode } from './../../common/enums';
 import { SpCustomActionsItemInput } from './spCustomActionsItemInput'
 import { Button, ButtonType } from 'office-ui-fabric-react/lib/Button';
 import { ChoiceGroup, IChoiceGroupOption } from 'office-ui-fabric-react/lib/ChoiceGroup';
-import { ICustomAction } from './../../common/interfaces'
+import { ICustomAction } from '../interfaces/spCustomActionsInterfaces';
 
 interface SpCustomActionsItemFormProps {
     item: ICustomAction,
     isViewMode: boolean,
+    caType: CustomActionType,
     onInputChange: (value: string, inputKey: string) => void
     topButtonTex: string,
     topButtonOnClick: React.MouseEventHandler<HTMLButtonElement | HTMLAnchorElement | Button>,
@@ -21,23 +22,50 @@ export const SpCustomActionsItemForm: React.StatelessComponent<SpCustomActionsIt
     const internalLoc = props.item.locationInternal;
     const isViewMoideProp = props.isViewMode;
     const isScriptBlock = (internalLoc === 'ScriptBlock');
-    const choideOptions = [
+    let choideOptions = [
         { key: 'ScriptBlock', text: 'Script Block', disabled: isViewMoideProp, isChecked: (internalLoc === 'ScriptBlock') },
         { key: 'ScriptLink', text: 'Script Link', disabled: isViewMoideProp, isChecked: (internalLoc === 'ScriptLink') }
     ];
+    if(props.caType === CustomActionType.Site){
+        choideOptions.push({ key: 'StandardMenu', text: 'Standard Menu', disabled: isViewMoideProp, isChecked: (internalLoc === 'StandardMenu') })
+    }
 
     const onLocationChange = (option: IChoiceGroupOption, evt?: React.FormEvent<HTMLInputElement>) => {
         props.onInputChange(option.key, 'locationInternal');
     }
+    let scriptTxtBoxLabel:string = '';
+    let scriptTxtBoxKey:string = '';
+    let scriptTxtBoxValue:string = '';
+    let scriptTxtBoxIsMultipleLine:boolean = false;
+    switch (internalLoc) {
+                case 'ScriptLink':
+                    scriptTxtBoxLabel = 'Script Link';
+                    scriptTxtBoxKey = 'scriptLink';
+                    scriptTxtBoxValue = props.item.scriptSrc;
+                    break;
+                case 'ScriptBlock':
+                    scriptTxtBoxLabel = 'Script Block';
+                    scriptTxtBoxKey = 'scriptBlock';
+                    scriptTxtBoxValue = props.item.scriptBlock;
+                    scriptTxtBoxIsMultipleLine = true;
+                    break;
+                case 'StandardMenu':
+                    scriptTxtBoxLabel = 'Standard Menu';
+                    scriptTxtBoxKey = 'url';
+                    scriptTxtBoxValue = props.item.url;
+                    break;
+
+            }
 
     return <div className='ms-ListBasicExample-itemCell  ms-Grid-row' data-is-focusable={true}>
         <div className='ms-ListBasicExample-itemContent ms-Grid-col ms-u-sm11 ms-u-md11 ms-u-lg11'>
             {!isViewMoideProp && <SpCustomActionsItemInput inputKey="title" label="Title" value={props.item.title} disabled={isViewMoideProp} onValueChange={props.onInputChange} />}
             <SpCustomActionsItemInput inputKey="name" label="Name" value={props.item.name} disabled={isViewMoideProp} onValueChange={props.onInputChange} />
             {!isViewMoideProp && <SpCustomActionsItemInput inputKey="description" label="Description" value={props.item.description} disabled={isViewMoideProp} onValueChange={props.onInputChange} />}
+            {!isViewMoideProp && <SpCustomActionsItemInput inputKey="imageUrl" label="Image Url" value={props.item.imageUrl} disabled={isViewMoideProp} onValueChange={props.onInputChange} />}
             <SpCustomActionsItemInput inputKey="sequence" label="Sequence" value={props.item.sequence} disabled={isViewMoideProp} type="number" required={true} onValueChange={props.onInputChange} />
             <ChoiceGroup options={choideOptions} label="Location" onChanged={onLocationChange} />
-            <SpCustomActionsItemInput inputKey={isScriptBlock ? 'scriptBlock' : 'scriptSrc'} label={isScriptBlock ? 'Script Code' : 'Script Src'} value={isScriptBlock ? props.item.scriptBlock : props.item.scriptSrc} disabled={isViewMoideProp} multipleLine={isScriptBlock || false} required={true} onValueChange={props.onInputChange} />
+            <SpCustomActionsItemInput inputKey={scriptTxtBoxKey} label={scriptTxtBoxLabel} value={ scriptTxtBoxValue } disabled={isViewMoideProp} multipleLine={scriptTxtBoxIsMultipleLine} required={true} onValueChange={props.onInputChange} />
         </div>
         <div className="ms-ListItem-actions ms-Grid-col ms-u-sm1 ms-u-md1 ms-u-lg1">
             <Button buttonType={ButtonType.icon} icon={props.topButtonTex} rootProps={{ title: props.topButtonTex }} ariaLabel={props.topButtonTex} onClick={props.topButtonOnClick} />

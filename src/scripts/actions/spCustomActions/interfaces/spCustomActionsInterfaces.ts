@@ -15,6 +15,8 @@ export interface ICustomAction {
     location: string,
     locationInternal: string,
     sequence: number,
+    imageUrl: string,
+    url: string,
     [key: string]: any //To allow index references with ICustomAction objects 
 }
 

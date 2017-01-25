@@ -2,7 +2,7 @@ import * as React from 'react';
 import SpCustomActionItem from './spCustomActionsItem'
 import { CustomActionType } from './../constants/enums';
 import { List } from 'office-ui-fabric-react/lib/List';
-import { ICustomAction } from './../../common/interfaces'
+import { ICustomAction } from '../interfaces/spCustomActionsInterfaces';
 
 export const SpCustomActionList = (props: { customActions: Array<ICustomAction>, type: CustomActionType, filtertText: string }) => {
     const filter: string = props.filtertText.toLowerCase();

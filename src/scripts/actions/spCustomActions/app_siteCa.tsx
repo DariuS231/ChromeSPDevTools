@@ -12,7 +12,7 @@ import { configureStore } from './store/configureStore-dev'
 
 class App extends AppBase {
     constructor() {
-        super(constants.COMPONENT_DIV_ID)
+        super(constants.COMPONENT_SITE_CA_DIV_ID)
     }
     public show() {
         let that = this;
@@ -20,7 +20,7 @@ class App extends AppBase {
             const store = configureStore({});
             ReactDOM.render(
                 <Provider store={store}>
-                    <SpCustomModalWrapper onCloseClick={that.remove} modalDialogTitle={constants.MODAL_DIALOG_TITLE} modalWidth={constants.MODAL_DIALOG_WIDTH}>
+                    <SpCustomModalWrapper onCloseClick={that.remove} modalDialogTitle={constants.MODAL_SITE_CA_DIALOG_TITLE} modalWidth={constants.MODAL_DIALOG_WIDTH}>
                         <SpCustomActions closeWindowFunction={that.remove} customActionType={CustomActionType.Site} />
                     </SpCustomModalWrapper>
                 </Provider>, document.getElementById(that.baseDivId)

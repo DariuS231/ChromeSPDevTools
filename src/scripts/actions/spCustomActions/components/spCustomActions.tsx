@@ -16,25 +16,21 @@ import { SpCustomActionsProps, IMapStateToPropsState, IMapStateToProps, ISpCusto
 interface IMapDispatchToSpCustomActionsProps {
     actions: ISpCustomActionsActionCreatorsMapObject
 }
-interface SpCustomActionsState{
+interface SpCustomActionsState {
     mode: ViewMode
 }
 class SpCustomActions extends React.Component<SpCustomActionsProps, SpCustomActionsState> {
     constructor() {
         super();
-        this.state = {
-            mode: ViewMode.View
-        }
+        this.state = { mode: ViewMode.View }
         this.changeMode = this.changeMode.bind(this);
     }
     private changeMode(e: any): void {
-        this.setState({
-            mode: (this.state.mode === ViewMode.View) ? ViewMode.New : ViewMode.View
-        });
+        this.setState({ mode: (this.state.mode === ViewMode.View) ? ViewMode.New : ViewMode.View });
     }
 
     private componentDidMount(): void {
-        this.props.actions.getAllCustomActions(this.props.customActionType);
+        this.props.actions.checkUserPermissions(SP.PermissionKind.manageWeb, this.props.customActionType);
     }
 
     public render(): JSX.Element {

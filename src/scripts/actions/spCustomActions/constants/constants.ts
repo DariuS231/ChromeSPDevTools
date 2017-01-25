@@ -11,13 +11,14 @@ export const ActionsId  = {
 
 
 export const constants  = {
-    COMPONENT_DIV_ID: 'spCuastomActionsBaseDiv',
+    COMPONENT_SITE_CA_DIV_ID: 'spSiteCuastomActionsBaseDiv',
+    COMPONENT_WEB_CA_DIV_ID: 'spWebCuastomActionsBaseDiv',
     TEXTBOX_PREFIX: 'spPropInput_',
     UNDEFINED_STRING: 'undefined',
     STRING_STRING: 'string',
     EMPTY_STRING: '',
-    PERCET_STRING:'%',
-    MODAL_DIALOG_TITLE: 'Site Custom Actions',
+    MODAL_SITE_CA_DIALOG_TITLE: 'Site Custom Actions',
+    MODAL_WEB_CA_DIALOG_TITLE: 'Web Custom Actions',
     MODAL_DIALOG_WIDTH: '700px',
     CONFIRM_DELETE_CUSTOM_ACTION: 'Are you sure you want to remove this custom action?',
     EMPTY_TEXTBOX_ERROR_MESSAGE: 'The value can not be empty',
@@ -26,7 +27,7 @@ export const constants  = {
     CANCEL_TEXT:'Cancel',
     EDIT_TEXT:'Edit',
     CREATE_TEXT: 'Create',
-    MESSAGE_USER_NO_PERMISSIONS:'The current user does NOT have permissions to work with the web custom action bags.',
+    MESSAGE_USER_NO_PERMISSIONS:'The current user does NOT have permissions to work with the web custom action.',
     MESSAGE_CUSTOM_ACTION_CREATED:'A new custom action has been created.',
     MESSAGE_CUSTOM_ACTION_DELETED:'The selected custom action has been deleted.',
     MESSAGE_CUSTOM_ACTION_UPDATED:'The selected custom action has been updated.',
