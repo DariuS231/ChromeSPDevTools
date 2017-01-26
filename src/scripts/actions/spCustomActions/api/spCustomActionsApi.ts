@@ -18,6 +18,7 @@ export default class SpCustomActionsApi extends ApiBase {
                 const caArrayLength = caArray.length;
                 for (let i = 0; i < caArrayLength; i++) {
                     const ca: any = caArray[i];
+                    console.log(ca);
                     const scriptSrc: string = ca.ScriptSrc;
                     const scriptBlock: string = ca.ScriptBlock;
                     const url: string = ca.Url;
@@ -34,6 +35,7 @@ export default class SpCustomActionsApi extends ApiBase {
                         id: ca.Id,
                         name: ca.Name,
                         description: ca.Description,
+                        group:ca.Group,
                         title: ca.Title,
                         registrationType: ca.RegistrationType,
                         scriptSrc: scriptSrc,
@@ -95,6 +97,7 @@ export default class SpCustomActionsApi extends ApiBase {
             ca.set_name(caObj.name);
             ca.set_description(caObj.description);
             ca.set_sequence(caObj.sequence);
+            ca.set_group(caObj.group);
 
             switch (caObj.locationInternal) {
                 case 'ScriptLink':

@@ -9,6 +9,7 @@ export interface ICustomAction {
     description: string,
     id: string,
     title: string,
+    group:string,
     registrationType: number,
     scriptSrc: string,
     scriptBlock: string,

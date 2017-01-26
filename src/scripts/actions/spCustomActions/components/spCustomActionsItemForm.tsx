@@ -10,7 +10,6 @@ import { ICustomAction } from '../interfaces/spCustomActionsInterfaces';
 interface SpCustomActionsItemFormProps {
     item: ICustomAction,
     isViewMode: boolean,
-    caType: CustomActionType,
     onInputChange: (value: string, inputKey: string) => void
     topButtonTex: string,
     topButtonOnClick: React.MouseEventHandler<HTMLButtonElement | HTMLAnchorElement | Button>,
@@ -24,11 +23,9 @@ export const SpCustomActionsItemForm: React.StatelessComponent<SpCustomActionsIt
     const isScriptBlock = (internalLoc === 'ScriptBlock');
     let choideOptions = [
         { key: 'ScriptBlock', text: 'Script Block', disabled: isViewMoideProp, isChecked: (internalLoc === 'ScriptBlock') },
-        { key: 'ScriptLink', text: 'Script Link', disabled: isViewMoideProp, isChecked: (internalLoc === 'ScriptLink') }
+        { key: 'ScriptLink', text: 'Script Link', disabled: isViewMoideProp, isChecked: (internalLoc === 'ScriptLink') },
+        { key: 'StandardMenu', text: 'Standard Menu', disabled: isViewMoideProp, isChecked: (internalLoc === 'StandardMenu') }
     ];
-    if(props.caType === CustomActionType.Site){
-        choideOptions.push({ key: 'StandardMenu', text: 'Standard Menu', disabled: isViewMoideProp, isChecked: (internalLoc === 'StandardMenu') })
-    }
 
     const onLocationChange = (option: IChoiceGroupOption, evt?: React.FormEvent<HTMLInputElement>) => {
         props.onInputChange(option.key, 'locationInternal');
@@ -63,6 +60,7 @@ export const SpCustomActionsItemForm: React.StatelessComponent<SpCustomActionsIt
             <SpCustomActionsItemInput inputKey="name" label="Name" value={props.item.name} disabled={isViewMoideProp} onValueChange={props.onInputChange} />
             {!isViewMoideProp && <SpCustomActionsItemInput inputKey="description" label="Description" value={props.item.description} disabled={isViewMoideProp} onValueChange={props.onInputChange} />}
             {!isViewMoideProp && <SpCustomActionsItemInput inputKey="imageUrl" label="Image Url" value={props.item.imageUrl} disabled={isViewMoideProp} onValueChange={props.onInputChange} />}
+            {!isViewMoideProp && <SpCustomActionsItemInput inputKey="group" label="Group" value={props.item.group} disabled={isViewMoideProp} onValueChange={props.onInputChange} />}
             <SpCustomActionsItemInput inputKey="sequence" label="Sequence" value={props.item.sequence} disabled={isViewMoideProp} type="number" required={true} onValueChange={props.onInputChange} />
             <ChoiceGroup options={choideOptions} label="Location" onChanged={onLocationChange} />
             <SpCustomActionsItemInput inputKey={scriptTxtBoxKey} label={scriptTxtBoxLabel} value={ scriptTxtBoxValue } disabled={isViewMoideProp} multipleLine={scriptTxtBoxIsMultipleLine} required={true} onValueChange={props.onInputChange} />

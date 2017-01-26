@@ -29,7 +29,7 @@ interface CustomActionItemState {
 
 class CustomActionItem extends React.Component<CustomActionItemProps, CustomActionItemState> {
     emptyCa: ICustomAction = {
-        name: '', description: '', id: '', title: '',
+        name: '', description: '', id: '', title: '', group:'',
         scriptSrc: '', scriptBlock: '', location: '', url: '',
         locationInternal: 'ScriptBlock', sequence: 3
     } as ICustomAction;
@@ -106,7 +106,6 @@ class CustomActionItem extends React.Component<CustomActionItemProps, CustomActi
         return <SpCustomActionsItemForm
             item={this.state.item}
             isViewMode={isViewMode}
-            caType={this.props.caType}
             onInputChange={this.onInputChange}
             topButtonTex={topBtnText}
             bottomButtonTex={bottomBtnText}
