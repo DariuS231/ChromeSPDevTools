@@ -57,6 +57,10 @@ class CustomActionItem extends React.Component<CustomActionItemProps, CustomActi
         }
         this.setState({ item: caItem, mode: caMode } as CustomActionItemState);
     }
+    componentWillReceiveProps(newProps: CustomActionItemProps) {
+
+        this.setState({ item: newProps.item } as CustomActionItemState);
+    }
 
     private deleteCustomAction(e: any) {
         e.preventDefault();
