@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import SpCustomModalWrapper from './../common/components/spCustomModalWrapper';
-import SpCustomActionItem from './components/spCustomActionsItem'
+import SpCustomActionItemEdit from './components/spCustomActionsItemEdit'
 import { AppBase } from './../common/AppBase';
 import Utils from './../common/utils';
 import SpCustomActions from './components/spCustomActions'
@@ -32,8 +32,8 @@ class App extends AppBase {
                 <Router history={hashHistory}>
                     <Route path="/" component={wrapper} >
                         <IndexRoute component={SpCustomActions} />
-                        <Route path="item" component={SpCustomActionItem} />
-                        <Route path="item/:guid" component={SpCustomActionItem} />
+                        <Route path="item" component={SpCustomActionItemEdit} />
+                        <Route path="item/:guid" component={SpCustomActionItemEdit} />
                     </Route>
                 </Router>
             </Provider>, document.getElementById(that.baseDivId));

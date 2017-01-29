@@ -25,8 +25,7 @@ class SpCustomActions extends React.Component<SpCustomActionsProps, {}> {
             return (<div>
                 <MessageBar message={this.props.messageData.message} messageType={this.props.messageData.type} showMessage={this.props.messageData.showMessage} />
                 <FilterTextBox setFilterText={this.props.actions.setFilterText} filterStr={this.props.filterText} />
-                <SpCustomActionList customActions={this.props.customActions} type={this.props.customActionType} filtertText={this.props.filterText} />
-
+                <SpCustomActionList customActions={this.props.customActions} caType={this.props.customActionType} filtertText={this.props.filterText} deleteCustomAction={this.props.actions.deleteCustomAction} />
                 <Link className="ms-Button ms-Button--primary" to="item">
                     <span className="ms-Button-label">New Custom Action new</span>
                 </Link>
