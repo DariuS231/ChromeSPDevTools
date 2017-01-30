@@ -4,6 +4,9 @@ import * as React from 'react';
 import ActionItem from './ActionItem'
 import { List } from 'office-ui-fabric-react/lib/List';
 
+
+import './styles/chromeExtePopUp.scss';
+
 interface IActionData {
     title: string,
     descriptio: string,

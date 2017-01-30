@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-//  WebPack PROD Config for Actions
+//  WebPack PROD Config for Chrome Extension
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 //
 //  author: Jose Quinto - https://blogs.josequinto.com
@@ -16,19 +16,16 @@ module.exports = {
     devtool: 'source-map',
     // Using webpack multiple entry point 
     entry: {
-        'spPropertyBag': './src/scripts/actions/spPropertyBag/app.tsx',
-        'spFeatures': './src/scripts/actions/spFeatures/main.tsx',
-        'spSiteContent': './src/scripts/actions/spSiteContent/app.tsx',
-        'spWebCustomActions': './src/scripts/actions/spCustomActions/mainWebCa.tsx',
-        'spSiteCustomActions': './src/scripts/actions/spCustomActions/mainSiteCa.tsx'
+        'background': './src/scripts/chromeExtension/background.ts',
+        'popup': './src/scripts/chromeExtension/main.tsx'
     },
     output: {
-        path: path.join(__dirname, './../dist/actions'),
-        filename: '[name]/[name].js',
+        path: path.join(__dirname, './../dist/chromeExtension/dev/scripts'),
+        filename: '[name].js',
     },
     resolve: {
         // Add '.ts' and '.tsx' as resolvable extensions.
-        extensions: ["",".ts", ".tsx", ".js"]
+        extensions: ["", ".ts", ".tsx", ".js"]
     },
     plugins: [
         new webpack.DefinePlugin({
@@ -68,7 +65,7 @@ module.exports = {
         }),
         new webpack.optimize.OccurrenceOrderPlugin(),
         new webpack.optimize.AggressiveMergingPlugin(),
-        new ExtractTextPlugin('./styles/bundle.css', {
+        new ExtractTextPlugin('./../styles/bundle.css', {
             allChunks: true
         })
     ],
