@@ -4,11 +4,11 @@ import { bindActionCreators, Dispatch } from 'redux'
 import { WorkingOnIt } from './../../common/components/WorkingOnIt';
 import MessageBar from './../../common/components/MessageBar';
 import { SpCustomActionList } from './spCustomActionsList'
+import {SpCustomActionsButtom} from './spCustomActionsButtom'
 import FilterTextBox from './../../common/components/filterTextBox';
 import { Button, ButtonType } from 'office-ui-fabric-react/lib/Button';
 import propertyActionsCreatorsMap from '../actions/SpCustomActionsActions';
-import { SpCustomActionsProps, IMapStateToPropsState, IMapStateToProps, ISpCustomActionsActionCreatorsMapObject } from '../interfaces/spCustomActionsInterfaces'
-import { Link } from 'react-router'
+import { SpCustomActionsProps, IMapStateToPropsState, IMapStateToProps, ISpCustomActionsActionCreatorsMapObject } from '../interfaces/spCustomActionsInterfaces';
 
 interface IMapDispatchToSpCustomActionsProps {
     actions: ISpCustomActionsActionCreatorsMapObject
@@ -26,9 +26,7 @@ class SpCustomActions extends React.Component<SpCustomActionsProps, {}> {
                 <MessageBar message={this.props.messageData.message} messageType={this.props.messageData.type} showMessage={this.props.messageData.showMessage} />
                 <FilterTextBox setFilterText={this.props.actions.setFilterText} filterStr={this.props.filterText} />
                 <SpCustomActionList customActions={this.props.customActions} caType={this.props.customActionType} filtertText={this.props.filterText} deleteCustomAction={this.props.actions.deleteCustomAction} />
-                <Link className="ms-Button ms-Button--primary" to="item">
-                    <span className="ms-Button-label">New Custom Action new</span>
-                </Link>
+                <SpCustomActionsButtom />
             </div>);
         }
     }

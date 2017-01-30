@@ -4,7 +4,7 @@
   "description": "Google Chrome extension that opens a Property bag Modal dialog administration",
   "dependencies": {
     "axios": "^0.15.3",
-    "office-ui-fabric-react": "^0.68.1",
+    "office-ui-fabric-react": "^0.82.4",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
     "react-router": "^3.0.2",
