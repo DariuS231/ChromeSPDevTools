@@ -14,7 +14,6 @@ export interface ICustomAction {
     scriptSrc: string,
     scriptBlock: string,
     location: string,
-    locationInternal: string,
     sequence: number,
     imageUrl: string,
     url: string,

@@ -1,14 +1,18 @@
 import * as React from 'react';
 import { connect } from 'react-redux'
 import { bindActionCreators, Dispatch } from 'redux'
-import SpCustomActionsItemForm from './spCustomActionsItemForm'
+import SpCustomActionsItemFormScriptLink from './spCustomActionsItemFormScriptLink'
+import { Button, ButtonType } from 'office-ui-fabric-react/lib/Button';
+import { Link } from 'react-router';
 import propertyActionsCreatorsMap from '../actions/SpCustomActionsActions';
 import { IMapStateToPropsState, ICustomAction } from '../interfaces/spCustomActionsInterfaces';
-import { CustomActionType } from './../constants/enums';
+import { CustomActionType, CustomActionLocation } from './../constants/enums';
+import { CustomActionLocationString } from './../constants/constants';
 
 interface IMapStateToPropsSpCustomActionsItemEdit {
     customActionType: CustomActionType,
     item: ICustomAction,
+    itemLocation: CustomActionLocation
 }
 
 interface IMapDispatchToPropsSpCustomActionsItemEdit {
@@ -19,6 +23,7 @@ interface IMapDispatchToPropsSpCustomActionsItemEdit {
 interface SpCustomActionsItemEditProps {
     customActionType: CustomActionType,
     item: ICustomAction,
+    itemLocation: CustomActionLocation,
     createCustomAction: (ca: ICustomAction, caType: CustomActionType) => void,
     updateCustomAction: (ca: ICustomAction, caType: CustomActionType) => void
 }
@@ -26,41 +31,44 @@ interface SpCustomActionsItemEditState {
     item: ICustomAction
 }
 class SpCustomActionsItemEdit extends React.Component<SpCustomActionsItemEditProps, SpCustomActionsItemEditState> {
-    private onInputChange(value: string, key: string) {
-        let newObj: any = {};
-        newObj[key] = value;
-        this.setState({
-            item: Object.assign({}, this.state.item, newObj)
-        });
+    constructor() {
+        super();
+        this.saveItem = this.saveItem.bind(this);
     }
 
     private saveItem() {
-
+        if (this.state.item.id !== '') {
+            this.props.updateCustomAction(this.state.item, this.props.customActionType);
+        } else {
+            this.props.createCustomAction(this.state.item, this.props.customActionType);
+        }
+    }
+    private onInputChange(value: string, key: string) {
+        let newObj: any = {};
+        newObj[key] = value;
+        this.setState({ item: Object.assign({}, this.state.item, newObj) });
     }
 
     public render(): JSX.Element {
-        return (<SpCustomActionsItemForm item={this.props.item} onInputChange={this.onInputChange} onSaveButtonClick={this.saveItem} />);
+        return (<div className='ms-ListBasicExample-itemCell  ms-Grid-row' data-is-focusable={true}>
+            <SpCustomActionsItemFormScriptLink item={this.props.item} onInputChange={this.onInputChange} isScriptBlock={this.props.itemLocation === CustomActionLocation.ScriptBlock} />
+            <div className="ms-ListItem-actions ms-Grid-col ms-u-sm1 ms-u-md1 ms-u-lg1">
+                <Button buttonType={ButtonType.icon} icon="Save" rootProps={{ title: "Save" }} ariaLabel="Save" onClick={this.saveItem} />
+                <Link title="Cancel" aria-label="Cancel" className="ms-Button ms-Button--icon" to={'/'}>
+                    <span className="ms-Button-icon"><i className="ms-Icon ms-Icon--Cancel"></i></span><span className="ms-Button-label" ></span>
+                </Link>
+            </div>
+        </div>
+        );
     }
 }
 
 
 const mapStateToProps = (state: IMapStateToPropsState, ownProps: any): IMapStateToPropsSpCustomActionsItemEdit => {
-    const caGuid = ownProps.params.guid;
-    let ca: ICustomAction = {
-        id: '',
-        name: '',
-        title: '',
-        description: '',
-        group: '',
-        imageUrl: '',
-        location: '',
-        locationInternal: '',
-        registrationType: 0,
-        scriptBlock: '',
-        scriptSrc: '',
-        sequence: 1,
-        url: '',
-    }
+    const caGuid: string = ownProps.params.guid;
+    const newCaType: string = ownProps.params.type;
+    let ca: ICustomAction = null;
+    let itemLocation: CustomActionLocation;
     if (caGuid) {
         const filtered = state.spCustomActions.customActions.filter((item: ICustomAction, index: number) => {
             return item.id === caGuid;
@@ -68,10 +76,44 @@ const mapStateToProps = (state: IMapStateToPropsState, ownProps: any): IMapState
         if (filtered.length > 0) {
             ca = filtered[0];
         }
+        switch (ca.location) {
+            case CustomActionLocationString.SCRIPTLINK:
+                itemLocation = (ca.scriptBlock !== '') 
+                    ? CustomActionLocation.ScriptSrc 
+                    : CustomActionLocation.ScriptBlock;
+                break;
+            case CustomActionLocationString.STANDARMENU:
+                itemLocation = CustomActionLocation.StandarMenu;
+                break;
+        }
+    } else if (newCaType) {
+        let locationString: string;
+        switch (newCaType) {
+            case CustomActionLocation[CustomActionLocation.ScriptSrc]:
+                itemLocation = CustomActionLocation.ScriptSrc;
+                locationString = CustomActionLocationString.SCRIPTLINK;
+                break;
+            case CustomActionLocation[CustomActionLocation.ScriptBlock]:
+                itemLocation = CustomActionLocation.ScriptBlock;
+                locationString = CustomActionLocationString.SCRIPTLINK;
+                break;
+            case CustomActionLocation[CustomActionLocation.StandarMenu]:
+                itemLocation = CustomActionLocation.StandarMenu;
+                locationString = CustomActionLocationString.STANDARMENU;
+                break;
+        }
+
+        ca = {
+            id: '', name: '', title: '', description: '', group: '', imageUrl: '',
+            locationInternal: '', registrationType: 0, scriptBlock: '', scriptSrc: '', sequence: 1,
+            url: '', location: locationString
+        }
+
     }
     return {
         customActionType: state.spCustomActions.customActionType,
-        item: ca
+        item: ca,
+        itemLocation: itemLocation
     }
 }
 

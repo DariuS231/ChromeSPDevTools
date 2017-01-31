@@ -6,7 +6,7 @@ interface SpCustomActionsItemInputProps {
     label: string,
     inputKey: string,
     value: any,
-    disabled: boolean,
+    disabled?: boolean,
     multipleLine?: boolean,
     required?: boolean,
     type?: string,

@@ -33,7 +33,7 @@ const CustomActionItem: React.StatelessComponent<CustomActionItemProps> = (props
             <TextField resizable={false} label="Id" value={props.item.id} disabled={true} />
             <TextField resizable={false} label="Name" value={props.item.name} disabled={true} />
             <TextField resizable={false} label="Sequence" value={props.item.sequence.toString()} disabled={true} />
-            <TextField resizable={false} label="Location" value={props.item.locationInternal} disabled={true} />
+            <TextField resizable={false} label="Location" value={props.item.location} disabled={true} />
         </div>
         <div className="ms-ListItem-actions ms-Grid-col ms-u-sm1 ms-u-md1 ms-u-lg1">
             <Button buttonType={ButtonType.icon} icon="Delete" rootProps={{ title: "Delete" }} ariaLabel="Delete" onClick={deleteCustomAction} />

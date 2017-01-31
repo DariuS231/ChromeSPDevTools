@@ -22,14 +22,6 @@ export default class SpCustomActionsApi extends ApiBase {
                     const scriptSrc: string = ca.ScriptSrc;
                     const scriptBlock: string = ca.ScriptBlock;
                     const url: string = ca.Url;
-                    let locationInternal: string = '';
-                    if (scriptSrc !== null && typeof scriptSrc != 'undefined') {
-                        locationInternal = 'ScriptLink';
-                    } else if (scriptBlock !== null && typeof scriptBlock != 'undefined') {
-                        locationInternal = 'ScriptBlock';
-                    } else {
-                        locationInternal = 'StandardMenu';
-                    }
 
                     cusctomActions.push({
                         id: ca.Id,
@@ -43,7 +35,6 @@ export default class SpCustomActionsApi extends ApiBase {
                         location: ca.Location,
                         imageUrl: ca.ImageUrl,
                         url: url,
-                        locationInternal: locationInternal,
                         sequence: ca.Sequence
                     })
                 }
@@ -98,28 +89,10 @@ export default class SpCustomActionsApi extends ApiBase {
             ca.set_description(caObj.description);
             ca.set_sequence(caObj.sequence);
             ca.set_group(caObj.group);
-
-            switch (caObj.locationInternal) {
-                case 'ScriptLink':
-                    ca.set_location('ScriptLink');
-                    ca.set_scriptSrc(caObj.scriptSrc);
-                    ca.set_scriptBlock('');
-                    ca.set_url('');
-                    break;
-                case 'ScriptBlock':
-                    ca.set_location('ScriptLink');
-                    ca.set_scriptBlock(caObj.scriptBlock);
-                    ca.set_scriptSrc('');
-                    ca.set_url('');
-                    break;
-                case 'StandardMenu':
-                    ca.set_location('Microsoft.SharePoint.StandardMenu');
-                    ca.set_url(caObj.url);
-                    ca.set_scriptSrc('');
-                    ca.set_scriptBlock('');
-                    break;
-
-            }
+            ca.set_location(caObj.location);
+            ca.set_scriptSrc(caObj.scriptSrc);
+            ca.set_scriptBlock(caObj.scriptBlock);
+            ca.set_url(caObj.url);  
 
             ca.update();
             ctx.load(ca);

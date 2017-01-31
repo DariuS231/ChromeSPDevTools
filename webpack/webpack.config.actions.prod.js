@@ -19,8 +19,8 @@ module.exports = {
         'spPropertyBag': './src/scripts/actions/spPropertyBag/app.tsx',
         'spFeatures': './src/scripts/actions/spFeatures/main.tsx',
         'spSiteContent': './src/scripts/actions/spSiteContent/app.tsx',
-        'spWebCustomActions': './src/scripts/actions/spCustomActions/mainWebCa.tsx',
-        'spSiteCustomActions': './src/scripts/actions/spCustomActions/mainSiteCa.tsx'
+        'spWebCustomActions': './src/scripts/actions/spCustomActions/app_webCa.tsx',
+        'spSiteCustomActions': './src/scripts/actions/spCustomActions/app_siteCa.tsx'
     },
     output: {
         path: path.join(__dirname, './../dist/actions'),
