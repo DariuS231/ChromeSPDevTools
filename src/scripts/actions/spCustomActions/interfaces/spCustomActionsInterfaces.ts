@@ -9,12 +9,15 @@ export interface ICustomAction {
     description: string,
     id: string,
     title: string,
+    group:string,
     registrationType: number,
     scriptSrc: string,
     scriptBlock: string,
     location: string,
     locationInternal: string,
     sequence: number,
+    imageUrl: string,
+    url: string,
     [key: string]: any //To allow index references with ICustomAction objects 
 }
 
@@ -23,7 +26,8 @@ export interface IInitialState {
     userHasPermission: boolean,
     filterText: string,
     messageData: IMessageData,
-    customActions: Array<ICustomAction>
+    customActions: Array<ICustomAction>,
+    customActionType:CustomActionType
 }
 
 export interface ISpCustomActionsActionCreatorsMapObject extends ActionCreatorsMapObject {
@@ -36,7 +40,6 @@ export interface ISpCustomActionsActionCreatorsMapObject extends ActionCreatorsM
     setWorkingOnIt: ActionCreator<IAction<boolean>>,
     setUserHasPermissions: ActionCreator<IAction<boolean>>,
     setMessageData: ActionCreator<IAction<IMessageData>>
-
 }
 
 export interface IMapDispatchToProps {
@@ -59,7 +62,8 @@ export interface IMapStateToProps {
     customActions: Array<ICustomAction>,
     isWorkingOnIt: boolean,
     messageData: IMessageData,
-    filterText: string
+    filterText: string,
+    customActionType:CustomActionType
 }
 export interface IMapStateToPropsState {
     spCustomActions: IInitialState
@@ -70,5 +74,6 @@ export interface IMapStateToProps {
     customActions: Array<ICustomAction>,
     isWorkingOnIt: boolean,
     messageData: IMessageData,
-    filterText: string
+    filterText: string,
+    customActionType:CustomActionType
 }

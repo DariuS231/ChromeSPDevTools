@@ -11,9 +11,10 @@
   },
   "dependencies": {
     "axios": "^0.15.3",
-    "office-ui-fabric-react": "^0.68.1",
+    "office-ui-fabric-react": "^0.82.4",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
+    "react-router": "^3.0.2",
     "redux-thunk": "^2.1.0"
   },
   "devDependencies": {
@@ -28,6 +29,7 @@
     "@types/react": "^0.14.46",
     "@types/react-dom": "^0.14.18",
     "@types/react-redux": "^4.4.35",
+    "@types/react-router": "^2.0.46",
     "@types/redux-immutable-state-invariant": "^1.2.29",
     "@types/redux-thunk": "^2.1.32",
     "@types/sharepoint": "^2013.0.31",

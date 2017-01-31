@@ -14,7 +14,8 @@ const initialState: IInitialState = {
         showMessage: false,
         message: constants.EMPTY_STRING,
         type: MessageBarType.info
-    }
+    },
+    customActionType:CustomActionType.Web
 }
 
 export const spCustomActionsReducer = (state: IInitialState = initialState, action: IAction<any>): IInitialState => {

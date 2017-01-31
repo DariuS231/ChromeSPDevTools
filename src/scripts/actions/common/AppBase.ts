@@ -34,7 +34,7 @@ export class AppBase {
     }
     remove = (): void => {
         var style = document.getElementById(this.styleLinkId);
-        style. parentElement.removeChild(style);
+        style.parentElement.removeChild(style);
         ReactDOM.unmountComponentAtNode(document.getElementById(this.baseDivId));
     }
 }
