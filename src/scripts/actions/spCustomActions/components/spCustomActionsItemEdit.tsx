@@ -2,6 +2,7 @@ import * as React from 'react';
 import { connect } from 'react-redux'
 import { bindActionCreators, Dispatch } from 'redux'
 import SpCustomActionsItemFormScriptLink from './spCustomActionsItemFormScriptLink'
+import SpCustomActionsItemFormStandarMenu from './spCustomActionsItemFormStandarMenu'
 import { Button, ButtonType } from 'office-ui-fabric-react/lib/Button';
 import { Link } from 'react-router';
 import propertyActionsCreatorsMap from '../actions/SpCustomActionsActions';
@@ -34,6 +35,7 @@ class SpCustomActionsItemEdit extends React.Component<SpCustomActionsItemEditPro
     constructor() {
         super();
         this.saveItem = this.saveItem.bind(this);
+        this.formInputs = this.formInputs.bind(this);
     }
 
     private saveItem() {
@@ -48,10 +50,19 @@ class SpCustomActionsItemEdit extends React.Component<SpCustomActionsItemEditPro
         newObj[key] = value;
         this.setState({ item: Object.assign({}, this.state.item, newObj) });
     }
-
+    private formInputs(): JSX.Element {
+        switch (this.props.itemLocation) {
+            case CustomActionLocation.ScriptBlock:
+                return <SpCustomActionsItemFormScriptLink item={this.props.item} onInputChange={this.onInputChange} isScriptBlock={true} />;
+            case CustomActionLocation.ScriptSrc:
+                return <SpCustomActionsItemFormScriptLink item={this.props.item} onInputChange={this.onInputChange} isScriptBlock={false} />;
+            case CustomActionLocation.StandarMenu:
+                return <SpCustomActionsItemFormStandarMenu item={this.props.item} onInputChange={this.onInputChange} />;
+        }
+    }
     public render(): JSX.Element {
         return (<div className='ms-ListBasicExample-itemCell  ms-Grid-row' data-is-focusable={true}>
-            <SpCustomActionsItemFormScriptLink item={this.props.item} onInputChange={this.onInputChange} isScriptBlock={this.props.itemLocation === CustomActionLocation.ScriptBlock} />
+            {this.formInputs()}
             <div className="ms-ListItem-actions ms-Grid-col ms-u-sm1 ms-u-md1 ms-u-lg1">
                 <Button buttonType={ButtonType.icon} icon="Save" rootProps={{ title: "Save" }} ariaLabel="Save" onClick={this.saveItem} />
                 <Link title="Cancel" aria-label="Cancel" className="ms-Button ms-Button--icon" to={'/'}>
@@ -78,8 +89,8 @@ const mapStateToProps = (state: IMapStateToPropsState, ownProps: any): IMapState
         }
         switch (ca.location) {
             case CustomActionLocationString.SCRIPTLINK:
-                itemLocation = (ca.scriptBlock !== '') 
-                    ? CustomActionLocation.ScriptSrc 
+                itemLocation = (ca.scriptBlock !== '')
+                    ? CustomActionLocation.ScriptSrc
                     : CustomActionLocation.ScriptBlock;
                 break;
             case CustomActionLocationString.STANDARMENU:
