@@ -39,7 +39,7 @@ class App extends AppBase {
                 <Router history={hashHistory}>
                     <Route path="/" component={wrapper} >
                         <IndexRoute component={SpCustomActions} />
-                        <Route path="item" component={SpCustomActionItemEdit} />
+                        <Route path="newItem/:type" component={SpCustomActionItemEdit} />
                         <Route path="item/:guid" component={SpCustomActionItemEdit} />
                     </Route>
                 </Router>
