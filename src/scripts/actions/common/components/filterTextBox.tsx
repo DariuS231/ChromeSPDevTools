@@ -4,7 +4,9 @@ import { IAction } from '../interfaces'
 
 interface FilterTextBoxProps {
     setFilterText: (filterText: string) => IAction<string>,
-    filterStr: string
+    filterStr: string,
+    parentOverrideClass?:string,
+    children?: any
 }
 
 const FilterTextBox: React.StatelessComponent<FilterTextBoxProps> = (props: FilterTextBoxProps) => {
@@ -13,7 +15,9 @@ const FilterTextBox: React.StatelessComponent<FilterTextBoxProps> = (props: Filt
             <div className="ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6">
                 <SearchBox value={props.filterStr} onChange={props.setFilterText} />
             </div>
-            <div className="ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6"> </div>
+            <div className={props.parentOverrideClass || "ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6"}>
+                {props.children}
+            </div>
         </div>
     </div>
 };

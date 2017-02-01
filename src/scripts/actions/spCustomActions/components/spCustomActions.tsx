@@ -4,7 +4,7 @@ import { bindActionCreators, Dispatch } from 'redux'
 import { WorkingOnIt } from './../../common/components/WorkingOnIt';
 import MessageBar from './../../common/components/MessageBar';
 import { SpCustomActionList } from './spCustomActionsList'
-import {SpCustomActionsButtom} from './spCustomActionsButtom'
+import { SpCustomActionsButtom } from './spCustomActionsButtom'
 import FilterTextBox from './../../common/components/filterTextBox';
 import { Button, ButtonType } from 'office-ui-fabric-react/lib/Button';
 import propertyActionsCreatorsMap from '../actions/SpCustomActionsActions';
@@ -24,9 +24,10 @@ class SpCustomActions extends React.Component<SpCustomActionsProps, {}> {
         } else {
             return (<div>
                 <MessageBar message={this.props.messageData.message} messageType={this.props.messageData.type} showMessage={this.props.messageData.showMessage} />
-                <FilterTextBox setFilterText={this.props.actions.setFilterText} filterStr={this.props.filterText} />
+                <FilterTextBox setFilterText={this.props.actions.setFilterText} filterStr={this.props.filterText} parentOverrideClass="ms-Grid-col ms-u-sm4 ms-u-md4 ms-u-lg4 ms-u-smPush2" >
+                    <SpCustomActionsButtom />
+                </FilterTextBox>
                 <SpCustomActionList customActions={this.props.customActions} caType={this.props.customActionType} filtertText={this.props.filterText} deleteCustomAction={this.props.actions.deleteCustomAction} />
-                <SpCustomActionsButtom />
             </div>);
         }
     }

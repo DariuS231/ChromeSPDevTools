@@ -331,6 +331,9 @@ $dividerColor: $ms-color-neutralLight;
     .edit-form-title{
         margin: 10px;
     }
+    #ContextualMenuButton{
+        width: 100%;
+    }
 }
 .ms-ContextualMenu-link{
     margin-left: 0;
@@ -373,3 +376,6 @@ $dividerColor: $ms-color-neutralLight;
         margin-left: 5px;
     }
 }
+
+
+

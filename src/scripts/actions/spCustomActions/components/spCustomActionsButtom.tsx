@@ -22,10 +22,10 @@ export class SpCustomActionsButtom extends React.Component<{}, SpCustomActionsBu
 
     public render() {
         return (<div id='ContextualMenuButtonDiv' ref="menuButton">
-            <Button onClick={this._onClick} id='ContextualMenuButton' buttonType={ButtonType.primary}> New Custom Action <i className="ms-Icon ms-Icon--ChevronUpSmall" aria-hidden="true"></i></Button>
+            <Button onClick={this._onClick} id='ContextualMenuButton' buttonType={ButtonType.primary}> New Custom Action <i className="ms-Icon ms-Icon--ChevronDownSmall" aria-hidden="true"></i></Button>
             {
                 this.state.isContextMenuVisible
-                    ? (<ContextualMenu target={this.refs.menuButton} isBeakVisible={true} beakWidth={20} shouldFocusOnMount={false} onDismiss={this._onDismiss} directionalHint={DirectionalHint.topLeftEdge} items={customActionLocationHelper.contextMenuItems} />)
+                    ? (<ContextualMenu target={this.refs.menuButton} isBeakVisible={true} beakWidth={10} shouldFocusOnMount={false} onDismiss={this._onDismiss} directionalHint={DirectionalHint.bottomRightEdge} items={customActionLocationHelper.contextMenuItems} />)
                     : (null)
             }
         </div>);
@@ -33,7 +33,7 @@ export class SpCustomActionsButtom extends React.Component<{}, SpCustomActionsBu
 
     private _onClick(event: React.MouseEvent<HTMLButtonElement>) {
         event.preventDefault();
-        this.setState({ isContextMenuVisible: true });
+        this.setState({ isContextMenuVisible: !this.state.isContextMenuVisible });
         return false;
     }
 
