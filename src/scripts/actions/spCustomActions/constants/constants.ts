@@ -33,8 +33,3 @@ export const constants = {
     MESSAGE_CUSTOM_ACTION_UPDATED: 'The selected custom action has been updated.',
     CUSTOM_ACTION_REST_REQUEST_URL: '/usercustomactions'
 }
-
-export const CustomActionLocationString = {
-    SCRIPTLINK: 'ScriptLink',
-    STANDARMENU: 'Microsoft.SharePoint.StandardMenu'
-}

@@ -2,6 +2,7 @@ import ApiBase from './../../common/apiBase';
 import { ICustomAction } from '../interfaces/spCustomActionsInterfaces'
 import { constants } from './../constants/constants';
 import { CustomActionType } from './../constants/enums';
+import { customActionLocationHelper } from '../helpers/customActionLocation'
 
 export default class SpCustomActionsApi extends ApiBase {
 
@@ -12,13 +13,12 @@ export default class SpCustomActionsApi extends ApiBase {
                 let cusctomActions: Array<ICustomAction> = [];
 
                 const caArray = response.data.value.filter((item: any) => {
-                    return ["ScriptLink", "Microsoft.SharePoint.StandardMenu"].indexOf(item.Location) >= 0 ;
+                    return customActionLocationHelper.supportedCustomActions.indexOf(item.Location) >= 0 ;
                 });
 
                 const caArrayLength = caArray.length;
                 for (let i = 0; i < caArrayLength; i++) {
                     const ca: any = caArray[i];
-                    console.log(ca);
                     const scriptSrc: string = ca.ScriptSrc;
                     const scriptBlock: string = ca.ScriptBlock;
                     const url: string = ca.Url;
