@@ -33,6 +33,7 @@ class SpCustomActionsItemEdit extends React.Component<SpCustomActionsItemEditPro
         super(props);
         this.state = { item: this.props.item }
         this.saveItem = this.saveItem.bind(this);
+        this.onInputChange = this.onInputChange.bind(this);
     }
 
     private saveItem() {
