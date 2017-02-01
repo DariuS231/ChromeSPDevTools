@@ -93,6 +93,7 @@ export default class SpCustomActionsApi extends ApiBase {
             ca.set_scriptSrc(caObj.scriptSrc);
             ca.set_scriptBlock(caObj.scriptBlock);
             ca.set_url(caObj.url);  
+            ca.set_imageUrl(caObj.imageUrl);
 
             ca.update();
             ctx.load(ca);

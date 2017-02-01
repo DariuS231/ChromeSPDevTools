@@ -1,5 +1,6 @@
 
 import * as React from 'react';
+import { SpCustomActionsItemSelect } from './spCustomActionsItemSelect'
 import { SpCustomActionsItemInput } from './spCustomActionsItemInput'
 import { ICustomAction } from '../interfaces/spCustomActionsInterfaces';
 
@@ -15,7 +16,8 @@ const SpCustomActionsItemFormStandarMenu: React.StatelessComponent<SpCustomActio
         <SpCustomActionsItemInput inputKey="name" label="Name" value={props.item.name} onValueChange={props.onInputChange} />
         <SpCustomActionsItemInput inputKey="description" label="Description" value={props.item.description} onValueChange={props.onInputChange} />
         <SpCustomActionsItemInput inputKey="imageUrl" label="Image Url" value={props.item.imageUrl} onValueChange={props.onInputChange} />
-        <SpCustomActionsItemInput inputKey="group" label="Group" value={props.item.group} onValueChange={props.onInputChange} />
+        <SpCustomActionsItemSelect selectKey="group" label="Group" value={props.item.group} onValueChange={props.onInputChange}
+            options={[{ key: 'ActionsMenu', text: 'ActionsMenu' }, { key: 'SiteActions', text: 'SiteActions' }]} />
         <SpCustomActionsItemInput inputKey="sequence" label="Sequence" value={props.item.sequence} type="number" required={true} onValueChange={props.onInputChange} />
         <SpCustomActionsItemInput inputKey="url" label="Url" value={props.item.url} required={true} onValueChange={props.onInputChange} />
     </div>;
