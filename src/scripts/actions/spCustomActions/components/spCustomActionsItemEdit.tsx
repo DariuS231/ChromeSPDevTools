@@ -7,6 +7,7 @@ import propertyActionsCreatorsMap from '../actions/SpCustomActionsActions';
 import { IMapStateToPropsState, ICustomAction } from '../interfaces/spCustomActionsInterfaces';
 import { CustomActionType } from './../constants/enums';
 import { customActionLocationHelper } from '../helpers/customActionLocation'
+import { hashHistory } from 'react-router'
 
 interface IMapStateToPropsSpCustomActionsItemEdit {
     customActionType: CustomActionType,
@@ -14,15 +15,15 @@ interface IMapStateToPropsSpCustomActionsItemEdit {
 }
 
 interface IMapDispatchToPropsSpCustomActionsItemEdit {
-    createCustomAction: (ca: ICustomAction, caType: CustomActionType) => void,
-    updateCustomAction: (ca: ICustomAction, caType: CustomActionType) => void
+    createCustomAction: (ca: ICustomAction, caType: CustomActionType) => Promise<void>,
+    updateCustomAction: (ca: ICustomAction, caType: CustomActionType) => Promise<void>
 }
 
 interface SpCustomActionsItemEditProps {
     customActionType: CustomActionType,
     item: ICustomAction,
-    createCustomAction: (ca: ICustomAction, caType: CustomActionType) => void,
-    updateCustomAction: (ca: ICustomAction, caType: CustomActionType) => void
+    createCustomAction: (ca: ICustomAction, caType: CustomActionType) => Promise<void>,
+    updateCustomAction: (ca: ICustomAction, caType: CustomActionType) => Promise<void>
 }
 interface SpCustomActionsItemEditState {
     item: ICustomAction
@@ -36,9 +37,13 @@ class SpCustomActionsItemEdit extends React.Component<SpCustomActionsItemEditPro
 
     private saveItem() {
         if (this.state.item.id !== '') {
-            this.props.updateCustomAction(this.state.item, this.props.customActionType);
+            this.props.updateCustomAction(this.state.item, this.props.customActionType).then(()=>{
+                hashHistory.push('/');
+            });
         } else {
-            this.props.createCustomAction(this.state.item, this.props.customActionType);
+            this.props.createCustomAction(this.state.item, this.props.customActionType).then(()=>{
+                hashHistory.push('/');
+            });
         }
     }
     private onInputChange(value: string, key: string) {
@@ -104,11 +109,11 @@ const mapStateToProps = (state: IMapStateToPropsState, ownProps: any): IMapState
 
 const mapDispatchToProps = (dispatch: Dispatch<any>): IMapDispatchToPropsSpCustomActionsItemEdit => {
     return {
-        createCustomAction: (ca: ICustomAction, caType: CustomActionType) => {
-            dispatch(propertyActionsCreatorsMap.createCustomAction(ca, caType));
+        createCustomAction: (ca: ICustomAction, caType: CustomActionType): Promise<void> => {
+            return dispatch(propertyActionsCreatorsMap.createCustomAction(ca, caType));
         },
-        updateCustomAction: (ca: ICustomAction, caType: CustomActionType) => {
-            dispatch(propertyActionsCreatorsMap.updateCustomAction(ca, caType));
+        updateCustomAction: (ca: ICustomAction, caType: CustomActionType): Promise<void> => {
+            return dispatch(propertyActionsCreatorsMap.updateCustomAction(ca, caType));
         }
     }
 }

@@ -70,9 +70,21 @@ class CustomActionLocationHelper {
         })
     }
     public getFormComponent(item: ICustomAction, onChange: (value: string, key: string) => void): JSX.Element {
-        const filtered = this._location.filter((location: ILocationItem) => {
-            return location.spLocationName === item.location;
-        });
+        let filtered: Array<ILocationItem>;
+        if (item.location === 'ScriptLink') {
+            filtered = this._location.filter((location: ILocationItem) => {
+                if(item.scriptBlock){
+                    return location.type === 'ScriptBlock';
+                } else {
+                    return location.type === 'ScriptSrc';
+                }                
+            });
+        } else {
+            filtered = this._location.filter((location: ILocationItem) => {
+                return location.spLocationName === item.location;
+            });
+        }
+
         return (filtered.length > 0) ? filtered[0].renderForm(item, onChange) : null;
     }
     public getSpLocationNameByType(type: string): string {
