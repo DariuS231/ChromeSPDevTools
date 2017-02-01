@@ -3,8 +3,7 @@
         "typings/index.d.ts"
     ],
     "compilerOptions": {
-        "outDir": "./dist",
-        "sourceMap": false,
+        "sourceMap": true,
         "noImplicitAny": true,
         "module": "commonjs",
         "target": "es5",
