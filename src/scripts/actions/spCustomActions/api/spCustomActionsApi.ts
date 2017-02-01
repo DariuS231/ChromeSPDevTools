@@ -2,6 +2,7 @@ import ApiBase from './../../common/apiBase';
 import { ICustomAction } from '../interfaces/spCustomActionsInterfaces'
 import { constants } from './../constants/constants';
 import { CustomActionType } from './../constants/enums';
+import { customActionLocationHelper } from '../helpers/customActionLocation'
 
 export default class SpCustomActionsApi extends ApiBase {
 
@@ -10,27 +11,33 @@ export default class SpCustomActionsApi extends ApiBase {
             const reqUrl = `${_spPageContextInfo.webAbsoluteUrl}/_api/${CustomActionType[caType]}${constants.CUSTOM_ACTION_REST_REQUEST_URL}`;
             this.getRequest(reqUrl).then((response: any) => {
                 let cusctomActions: Array<ICustomAction> = [];
-                const caArray = response.data.value;
+
+                const caArray = response.data.value.filter((item: any) => {
+                    return customActionLocationHelper.supportedCustomActions.indexOf(item.Location) >= 0 ;
+                });
+
                 const caArrayLength = caArray.length;
                 for (let i = 0; i < caArrayLength; i++) {
                     const ca: any = caArray[i];
-                    const scriptSrc:string = ca.ScriptSrc;
+                    const scriptSrc: string = ca.ScriptSrc;
+                    const scriptBlock: string = ca.ScriptBlock;
+                    const url: string = ca.Url;
+
                     cusctomActions.push({
                         id: ca.Id,
                         name: ca.Name,
                         description: ca.Description,
+                        group:ca.Group,
                         title: ca.Title,
                         registrationType: ca.RegistrationType,
                         scriptSrc: scriptSrc,
-                        scriptBlock: ca.ScriptBlock,
+                        scriptBlock: scriptBlock,
                         location: ca.Location,
-                        locationInternal: (scriptSrc ? 'ScriptLink' : 'ScriptBlock'),
+                        imageUrl: ca.ImageUrl,
+                        url: url,
                         sequence: ca.Sequence
                     })
                 }
-                cusctomActions = cusctomActions.filter((item, index) => {
-                    return item.scriptBlock !== '' || item.scriptSrc !== '';
-                });
                 resolve(cusctomActions);
             }).catch((error: any) => {
                 reject(error);
@@ -63,15 +70,15 @@ export default class SpCustomActionsApi extends ApiBase {
 
     private setCustomAction(caObj: ICustomAction, caType: CustomActionType, isNewCa: boolean): Promise<ICustomAction> {
         return new Promise((resolve, reject) => {
-            
+
             const ctx: SP.ClientContext = SP.ClientContext.get_current();
-            const partenObj = (caType === CustomActionType.Web) 
-                ? ctx.get_web() 
+            const partenObj = (caType === CustomActionType.Web)
+                ? ctx.get_web()
                 : ctx.get_site();
 
             let ca: SP.UserCustomAction;
-            if(isNewCa){
-                ca = partenObj.get_userCustomActions().add() ;
+            if (isNewCa) {
+                ca = partenObj.get_userCustomActions().add();
             } else {
                 const caGuid: SP.Guid = new SP.Guid(caObj.id);
                 ca = partenObj.get_userCustomActions().getById(caGuid);
@@ -81,19 +88,17 @@ export default class SpCustomActionsApi extends ApiBase {
             ca.set_name(caObj.name);
             ca.set_description(caObj.description);
             ca.set_sequence(caObj.sequence);
-            ca.set_location('ScriptLink');
-            if (caObj.locationInternal === 'ScriptLink') {
-                ca.set_scriptSrc(caObj.scriptSrc);
-                ca.set_scriptBlock('');
-            } else {
-                ca.set_scriptSrc('');
-                ca.set_scriptBlock(caObj.scriptBlock);
-            }
+            ca.set_group(caObj.group);
+            ca.set_location(caObj.location);
+            ca.set_scriptSrc(caObj.scriptSrc);
+            ca.set_scriptBlock(caObj.scriptBlock);
+            ca.set_url(caObj.url);  
+            ca.set_imageUrl(caObj.imageUrl);
 
             ca.update();
             ctx.load(ca);
             ctx.executeQueryAsync((sender: any, err: any) => {
-                resolve(Object.assign({}, caObj, {id: ca.get_id().toString()}));
+                resolve(Object.assign({}, caObj, { id: ca.get_id().toString() }));
             }, this.requestErrorEventHandler.bind(this));
         });
     }

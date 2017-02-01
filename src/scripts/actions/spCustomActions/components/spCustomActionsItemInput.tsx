@@ -6,7 +6,7 @@ interface SpCustomActionsItemInputProps {
     label: string,
     inputKey: string,
     value: any,
-    disabled: boolean,
+    disabled?: boolean,
     multipleLine?: boolean,
     required?: boolean,
     type?: string,
@@ -23,10 +23,10 @@ export const SpCustomActionsItemInput: React.StatelessComponent<SpCustomActionsI
     }
     return <TextField
         multiline={props.multipleLine}
-        resizable={ false }
+        resizable={false}
         onGetErrorMessage={getErrorMessage}
         label={props.label}
-        value={props.value}
+        value={props.value || ''}
         type={!!props.type ? "text" : props.type}
         disabled={props.disabled}
         onChanged={onTextBoxValueChange} />

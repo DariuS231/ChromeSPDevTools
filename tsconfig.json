@@ -1,13 +1,13 @@
 {
-     "files": [
+    "files": [
         "typings/index.d.ts"
     ],
     "compilerOptions": {
-        "outDir": "./dist",
-        "sourceMap": false,
+        "sourceMap": true,
         "noImplicitAny": true,
         "module": "commonjs",
         "target": "es5",
-        "jsx": "react"
+        "jsx": "react",
+        "moduleResolution": "node"
     }
 }

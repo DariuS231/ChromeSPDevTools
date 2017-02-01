@@ -328,6 +328,15 @@ $dividerColor: $ms-color-neutralLight;
             display: inline-block;
         }
     }
+    .edit-form-title{
+        margin: 10px;
+    }
+    #ContextualMenuButton{
+        width: 100%;
+    }
+}
+.ms-ContextualMenu-link{
+    margin-left: 0;
 }
 
 // /***   Web/Site Features ***/
@@ -367,3 +376,6 @@ $dividerColor: $ms-color-neutralLight;
         margin-left: 5px;
     }
 }
+
+
+

@@ -1,5 +1,4 @@
 {
-    "NODE_ENV": "production",
     "paths": {
         "chromeExt": {
             "vendors": {
@@ -31,102 +30,7 @@
             "data": {
                 "src": "src/data/*.json",
                 "dist": "dist/chromeExtension/dev/data"
-            },
-            "scripts": {
-                "background": {
-                    "watchFiles": "src/scripts/chromeExtension/background.ts",
-                    "entries": [
-                        "src/scripts/chromeExtension/background.ts"
-                    ],
-                    "outputFolder": "dist/chromeExtension/dev/scripts",
-                    "outputFileName": "background.js"
-                },
-                "popup": {
-                    "watchFiles": "src/scripts/chromeExtension/main.tsx",
-                    "entries": [
-                        "src/scripts/chromeExtension/main.tsx"
-                    ],
-                    "outputFolder": "dist/chromeExtension/dev/scripts",
-                    "outputFileName": "popup.js"
-                }
-            }
-        },
-        "actions": {
-            "spPropertyBag": {
-                "watchFiles": [
-                    "src/scripts/actions/SpPropertyBag/**/*.{ts,tsx}",
-                    "src/scripts/actions/common/**/*.{ts,tsx}"
-                ],
-                "entries": [
-                    "src/scripts/actions/SpPropertyBag/app.tsx"
-                ],
-                "outputFolder": "dist/actions/SpPropertyBag",
-                "outputFileName": "SpPropertyBag.js"
-            },
-            "spSiteContent": {
-                "watchFiles": [
-                    "src/scripts/actions/SpSiteContent/**/*.{ts,tsx}",
-                    "src/scripts/actions/common//**/*.{ts,tsx}"
-                ],
-                "entries": [
-                    "src/scripts/actions/SpSiteContent/app.tsx"
-                ],
-                "outputFolder": "dist/actions/SpSiteContent",
-                "outputFileName": "SpSiteContent.js"
-            },
-            "spWebCustomActions": {
-                "watchFiles": [
-                    "src/scripts/actions/spCustomActions/**/*.{ts,tsx}",
-                    "src/scripts/actions/common/**/*.{ts,tsx}"
-                ],
-                "entries": [
-                    "src/scripts/actions/spCustomActions/app.tsx"
-                ],
-                "outputFolder": "dist/actions/spWebCustomActions",
-                "outputFileName": "spWebCustomActions.js"
-            },
-            "spSiteCustomActions": {
-                "watchFiles": [
-                    "src/scripts/actions/spCustomActions/**/*.tsx",
-                    "src/scripts/actions/common/spCustomModalWrapper.tsx",
-                    "src/scripts/actions/common/styles.ts"
-                ],
-                "entries": [
-                    "src/scripts/actions/spCustomActions/app.tsx"
-                ],
-                "outputFolder": "dist/actions/spSiteCustomActions",
-                "outputFileName": "spSiteCustomActions.js"
-            },
-            "spFeatures": {
-                "watchFiles": [
-                    "src/scripts/actions/spFeatures**/*.tsx",
-                    "src/scripts/actions/common/spCustomModalWrapper.tsx",
-                    "src/scripts/actions/common/styles.ts"
-                ],
-                "entries": [
-                    "src/scripts/actions/spFeatures/main.tsx"
-                ],
-                "outputFolder": "dist/actions/spFeatures",
-                "outputFileName": "spFeatures.js"
-            },
-            "styles": {
-                "watchFiles": [
-                    "./src/scripts/actions/styles/components.scss"
-                ],
-                "bundle": "bundle.css",
-                "dist": "dist/actions/styles"
             }
         }
-    },
-    "sassConfig": {
-        "errLogToConsole": true,
-        "outputStyle": "compressed",
-        "includePaths": ""
-    },
-    "browserifyConfig": {
-        "basedir": ".",
-        "debug": true,
-        "cache": {},
-        "packageCache": {}
     }
 }
