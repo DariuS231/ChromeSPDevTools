@@ -9,7 +9,7 @@ export interface ICustomActionType extends IContextualMenuItem {
     type: string
 }
 
-interface ILocationItem {
+export interface ILocationItem {
     key: string,
     type: string,
     name: string,
@@ -73,11 +73,11 @@ class CustomActionLocationHelper {
         let filtered: Array<ILocationItem>;
         if (item.location === 'ScriptLink') {
             filtered = this._location.filter((location: ILocationItem) => {
-                if(item.scriptBlock){
+                if (item.scriptBlock) {
                     return location.type === 'ScriptBlock';
                 } else {
                     return location.type === 'ScriptSrc';
-                }                
+                }
             });
         } else {
             filtered = this._location.filter((location: ILocationItem) => {
@@ -87,11 +87,36 @@ class CustomActionLocationHelper {
 
         return (filtered.length > 0) ? filtered[0].renderForm(item, onChange) : null;
     }
-    public getSpLocationNameByType(type: string): string {
-        const filtered = this._location.filter((item: ILocationItem) => {
-            return item.type === type;
+    public getLocationItem(item: ICustomAction): ILocationItem {
+        let filtered: Array<ILocationItem>;
+        if (item.location === 'ScriptLink') {
+            filtered = this._location.filter((location: ILocationItem) => {
+                if (item.scriptBlock) {
+                    return location.type === 'ScriptBlock';
+                } else {
+                    return location.type === 'ScriptSrc';
+                }
+            });
+        } else {
+            filtered = this._location.filter((location: ILocationItem) => {
+                return location.spLocationName === item.location;
+            });
+        }
+
+        return (filtered.length > 0) ? filtered[0] : null;
+    }
+
+    public getLocationByKey(key: string): ILocationItem {
+        let filtered: Array<ILocationItem> = this._location.filter((location: ILocationItem) => {
+            return location.key === key;
         });
-        return (filtered.length > 0) ? filtered[0].spLocationName : null;
+
+        return (filtered.length > 0) ? filtered[0] : null;
+    }
+
+    public getSpLocationNameByType(type: string): string {
+        const loc = this.getLocationByKey(type)
+        return (loc) ? loc.spLocationName : null;
     }
 }
 

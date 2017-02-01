@@ -21,7 +21,7 @@ const SpCustomActionsItemFormScriptLink: React.StatelessComponent<SpCustomAction
         scriptTxtBoxValue = props.item.scriptBlock;
     } else {
         scriptTxtBoxLabel = 'Script Link';
-        scriptTxtBoxKey = 'scriptLink';
+        scriptTxtBoxKey = 'scriptSrc';
         scriptTxtBoxValue = props.item.scriptSrc;
     }
 

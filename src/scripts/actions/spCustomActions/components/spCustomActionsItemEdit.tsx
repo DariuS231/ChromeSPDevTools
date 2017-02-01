@@ -6,12 +6,13 @@ import { Link } from 'react-router';
 import propertyActionsCreatorsMap from '../actions/SpCustomActionsActions';
 import { IMapStateToPropsState, ICustomAction } from '../interfaces/spCustomActionsInterfaces';
 import { CustomActionType } from './../constants/enums';
-import { customActionLocationHelper } from '../helpers/customActionLocation'
+import { customActionLocationHelper, ILocationItem } from '../helpers/customActionLocation'
 import { hashHistory } from 'react-router'
 
 interface IMapStateToPropsSpCustomActionsItemEdit {
     customActionType: CustomActionType,
-    item: ICustomAction
+    item: ICustomAction,
+    locationItem: ILocationItem 
 }
 
 interface IMapDispatchToPropsSpCustomActionsItemEdit {
@@ -22,6 +23,7 @@ interface IMapDispatchToPropsSpCustomActionsItemEdit {
 interface SpCustomActionsItemEditProps {
     customActionType: CustomActionType,
     item: ICustomAction,
+    locationItem: ILocationItem,
     createCustomAction: (ca: ICustomAction, caType: CustomActionType) => Promise<void>,
     updateCustomAction: (ca: ICustomAction, caType: CustomActionType) => Promise<void>
 }
@@ -38,11 +40,11 @@ class SpCustomActionsItemEdit extends React.Component<SpCustomActionsItemEditPro
 
     private saveItem() {
         if (this.state.item.id !== '') {
-            this.props.updateCustomAction(this.state.item, this.props.customActionType).then(()=>{
+            this.props.updateCustomAction(this.state.item, this.props.customActionType).then(() => {
                 hashHistory.push('/');
             });
         } else {
-            this.props.createCustomAction(this.state.item, this.props.customActionType).then(()=>{
+            this.props.createCustomAction(this.state.item, this.props.customActionType).then(() => {
                 hashHistory.push('/');
             });
         }
@@ -56,7 +58,7 @@ class SpCustomActionsItemEdit extends React.Component<SpCustomActionsItemEditPro
     public render(): JSX.Element {
         let titleStr: string;
         if (this.props.item.id === '') {
-            titleStr = "New Custom Action " + this.props.item.location;
+            titleStr = "New Custom Action " + this.props.locationItem.name;
         } else {
             titleStr = "Custom Action id " + this.props.item.id;
         }
@@ -68,7 +70,7 @@ class SpCustomActionsItemEdit extends React.Component<SpCustomActionsItemEditPro
             </div>
             <div className='ms-ListBasicExample-itemCell  ms-Grid-row' data-is-focusable={true}>
                 {
-                    customActionLocationHelper.getFormComponent(this.state.item, this.onInputChange)
+                    this.props.locationItem.renderForm(this.state.item, this.onInputChange)
                 }
                 <div className="ms-ListItem-actions ms-Grid-col ms-u-sm1 ms-u-md1 ms-u-lg1">
                     <Button buttonType={ButtonType.icon} icon="Save" rootProps={{ title: "Save" }} ariaLabel="Save" onClick={this.saveItem} />
@@ -86,25 +88,28 @@ const mapStateToProps = (state: IMapStateToPropsState, ownProps: any): IMapState
     const caGuid: string = ownProps.params.guid;
     const newCaType: string = ownProps.params.type;
     let ca: ICustomAction = null;
+    let locItem: ILocationItem; 
     if (caGuid) {
         const filtered = state.spCustomActions.customActions.filter((item: ICustomAction) => {
             return item.id === caGuid;
         });
         if (filtered.length > 0) {
             ca = filtered[0];
+            locItem = customActionLocationHelper.getLocationItem(ca);
         }
     } else if (newCaType) {
-        let locationString: string = customActionLocationHelper.getSpLocationNameByType(newCaType);
+        locItem = customActionLocationHelper.getLocationByKey(newCaType);
         ca = {
             id: '', name: '', title: '', description: '', group: '', imageUrl: '',
             locationInternal: '', registrationType: 0, scriptBlock: '', scriptSrc: '', sequence: 1,
-            url: '', location: locationString
+            url: '', location: locItem.spLocationName
         }
 
     }
     return {
         customActionType: state.spCustomActions.customActionType,
-        item: ca
+        item: ca,
+        locationItem: locItem
     }
 }
 
