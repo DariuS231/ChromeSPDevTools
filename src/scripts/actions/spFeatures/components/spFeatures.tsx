@@ -2,11 +2,11 @@ import * as React from 'react';
 import * as jQuery from 'jquery'
 import "whatwg-fetch";
 import FeatureToggle from './featureToggle';
-import { WorkingOnIt } from './../common/components/WorkingOnIt';
-import MessageBar from './../common/components/MessageBar';
-import Utils from './../common/utils';
-import { FeatureOperationType } from './../common/enums';
-import { IFeature } from './../common/interfaces'
+import { WorkingOnIt } from './../../common/components/WorkingOnIt';
+import MessageBar from './../../common/components/MessageBar';
+import Utils from './../../common/utils';
+import { FeatureOperationType } from './../../common/enums';
+import { IFeature } from '../interfaces/spFeaturesInterfaces';
 
 import { MessageBarType } from 'office-ui-fabric-react/lib/MessageBar';
 import { List } from 'office-ui-fabric-react/lib/List';
@@ -20,8 +20,6 @@ import { Image, ImageFit } from 'office-ui-fabric-react/lib/Image';
 
 
 interface SpFeatureProps {
-    showOnlyIconsInButtons: boolean,
-    closeWindowFunction: any
 }
 interface SpFeatureState {
     currentUserHasPermissions: boolean,
@@ -210,7 +208,7 @@ export default class SpFeatures extends React.Component<SpFeatureProps, SpFeatur
             let onError = (sender: any, err: any) => {
                 SP.UI.Notify.addNotification("Failed to features...<br>" + err.get_message(), false);
                 console.log(err);
-                this.props.closeWindowFunction();
+                //this.props.closeWindowFunction();
             };
             this.ctx.executeQueryAsync(onSuccess, onError);
         }
@@ -263,7 +261,7 @@ export default class SpFeatures extends React.Component<SpFeatureProps, SpFeatur
                                     <div className='ms-ListBasicExample-itemContent ms-ListBasicExample-featureName ms-font-m ms-fontColor-themePrimary ms-fontWeight-semibold'>                                        
                                             {item.name}
                                     </div>
-                                    <FeatureToggle item={item} key={item.id} itemIndex={index} onClick={this.onWebActionClick.bind(this)} showOnlyIconsInButtons={this.props.showOnlyIconsInButtons} />
+                                    <FeatureToggle item={item} key={item.id} itemIndex={index} onClick={this.onWebActionClick.bind(this)} showOnlyIconsInButtons={false} />
                                 </div>
                             )}
                             />
@@ -280,7 +278,7 @@ export default class SpFeatures extends React.Component<SpFeatureProps, SpFeatur
                                             <div className='ms-ListBasicExample-itemContent ms-ListBasicExample-featureName ms-font-m ms-fontColor-themePrimary ms-fontWeight-semibold'>
                                                     {item.name}
                                             </div>
-                                        <FeatureToggle item={item} key={item.id} itemIndex={index} onClick={this.onSiteActionClick.bind(this)} showOnlyIconsInButtons={this.props.showOnlyIconsInButtons} />
+                                        <FeatureToggle item={item} key={item.id} itemIndex={index} onClick={this.onSiteActionClick.bind(this)} showOnlyIconsInButtons={false} />
                                     </div>
                                 )}
                                 />

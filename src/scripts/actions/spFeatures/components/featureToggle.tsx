@@ -1,6 +1,5 @@
 import * as React from 'react';
-
-import { IFeature } from './../common/interfaces'
+import { IFeature } from '../interfaces/spFeaturesInterfaces';
 import { Toggle } from 'office-ui-fabric-react/lib/Toggle';
 
 interface FeatureItemState {

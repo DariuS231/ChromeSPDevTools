@@ -17,7 +17,7 @@ module.exports = {
     // Using webpack multiple entry point 
     entry: {
         'spPropertyBag': './src/scripts/actions/spPropertyBag/app.tsx',
-        'spFeatures': './src/scripts/actions/spFeatures/main.tsx',
+        'spFeatures': './src/scripts/actions/spFeatures/app.tsx',
         'spSiteContent': './src/scripts/actions/spSiteContent/app.tsx',
         'spWebCustomActions': './src/scripts/actions/spCustomActions/app_webCa.tsx',
         'spSiteCustomActions': './src/scripts/actions/spCustomActions/app_siteCa.tsx'
