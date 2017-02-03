@@ -1,13 +1,14 @@
 
-import { ActionCreator, ActionCreatorsMapObject, Dispatch } from 'redux'
-import { IMessageData, IAction } from './../../common/interfaces'
+import { ActionCreator, ActionCreatorsMapObject, Dispatch } from 'redux';
+import { IMessageData, IAction } from './../../common/interfaces';
+import { FeatureScope } from '../constants/enums';
 
 export interface IFeature {
     id: string,
     name: string,
     description: string,
     activated: boolean,
-    scope: any,
+    scope: FeatureScope,
     logo: string
 }
 
@@ -39,7 +40,6 @@ export interface IMapDispatchToProps {
 }
 
 export interface SpFeaturesProps {
-    closeWindowFunction: any,
     currentUserHasPermissions: boolean,
     isWorkingOnIt: boolean,
     webFeatures: Array<IFeature>,

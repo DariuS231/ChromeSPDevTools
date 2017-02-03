@@ -4,6 +4,7 @@ import { ActionCreator, ActionCreatorsMapObject, Dispatch } from 'redux'
 import { MessageBarType } from 'office-ui-fabric-react/lib/MessageBar';
 import SpFeaturesApi from '../api/spFeaturesApi'
 import { IMessageData, IAction } from './../../common/interfaces'
+import { FeatureScope } from '../constants/enums';
 
 
 const api = new SpFeaturesApi();
@@ -35,7 +36,7 @@ const setMessageData: ActionCreator<IAction<IMessageData>> = (messageData: IMess
 
 const getAllSiteFeatures = () => {
     return function (dispatch: Dispatch<IAction<Array<IFeature>>>) {
-        return api.getFeatures().then(
+        return api.getFeatures(FeatureScope.Site).then(
             (properties: Array<IFeature>) => {
                 
             }
@@ -44,7 +45,7 @@ const getAllSiteFeatures = () => {
 }
 const getAllWebFeatures = () => {
     return function (dispatch: Dispatch<IAction<Array<IFeature>>>) {
-        return api.getFeatures().then(
+        return api.getFeatures(FeatureScope.Web).then(
             (properties: Array<IFeature>) => {
                 
             }

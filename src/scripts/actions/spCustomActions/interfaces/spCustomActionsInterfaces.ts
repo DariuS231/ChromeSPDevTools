@@ -46,7 +46,6 @@ export interface IMapDispatchToProps {
 }
 
 export interface SpCustomActionsProps {
-    closeWindowFunction: any,
     currentUserHasPermissions: boolean,
     isWorkingOnIt: boolean,
     customActions: Array<ICustomAction>,
