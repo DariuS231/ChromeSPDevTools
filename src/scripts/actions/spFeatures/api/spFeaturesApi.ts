@@ -13,29 +13,20 @@ export default class SpFeaturesApi extends ApiBase {
                 let items: Array<IFeature> = [];
 
                 const parser = new DOMParser();
-                const xmlDoc = parser.parseFromString(response, "text/xml");
-
+                const xmlDoc = parser.parseFromString(response.data, "text/xml");
                 const featuresElements = xmlDoc.querySelectorAll('.ms-ButtonHeightWidth');
                 for (let i = 0, l = featuresElements.length; i < l; i++) {
-                    const element = featuresElements[i];
-                    const container = element.parentElement.parentElement.parentElement;
-                    const name = container.querySelector('h3').textContent;
+                    const container = featuresElements[i].parentElement.parentElement.parentElement;
+                    items.push({ 
+                        id: container.querySelectorAll('.ms-vb2[id]')[0].getAttribute('id'), 
+                        name: container.querySelector('h3').textContent, 
+                        description: container.querySelectorAll('.ms-vb2')[1].textContent, 
+                        scope: scope, 
+                        activated: (container.querySelectorAll('input.ms-ButtonHeightWidth')[0] as HTMLInputElement).value !== 'Deactivate', 
+                        logo: container.querySelectorAll('img')[0].getAttribute('src') 
+                    });
                 }
-                // htmlFeatures.find(".ms-ButtonHeightWidth").parent().parent().parent().each(function () {
-                //     let featureLine = jQuery(this);
-                //     let name: any = featureLine.find("h3:first").text();
-                //     let id: any = featureLine.find(".ms-ButtonHeightWidth:first").parent().attr("id");
-                //     //temp we put the description in the name
-                //     let description: any = name;
-                //     let activated: boolean = featureLine.find(".ms-ButtonHeightWidth:first").attr("value") === "Activate" ? true : false;
-                //     let toggleButton: boolean = featureLine.find(".ms-ButtonHeightWidth:first").attr("value") === "Activate" ? false : true;
-                //     let scope: SP.FeatureDefinitionScope = featureType;
-                //     let logo: string = featureLine.find("img").attr("src");
-                //     //console.log("feature name:" + name + " - id: " + id + " - activate: " + activated);
-                //     items.push({ id: id, name: name, description: name, scope: scope, activated: activated, logo: logo });
-                // });
-                console.log(xmlDoc);
-                resolve();
+                resolve(items);
             }).catch((error: any) => {
                 reject(error);
             });
