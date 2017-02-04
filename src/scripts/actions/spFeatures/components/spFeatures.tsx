@@ -3,19 +3,18 @@ import { connect } from 'react-redux'
 import { bindActionCreators, Dispatch } from 'redux'
 import { WorkingOnIt } from './../../common/components/WorkingOnIt';
 import MessageBar from './../../common/components/MessageBar';
-import { IFeature } from '../interfaces/spFeaturesInterfaces';
 import FilterTextBox from './../../common/components/filterTextBox';
-import { SpFeaturesProps } from '../interfaces/spFeaturesInterfaces'
 import { MessageBarType } from 'office-ui-fabric-react/lib/MessageBar';
 import SpFeaturesList from './spFeaturesList';
 import spFeaturesActionsCreatorMap from '../actions/spFeaturesActions';
-import { IMapStateToPropsState, IMapStateToProps, IMapDispatchToProps } from '../interfaces/spFeaturesInterfaces'
+import { IMapStateToPropsState, IMapStateToProps, IMapDispatchToProps, IFeature, SpFeaturesProps } from '../interfaces/spFeaturesInterfaces'
 
 
 class SpFeatures extends React.Component<SpFeaturesProps, {}> {
     constructor() {
         super();
         this.onMessageClose = this.onMessageClose.bind(this);
+        this.onToggleClick = this.onToggleClick.bind(this);
     }
     private componentDidMount() {
         this.props.actions.checkUserPermissions(SP.PermissionKind.manageWeb);
@@ -27,8 +26,12 @@ class SpFeatures extends React.Component<SpFeaturesProps, {}> {
             type: MessageBarType.info
         });
     }
-    private onToggleClick(checked: boolean): void {
-
+    private onToggleClick(feature: IFeature): void {
+        if (feature.activated) {
+            this.props.actions.deActivateFeature(feature);
+        } else {
+            this.props.actions.deActivateFeature(feature);
+        }
     }
     public render() {
         if (this.props.isWorkingOnIt) {

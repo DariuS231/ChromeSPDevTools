@@ -10,7 +10,7 @@ interface SpFeaturesListProps {
     items: Array<IFeature>,
     listTitle: string,
     tablesClassName: string,
-    onToggleClick: (checked: boolean) => void
+    onToggleClick: (feature: IFeature) => void
 }
 
 const SpFeaturesList: React.StatelessComponent<SpFeaturesListProps> = (props: SpFeaturesListProps) => {
