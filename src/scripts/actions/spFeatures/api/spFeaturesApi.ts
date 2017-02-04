@@ -22,7 +22,7 @@ export default class SpFeaturesApi extends ApiBase {
                         name: container.querySelector('h3').textContent, 
                         description: container.querySelectorAll('.ms-vb2')[1].textContent, 
                         scope: scope, 
-                        activated: (container.querySelectorAll('input.ms-ButtonHeightWidth')[0] as HTMLInputElement).value !== 'Deactivate', 
+                        activated: (container.querySelectorAll('input.ms-ButtonHeightWidth')[0]).getAttribute('value') === 'Deactivate', 
                         logo: container.querySelectorAll('img')[0].getAttribute('src') 
                     });
                 }

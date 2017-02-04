@@ -24,10 +24,13 @@ export const spFeaturesReducer = (state: IInitialState = initialState, action: I
                 siteFeatures: fsiteFatures,
                 isWorkingOnIt: false
             });
-        case actions.SET_WEB_FEATURES:
-            const webFeatures: IFeature = action.payload;
+        case actions.SET_ALL_FEATURES:
+            const webFeatures: IFeature = action.payload.webFeatures;
+            const siteFeatures: IFeature = action.payload.siteFeatures;
             return Object.assign({}, state, {
-                siteFeatures: webFeatures,
+                siteFeatures: siteFeatures,
+                webFeatures: webFeatures,
+                userHasPermission: true,
                 isWorkingOnIt: false
             });
         case actions.ACTIVATE_FEATURE:
@@ -42,9 +45,14 @@ export const spFeaturesReducer = (state: IInitialState = initialState, action: I
         case actions.SET_MESSAGE_DATA:
             const messageData: IMessageData = action.payload;
             return Object.assign({}, state, { messageData: messageData });
-        case actions.SET_USER_PERMISSIONS:
-            const userHasPermission: boolean = action.payload;
-            return Object.assign({}, state, { userHasPermission: userHasPermission });
+        case actions.SET_NO_PERMISSIONS:
+            return Object.assign({}, state, {
+                messageData: {
+                    showMessage: true,
+                    message: constants.MESSAGE_USER_NO_PERMISSIONS,
+                    type: MessageBarType.error
+                }
+            });
         case actions.SET_WORKING_ON_IT:
             const isWorkingOnIt: boolean = action.payload;
             return Object.assign({}, state, { isWorkingOnIt: isWorkingOnIt });

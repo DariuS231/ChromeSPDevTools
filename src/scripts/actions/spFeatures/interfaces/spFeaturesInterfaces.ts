@@ -30,9 +30,8 @@ export interface ISpFeaturesActionCreatorsMapObject extends ActionCreatorsMapObj
     checkUserPermissions: (permissionKing: SP.PermissionKind) => (dispatch: Dispatch<IAction<Array<IFeature>>>) => Promise<void>,
     setFilterText: ActionCreator<IAction<string>>,
     setWorkingOnIt: ActionCreator<IAction<boolean>>,
-    setUserHasPermissions: ActionCreator<IAction<boolean>>,
+    setNoPermissions: ActionCreator<IAction<boolean>>,
     setMessageData: ActionCreator<IAction<IMessageData>>
-
 }
 
 export interface IMapDispatchToProps {

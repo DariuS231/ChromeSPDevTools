@@ -12,12 +12,12 @@ interface SpFeaturesItemProps {
 }
 
 const SpFeaturesItem: React.StatelessComponent<SpFeaturesItemProps> = (props: SpFeaturesItemProps) => {
-    return <div className='ms-ListBasicExample-itemCell' data-is-focusable={true}>
+    return <div className='ms-ListBasicExample-itemCell' data-is-focusable={true} title={props.item.description}>
         <Image className='ms-ListBasicExample-itemImage' src={props.item.logo} width={31} height={22} />
         <div className='ms-ListBasicExample-itemContent ms-ListBasicExample-featureName ms-font-m ms-fontColor-themePrimary ms-fontWeight-semibold'>
             {props.item.name}
         </div>
-        <Toggle checked={false} label='' onText='On' offText='Off' onChanged={props.onToggleClick} />
+        <Toggle checked={props.item.activated} label='' onText='On' offText='Off' onChanged={props.onToggleClick} />
     </div>
 
 }

@@ -18,9 +18,7 @@ class SpFeatures extends React.Component<SpFeaturesProps, {}> {
         this.onMessageClose = this.onMessageClose.bind(this);
     }
     private componentDidMount() {
-        //this.props.actions.checkUserPermissions(SP.PermissionKind.manageWeb);
-        this.props.actions.getAllSiteFeatures();
-        this.props.actions.getAllWebFeatures();
+        this.props.actions.checkUserPermissions(SP.PermissionKind.manageWeb);
     }
     private onMessageClose() {
         this.props.actions.setMessageData({
