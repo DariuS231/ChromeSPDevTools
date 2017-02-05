@@ -25,8 +25,6 @@ export interface IInitialState {
 export interface ISpFeaturesActionCreatorsMapObject extends ActionCreatorsMapObject {
     activateFeature: (feature: IFeature) => (dispatch: Dispatch<IAction<IFeature>>) => Promise<void>,
     deActivateFeature: (feature: IFeature) => (dispatch: Dispatch<IAction<IFeature>>) => Promise<void>,
-    getAllSiteFeatures: () => (dispatch: Dispatch<IAction<Array<IFeature>>>) => Promise<void>,
-    getAllWebFeatures: () => (dispatch: Dispatch<IAction<Array<IFeature>>>) => Promise<void>,
     checkUserPermissions: (permissionKing: SP.PermissionKind) => (dispatch: Dispatch<IAction<Array<IFeature>>>) => Promise<void>,
     setFilterText: ActionCreator<IAction<string>>,
     setWorkingOnIt: ActionCreator<IAction<boolean>>,

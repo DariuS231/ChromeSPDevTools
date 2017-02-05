@@ -39,71 +39,78 @@ const getAllFeaturesSuccess: ActionCreator<IAction<{ webFeatures: Array<IFeature
         payload: { webFeatures: webFeatures, siteFeatures: siteFeatures }
     }
 }
-const getAllSiteFeatures = () => {
-    return function (dispatch: Dispatch<IAction<Array<IFeature>>>) {
-        return api.getFeatures(FeatureScope.Site).then(
-            (properties: Array<IFeature>) => {
-
-            }
-        );
-    };
+const setFeature: ActionCreator<IAction<IFeature>> = (feature: IFeature): IAction<IFeature> => {
+    return {
+        type: actions.SET_FEATURE,
+        payload: feature
+    }
 }
-const getAllWebFeatures = () => {
-    return function (dispatch: Dispatch<IAction<Array<IFeature>>>) {
-        return api.getFeatures(FeatureScope.Web).then(
-            (properties: Array<IFeature>) => {
 
-            }
-        );
+interface IFeatureUpdateSuccess{
+    features: Array<IFeature>, feature: IFeature
+}
+
+const getWebFeaturesSuccess: ActionCreator<IAction<IFeatureUpdateSuccess>> = (features: Array<IFeature>, feature: IFeature): IAction<IFeatureUpdateSuccess> => {
+    return {
+        type: actions.SET_WEB_FEATURES_AFTER_UPDATE,
+        payload: { features, feature }
+    }
+}
+
+const getSiteFeaturesSuccess: ActionCreator<IAction<IFeatureUpdateSuccess>> = (features: Array<IFeature>, feature: IFeature): IAction<IFeatureUpdateSuccess> => {
+    return {
+        type: actions.SET_SITE_FEATURES_AFTER_UPDATE,
+        payload: { features, feature }
+    }
+}
+const getFeatures = (feature: IFeature) => {
+    return (dispatch: Dispatch<IAction<Array<IFeature>>>) => {
+        return api.getFeatures(feature.scope).then((features: Array<IFeature>) => {
+            return (feature.scope === FeatureScope.Web
+                ? dispatch(getWebFeaturesSuccess(features, feature))
+                : dispatch(getSiteFeaturesSuccess(features, feature)));
+        });
     };
 }
 
 const activateFeature = (feature: IFeature) => {
-    return function (dispatch: Dispatch<IAction<IFeature>>) {
+    return (dispatch: Dispatch<IAction<IFeature>>) => {
         dispatch(setWorkingOnIt(true));
-        return api.activateFeature(feature).then(
-            (feature: IFeature) => {
-
-            }
-        );
+        return api.activateFeature(feature).then((featureUpdt: IFeature) => {
+            dispatch(getFeatures(feature));
+        });
     };
 }
 
 const deActivateFeature = (feature: IFeature) => {
-    return function (dispatch: Dispatch<IAction<IFeature>>) {
+    return (dispatch: Dispatch<IAction<IFeature>>) => {
         dispatch(setWorkingOnIt(true));
-        return api.deActivateFeature(feature).then(
-            (feature: IFeature) => {
-
-            }
-        );
+        return api.deActivateFeature(feature).then((featureUpdt: IFeature) => {
+            dispatch(getFeatures(feature));
+        });
     };
 }
 
 const checkUserPermissions = (permissionKing: SP.PermissionKind) => {
     return function (dispatch: Dispatch<IAction<void>>) {
-        return api.checkUserPermissions(permissionKing).then(
-            (hasPermissions: boolean) => {
-                if (hasPermissions) {
-                    const getSiteFeatures = api.getFeatures(FeatureScope.Site);
-                    const getWebFeatures = api.getFeatures(FeatureScope.Web);
-                    return Promise.all([getSiteFeatures, getWebFeatures]).then(values => {
-                        dispatch(getAllFeaturesSuccess(values[1],values[0]));
-                    });
+        return api.checkUserPermissions(permissionKing).then((hasPermissions: boolean) => {
+            if (hasPermissions) {
+                const getSiteFeatures = api.getFeatures(FeatureScope.Site);
+                const getWebFeatures = api.getFeatures(FeatureScope.Web);
+                return Promise.all([getSiteFeatures, getWebFeatures]).then(values => {
+                    dispatch(getAllFeaturesSuccess(values[1], values[0]));
+                });
 
-                } else {
-                    dispatch(setNoPermissions());
-                }
+            } else {
+                dispatch(setNoPermissions());
             }
-        );
+        });
     };
 }
 
 const spFeaturesActionsCreatorMap: ISpFeaturesActionCreatorsMapObject = {
     deActivateFeature,
     activateFeature,
-    getAllWebFeatures,
-    getAllSiteFeatures,
     checkUserPermissions,
     setFilterText,
     setWorkingOnIt,

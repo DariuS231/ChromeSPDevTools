@@ -5,19 +5,26 @@ import { FocusZone, FocusZoneDirection } from 'office-ui-fabric-react/lib/FocusZ
 import { Image } from 'office-ui-fabric-react/lib/Image';
 import SpFeaturesItem from './spFeaturesItem';
 import { IFeature } from '../interfaces/spFeaturesInterfaces';
+import { constants } from './../constants/constants';
 
 interface SpFeaturesListProps {
     items: Array<IFeature>,
     listTitle: string,
     tablesClassName: string,
+    filterString: string,
     onToggleClick: (feature: IFeature) => void
 }
 
 const SpFeaturesList: React.StatelessComponent<SpFeaturesListProps> = (props: SpFeaturesListProps) => {
+
+    const filter: string = props.filterString.toLowerCase();
+    const items: Array<IFeature> = filter !== constants.EMPTY_STRING ? props.items.filter((item: IFeature, index: number) => {
+        return item.name.toLowerCase().indexOf(filter) >= 0;
+    }) : props.items;
     return <div className={props.tablesClassName} >
         <div className='ms-font-l ms-fontWeight-semibold'>{props.listTitle}</div>
         <FocusZone direction={FocusZoneDirection.vertical} >
-            <List items={props.items} onRenderCell={(item, index) => (<SpFeaturesItem item={item} key={index} onToggleClick={props.onToggleClick} />)} />
+            <List items={items} onRenderCell={(item, index) => (<SpFeaturesItem item={item} key={index} onToggleClick={props.onToggleClick} />)} />
         </FocusZone>
     </div>;
 }

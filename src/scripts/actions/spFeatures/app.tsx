@@ -6,7 +6,7 @@ import Utils from './../common/utils';
 import SpFeatures from './components/SpFeatures'
 import { Provider } from 'react-redux';
 import { constants } from './constants/constants'
-import { configureStore } from './store/configureStore-prod'
+import { configureStore } from './store/configureStore-dev'
 
 
 class App extends AppBase {

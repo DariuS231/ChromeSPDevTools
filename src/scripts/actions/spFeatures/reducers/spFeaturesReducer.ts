@@ -1,7 +1,8 @@
 import { ActionsId as actions, constants } from './../constants/constants'
 import { IFeature, IInitialState } from '../interfaces/spFeaturesInterfaces'
 import { MessageBarType } from 'office-ui-fabric-react/lib/MessageBar';
-import { IMessageData, IAction } from './../../common/interfaces'
+import { IMessageData, IAction } from './../../common/interfaces';
+import { FeatureScope } from '../constants/enums';
 
 const initialState: IInitialState = {
     isWorkingOnIt: true,
@@ -18,11 +19,32 @@ const initialState: IInitialState = {
 
 export const spFeaturesReducer = (state: IInitialState = initialState, action: IAction<any>): IInitialState => {
     switch (action.type) {
-        case actions.SET_SITE_FEATURES:
-            const fsiteFatures: IFeature = action.payload;
+        case actions.SET_SITE_FEATURES_AFTER_UPDATE:
+            const fsiteFatures: IFeature = action.payload.features;
+            const fsiteFature: IFeature = action.payload.feature;
+            const fSiteMessage = 'The web fueature ' + fsiteFature.name + ' has been ' + (!fsiteFature.activated ? 'Activated' : 'Deactivated');
+
             return Object.assign({}, state, {
                 siteFeatures: fsiteFatures,
-                isWorkingOnIt: false
+                isWorkingOnIt: false,
+                messageData: {
+                    showMessage: true,
+                    message: fSiteMessage,
+                    type: MessageBarType.success
+                }
+            });
+        case actions.SET_WEB_FEATURES_AFTER_UPDATE:
+            const fwebFatures: IFeature = action.payload.features;
+            const fwebFature: IFeature = action.payload.feature;
+            const fWebMessage = 'The web fueature ' + fwebFature.name + ' has been ' + (!fwebFature.activated ? 'Activated' : 'Deactivated');
+            return Object.assign({}, state, {
+                webFeatures: fwebFatures,
+                isWorkingOnIt: false,
+                messageData: {
+                    showMessage: true,
+                    message: fWebMessage,
+                    type: MessageBarType.success
+                }
             });
         case actions.SET_ALL_FEATURES:
             const webFeatures: IFeature = action.payload.webFeatures;

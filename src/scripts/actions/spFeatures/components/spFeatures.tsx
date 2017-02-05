@@ -30,7 +30,7 @@ class SpFeatures extends React.Component<SpFeaturesProps, {}> {
         if (feature.activated) {
             this.props.actions.deActivateFeature(feature);
         } else {
-            this.props.actions.deActivateFeature(feature);
+            this.props.actions.activateFeature(feature);
         }
     }
     public render() {
@@ -41,8 +41,8 @@ class SpFeatures extends React.Component<SpFeaturesProps, {}> {
             return (<div className='sp-features action-container'>
                 <MessageBar onCloseMessageClick={this.onMessageClose} message={this.props.messageData.message} messageType={this.props.messageData.type} showMessage={this.props.messageData.showMessage} />
                 {hasPermissions && <FilterTextBox filterStr={this.props.filterText} setFilterText={this.props.actions.setFilterText} />}
-                {hasPermissions && <SpFeaturesList onToggleClick={this.onToggleClick} items={this.props.webFeatures} listTitle="Web Features" tablesClassName='web-feature-table' />}
-                {hasPermissions && <SpFeaturesList onToggleClick={this.onToggleClick} items={this.props.siteFeatures} listTitle="Site Features" tablesClassName='site-feature-table' />}
+                {hasPermissions && <SpFeaturesList onToggleClick={this.onToggleClick} items={this.props.webFeatures} filterString={this.props.filterText} listTitle="Web Features" tablesClassName='web-feature-table' />}
+                {hasPermissions && <SpFeaturesList onToggleClick={this.onToggleClick} items={this.props.siteFeatures} filterString={this.props.filterText} listTitle="Site Features" tablesClassName='site-feature-table' />}
             </div>);
         }
     }
