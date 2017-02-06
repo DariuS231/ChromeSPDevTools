@@ -1,60 +1,77 @@
-import * as React from 'react';
-import { connect } from 'react-redux'
-import { Dispatch } from 'redux'
-import { IProperty } from '../interfaces/spPropertyBagInterfaces';
-import propertyActionsCreatorsMap from '../actions/spPropertyBagActions';
-import { IMapStateToPropsState, IMapStateToProps } from '../interfaces/spPropertyBagInterfaces'
-import { SpPropertyBagItemForm } from './spPropertyBagItemForm';
-import { constants } from './../constants/constants';
+import * as React from "react";
+import { connect } from "react-redux";
+import { Dispatch } from "redux";
+import propertyActionsCreatorsMap from "../actions/spPropertyBagActions";
+import { IProperty } from "../interfaces/spPropertyBagInterfaces";
+import { IMapStateToProps, IMapStateToPropsState } from "../interfaces/spPropertyBagInterfaces";
+import { constants } from "./../constants/constants";
+import { SpPropertyBagItemForm } from "./spPropertyBagItemForm";
 
-interface SpPropertyBagItemActions {
-    updateProperty: Function,
-    deleteProperty: Function
+interface ISpPropertyBagItemActions {
+    updateProperty: Function;
+    deleteProperty: Function;
 }
 
-interface SpPropertyBagItemProps {
-    item: IProperty,
-    itemIndex: number,
-    updateProperty: Function,
-    deleteProperty: Function
+interface ISpPropertyBagItemProps {
+    item: IProperty;
+    itemIndex: number;
+    updateProperty: Function;
+    deleteProperty: Function;
 }
 
-interface SpPropertyBagItemState {
-    itemInputValue: string,
-    inEditMode: boolean
+interface ISpPropertyBagItemState {
+    itemInputValue: string;
+    inEditMode: boolean;
 }
 
-class SpPropertyBagItem extends React.Component<SpPropertyBagItemProps, SpPropertyBagItemState> {
+class SpPropertyBagItem extends React.Component<ISpPropertyBagItemProps, ISpPropertyBagItemState> {
     constructor() {
         super();
         this.state = {
-            itemInputValue: constants.EMPTY_STRING,
-            inEditMode: false
-        }
+            inEditMode: false,
+            itemInputValue: constants.EMPTY_STRING
+        };
         this.onUpdateClick = this.onUpdateClick.bind(this);
         this.onUpdateBtnClick = this.onUpdateBtnClick.bind(this);
         this.onDeleteClick = this.onDeleteClick.bind(this);
         this.getErrorMessage = this.getErrorMessage.bind(this);
         this.onValueInputChange = this.onValueInputChange.bind(this);
     }
-    componentDidUpdate() {
+    public render() {
+        const isEditMode: boolean = this.state.inEditMode;
+        const inputId: string = this.getInputId();
+
+        return <SpPropertyBagItemForm
+                    inputId={inputId}
+                    inputValue={this.state.itemInputValue}
+                    keyValue={this.props.item.key}
+                    isEditMode={isEditMode}
+                    getErrorMessage={this.getErrorMessage}
+                    onInputValueChange={this.onValueInputChange}
+                    topBtnClick={isEditMode ? this.onUpdateClick : this.onDeleteClick}
+                    bottomBtnClick={this.onUpdateBtnClick}
+        />;
+    }
+    protected componentDidUpdate() {
         if (this.state.inEditMode) {
-            let inputId: string = this.getInputId();
-            let input = document.getElementById(inputId);
-            if (input !== null && typeof input !== constants.UNDEFINED_STRING)
+            const inputId: string = this.getInputId();
+            const input = document.getElementById(inputId);
+            if (input !== null && typeof input !== constants.UNDEFINED_STRING) {
                 input.focus();
+            }
         }
     }
-    componentDidMount() {
+    protected componentDidMount() {
         this.setState({
             itemInputValue: this.props.item.value
-        } as SpPropertyBagItemState);
+        } as ISpPropertyBagItemState);
     }
+
     private getInputId() {
-        return 'spPropInput_' + this.props.item.key.trim();
+        return "spPropInput_" + this.props.item.key.trim();
     }
     private onDeleteClick(e: any) {
-        e.preventDefault()
+        e.preventDefault();
         if (confirm(constants.CONFIRM_DELETE_PROPERTY)) {
             this.props.deleteProperty(this.props.item);
         }
@@ -62,19 +79,16 @@ class SpPropertyBagItem extends React.Component<SpPropertyBagItemProps, SpProper
     }
     private onUpdateClick(e: any) {
         e.preventDefault();
-        this.props.updateProperty(Object.assign({}, this.props.item, { value: this.state.itemInputValue }));
+        this.props.updateProperty({ ...this.props.item, value: this.state.itemInputValue });
         return false;
     }
     private onValueInputChange(inputText: string) {
-        this.setState(Object.assign({}, this.state, { itemInputValue: inputText }));
+        this.setState({ ...this.state, itemInputValue: inputText });
         return false;
     }
     private onUpdateBtnClick(e: any) {
-        e.preventDefault()
-        this.setState(Object.assign({}, this.state, {
-            inEditMode: !this.state.inEditMode,
-            itemInputValue: this.props.item.value
-        }));
+        e.preventDefault();
+        this.setState({ ...this.state, inEditMode: !this.state.inEditMode, itemInputValue: this.props.item.value });
         return false;
     }
 
@@ -83,36 +97,21 @@ class SpPropertyBagItem extends React.Component<SpPropertyBagItemProps, SpProper
             ? constants.EMPTY_TEXTBOX_ERROR_MESSAGE
             : constants.EMPTY_STRING;
     }
-
-    public render() {
-        let isEditMode: boolean = this.state.inEditMode;
-        let inputId: string = this.getInputId();
-
-        return <SpPropertyBagItemForm
-            inputId={inputId}
-            inputValue={this.state.itemInputValue}
-            keyValue={this.props.item.key}
-            isEditMode={isEditMode}
-            getErrorMessage={this.getErrorMessage}
-            onInputValueChange={this.onValueInputChange}
-            topBtnClick={isEditMode ? this.onUpdateClick : this.onDeleteClick}
-            bottomBtnClick={this.onUpdateBtnClick} />
-    }
 }
 
 const mapStateToProps = (state: IMapStateToPropsState, ownProps: any): any => {
-    return {}
-}
+    return {};
+};
 
-const mapDispatchToProps = (dispatch: Dispatch<any>): SpPropertyBagItemActions => {
+const mapDispatchToProps = (dispatch: Dispatch<any>): ISpPropertyBagItemActions => {
     return {
-        updateProperty: (property: IProperty) => {
-            dispatch(propertyActionsCreatorsMap.updateProperty(property));
-        },
         deleteProperty: (property: IProperty) => {
             dispatch(propertyActionsCreatorsMap.deleteProperty(property));
+        },
+        updateProperty: (property: IProperty) => {
+            dispatch(propertyActionsCreatorsMap.updateProperty(property));
         }
-    }
-}
+    };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(SpPropertyBagItem);

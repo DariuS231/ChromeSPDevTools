@@ -11,7 +11,7 @@ interface SpPropertyBagListProps {
 export const SpPropertyBagList: React.StatelessComponent<SpPropertyBagListProps> = (props: SpPropertyBagListProps) => {
 
     const filter: string = props.filterString.toLowerCase();
-    const properties: Array<IProperty> = filter !== constants.EMPTY_STRING ? props.items.filter((prop: IProperty, index: number) => {
+    const properties: IProperty[] = filter !== constants.EMPTY_STRING ? props.items.filter((prop: IProperty, index: number) => {
         return prop.key.toLowerCase().indexOf(filter) >= 0 || prop.value.toLowerCase().indexOf(filter) >= 0;
     }) : props.items;
 
