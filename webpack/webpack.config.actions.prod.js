@@ -14,6 +14,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 module.exports = {
     // To enhance the debugging process. More info: https://webpack.js.org/configuration/devtool/
     devtool: 'source-map',
+    target: 'web',
     // Using webpack multiple entry point 
     entry: {
         'spPropertyBag': './src/scripts/actions/spPropertyBag/app.tsx',
@@ -28,7 +29,7 @@ module.exports = {
     },
     resolve: {
         // Add '.ts' and '.tsx' as resolvable extensions.
-        extensions: ["", ".ts", ".tsx", ".js"]
+        extensions: [".ts", ".tsx", ".js"]
     },
     plugins: [
         new webpack.DefinePlugin({
@@ -42,7 +43,6 @@ module.exports = {
         // Here you have all the available by now: 
         //    Webpack 1. https://github.com/webpack/webpack/blob/v1.13.3/lib/optimize
         //    Webpack 2. https://github.com/webpack/webpack/tree/master/lib/optimize
-        new webpack.optimize.DedupePlugin(),
         new webpack.optimize.UglifyJsPlugin({
             compress: {
                 warnings: false,
@@ -66,14 +66,29 @@ module.exports = {
             },
 
         }),
-        new webpack.optimize.OccurrenceOrderPlugin(),
         new webpack.optimize.AggressiveMergingPlugin(),
-        new ExtractTextPlugin('./styles/bundle.css', {
+        new ExtractTextPlugin({
+            filename: './styles/bundle.css',
             allChunks: true
         })
     ],
     module: {
-        loaders: [
+        // loaders -> rules in webpack 2
+        rules: [
+            {
+                enforce: 'pre',
+                test: /\.js$/,
+                loader: 'source-map-loader',
+                exclude: [
+                    '/node_modules/'
+                ]
+            },
+            {
+                enforce: 'pre',
+                test: /\.tsx?$/,
+                use: "source-map-loader",
+                exclude: '/node_modules/'
+            },
             // All files with a '.ts' or '.tsx' extension will be handled by 'awesome-typescript-loader'.
             {
                 test: /\.ts(x?)$/,
@@ -82,12 +97,25 @@ module.exports = {
             },
             {
                 test: /\.scss$/i,
-                loader: ExtractTextPlugin.extract("style", "css!sass")
+                use: ExtractTextPlugin.extract({
+                    //fallback: 'style-loader',
+                    fallbackLoader: 'style-loader',
+                    //use: [
+                    loader: [
+                        {
+                            loader: 'css-loader',
+                            options: {
+                                sourceMap: true,
+                                importLoaders: 1,
+                                minimize: true
+                            }
+                        },
+                        {
+                            loader: 'sass-loader'
+                        }
+                    ]
+                })
             }
-        ],
-        preLoaders: [
-            // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
-            { test: /\.js$/, loader: "source-map-loader" }
         ]
     },
     // When importing a module whose path matches one of the following, just

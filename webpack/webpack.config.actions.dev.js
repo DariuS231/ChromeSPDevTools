@@ -13,9 +13,8 @@ const webpack = require('webpack');
 
 module.exports = {
     // To enhance the debugging process. More info: https://webpack.js.org/configuration/devtool/
-    devtool: 'cheap-module-eval-source-map',
-    defineDebug: true,
-    debug: true,
+    devtool: 'inline-source-map',
+    target: 'web',
     // Using webpack multiple entry point 
     entry: {
         'spPropertyBag': './src/scripts/actions/spPropertyBag/app.tsx',
@@ -31,17 +30,25 @@ module.exports = {
     },
     resolve: {
         // Add '.ts' and '.tsx' as resolvable extensions.
-        extensions: ["", ".ts", ".tsx", ".js"]
+        extensions: [".ts", ".tsx", ".js"]
     },
-    plugins: [
-            /**
-         * This is where the magic happens! You need this to enable Hot Module Replacement!
-         */
-        new webpack.HotModuleReplacementPlugin()
-    ],
+    plugins: [],
     module: {
-        loaders: [
+        // loaders -> rules in webpack 2
+        rules: [
             // All files with a '.ts' or '.tsx' extension will be handled by 'awesome-typescript-loader'.
+            {
+                enforce: 'pre',
+                test: /\.js$/,
+                loader: 'source-map-loader',
+                exclude: '/node_modules/'
+            },
+            {
+                enforce: 'pre',
+                test: /\.tsx?$/,
+                use: "source-map-loader",
+                exclude: '/node_modules/'
+            },
             {
                 test: /\.ts(x?)$/,
                 exclude: /node_modules/,
@@ -49,21 +56,24 @@ module.exports = {
             },
             {
                 test: /\.scss$/i,
-                loader: 'style!css!sass',
                 exclude: /node_modules/,
+                use: [
+                    {
+                        loader: 'style-loader'
+                    },
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            sourceMap: true,
+                            importLoaders: 1,
+                            minimize: true
+                        },
+                    },
+                    {
+                        loader: 'sass-loader'
+                    }
+                ]
             }
-        ],
-        preLoaders: [
-            // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
-            { test: /\.js$/, loader: "source-map-loader" }
         ]
-    },
-    // When importing a module whose path matches one of the following, just
-    // assume a corresponding global variable exists and use that instead.
-    // This is important because it allows us to avoid bundling all of our
-    // dependencies, which allows browsers to cache those libraries between builds.
-    // externals: {
-    //     "react": "React",
-    //     "react-dom": "ReactDOM"
-    // }
+    }
 };
