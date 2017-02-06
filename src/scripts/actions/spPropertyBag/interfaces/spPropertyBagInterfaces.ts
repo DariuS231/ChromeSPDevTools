@@ -1,6 +1,5 @@
-
-import { ActionCreator, ActionCreatorsMapObject, Dispatch } from 'redux'
-import { IMessageData, IAction } from './../../common/interfaces'
+import { ActionCreator, ActionCreatorsMapObject, Dispatch } from "redux";
+import { IAction, IMessageData } from "./../../common/interfaces";
 
 export interface IProperty {
     key: string,
