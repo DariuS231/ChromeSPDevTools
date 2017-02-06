@@ -7,9 +7,9 @@ const host = 'localhost';
 const port = 8080;
 
 var ops = {
-    cert: './node_modules/webpack-dev-server/ssl/server.crt',
-    ca: './node_modules/webpack-dev-server/ssl/ca.crt',
-    key: './node_modules/webpack-dev-server/ssl/server.key'
+    cert: './node_modules/webpack-dev-server/ssl/server.pem',
+    ca: './node_modules/webpack-dev-server/ssl/ca.pem',
+    key: './node_modules/webpack-dev-server/ssl/server.pem'
 };
 
 new WebpackDevServer(webpack(config), {

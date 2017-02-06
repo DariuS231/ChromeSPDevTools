@@ -38,7 +38,7 @@
     "awesome-typescript-loader": "^3.0.0-beta.18",
     "css-loader": "^0.26.1",
     "es6-promise": "4.0.5",
-    "extract-text-webpack-plugin": "^1.0.1",
+    "extract-text-webpack-plugin": "^2.0.0-rc.2",
     "fbemitter": "^2.1.1",
     "flux": "^3.1.0",
     "gulp": "^3.9.1",
@@ -56,10 +56,12 @@
     "sass-loader": "^4.1.1",
     "source-map-loader": "^0.1.6",
     "style-loader": "^0.13.1",
+    "tslint": "^4.4.2",
+    "tslint-react": "^2.3.0",
     "typescript": "^2.1.5",
     "typings": "^2.0.0",
-    "webpack": "^1.14.0",
-    "webpack-dev-server": "^1.16.2",
+    "webpack": "^2.2.1",
+    "webpack-dev-server": "^2.2.1",
     "whatwg-fetch": "1.0.0"
   },
   "repository": {
