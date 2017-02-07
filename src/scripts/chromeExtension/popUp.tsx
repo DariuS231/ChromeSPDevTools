@@ -1,58 +1,56 @@
-/// <reference path="../../../typings/index.d.ts"/>
+import { List } from "office-ui-fabric-react/lib/List";
+import * as React from "react";
+import ActionItem from "./ActionItem";
 
-import * as React from 'react';
-import ActionItem from './ActionItem'
-import { List } from 'office-ui-fabric-react/lib/List';
-
-
-import './styles/chromeExtePopUp.scss';
+import "./styles/chromeExtePopUp.scss";
 
 interface IActionData {
-    title: string,
-    descriptio: string,
-    image: string,
-    scriptUrl: string
+    title: string;
+    descriptio: string;
+    image: string;
+    scriptUrl: string;
 };
 
-interface PopUpProps {
-    currentVerion: string
+interface IPopUpProps {
+    currentVerion: string;
 }
-interface PopUpState {
-    actions: Array<IActionData>
+interface IPopUpState {
+    actions: IActionData[];
 }
 
-export default class PopUp extends React.Component<PopUpProps, PopUpState> {
+export default class PopUp extends React.Component<IPopUpProps, IPopUpState> {
     constructor() {
         super();
-        this.state = {
-            actions: []
-        };
+        this.state = { actions: [] };
+    }
+    public render() {
+        return <div className="container">
+            <span className="ms-font-xxl ms-fontColor-themePrimary ms-fontWeight-semibold">Chrome SP Dev Tools</span>
+            <hr />
+            <List items={this.state.actions} onRenderCell={this.renderItem} />
+            <div className="ms-font-mi ms-fontWeight-light tool-version" >
+                <span>Version {this.props.currentVerion}</span>
+            </div>
+        </div>;
     }
     public getActions() {
-        let that: any = this;
-        var xobj = new XMLHttpRequest();
+        const that: any = this;
+        const xobj = new XMLHttpRequest();
         xobj.overrideMimeType("application/json");
-        xobj.open('GET', 'data/actions.json', true);
-        xobj.onreadystatechange = function () {
-            if (xobj.readyState == 4 && xobj.status === 200) {
-                var data = JSON.parse(xobj.responseText);
+        xobj.open("GET", "data/actions.json", true);
+        xobj.onreadystatechange = () => {
+            if (xobj.readyState === 4 && xobj.status === 200) {
+                const data = JSON.parse(xobj.responseText);
                 that.setState({ actions: data });
             }
         };
         xobj.send(null);
 
     }
-    private componentDidMount() {
+    protected componentDidMount() {
         this.getActions();
     }
-    public render() {
-        return <div className="container">
-            <span className="ms-font-xxl ms-fontColor-themePrimary ms-fontWeight-semibold">Chrome SP Dev Tools</span>
-            <hr />
-            <List items={this.state.actions} onRenderCell={(item, index) => (<ActionItem item={item} />)} />
-            <div className="ms-font-mi ms-fontWeight-light tool-version" >
-                <span>Version {this.props.currentVerion}</span>
-            </div>
-        </div>
-                }
+    private renderItem(item: IActionData, index: number) {
+        return <ActionItem item={item} key={index} />;
+    }
 }
