@@ -1,58 +1,41 @@
-import * as React from "react";
-import { connect } from "react-redux"
-import { bindActionCreators, Dispatch } from "redux"
 import { Button, ButtonType } from "office-ui-fabric-react/lib/Button";
+import * as React from "react";
+import { connect } from "react-redux";
 import { Link } from "react-router";
+import { hashHistory } from "react-router";
+import { bindActionCreators, Dispatch } from "redux";
 import propertyActionsCreatorsMap from "../actions/SpCustomActionsActions";
-import { IMapStateToPropsState, ICustomAction } from "../interfaces/spCustomActionsInterfaces";
+import { customActionLocationHelper, ILocationItem } from "../helpers/customActionLocation";
+import { ICustomAction, IMapStateToPropsState } from "../interfaces/spCustomActionsInterfaces";
 import { CustomActionType } from "./../constants/enums";
-import { customActionLocationHelper, ILocationItem } from "../helpers/customActionLocation"
-import { hashHistory } from "react-router"
 
 interface IMapStateToPropsSpCustomActionsItemEdit {
-    customActionType: CustomActionType,
-    item: ICustomAction,
-    locationItem: ILocationItem
+    customActionType: CustomActionType;
+    item: ICustomAction;
+    locationItem: ILocationItem;
 }
 
 interface IMapDispatchToPropsSpCustomActionsItemEdit {
-    createCustomAction: (ca: ICustomAction, caType: CustomActionType) => Promise<void>,
-    updateCustomAction: (ca: ICustomAction, caType: CustomActionType) => Promise<void>
+    createCustomAction: (ca: ICustomAction, caType: CustomActionType) => Promise<void>;
+    updateCustomAction: (ca: ICustomAction, caType: CustomActionType) => Promise<void>;
 }
 
-interface SpCustomActionsItemEditProps {
-    customActionType: CustomActionType,
-    item: ICustomAction,
-    locationItem: ILocationItem,
-    createCustomAction: (ca: ICustomAction, caType: CustomActionType) => Promise<void>,
-    updateCustomAction: (ca: ICustomAction, caType: CustomActionType) => Promise<void>
+interface ISpCustomActionsItemEditProps {
+    customActionType: CustomActionType;
+    item: ICustomAction;
+    locationItem: ILocationItem;
+    createCustomAction: (ca: ICustomAction, caType: CustomActionType) => Promise<void>;
+    updateCustomAction: (ca: ICustomAction, caType: CustomActionType) => Promise<void>;
 }
-interface SpCustomActionsItemEditState {
-    item: ICustomAction
+interface ISpCustomActionsItemEditState {
+    item: ICustomAction;
 }
-class SpCustomActionsItemEdit extends React.Component<SpCustomActionsItemEditProps, SpCustomActionsItemEditState> {
-    constructor(props: SpCustomActionsItemEditProps) {
+class SpCustomActionsItemEdit extends React.Component<ISpCustomActionsItemEditProps, ISpCustomActionsItemEditState> {
+    constructor(props: ISpCustomActionsItemEditProps) {
         super(props);
-        this.state = { item: this.props.item }
+        this.state = { item: this.props.item };
         this.saveItem = this.saveItem.bind(this);
         this.onInputChange = this.onInputChange.bind(this);
-    }
-
-    private saveItem() {
-        if (this.state.item.id !== "") {
-            this.props.updateCustomAction(this.state.item, this.props.customActionType).then(() => {
-                hashHistory.push("/");
-            });
-        } else {
-            this.props.createCustomAction(this.state.item, this.props.customActionType).then(() => {
-                hashHistory.push("/");
-            });
-        }
-    }
-    private onInputChange(value: string, key: string) {
-        let newObj: any = {};
-        newObj[key] = value;
-        this.setState({ item: Object.assign({}, this.state.item, newObj) });
     }
 
     public render(): JSX.Element {
@@ -69,20 +52,41 @@ class SpCustomActionsItemEdit extends React.Component<SpCustomActionsItemEditPro
                 </div>
             </div>
             <div className="ms-ListBasicExample-itemCell  ms-Grid-row" data-is-focusable={true}>
-                {
-                    this.props.locationItem.renderForm(this.state.item, this.onInputChange)
-                }
+                {this.props.locationItem.renderForm(this.state.item, this.onInputChange)}
                 <div className="ms-ListItem-actions ms-Grid-col ms-u-sm1 ms-u-md1 ms-u-lg1">
-                    <Button buttonType={ButtonType.icon} icon="Save" rootProps={{ title: "Save" }} ariaLabel="Save" onClick={this.saveItem} />
+                    <Button
+                        buttonType={ButtonType.icon}
+                        icon="Save"
+                        rootProps={{ title: "Save" }}
+                        ariaLabel="Save"
+                        onClick={this.saveItem}
+                    />
                     <Link title="Cancel" aria-label="Cancel" className="ms-Button ms-Button--icon" to={"/"}>
-                        <span className="ms-Button-icon"><i className="ms-Icon ms-Icon--Cancel"></i></span><span className="ms-Button-label" ></span>
+                        <span className="ms-Button-icon">
+                            <i className="ms-Icon ms-Icon--Cancel" />
+                        </span>
+                        <span className="ms-Button-label" />
                     </Link>
                 </div>
             </div>
         </div>);
     }
-}
+    private saveItem() {
+        if (this.state.item.id !== "") {
+            this.props.updateCustomAction(this.state.item, this.props.customActionType).then(() => {
+                hashHistory.push("/");
+            });
+        } else {
+            this.props.createCustomAction(this.state.item, this.props.customActionType).then(() => {
+                hashHistory.push("/");
+            });
+        }
+    }
+    private onInputChange(value: string, key: string) {
+        this.setState({ item: { ...this.state.item, key: value } });
+    }
 
+}
 
 const mapStateToProps = (state: IMapStateToPropsState, ownProps: any): IMapStateToPropsSpCustomActionsItemEdit => {
     const caGuid: string = ownProps.params.guid;
@@ -100,18 +104,17 @@ const mapStateToProps = (state: IMapStateToPropsState, ownProps: any): IMapState
     } else if (newCaType) {
         locItem = customActionLocationHelper.getLocationByKey(newCaType);
         ca = {
-            id: "", name: "", title: "", description: "", group: "", imageUrl: "",
-            locationInternal: "", registrationType: 0, scriptBlock: "", scriptSrc: "", sequence: 1,
-            url: "", location: locItem.spLocationName
-        }
-
+            description: "", group: "", id: "", imageUrl: "", location: locItem.spLocationName,
+            locationInternal: "", name: "", registrationType: 0, scriptBlock: "",
+            scriptSrc: "", sequence: 1, title: "", url: ""
+        };
     }
     return {
         customActionType: state.spCustomActions.customActionType,
         item: ca,
         locationItem: locItem
-    }
-}
+    };
+};
 
 const mapDispatchToProps = (dispatch: Dispatch<any>): IMapDispatchToPropsSpCustomActionsItemEdit => {
     return {
@@ -121,7 +124,7 @@ const mapDispatchToProps = (dispatch: Dispatch<any>): IMapDispatchToPropsSpCusto
         updateCustomAction: (ca: ICustomAction, caType: CustomActionType): Promise<void> => {
             return dispatch(propertyActionsCreatorsMap.updateCustomAction(ca, caType));
         }
-    }
-}
+    };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(SpCustomActionsItemEdit);
