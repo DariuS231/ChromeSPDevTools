@@ -8,8 +8,8 @@ export default class SpCustomActionsApi extends ApiBase {
 
     public getCustomActions(caType: CustomActionType): Promise<ICustomAction[]> {
         return new Promise((resolve, reject) => {
-            const reqUrl = `${_spPageContextInfo.webAbsoluteUrl}/_api/
-                ${CustomActionType[caType]}${constants.CUSTOM_ACTION_REST_REQUEST_URL}`;
+            // tslint:disable-next-line:max-line-length
+            const reqUrl = `${_spPageContextInfo.webAbsoluteUrl}/_api/${CustomActionType[caType]}${constants.CUSTOM_ACTION_REST_REQUEST_URL}`;
             this.getRequest(reqUrl).then((response: any) => {
                 const cusctomActions: ICustomAction[] = [];
 

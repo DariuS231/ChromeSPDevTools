@@ -9,13 +9,11 @@ interface ISpCustomActionsButtomState {
 }
 
 export class SpCustomActionsButtom extends React.Component<{}, ISpCustomActionsButtomState> {
-    public refs: {
-        menuButtonContainer: HTMLElement;
-    };
+    public input: HTMLElement;
     constructor() {
         super();
         this.state = { isContextMenuVisible: false };
-
+        this.refs = { menuButtonContainer: null };
         this._onClick = this._onClick.bind(this);
         this._onDismiss = this._onDismiss.bind(this);
         this._contextualMenu = this._contextualMenu.bind(this);
@@ -35,11 +33,13 @@ export class SpCustomActionsButtom extends React.Component<{}, ISpCustomActionsB
         </div>);
     }
     private _divRefCallBack(element: HTMLElement): void {
-        this.refs.menuButtonContainer = element;
+        if (element) {
+            this.input = element;
+        }
     }
     private _contextualMenu(): JSX.Element {
         return this.state.isContextMenuVisible && <ContextualMenu
-            target={this.refs.menuButtonContainer}
+            target={this.input}
             isBeakVisible={true}
             beakWidth={10}
             shouldFocusOnMount={false}
