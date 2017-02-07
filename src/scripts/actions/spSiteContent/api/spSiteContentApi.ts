@@ -19,7 +19,10 @@ export default class SpSiteContentApi extends ApiBase {
                 while (listEnumerator.moveNext()) {
                     const oList: any = listEnumerator.get_current();
                     const listId: any = oList.get_id();
-                    const paretnUrl = oList.get_parentWebUrl();
+                    let paretnUrl = oList.get_parentWebUrl();
+                    if (paretnUrl === "/") {
+                        paretnUrl = location.origin;
+                    }
                     const permissionPageUrl = paretnUrl +
                         constants.permissionsPageUrlOpen +
                         listId +
