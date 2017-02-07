@@ -1,77 +1,85 @@
-import { ActionsId as actions, constants } from './../constants/constants'
-import { IFeature, ISpFeaturesActionCreatorsMapObject } from '../interfaces/spFeaturesInterfaces'
-import { ActionCreator, ActionCreatorsMapObject, Dispatch } from 'redux'
-import { MessageBarType } from 'office-ui-fabric-react/lib/MessageBar';
-import SpFeaturesApi from '../api/spFeaturesApi'
-import { IMessageData, IAction } from './../../common/interfaces'
-import { FeatureScope } from '../constants/enums';
+import { MessageBarType } from "office-ui-fabric-react/lib/MessageBar";
+import { ActionCreator, ActionCreatorsMapObject, Dispatch } from "redux";
+import SpFeaturesApi from "../api/spFeaturesApi";
+import { FeatureScope } from "../constants/enums";
+import { IFeature, ISpFeaturesActionCreatorsMapObject } from "../interfaces/spFeaturesInterfaces";
+import { IAction, IMessageData } from "./../../common/interfaces";
+import { ActionsId as actions, constants } from "./../constants/constants";
 
+interface IAllFeaturesSuccess {
+    webFeatures: IFeature[];
+    siteFeatures: IFeature[];
+}
+
+interface IFeatureUpdateSuccess {
+    features: IFeature[];
+    feature: IFeature;
+}
 
 const api = new SpFeaturesApi();
 
 const setFilterText: ActionCreator<IAction<string>> = (filterText: string): IAction<string> => {
     return {
-        type: actions.SET_FILTER_TEXT,
-        payload: filterText
-    }
-}
+        payload: filterText,
+        type: actions.SET_FILTER_TEXT
+    };
+};
 const setWorkingOnIt: ActionCreator<IAction<boolean>> = (isWorkingOnIt: boolean): IAction<boolean> => {
     return {
-        type: actions.SET_WORKING_ON_IT,
-        payload: isWorkingOnIt
-    }
-}
+        payload: isWorkingOnIt,
+        type: actions.SET_WORKING_ON_IT
+    };
+};
 const setNoPermissions: ActionCreator<IAction<boolean>> = (): IAction<boolean> => {
     return {
-        type: actions.SET_NO_PERMISSIONS,
-        payload: true
-    }
-}
+        payload: true,
+        type: actions.SET_NO_PERMISSIONS
+    };
+};
 const setMessageData: ActionCreator<IAction<IMessageData>> = (messageData: IMessageData): IAction<IMessageData> => {
     return {
-        type: actions.SET_MESSAGE_DATA,
-        payload: messageData
-    }
-}
-const getAllFeaturesSuccess: ActionCreator<IAction<{ webFeatures: Array<IFeature>, siteFeatures: Array<IFeature> }>> = (webFeatures: Array<IFeature>, siteFeatures: Array<IFeature>): IAction<{ webFeatures: Array<IFeature>, siteFeatures: Array<IFeature> }> => {
-    return {
-        type: actions.SET_ALL_FEATURES,
-        payload: { webFeatures: webFeatures, siteFeatures: siteFeatures }
-    }
-}
+        payload: messageData,
+        type: actions.SET_MESSAGE_DATA
+    };
+};
+const getAllFeaturesSuccess: ActionCreator<IAction<IAllFeaturesSuccess>> =
+    (webFeatures: IFeature[], siteFeatures: IFeature[]): IAction<IAllFeaturesSuccess> => {
+        return {
+            payload: { webFeatures, siteFeatures },
+            type: actions.SET_ALL_FEATURES
+        };
+    };
 const setFeature: ActionCreator<IAction<IFeature>> = (feature: IFeature): IAction<IFeature> => {
     return {
-        type: actions.SET_FEATURE,
-        payload: feature
-    }
-}
+        payload: feature,
+        type: actions.SET_FEATURE
+    };
+};
 
-interface IFeatureUpdateSuccess{
-    features: Array<IFeature>, feature: IFeature
-}
+const getWebFeaturesSuccess: ActionCreator<IAction<IFeatureUpdateSuccess>> =
+    (features: IFeature[], feature: IFeature): IAction<IFeatureUpdateSuccess> => {
+        return {
+            payload: { features, feature },
+            type: actions.SET_WEB_FEATURES_AFTER_UPDATE
+        };
+    };
 
-const getWebFeaturesSuccess: ActionCreator<IAction<IFeatureUpdateSuccess>> = (features: Array<IFeature>, feature: IFeature): IAction<IFeatureUpdateSuccess> => {
-    return {
-        type: actions.SET_WEB_FEATURES_AFTER_UPDATE,
-        payload: { features, feature }
-    }
-}
-
-const getSiteFeaturesSuccess: ActionCreator<IAction<IFeatureUpdateSuccess>> = (features: Array<IFeature>, feature: IFeature): IAction<IFeatureUpdateSuccess> => {
-    return {
-        type: actions.SET_SITE_FEATURES_AFTER_UPDATE,
-        payload: { features, feature }
-    }
-}
+const getSiteFeaturesSuccess: ActionCreator<IAction<IFeatureUpdateSuccess>> =
+    (features: IFeature[], feature: IFeature): IAction<IFeatureUpdateSuccess> => {
+        return {
+            payload: { features, feature },
+            type: actions.SET_SITE_FEATURES_AFTER_UPDATE
+        };
+    };
 const getFeatures = (feature: IFeature) => {
-    return (dispatch: Dispatch<IAction<Array<IFeature>>>) => {
-        return api.getFeatures(feature.scope).then((features: Array<IFeature>) => {
+    return (dispatch: Dispatch<IAction<IFeature[]>>) => {
+        return api.getFeatures(feature.scope).then((features: IFeature[]) => {
             return (feature.scope === FeatureScope.Web
                 ? dispatch(getWebFeaturesSuccess(features, feature))
                 : dispatch(getSiteFeaturesSuccess(features, feature)));
         });
     };
-}
+};
 
 const activateFeature = (feature: IFeature) => {
     return (dispatch: Dispatch<IAction<IFeature>>) => {
@@ -80,7 +88,7 @@ const activateFeature = (feature: IFeature) => {
             dispatch(getFeatures(feature));
         });
     };
-}
+};
 
 const deActivateFeature = (feature: IFeature) => {
     return (dispatch: Dispatch<IAction<IFeature>>) => {
@@ -89,15 +97,15 @@ const deActivateFeature = (feature: IFeature) => {
             dispatch(getFeatures(feature));
         });
     };
-}
+};
 
 const checkUserPermissions = (permissionKing: SP.PermissionKind) => {
-    return function (dispatch: Dispatch<IAction<void>>) {
+    return (dispatch: Dispatch<IAction<void>>) => {
         return api.checkUserPermissions(permissionKing).then((hasPermissions: boolean) => {
             if (hasPermissions) {
                 const getSiteFeatures = api.getFeatures(FeatureScope.Site);
                 const getWebFeatures = api.getFeatures(FeatureScope.Web);
-                return Promise.all([getSiteFeatures, getWebFeatures]).then(values => {
+                return Promise.all([getSiteFeatures, getWebFeatures]).then((values: any) => {
                     dispatch(getAllFeaturesSuccess(values[1], values[0]));
                 });
 
@@ -106,7 +114,7 @@ const checkUserPermissions = (permissionKing: SP.PermissionKind) => {
             }
         });
     };
-}
+};
 
 const spFeaturesActionsCreatorMap: ISpFeaturesActionCreatorsMapObject = {
     deActivateFeature,
@@ -116,6 +124,6 @@ const spFeaturesActionsCreatorMap: ISpFeaturesActionCreatorsMapObject = {
     setWorkingOnIt,
     setNoPermissions,
     setMessageData
-}
+};
 
 export default spFeaturesActionsCreatorMap;

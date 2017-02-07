@@ -1,28 +1,54 @@
-import * as React from 'react';
-import { connect } from 'react-redux'
-import { bindActionCreators, Dispatch } from 'redux'
-import { WorkingOnIt } from './../../common/components/WorkingOnIt';
-import MessageBar from './../../common/components/MessageBar';
-import FilterTextBox from './../../common/components/filterTextBox';
-import { MessageBarType } from 'office-ui-fabric-react/lib/MessageBar';
-import SpFeaturesList from './spFeaturesList';
-import spFeaturesActionsCreatorMap from '../actions/spFeaturesActions';
-import { IMapStateToPropsState, IMapStateToProps, IMapDispatchToProps, IFeature, SpFeaturesProps } from '../interfaces/spFeaturesInterfaces'
+import { MessageBarType } from "office-ui-fabric-react/lib/MessageBar";
+import * as React from "react";
+import { connect } from "react-redux";
+import { bindActionCreators, Dispatch } from "redux";
+import spFeaturesActionsCreatorMap from "../actions/spFeaturesActions";
+import {
+    IFeature,
+    IMapDispatchToProps,
+    IMapStateToProps,
+    IMapStateToPropsState,
+    ISpFeaturesProps
+} from "../interfaces/spFeaturesInterfaces";
+import FilterTextBox from "./../../common/components/filterTextBox";
+import MessageBar from "./../../common/components/MessageBar";
+import { WorkingOnIt } from "./../../common/components/WorkingOnIt";
+import SpFeaturesList from "./spFeaturesList";
 
-
-class SpFeatures extends React.Component<SpFeaturesProps, {}> {
+class SpFeatures extends React.Component<ISpFeaturesProps, {}> {
     constructor() {
         super();
         this.onMessageClose = this.onMessageClose.bind(this);
         this.onToggleClick = this.onToggleClick.bind(this);
+    }
+    public render() {
+        if (this.props.isWorkingOnIt) {
+            return <WorkingOnIt />;
+        } else {
+            const hasPermissions: boolean = this.props.currentUserHasPermissions;
+            /* tslint:disable:max-line-length */
+
+            return (<div className="sp-features action-container">
+                <MessageBar
+                    onCloseMessageClick={this.onMessageClose}
+                    message={this.props.messageData.message}
+                    messageType={this.props.messageData.type}
+                    showMessage={this.props.messageData.showMessage}
+                />
+                {hasPermissions && <FilterTextBox filterStr={this.props.filterText} setFilterText={this.props.actions.setFilterText} />}
+                {hasPermissions && <SpFeaturesList onToggleClick={this.onToggleClick} items={this.props.webFeatures} filterString={this.props.filterText} listTitle="Web Features" tablesClassName="web-feature-table" />}
+                {hasPermissions && <SpFeaturesList onToggleClick={this.onToggleClick} items={this.props.siteFeatures} filterString={this.props.filterText} listTitle="Site Features" tablesClassName="site-feature-table" />}
+            </div>);
+            /* tslint:enable:max-line-length */
+        }
     }
     private componentDidMount() {
         this.props.actions.checkUserPermissions(SP.PermissionKind.manageWeb);
     }
     private onMessageClose() {
         this.props.actions.setMessageData({
+            message: "",
             showMessage: false,
-            message: '',
             type: MessageBarType.info
         });
     }
@@ -33,37 +59,23 @@ class SpFeatures extends React.Component<SpFeaturesProps, {}> {
             this.props.actions.activateFeature(feature);
         }
     }
-    public render() {
-        if (this.props.isWorkingOnIt) {
-            return <WorkingOnIt />;
-        } else {
-            const hasPermissions: boolean = this.props.currentUserHasPermissions;
-            return (<div className='sp-features action-container'>
-                <MessageBar onCloseMessageClick={this.onMessageClose} message={this.props.messageData.message} messageType={this.props.messageData.type} showMessage={this.props.messageData.showMessage} />
-                {hasPermissions && <FilterTextBox filterStr={this.props.filterText} setFilterText={this.props.actions.setFilterText} />}
-                {hasPermissions && <SpFeaturesList onToggleClick={this.onToggleClick} items={this.props.webFeatures} filterString={this.props.filterText} listTitle="Web Features" tablesClassName='web-feature-table' />}
-                {hasPermissions && <SpFeaturesList onToggleClick={this.onToggleClick} items={this.props.siteFeatures} filterString={this.props.filterText} listTitle="Site Features" tablesClassName='site-feature-table' />}
-            </div>);
-        }
-    }
 }
 
 const mapStateToProps = (state: IMapStateToPropsState, ownProps: any): IMapStateToProps => {
     return {
         currentUserHasPermissions: state.spFeatures.userHasPermission,
-        siteFeatures: state.spFeatures.siteFeatures,
-        webFeatures: state.spFeatures.webFeatures,
+        filterText: state.spFeatures.filterText,
         isWorkingOnIt: state.spFeatures.isWorkingOnIt,
         messageData: state.spFeatures.messageData,
-        filterText: state.spFeatures.filterText
-    }
-}
+        siteFeatures: state.spFeatures.siteFeatures,
+        webFeatures: state.spFeatures.webFeatures
+    };
+};
 
 const mapDispatchToProps = (dispatch: Dispatch<any>): IMapDispatchToProps => {
     return {
         actions: bindActionCreators(spFeaturesActionsCreatorMap, dispatch) as any
-    }
-}
+    };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(SpFeatures);
-

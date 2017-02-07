@@ -1,28 +1,35 @@
-import * as React from 'react';
+import { FocusZone, FocusZoneDirection } from "office-ui-fabric-react/lib/FocusZone";
+import { Image } from "office-ui-fabric-react/lib/Image";
+import { List } from "office-ui-fabric-react/lib/List";
+import { Toggle } from "office-ui-fabric-react/lib/Toggle";
+import * as React from "react";
+import { IFeature } from "../interfaces/spFeaturesInterfaces";
 
-import { List } from 'office-ui-fabric-react/lib/List';
-import { FocusZone, FocusZoneDirection } from 'office-ui-fabric-react/lib/FocusZone';
-import { Image } from 'office-ui-fabric-react/lib/Image';
-import { IFeature } from '../interfaces/spFeaturesInterfaces';
-import { Toggle } from 'office-ui-fabric-react/lib/Toggle';
-
-interface SpFeaturesItemProps {
-    item: IFeature,
-    onToggleClick: (feature: IFeature) => void
+interface ISpFeaturesItemProps {
+    item: IFeature;
+    onToggleClick: (feature: IFeature) => void;
 }
 
-const SpFeaturesItem: React.StatelessComponent<SpFeaturesItemProps> = (props: SpFeaturesItemProps) => {
+const SpFeaturesItem: React.StatelessComponent<ISpFeaturesItemProps> = (props: ISpFeaturesItemProps) => {
     const toggleCLick = (checked: boolean): void => {
         props.onToggleClick(props.item);
-    }
-    return <div className='ms-ListBasicExample-itemCell' data-is-focusable={true} title={props.item.description}>
-        <Image className='ms-ListBasicExample-itemImage' src={props.item.logo} width={31} height={22} />
-        <div className='ms-ListBasicExample-itemContent ms-ListBasicExample-featureName ms-font-m ms-fontColor-themePrimary ms-fontWeight-semibold'>
+    };
+    // tslint:disable-next-line:max-line-length
+    const itemClassName = "ms-ListBasicExample-itemContent ms-ListBasicExample-featureName ms-font-m ms-fontColor-themePrimary ms-fontWeight-semibold";
+    return <div className="ms-ListBasicExample-itemCell" data-is-focusable={true} title={props.item.description}>
+        <Image className="ms-ListBasicExample-itemImage" src={props.item.logo} width={31} height={22} />
+        <div className={itemClassName}>
             {props.item.name}
         </div>
-        <Toggle checked={props.item.activated} label='' onText='On' offText='Off' onChanged={toggleCLick} />
-    </div>
+        <Toggle
+            checked={props.item.activated}
+            label=""
+            onText="On"
+            offText="Off"
+            onChanged={toggleCLick}
+        />
+    </div>;
 
-}
+};
 
 export default SpFeaturesItem;
