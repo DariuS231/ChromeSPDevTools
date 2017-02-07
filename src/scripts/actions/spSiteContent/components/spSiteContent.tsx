@@ -1,42 +1,65 @@
-import * as React from 'react';
 import { EventSubscription } from "fbemitter";
-import { SpSiteContentConstants as constants } from '../constants/spSiteContentConstants';
-import { actions } from '../actions/spSiteContentActions';
-import { spSiteContentStore as store } from '../store/spSiteContentStore';
-import { SpSiteContentList } from './spSiteContentList';
-import { SpSiteContentFilter } from './spSiteContentFilter';
-import { MessageBarType } from 'office-ui-fabric-react/lib/MessageBar';
-import { WorkingOnIt } from './../../common/components/WorkingOnIt';
-import MessageBar from './../../common/components/MessageBar';
-import { IMessageData } from './../../common/interfaces'
+import { MessageBarType } from "office-ui-fabric-react/lib/MessageBar";
+import * as React from "react";
+import { actions } from "../actions/spSiteContentActions";
+import { SpSiteContentConstants as constants } from "../constants/spSiteContentConstants";
+import { ISiteContent } from "../interfaces/spSiteContentInterfaces";
+import { spSiteContentStore as store } from "../store/spSiteContentStore";
+import MessageBar from "./../../common/components/MessageBar";
+import { WorkingOnIt } from "./../../common/components/WorkingOnIt";
+import { IMessageData } from "./../../common/interfaces";
+import { SpSiteContentFilter } from "./spSiteContentFilter";
+import { SpSiteContentList } from "./spSiteContentList";
 
-interface SpSiteContentProps { }
-interface SpSiteContentState {
-    isWorkingOnIt: boolean,
-    siteLists: Array<ISiteContent>,
-    messageData: IMessageData,
-    showAll: boolean,
-    openInNewTab: boolean,
-    filterText: string
+interface ISpSiteContentState {
+    isWorkingOnIt: boolean;
+    siteLists: ISiteContent[];
+    messageData: IMessageData;
+    showAll: boolean;
+    openInNewTab: boolean;
+    filterText: string;
 }
 
-export default class SpSiteContent extends React.Component<SpSiteContentProps, SpSiteContentState> {
-    subscription: EventSubscription;
+export default class SpSiteContent extends React.Component<{}, ISpSiteContentState> {
+    protected subscription: EventSubscription;
     constructor() {
         super();
         this.state = this.getStoreState();
     }
-    onChange = () => {
+    public render() {
+        if (this.state.isWorkingOnIt) {
+            return <WorkingOnIt />;
+        } else {
+            return (
+                <div className="action-container sp-siteContent">
+                    <MessageBar
+                        message={this.state.messageData.message}
+                        messageType={this.state.messageData.type}
+                        showMessage={this.state.messageData.showMessage}
+                    />
+                    <SpSiteContentFilter
+                        showAll={this.state.showAll}
+                        openInNewTab={this.state.openInNewTab}
+                    />
+                    <SpSiteContentList
+                        items={this.state.siteLists}
+                        linkTarget={this.state.openInNewTab ? "_blank" : "_self"}
+                    />
+                </div>);
+
+        }
+    }
+    protected onChange = () => {
         this.setState(this.getStoreState());
     }
-    private getStoreState(): SpSiteContentState {
+    private getStoreState(): ISpSiteContentState {
         return {
+            filterText: store.getFilterText(),
             isWorkingOnIt: store.getWorkinOnIt(),
-            siteLists: store.getSiteContent(),
             messageData: store.getMessageData(),
-            showAll: store.getShowAll(),
             openInNewTab: store.getOpenInNewTag(),
-            filterText: store.getFilterText()
+            showAll: store.getShowAll(),
+            siteLists: store.getSiteContent()
         };
     }
     private componentDidMount() {
@@ -45,25 +68,5 @@ export default class SpSiteContent extends React.Component<SpSiteContentProps, S
     }
     private componentWillUnmount(): void {
         this.subscription.remove();
-    }
-    public render() {
-        if (this.state.isWorkingOnIt) {
-            return <WorkingOnIt />
-        } else {
-            return (
-                <div className="action-container sp-siteContent">
-                    <MessageBar 
-                        message={this.state.messageData.message} 
-                        messageType={this.state.messageData.type} 
-                        showMessage={this.state.messageData.showMessage} />
-                    <SpSiteContentFilter 
-                        showAll={this.state.showAll} 
-                        openInNewTab={this.state.openInNewTab} />
-                    <SpSiteContentList 
-                        items={this.state.siteLists} 
-                        linkTarget={this.state.openInNewTab ? '_blank' : '_self'} />
-                </div>);
-
-        }
     }
 }

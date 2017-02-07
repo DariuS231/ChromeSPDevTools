@@ -7,7 +7,7 @@ export default class SpFeaturesApi extends ApiBase {
 
     public getFeatures(scope: FeatureScope): Promise<Array<IFeature>> {
         return new Promise((resolve, reject) => {
-            const url = _spPageContextInfo.webAbsoluteUrl + '/_layouts/15/ManageFeatures.aspx' + (scope === FeatureScope.Site ? '?Scope=Site' : '');
+            const url = _spPageContextInfo.webAbsoluteUrl + '/_layouts/ManageFeatures.aspx' + (scope === FeatureScope.Site ? '?Scope=Site' : '');
 
             this.getRequest(url).then((response: any) => {
                 let items: Array<IFeature> = [];
