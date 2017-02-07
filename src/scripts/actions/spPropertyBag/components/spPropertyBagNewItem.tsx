@@ -1,26 +1,35 @@
-import * as React from 'react';
-import { SpPropertyBagNewItemForm } from './spPropertyBagNewItemForm';
-import { IProperty } from '../interfaces/spPropertyBagInterfaces';
-import { constants } from './../constants/constants';
+import * as React from "react";
+import { IProperty } from "../interfaces/spPropertyBagInterfaces";
+import { constants } from "./../constants/constants";
+import { SpPropertyBagNewItemForm } from "./spPropertyBagNewItemForm";
 
-interface SpPropertyBagNewItemProps {
-    addProperty: Function
+interface ISpPropertyBagNewItemProps {
+    addProperty: Function;
 }
-interface SpPropertyBagNewItemState {
-    newProperty: IProperty
+interface ISpPropertyBagNewItemState {
+    newProperty: IProperty;
 }
 
-export default class SpPropertyBagNewItem extends React.Component<SpPropertyBagNewItemProps, SpPropertyBagNewItemState> {
-    cleanProperty: IProperty = {
+export default class SpPropertyBagNewItem
+    extends React.Component<ISpPropertyBagNewItemProps, ISpPropertyBagNewItemState> {
+    protected cleanProperty: IProperty = {
         key: constants.EMPTY_STRING,
         value: constants.EMPTY_STRING
     };
     constructor() {
-        super()
+        super();
         this.state = { newProperty: this.cleanProperty };
         this.addBtnClick = this.addBtnClick.bind(this);
         this.onKeyInputChange = this.onKeyInputChange.bind(this);
         this.onValueInputChange = this.onValueInputChange.bind(this);
+    }
+    public render() {
+        return <SpPropertyBagNewItemForm
+            addBtnClick={this.addBtnClick}
+            newProperty={this.state.newProperty}
+            onKeyInputChange={this.onKeyInputChange}
+            onValueInputChange={this.onValueInputChange}
+        />;
     }
 
     private addBtnClick(e: any) {
@@ -31,20 +40,13 @@ export default class SpPropertyBagNewItem extends React.Component<SpPropertyBagN
     }
     private onKeyInputChange(str: string) {
         this.setState({
-            newProperty: Object.assign({}, this.state.newProperty, { key: str })
-        })
+            newProperty: { ...this.state.newProperty, key: str }
+        });
     }
 
     private onValueInputChange(str: string) {
         this.setState({
-            newProperty: Object.assign({}, this.state.newProperty, { value: str })
-        })
-    }
-    public render() {
-        return <SpPropertyBagNewItemForm
-            addBtnClick={this.addBtnClick}
-            newProperty={this.state.newProperty}
-            onKeyInputChange={this.onKeyInputChange}
-            onValueInputChange={this.onValueInputChange}/>;
+            newProperty: { ...this.state.newProperty, value: str }
+        });
     }
 }

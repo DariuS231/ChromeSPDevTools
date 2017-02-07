@@ -1,8 +1,7 @@
-
-import { MessageBarType } from "ffice-ui-fabric-react/lib/MessageBar";
-import { IInitialState, IProperty } from "./interfaces/spPropertyBagInterfaces";
-import { IAction, IMessageData } from "/../../common/interfaces";
-import { ActionsId as actions, constants } from "/../constants/constants";
+import { MessageBarType } from "office-ui-fabric-react/lib/MessageBar";
+import { IInitialState, IProperty } from "../interfaces/spPropertyBagInterfaces";
+import { IAction, IMessageData } from "./../../common/interfaces";
+import { ActionsId as actions, constants } from "./../constants/constants";
 
 const initialState: IInitialState = {
     filterText: constants.EMPTY_STRING,
