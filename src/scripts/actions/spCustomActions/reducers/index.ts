@@ -1,5 +1,5 @@
-import { combineReducers } from 'redux'
-import { spCustomActionsReducer } from './spCustomActionsReducer'
+import { combineReducers } from "redux";
+import { spCustomActionsReducer } from "./spCustomActionsReducer";
 
 export const rootReducer = combineReducers({
     spCustomActions: spCustomActionsReducer

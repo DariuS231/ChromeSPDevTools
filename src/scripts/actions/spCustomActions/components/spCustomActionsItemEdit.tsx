@@ -1,18 +1,18 @@
-import * as React from 'react';
-import { connect } from 'react-redux'
-import { bindActionCreators, Dispatch } from 'redux'
-import { Button, ButtonType } from 'office-ui-fabric-react/lib/Button';
-import { Link } from 'react-router';
-import propertyActionsCreatorsMap from '../actions/SpCustomActionsActions';
-import { IMapStateToPropsState, ICustomAction } from '../interfaces/spCustomActionsInterfaces';
-import { CustomActionType } from './../constants/enums';
-import { customActionLocationHelper, ILocationItem } from '../helpers/customActionLocation'
-import { hashHistory } from 'react-router'
+import * as React from "react";
+import { connect } from "react-redux"
+import { bindActionCreators, Dispatch } from "redux"
+import { Button, ButtonType } from "office-ui-fabric-react/lib/Button";
+import { Link } from "react-router";
+import propertyActionsCreatorsMap from "../actions/SpCustomActionsActions";
+import { IMapStateToPropsState, ICustomAction } from "../interfaces/spCustomActionsInterfaces";
+import { CustomActionType } from "./../constants/enums";
+import { customActionLocationHelper, ILocationItem } from "../helpers/customActionLocation"
+import { hashHistory } from "react-router"
 
 interface IMapStateToPropsSpCustomActionsItemEdit {
     customActionType: CustomActionType,
     item: ICustomAction,
-    locationItem: ILocationItem 
+    locationItem: ILocationItem
 }
 
 interface IMapDispatchToPropsSpCustomActionsItemEdit {
@@ -39,13 +39,13 @@ class SpCustomActionsItemEdit extends React.Component<SpCustomActionsItemEditPro
     }
 
     private saveItem() {
-        if (this.state.item.id !== '') {
+        if (this.state.item.id !== "") {
             this.props.updateCustomAction(this.state.item, this.props.customActionType).then(() => {
-                hashHistory.push('/');
+                hashHistory.push("/");
             });
         } else {
             this.props.createCustomAction(this.state.item, this.props.customActionType).then(() => {
-                hashHistory.push('/');
+                hashHistory.push("/");
             });
         }
     }
@@ -57,24 +57,24 @@ class SpCustomActionsItemEdit extends React.Component<SpCustomActionsItemEditPro
 
     public render(): JSX.Element {
         let titleStr: string;
-        if (this.props.item.id === '') {
+        if (this.props.item.id === "") {
             titleStr = "New Custom Action " + this.props.locationItem.name;
         } else {
             titleStr = "Custom Action id " + this.props.item.id;
         }
         return (<div>
-            <div className='ms-Grid-row'>
+            <div className="ms-Grid-row">
                 <div className="ms-ListItem-actions ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
                     <h2 className="ms-font-xl ms-fontSize-xl ms-u-textAlignCenter edit-form-title">{titleStr}</h2>
                 </div>
             </div>
-            <div className='ms-ListBasicExample-itemCell  ms-Grid-row' data-is-focusable={true}>
+            <div className="ms-ListBasicExample-itemCell  ms-Grid-row" data-is-focusable={true}>
                 {
                     this.props.locationItem.renderForm(this.state.item, this.onInputChange)
                 }
                 <div className="ms-ListItem-actions ms-Grid-col ms-u-sm1 ms-u-md1 ms-u-lg1">
                     <Button buttonType={ButtonType.icon} icon="Save" rootProps={{ title: "Save" }} ariaLabel="Save" onClick={this.saveItem} />
-                    <Link title="Cancel" aria-label="Cancel" className="ms-Button ms-Button--icon" to={'/'}>
+                    <Link title="Cancel" aria-label="Cancel" className="ms-Button ms-Button--icon" to={"/"}>
                         <span className="ms-Button-icon"><i className="ms-Icon ms-Icon--Cancel"></i></span><span className="ms-Button-label" ></span>
                     </Link>
                 </div>
@@ -88,7 +88,7 @@ const mapStateToProps = (state: IMapStateToPropsState, ownProps: any): IMapState
     const caGuid: string = ownProps.params.guid;
     const newCaType: string = ownProps.params.type;
     let ca: ICustomAction = null;
-    let locItem: ILocationItem; 
+    let locItem: ILocationItem;
     if (caGuid) {
         const filtered = state.spCustomActions.customActions.filter((item: ICustomAction) => {
             return item.id === caGuid;
@@ -100,9 +100,9 @@ const mapStateToProps = (state: IMapStateToPropsState, ownProps: any): IMapState
     } else if (newCaType) {
         locItem = customActionLocationHelper.getLocationByKey(newCaType);
         ca = {
-            id: '', name: '', title: '', description: '', group: '', imageUrl: '',
-            locationInternal: '', registrationType: 0, scriptBlock: '', scriptSrc: '', sequence: 1,
-            url: '', location: locItem.spLocationName
+            id: "", name: "", title: "", description: "", group: "", imageUrl: "",
+            locationInternal: "", registrationType: 0, scriptBlock: "", scriptSrc: "", sequence: 1,
+            url: "", location: locItem.spLocationName
         }
 
     }

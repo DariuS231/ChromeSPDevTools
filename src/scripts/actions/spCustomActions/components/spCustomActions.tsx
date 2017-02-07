@@ -1,19 +1,19 @@
-import * as React from 'react';
-import { connect } from 'react-redux'
-import { bindActionCreators, Dispatch } from 'redux'
-import { WorkingOnIt } from './../../common/components/WorkingOnIt';
-import MessageBar from './../../common/components/MessageBar';
-import { SpCustomActionList } from './spCustomActionsList'
-import { SpCustomActionsButtom } from './spCustomActionsButtom'
-import FilterTextBox from './../../common/components/filterTextBox';
-import { Button, ButtonType } from 'office-ui-fabric-react/lib/Button';
-import propertyActionsCreatorsMap from '../actions/SpCustomActionsActions';
-import { SpCustomActionsProps, IMapStateToPropsState, IMapStateToProps, ISpCustomActionsActionCreatorsMapObject } from '../interfaces/spCustomActionsInterfaces';
+import * as React from "react";
+import { connect } from "react-redux"
+import { bindActionCreators, Dispatch } from "redux"
+import { WorkingOnIt } from "./../../common/components/WorkingOnIt";
+import MessageBar from "./../../common/components/MessageBar";
+import { SpCustomActionList } from "./spCustomActionsList"
+import { SpCustomActionsButtom } from "./spCustomActionsButtom"
+import FilterTextBox from "./../../common/components/filterTextBox";
+import { Button, ButtonType } from "office-ui-fabric-react/lib/Button";
+import propertyActionsCreatorsMap from "../actions/SpCustomActionsActions";
+import { ISpCustomActionsProps, IMapStateToPropsState, IMapStateToProps, ISpCustomActionsActionCreatorsMapObject } from "../interfaces/spCustomActionsInterfaces";
 
-interface IMapDispatchToSpCustomActionsProps {
+interface IMapDispatchToISpCustomActionsProps {
     actions: ISpCustomActionsActionCreatorsMapObject
 }
-class SpCustomActions extends React.Component<SpCustomActionsProps, {}> {
+class SpCustomActions extends React.Component<ISpCustomActionsProps, {}> {
     private componentDidMount(): void {
         this.props.actions.checkUserPermissions(SP.PermissionKind.manageWeb, this.props.customActionType);
     }
@@ -46,7 +46,7 @@ const mapStateToProps = (state: IMapStateToPropsState, ownProps: any): IMapState
     }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch<any>): IMapDispatchToSpCustomActionsProps => {
+const mapDispatchToProps = (dispatch: Dispatch<any>): IMapDispatchToISpCustomActionsProps => {
     return {
         actions: bindActionCreators(propertyActionsCreatorsMap, dispatch) as any
     }

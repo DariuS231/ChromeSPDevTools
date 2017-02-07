@@ -1,18 +1,18 @@
-import * as React from 'react';
-import SpCustomActionItem from './spCustomActionsItem'
-import { CustomActionType } from './../constants/enums';
-import { List } from 'office-ui-fabric-react/lib/List';
-import { ICustomAction } from '../interfaces/spCustomActionsInterfaces';
+import * as React from "react";
+import SpCustomActionItem from "./spCustomActionsItem"
+import { CustomActionType } from "./../constants/enums";
+import { List } from "office-ui-fabric-react/lib/List";
+import { ICustomAction } from "../interfaces/spCustomActionsInterfaces";
 
 interface ISpCustomActionList {
-    customActions: Array<ICustomAction>,
+    customActions: ICustomAction[],
     caType: CustomActionType,
     filtertText: string,
     deleteCustomAction: (ca: ICustomAction, caType: CustomActionType) => void
 }
 export const SpCustomActionList: React.StatelessComponent<ISpCustomActionList> = (props: ISpCustomActionList) => {
     const filter: string = props.filtertText.toLowerCase();
-    const list: Array<ICustomAction> = filter !== '' ? props.customActions.filter((ca: ICustomAction, index: number) => {
+    const list: ICustomAction[] = filter !== "" ? props.customActions.filter((ca: ICustomAction, index: number) => {
         return ca.name.toLowerCase().indexOf(filter) >= 0;
     }) : props.customActions;
 

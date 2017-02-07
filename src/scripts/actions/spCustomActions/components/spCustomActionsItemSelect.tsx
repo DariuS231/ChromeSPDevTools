@@ -1,6 +1,6 @@
 
-import * as React from 'react';
-import { Dropdown, IDropdownOption } from 'office-ui-fabric-react/lib/Dropdown';
+import * as React from "react";
+import { Dropdown, IDropdownOption } from "office-ui-fabric-react/lib/Dropdown";
 
 interface SpCustomActionsItemSelectProps {
     label: string,
@@ -17,5 +17,5 @@ export const SpCustomActionsItemSelect: React.StatelessComponent<SpCustomActions
         props.onValueChange(item.key.toString(), props.selectKey);
         return false;
     }
-    return <Dropdown label={props.label} selectedKey={props.value || ''} disabled={props.disabled} onChanged={onTextBoxValueChange} options={props.options} />
+    return <Dropdown label={props.label} selectedKey={props.value || ""} disabled={props.disabled} onChanged={onTextBoxValueChange} options={props.options} />
 }
