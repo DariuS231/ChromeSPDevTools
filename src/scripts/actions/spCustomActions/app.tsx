@@ -7,8 +7,8 @@ import SpCustomModalWrapper from "./../common/components/spCustomModalWrapper";
 import Utils from "./../common/utils";
 import SpCustomActions from "./components/spCustomActions";
 import SpCustomActionItemEdit from "./components/spCustomActionsItemEdit";
-import { configureStore } from "./store/configureStore-dev";
 import { CustomActionType } from "./constants/enums";
+import { configureStore } from "./store/configureStore-dev";
 
 export class App extends AppBase {
     private _componentsDivId: string;
@@ -30,7 +30,7 @@ export class App extends AppBase {
     public show() {
         const that = this;
         Utils.ensureSPObject().then(() => {
-            const store = configureStore({});
+            const store = configureStore(this._customActionType);
 
             const wrapper: React.StatelessComponent<{ children?: any }> = (props: { children?: any }) => {
                 return <SpCustomModalWrapper

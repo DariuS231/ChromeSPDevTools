@@ -15,13 +15,13 @@ module.exports = {
     // To enhance the debugging process. More info: https://webpack.js.org/configuration/devtool/
     devtool: 'inline-source-map',
     target: 'web',
-    // Using webpack multiple entry point 
+    // Using webpack multiple entry point
     entry: {
         'spPropertyBag': './src/scripts/actions/spPropertyBag/app.tsx',
          'spFeatures': './src/scripts/actions/spFeatures/app.tsx',
          'spSiteContent': './src/scripts/actions/spSiteContent/app.tsx',
-         'spWebCustomActions': './src/scripts/actions/spCustomActions/app_webCa.tsx',
-         'spSiteCustomActions': './src/scripts/actions/spCustomActions/app_siteCa.tsx'
+         'spWebCustomActions': './src/scripts/actions/spCustomActions/app_webCa.ts',
+         'spSiteCustomActions': './src/scripts/actions/spCustomActions/app_siteCa.ts'
     },
     output: {
         path: path.join(__dirname, './../dist/actions'),

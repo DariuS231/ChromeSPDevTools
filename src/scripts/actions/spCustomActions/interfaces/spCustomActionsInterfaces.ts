@@ -69,7 +69,7 @@ export interface IMapStateToProps {
     customActionType: CustomActionType;
 }
 export interface IMapStateToPropsState {
-    spCustomActions: IInitialState;
+    spCustomActionsReducer: IInitialState;
 }
 
 export interface IMapStateToProps {

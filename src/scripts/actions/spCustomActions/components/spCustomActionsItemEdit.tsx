@@ -83,7 +83,9 @@ class SpCustomActionsItemEdit extends React.Component<ISpCustomActionsItemEditPr
         }
     }
     private onInputChange(value: string, key: string) {
-        this.setState({ item: { ...this.state.item, key: value } });
+        const newObj: any = {};
+        newObj[key] = value;
+        this.setState({ item: { ...this.state.item, ...newObj } });
     }
 
 }
@@ -94,7 +96,7 @@ const mapStateToProps = (state: IMapStateToPropsState, ownProps: any): IMapState
     let ca: ICustomAction = null;
     let locItem: ILocationItem;
     if (caGuid) {
-        const filtered = state.spCustomActions.customActions.filter((item: ICustomAction) => {
+        const filtered = state.spCustomActionsReducer.customActions.filter((item: ICustomAction) => {
             return item.id === caGuid;
         });
         if (filtered.length > 0) {
@@ -110,7 +112,7 @@ const mapStateToProps = (state: IMapStateToPropsState, ownProps: any): IMapState
         };
     }
     return {
-        customActionType: state.spCustomActions.customActionType,
+        customActionType: state.spCustomActionsReducer.customActionType,
         item: ca,
         locationItem: locItem
     };

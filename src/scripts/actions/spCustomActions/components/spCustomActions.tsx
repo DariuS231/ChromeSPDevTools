@@ -51,12 +51,12 @@ class SpCustomActions extends React.Component<ISpCustomActionsProps, {}> {
 
 const mapStateToProps = (state: IMapStateToPropsState, ownProps: any): IMapStateToProps => {
     return {
-        currentUserHasPermissions: state.spCustomActions.userHasPermission,
-        customActionType: state.spCustomActions.customActionType,
-        customActions: state.spCustomActions.customActions,
-        filterText: state.spCustomActions.filterText,
-        isWorkingOnIt: state.spCustomActions.isWorkingOnIt,
-        messageData: state.spCustomActions.messageData
+        currentUserHasPermissions: state.spCustomActionsReducer.userHasPermission,
+        customActionType: state.spCustomActionsReducer.customActionType,
+        customActions: state.spCustomActionsReducer.customActions,
+        filterText: state.spCustomActionsReducer.filterText,
+        isWorkingOnIt: state.spCustomActionsReducer.isWorkingOnIt,
+        messageData: state.spCustomActionsReducer.messageData
     };
 };
 

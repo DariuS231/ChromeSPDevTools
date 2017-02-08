@@ -15,13 +15,13 @@ module.exports = {
     // To enhance the debugging process. More info: https://webpack.js.org/configuration/devtool/
     devtool: 'source-map',
     target: 'web',
-    // Using webpack multiple entry point 
+    // Using webpack multiple entry point
     entry: {
         'spPropertyBag': './src/scripts/actions/spPropertyBag/app.tsx',
         'spFeatures': './src/scripts/actions/spFeatures/app.tsx',
         'spSiteContent': './src/scripts/actions/spSiteContent/app.tsx',
-        'spWebCustomActions': './src/scripts/actions/spCustomActions/app_webCa.tsx',
-        'spSiteCustomActions': './src/scripts/actions/spCustomActions/app_siteCa.tsx'
+        'spWebCustomActions': './src/scripts/actions/spCustomActions/app_webCa.ts',
+        'spSiteCustomActions': './src/scripts/actions/spCustomActions/app_siteCa.ts'
     },
     output: {
         path: path.join(__dirname, './../dist/actions'),
@@ -40,7 +40,7 @@ module.exports = {
             '__DEVTOOLS__': false                           // Doesn´t have effect on my example
         }),
         // Plugings for optimizing size and performance.
-        // Here you have all the available by now: 
+        // Here you have all the available by now:
         //    Webpack 1. https://github.com/webpack/webpack/blob/v1.13.3/lib/optimize
         //    Webpack 2. https://github.com/webpack/webpack/tree/master/lib/optimize
         new webpack.optimize.UglifyJsPlugin({
