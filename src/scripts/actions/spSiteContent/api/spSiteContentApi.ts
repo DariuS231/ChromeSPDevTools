@@ -5,6 +5,7 @@ import { SpSiteContentConstants as constants } from "./../constants/spSiteConten
 export default class SpSiteContentApi extends ApiBase {
     public getLists(): Promise<ISiteContent[]> {
         return new Promise((resolve, reject) => {
+            this.reject = reject;
             const ctx = SP.ClientContext.get_current();
             const web = ctx.get_web();
             const siteConetent = web.get_lists();

@@ -3,6 +3,10 @@ import * as axios from "axios";
 export default class ApiBase {
     protected reject: (reason?: any) => void;
 
+    constructor() {
+        this.requestErrorEventHandler = this.requestErrorEventHandler.bind(this);
+    }
+
     public requestErrorEventHandler(sender: any, err: SP.ClientRequestFailedEventArgs): void {
         this.reject(err.get_message());
     }
@@ -19,7 +23,7 @@ export default class ApiBase {
             const web = ctx.get_web();
 
             if (typeof web.doesUserHavePermissions !== "function") {
-                reject("Cannot check permissions against a non-securable object.");
+                this.reject("Cannot check permissions against a non-securable object.");
             } else {
                 const ob: SP.BasePermissions = new SP.BasePermissions();
                 ob.set(permKind);

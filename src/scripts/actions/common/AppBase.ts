@@ -1,5 +1,4 @@
 import * as ReactDOM from "react-dom";
-
 import "./../styles/components.scss";
 
 export class AppBase {

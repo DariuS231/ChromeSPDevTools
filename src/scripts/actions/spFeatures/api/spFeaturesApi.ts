@@ -7,6 +7,7 @@ export default class SpFeaturesApi extends ApiBase {
 
     public getFeatures(scope: FeatureScope): Promise<IFeature[]> {
         return new Promise((resolve, reject) => {
+            this.reject = reject;
             const url = _spPageContextInfo.webAbsoluteUrl
                 + "/_layouts/ManageFeatures.aspx"
                 + (scope === FeatureScope.Site ? "?Scope=Site" : "");
@@ -33,7 +34,7 @@ export default class SpFeaturesApi extends ApiBase {
                 }
                 resolve(items);
             }).catch((error: any) => {
-                reject(error);
+                this.reject(error);
             });
         });
     }
@@ -56,7 +57,7 @@ export default class SpFeaturesApi extends ApiBase {
                 } else {
                     ctx.get_web().get_features().add(new SP.Guid(feature.id), true, SP.FeatureDefinitionScope.site);
                 }
-                ctx.executeQueryAsync(onSuccess, this.requestErrorEventHandler.bind(this));
+                ctx.executeQueryAsync(onSuccess, this.requestErrorEventHandler);
             };
             ctx.executeQueryAsync(onSuccess, onError);
         });
@@ -75,7 +76,7 @@ export default class SpFeaturesApi extends ApiBase {
 
             ctx.executeQueryAsync((sender: any, err: any) => {
                 resolve({ ...feature, activated: false });
-            }, this.requestErrorEventHandler.bind(this));
+            }, this.requestErrorEventHandler);
         });
     }
 }

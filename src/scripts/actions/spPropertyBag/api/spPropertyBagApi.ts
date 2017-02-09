@@ -19,6 +19,7 @@ export default class SpPropertyBagApi extends ApiBase {
     }
     public getProperties(): Promise<IProperty[]> {
         return new Promise((resolve, reject) => {
+            this.reject = reject;
             const reqUrl = `${_spPageContextInfo.webAbsoluteUrl}${constants.PROPERTY_REST_REQUEST_URL}`;
             this.getRequest(reqUrl).then((response: any) => {
                 const props: IProperty[] = [];
@@ -38,7 +39,7 @@ export default class SpPropertyBagApi extends ApiBase {
                 }
                 resolve(props);
             }).catch((error: any) => {
-                reject(error);
+                this.reject(error);
             });
         });
     }
@@ -68,7 +69,7 @@ export default class SpPropertyBagApi extends ApiBase {
 
             ctx.executeQueryAsync((sender: any, err: any) => {
                 resolve(property);
-            }, this.requestErrorEventHandler.bind(this));
+            }, this.requestErrorEventHandler);
         });
     }
 }
