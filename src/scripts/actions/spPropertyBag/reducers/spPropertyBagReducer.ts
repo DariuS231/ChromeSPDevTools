@@ -19,7 +19,8 @@ export const spPropertyBagReducer = (state: IInitialState = initialState, action
     switch (action.type) {
         case actions.CREATE_PROPERTY:
             const newPropperty: IProperty = action.payload;
-            return { ...state, isWorkingOnIt: false,
+            return {
+                ...state, isWorkingOnIt: false,
                 messageData: {
                     message: constants.MESSAGE_PROPERTY_CREATED,
                     showMessage: true,
@@ -29,7 +30,8 @@ export const spPropertyBagReducer = (state: IInitialState = initialState, action
             };
         case actions.DELETE_PROPERTY:
             const delPropperty: IProperty = action.payload;
-            return { ...state, isWorkingOnIt: false,
+            return {
+                ...state, isWorkingOnIt: false,
                 messageData: {
                     message: constants.MESSAGE_PROPERTY_DELETED,
                     showMessage: true,
@@ -46,7 +48,8 @@ export const spPropertyBagReducer = (state: IInitialState = initialState, action
                     return prop;
                 }
             });
-            return { ...state,  isWorkingOnIt: false,
+            return {
+                ...state, isWorkingOnIt: false,
                 messageData: {
                     message: constants.MESSAGE_PROPERTY_UPDATED,
                     showMessage: true,
@@ -56,10 +59,10 @@ export const spPropertyBagReducer = (state: IInitialState = initialState, action
             };
         case actions.SET_ALL_PROPERTIES:
             const properties: IProperty[] = action.payload;
-            return { ...state,  isWorkingOnIt: false, webProperties: properties };
+            return { ...state, isWorkingOnIt: false, webProperties: properties };
         case actions.SET_FILTER_TEXT:
             const filterText: string = action.payload;
-            return { ...state, filterText};
+            return { ...state, filterText };
         case actions.SET_MESSAGE_DATA:
             const messageData: IMessageData = action.payload;
             return { ...state, messageData };
@@ -69,6 +72,9 @@ export const spPropertyBagReducer = (state: IInitialState = initialState, action
         case actions.SET_WORKING_ON_IT:
             const isWorkingOnIt: boolean = action.payload;
             return { ...state, isWorkingOnIt };
+        case actions.HANDLE_ASYNC_ERROR:
+            const errorMessage: IMessageData = action.payload;
+            return { ...state, isWorkingOnIt: false, messageData: errorMessage };
         default:
             return state;
     }

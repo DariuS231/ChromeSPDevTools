@@ -1,6 +1,6 @@
 import { MessageBarType } from "office-ui-fabric-react/lib/MessageBar";
 import { ICustomAction, IInitialState } from "../interfaces/spCustomActionsInterfaces";
-import { initialState } from "../store/initialState"
+import { initialState } from "../store/initialState";
 import { ViewMode } from "./../../common/enums";
 import { IAction, IMessageData } from "./../../common/interfaces";
 import { ActionsId as actions, constants } from "./../constants/constants";
@@ -70,6 +70,9 @@ export const spCustomActionsReducer = (state: IInitialState = initialState, acti
         case actions.SET_WORKING_ON_IT:
             const isWorkingOnIt: boolean = action.payload;
             return { ...state, isWorkingOnIt };
+        case actions.HANDLE_ASYNC_ERROR:
+            const errorMessage: IMessageData = action.payload;
+            return { ...state, isWorkingOnIt: false, messageData: errorMessage };
         default:
             return state;
     }

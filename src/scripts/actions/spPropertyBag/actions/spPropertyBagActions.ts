@@ -1,11 +1,10 @@
 
-import { ActionCreator, ActionCreatorsMapObject, Dispatch } from "redux";
-import { ActionsId as actions, constants } from "./../constants/constants";
-
 import { MessageBarType } from "office-ui-fabric-react/lib/MessageBar";
+import { ActionCreator, ActionCreatorsMapObject, Dispatch } from "redux";
 import SpPropertyBagApi from "../api/spPropertyBagApi";
 import { IProperty, ISpPropertyBagActionCreatorsMapObject } from "../interfaces/spPropertyBagInterfaces";
 import { IAction, IMessageData } from "./../../common/interfaces";
+import { ActionsId as actions, constants } from "./../constants/constants";
 
 const api = new SpPropertyBagApi();
 
@@ -59,10 +58,25 @@ const setMessageData: ActionCreator<IAction<IMessageData>> = (messageData: IMess
         type: actions.SET_MESSAGE_DATA
     };
 };
+const handleAsyncError: ActionCreator<IAction<IMessageData>> =
+    (errorMessage: string, exceptionMessage: string): IAction<IMessageData> => {
+        // tslint:disable-next-line:no-console
+        console.log(exceptionMessage);
+        return {
+            payload: {
+                message: errorMessage,
+                showMessage: true,
+                type: MessageBarType.success
+            },
+            type: actions.HANDLE_ASYNC_ERROR
+        };
+    };
 const getAllProperties = () => {
     return (dispatch: Dispatch<IAction<IProperty[]>>) => {
         return api.getProperties().then((properties: IProperty[]) => {
             dispatch(setAllProperties(properties));
+        }).catch((reason: any) => {
+            dispatch(handleAsyncError(constants.ERROR_MESSAGE_GET_ALL_PROPERTIES, reason));
         });
     };
 };
@@ -72,6 +86,8 @@ const createProperty = (property: IProperty) => {
         dispatch(setWorkingOnIt(true));
         return api.createProperty(property).then((retProperty: IProperty) => {
             dispatch(addProperty(retProperty));
+        }).catch((reason: any) => {
+            dispatch(handleAsyncError(constants.ERROR_MESSAGE_CREATE_PROPERTY, reason));
         });
     };
 };
@@ -81,6 +97,8 @@ const updateProperty = (property: IProperty) => {
         dispatch(setWorkingOnIt(true));
         return api.updateProperty(property).then((retProperty: IProperty) => {
             dispatch(modifyProperty(retProperty));
+        }).catch((reason: any) => {
+            dispatch(handleAsyncError(constants.ERROR_MESSAGE_UPDATE_PROPERTY, reason));
         });
     };
 };
@@ -90,6 +108,8 @@ const deleteProperty = (property: IProperty) => {
         dispatch(setWorkingOnIt(true));
         return api.deleteProperty(property).then((retProperty: IProperty) => {
             dispatch(removeProperty(retProperty));
+        }).catch((reason: any) => {
+            dispatch(handleAsyncError(constants.ERROR_MESSAGE_DELETE_PROPERTY, reason));
         });
     };
 };
@@ -109,7 +129,9 @@ const checkUserPermissions = (permissionKing: SP.PermissionKind) => {
                     }));
                 }
             }
-        );
+        ).catch((reason: any) => {
+            dispatch(handleAsyncError(constants.ERROR_MESSAGE_CHECK_USER_PERMISSIONS, reason));
+        });
     };
 };
 

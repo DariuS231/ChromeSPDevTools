@@ -71,12 +71,27 @@ const getSiteFeaturesSuccess: ActionCreator<IAction<IFeatureUpdateSuccess>> =
             type: actions.SET_SITE_FEATURES_AFTER_UPDATE
         };
     };
+const handleAsyncError: ActionCreator<IAction<IMessageData>> =
+    (errorMessage: string, exceptionMessage: string): IAction<IMessageData> => {
+        // tslint:disable-next-line:no-console
+        console.log(exceptionMessage);
+        return {
+            payload: {
+                message: errorMessage,
+                showMessage: true,
+                type: MessageBarType.success
+            },
+            type: actions.HANDLE_ASYNC_ERROR
+        };
+    };
 const getFeatures = (feature: IFeature) => {
     return (dispatch: Dispatch<IAction<IFeature[]>>) => {
         return api.getFeatures(feature.scope).then((features: IFeature[]) => {
             return (feature.scope === FeatureScope.Web
                 ? dispatch(getWebFeaturesSuccess(features, feature))
                 : dispatch(getSiteFeaturesSuccess(features, feature)));
+        }).catch((reason: any) => {
+            dispatch(handleAsyncError(constants.ERROR_MESSAGE_GETTING_FEATURES, reason));
         });
     };
 };
@@ -86,6 +101,8 @@ const activateFeature = (feature: IFeature) => {
         dispatch(setWorkingOnIt(true));
         return api.activateFeature(feature).then((featureUpdt: IFeature) => {
             dispatch(getFeatures(feature));
+        }).catch((reason: any) => {
+            dispatch(handleAsyncError(constants.ERROR_MESSAGE_ACTIVATING_FEATURE, reason));
         });
     };
 };
@@ -95,6 +112,8 @@ const deActivateFeature = (feature: IFeature) => {
         dispatch(setWorkingOnIt(true));
         return api.deActivateFeature(feature).then((featureUpdt: IFeature) => {
             dispatch(getFeatures(feature));
+        }).catch((reason: any) => {
+            dispatch(handleAsyncError(constants.ERROR_MESSAGE_DEACTIVATING_FEATURE, reason));
         });
     };
 };
@@ -112,6 +131,8 @@ const checkUserPermissions = (permissionKing: SP.PermissionKind) => {
             } else {
                 dispatch(setNoPermissions());
             }
+        }).catch((reason: any) => {
+            dispatch(handleAsyncError(constants.ERROR_MESSAGE_CHECK_USER_PERMISSIONS, reason));
         });
     };
 };

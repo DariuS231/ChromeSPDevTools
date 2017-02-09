@@ -61,13 +61,29 @@ const setMessageData: ActionCreator<IAction<IMessageData>> = (messageData: IMess
     };
 };
 
+const handleAsyncError: ActionCreator<IAction<IMessageData>> =
+    (errorMessage: string, exceptionMessage: string): IAction<IMessageData> => {
+        // tslint:disable-next-line:no-console
+        console.log(exceptionMessage);
+        return {
+            payload: {
+                message: errorMessage,
+                showMessage: true,
+                type: MessageBarType.success
+            },
+            type: actions.HANDLE_ASYNC_ERROR
+        };
+    };
+
 const getAllCustomActions = (caType: CustomActionType) => {
     return (dispatch: Dispatch<IAction<ICustomAction[]>>) => {
         return api.getCustomActions(caType).then(
             (customActionsRet: ICustomAction[]) => {
                 dispatch(setAllProperties(customActionsRet));
             }
-        );
+        ).catch((reason: any) => {
+            dispatch(handleAsyncError(constants.ERROR_MESSAGE_GET_ALL_CUSTOM_ACTIONS, reason));
+        });
     };
 };
 
@@ -78,7 +94,9 @@ const createCustomAction = (customAction: ICustomAction, caType: CustomActionTyp
             (customActionRet: ICustomAction) => {
                 dispatch(addCustomAction(customActionRet));
             }
-        );
+        ).catch((reason: any) => {
+            dispatch(handleAsyncError(constants.ERROR_MESSAGE_CREATE_CUSTOM_ACTION, reason));
+        });
     };
 };
 
@@ -89,7 +107,9 @@ const updateCustomAction = (customAction: ICustomAction, caType: CustomActionTyp
             (customActionRet: ICustomAction) => {
                 dispatch(modifyCustomAction(customActionRet));
             }
-        );
+        ).catch((reason: any) => {
+            dispatch(handleAsyncError(constants.ERROR_MESSAGE_UPDATE_CUSTOM_ACTION, reason));
+        });
     };
 };
 
@@ -100,7 +120,9 @@ const deleteCustomAction = (customAction: ICustomAction, caType: CustomActionTyp
             (customActionRet: ICustomAction) => {
                 dispatch(removeCustomAction(customActionRet));
             }
-        );
+        ).catch((reason: any) => {
+            dispatch(handleAsyncError(constants.ERROR_MESSAGE_DELETE_CUSTOM_ACTION, reason));
+        });
     };
 };
 const checkUserPermissions = (permissionKing: SP.PermissionKind, caType: CustomActionType) => {
@@ -119,7 +141,9 @@ const checkUserPermissions = (permissionKing: SP.PermissionKind, caType: CustomA
                     }));
                 }
             }
-        );
+        ).catch((reason: any) => {
+            dispatch(handleAsyncError(constants.ERROR_MESSAGE_CHECK_USER_PERMISSIONS, reason));
+        });
     };
 };
 

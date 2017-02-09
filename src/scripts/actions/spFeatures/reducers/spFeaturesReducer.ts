@@ -78,6 +78,9 @@ export const spFeaturesReducer = (state: IInitialState = initialState, action: I
         case actions.SET_WORKING_ON_IT:
             const isWorkingOnIt: boolean = action.payload;
             return { ...state, isWorkingOnIt };
+        case actions.HANDLE_ASYNC_ERROR:
+            const errorMessage: IMessageData = action.payload;
+            return { ...state, isWorkingOnIt: false, messageData: errorMessage };
         default:
             return state;
     }
