@@ -8,4 +8,3 @@ const caType = CustomActionType.Site;
 
 window.SpSiteCustomActionsObj = new App(modalTitle, divId, caType);
 window.SpSiteCustomActionsObj.show();
-

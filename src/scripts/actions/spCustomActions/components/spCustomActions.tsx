@@ -1,4 +1,5 @@
 import { Button, ButtonType } from "office-ui-fabric-react/lib/Button";
+import { MessageBarType } from "office-ui-fabric-react/lib/MessageBar";
 import * as React from "react";
 import { connect } from "react-redux";
 import { bindActionCreators, Dispatch } from "redux";
@@ -19,12 +20,17 @@ interface IMapDispatchToISpCustomActionsProps {
     actions: ISpCustomActionsActionCreatorsMapObject;
 }
 class SpCustomActions extends React.Component<ISpCustomActionsProps, {}> {
+    constructor() {
+        super();
+        this.onMessageClose = this.onMessageClose.bind(this);
+    }
     public render(): JSX.Element {
         if (this.props.isWorkingOnIt) {
             return <WorkingOnIt />;
         } else {
             return (<div>
                 <MessageBar
+                    onCloseMessageClick={this.onMessageClose}
                     message={this.props.messageData.message}
                     messageType={this.props.messageData.type}
                     showMessage={this.props.messageData.showMessage}
@@ -43,6 +49,14 @@ class SpCustomActions extends React.Component<ISpCustomActionsProps, {}> {
                 />
             </div>);
         }
+    }
+
+    private onMessageClose() {
+        this.props.actions.setMessageData({
+            message: "",
+            showMessage: false,
+            type: MessageBarType.info
+        });
     }
     private componentDidMount(): void {
         this.props.actions.checkUserPermissions(SP.PermissionKind.manageWeb, this.props.customActionType);

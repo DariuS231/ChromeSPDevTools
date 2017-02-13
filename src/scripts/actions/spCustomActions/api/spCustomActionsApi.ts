@@ -12,10 +12,17 @@ export default class SpCustomActionsApi extends ApiBase {
             // tslint:disable-next-line:max-line-length
             const reqUrl = `${_spPageContextInfo.webAbsoluteUrl}/_api/${CustomActionType[caType]}${constants.CUSTOM_ACTION_REST_REQUEST_URL}`;
             this.getRequest(reqUrl).then((response: any) => {
-                const cusctomActions: ICustomAction[] = [];
-
+                let cusctomActions: ICustomAction[] = [];
+                const filters = customActionLocationHelper.supportedCustomActionsFilter;
+                const filtersCt = filters.length;
                 const caArray = response.data.value.filter((item: any) => {
-                    return customActionLocationHelper.supportedCustomActions.indexOf(item.Location) >= 0;
+                    let locAllowed: boolean = false;
+                    let loopCt = 0;
+                    while (!locAllowed && loopCt < filtersCt) {
+                        locAllowed = filters[loopCt](item);
+                        loopCt++;
+                    }
+                    return locAllowed;
                 });
 
                 const caArrayLength = caArray.length;
@@ -25,7 +32,7 @@ export default class SpCustomActionsApi extends ApiBase {
                     const scriptBlock: string = ca.ScriptBlock;
                     const url: string = ca.Url;
 
-                    cusctomActions.push({
+                    cusctomActions = cusctomActions.concat({
                         description: ca.Description,
                         group: ca.Group,
                         id: ca.Id,

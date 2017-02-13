@@ -10,6 +10,7 @@ export interface ICustomActionType extends IContextualMenuItem {
 }
 
 export interface ILocationItem {
+    filterItem: (item: any) => boolean;
     key: string;
     type: string;
     name: string;
@@ -19,6 +20,9 @@ export interface ILocationItem {
 class CustomActionLocationHelper {
     protected _location: ILocationItem[] = [
         {
+            filterItem: (item: any) => {
+                return item.Location === "ScriptLink" && !!item.ScriptSrc;
+            },
             key: "ScriptSrc",
             name: "Script Src",
             renderForm: (item: ICustomAction, onChange: (value: string, key: string) => void): JSX.Element => {
@@ -28,6 +32,9 @@ class CustomActionLocationHelper {
             type: "ScriptSrc"
         },
         {
+            filterItem: (item: any) => {
+                return item.Location === "ScriptLink" && !!item.ScriptBlock;
+            },
             key: "ScriptBlock",
             name: "Script Block",
             renderForm: (item: ICustomAction, onChange: (value: string, key: string) => void): JSX.Element => {
@@ -37,6 +44,10 @@ class CustomActionLocationHelper {
             type: "ScriptBlock"
         },
         {
+            filterItem: (item: any) => {
+                const allowedGroups = ["ActionsMenu", "SiteActions"];
+                return item.Location === "Microsoft.SharePoint.StandardMenu" && allowedGroups.indexOf(item.Group) >= 0;
+            },
             key: "StandardMenu",
             name: "Standard Menu",
             renderForm: (item: ICustomAction, onChange: (value: string, key: string) => void): JSX.Element => {
@@ -49,6 +60,11 @@ class CustomActionLocationHelper {
     public get supportedCustomActions(): string[] {
         return this._location.map((item: ILocationItem) => {
             return item.spLocationName;
+        });
+    }
+    public get supportedCustomActionsFilter(): Array<(item: any) => boolean> {
+        return this._location.map((item: ILocationItem) => {
+            return item.filterItem;
         });
     }
     public get contextMenuItems(): ICustomActionType[] {

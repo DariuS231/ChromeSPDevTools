@@ -7,7 +7,7 @@ import SpCustomModalWrapper from "./../common/components/spCustomModalWrapper";
 import Utils from "./../common/utils";
 import SpPropertyBag from "./components/spPropertyBag";
 import { constants } from "./constants/constants";
-import { configureStore } from "./store/configureStore-prod";
+import { configureStore } from "./store/configureStore-dev";
 
 class App extends AppBase {
     constructor() {

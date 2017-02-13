@@ -8,4 +8,3 @@ const caType = CustomActionType.Web;
 
 window.SpWebCustomActionsObj = new App(modalTitle, divId, caType);
 window.SpWebCustomActionsObj.show();
-

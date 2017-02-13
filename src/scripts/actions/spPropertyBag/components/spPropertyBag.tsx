@@ -1,19 +1,16 @@
 /* tslint:disable:max-line-length */
 
+import { MessageBarType } from "office-ui-fabric-react/lib/MessageBar";
 import * as React from "react";
 import { connect } from "react-redux";
 import { bindActionCreators, Dispatch } from "redux";
-
-import { MessageBarType } from "office-ui-fabric-react/lib/MessageBar";
-
-import { SpPropertyBagList } from "./spPropertyBagList";
-import SpPropertyBagNewItem from "./SpPropertyBagNewItem";
-
 import propertyActionsCreatorsMap from "../actions/spPropertyBagActions";
 import { IMapStateToProps, IMapStateToPropsState, ISpPropertyBagActionCreatorsMapObject, ISpPropertyBagProps } from "../interfaces/spPropertyBagInterfaces";
 import FilterTextBox from "./../../common/components/filterTextBox";
 import MessageBar from "./../../common/components/MessageBar";
 import { WorkingOnIt } from "./../../common/components/WorkingOnIt";
+import { SpPropertyBagList } from "./spPropertyBagList";
+import SpPropertyBagNewItem from "./SpPropertyBagNewItem";
 
 interface IMapDispatchToISpPropertyBagProps {
     actions: ISpPropertyBagActionCreatorsMapObject;

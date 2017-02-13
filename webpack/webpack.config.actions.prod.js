@@ -39,6 +39,7 @@ module.exports = {
             'DEBUG': false,                                 // Doesn´t have effect on my example
             '__DEVTOOLS__': false                           // Doesn´t have effect on my example
         }),
+         new webpack.NormalModuleReplacementPlugin(/\.\/store\/configureStore-dev$/, "./store/configureStore-prod"),
         // Plugings for optimizing size and performance.
         // Here you have all the available by now:
         //    Webpack 1. https://github.com/webpack/webpack/blob/v1.13.3/lib/optimize
