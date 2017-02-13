@@ -102,6 +102,8 @@ const mapStateToProps = (state: IMapStateToPropsState, ownProps: any): IMapState
         if (filtered.length > 0) {
             ca = filtered[0];
             locItem = customActionLocationHelper.getLocationItem(ca);
+        } else {
+            hashHistory.push("/");
         }
     } else if (newCaType) {
         locItem = customActionLocationHelper.getLocationByKey(newCaType);

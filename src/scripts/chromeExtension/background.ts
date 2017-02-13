@@ -13,8 +13,11 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
     if (changeInfo.status === "complete") {
         chrome.tabs.executeScript(tabId, {
             code: `(function() {
-				var meta = document.querySelector(\"meta[name="GENERATOR"]\");
-				return (meta && meta.content === "Microsoft SharePoint") || (window.location.host.endsWith(".sharepoint.com"));
+                console.log(\"Reading!\");
+				var meta = document.querySelector(\"meta[name='GENERATOR']\");
+                var valueToRet = ((meta && meta.content === "Microsoft SharePoint") || (window.location.host.endsWith(".sharepoint.com")));
+                console.log(\"Is SP: \" + valueToRet );
+				return valueToRet;
 			})()`
         }, (result) => {
             if (result && result.length > 0 && result[0]) {

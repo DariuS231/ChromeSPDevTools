@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { Provider } from "react-redux";
-import { hashHistory, IndexRoute, Route, Router } from "react-router";
+import { hashHistory, IndexRoute, Redirect, Route, Router } from "react-router";
 import { AppBase } from "./../common/AppBase";
 import SpCustomModalWrapper from "./../common/components/spCustomModalWrapper";
 import Utils from "./../common/utils";
@@ -49,6 +49,7 @@ export class App extends AppBase {
                         <Route path="newItem/:type" component={SpCustomActionItemEdit} />
                         <Route path="item/:guid" component={SpCustomActionItemEdit} />
                     </Route>
+                    <Redirect from="*" to="/" />
                 </Router>
             </Provider>, document.getElementById(that.baseDivId));
         });
