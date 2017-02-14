@@ -16,9 +16,11 @@ interface IMapDispatchToISpPropertyBagProps {
     actions: ISpPropertyBagActionCreatorsMapObject;
 }
 class SpPropertyBag extends React.Component<ISpPropertyBagProps, {}> {
+    public searchComponent: HTMLElement;
     constructor() {
         super();
         this.onMessageClose = this.onMessageClose.bind(this);
+        this.filterRef = this.filterRef.bind(this);
     }
     public render() {
         if (this.props.isWorkingOnIt) {
@@ -32,13 +34,16 @@ class SpPropertyBag extends React.Component<ISpPropertyBagProps, {}> {
                     messageType={this.props.messageData.type}
                     showMessage={this.props.messageData.showMessage}
                 />
-                {hasPermissions && <FilterTextBox filterStr={this.props.filterText} setFilterText={this.props.actions.setFilterText} />}
+                {hasPermissions && <FilterTextBox referenceCallBack={this.filterRef} filterStr={this.props.filterText} setFilterText={this.props.actions.setFilterText} />}
                 {hasPermissions && <SpPropertyBagList items={this.props.webProperties} filterString={this.props.filterText} />}
                 {hasPermissions && <SpPropertyBagNewItem addProperty={this.props.actions.createProperty} />}
             </div>;
         }
     }
 
+    private filterRef(element: HTMLElement): void {
+        this.searchComponent = element;
+    }
     private componentDidMount() {
         this.props.actions.checkUserPermissions(SP.PermissionKind.manageWeb);
     }
