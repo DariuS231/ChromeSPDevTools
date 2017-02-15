@@ -1,72 +1,89 @@
 import { EventSubscription } from "fbemitter";
 import { MessageBarType } from "office-ui-fabric-react/lib/MessageBar";
 import * as React from "react";
-import { actions } from "../actions/spSiteContentActions";
+import { connect } from "react-redux";
+import { bindActionCreators, Dispatch } from "redux";
+import spSiteContentActionsCreatorMap from "../actions/spSiteContentActions";
 import { SpSiteContentConstants as constants } from "../constants/spSiteContentConstants";
+import {
+    IMapStateToProps,
+    IMapStateToPropsState,
+    ISpSiteContentActionCreatorsMapObject,
+    ISpSiteContentProps
+} from "../interfaces/spSiteContentInterfaces";
 import { ISiteContent } from "../interfaces/spSiteContentInterfaces";
-import { spSiteContentStore as store } from "../store/spSiteContentStore";
+import FilterTextBox from "./../../common/components/filterTextBox";
 import MessageBar from "./../../common/components/MessageBar";
 import { WorkingOnIt } from "./../../common/components/WorkingOnIt";
 import { IMessageData } from "./../../common/interfaces";
-import { SpSiteContentFilter } from "./spSiteContentFilter";
+import { SpSiteContentCheckBox } from "./spSiteContentCheckBox";
 import { SpSiteContentList } from "./spSiteContentList";
 
-interface ISpSiteContentState {
-    isWorkingOnIt: boolean;
-    siteLists: ISiteContent[];
-    messageData: IMessageData;
-    showAll: boolean;
-    openInNewTab: boolean;
-    filterText: string;
+interface IMapDispatchToISpSiteContentProps {
+    actions: ISpSiteContentActionCreatorsMapObject;
 }
-
-export default class SpSiteContent extends React.Component<{}, ISpSiteContentState> {
+class SpSiteContent extends React.Component<ISpSiteContentProps, {}> {
     protected subscription: EventSubscription;
     constructor() {
         super();
-        this.state = this.getStoreState();
     }
     public render() {
-        if (this.state.isWorkingOnIt) {
+        if (this.props.isWorkingOnIt) {
             return <WorkingOnIt />;
         } else {
             return (
                 <div className="action-container sp-siteContent">
                     <MessageBar
-                        message={this.state.messageData.message}
-                        messageType={this.state.messageData.type}
-                        showMessage={this.state.messageData.showMessage}
+                        message={this.props.messageData.message}
+                        messageType={this.props.messageData.type}
+                        showMessage={this.props.messageData.showMessage}
                     />
-                    <SpSiteContentFilter
-                        showAll={this.state.showAll}
-                        openInNewTab={this.state.openInNewTab}
-                    />
+                    <FilterTextBox
+                        setFilterText={this.props.actions.setFilter}
+                        filterStr={this.props.filterText}
+                        parentOverrideClass="ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6"
+                    >
+                        <SpSiteContentCheckBox
+                            checkLabel="Show All"
+                            isCkecked={this.props.showAll}
+                            onCheckBoxChange={this.props.actions.setShowAll}
+                        />
+                        <SpSiteContentCheckBox
+                            checkLabel="Open in new tab"
+                            isCkecked={this.props.openInNewTab}
+                            onCheckBoxChange={this.props.actions.setOpenInNewWindow}
+                        />
+                    </FilterTextBox>
                     <SpSiteContentList
-                        items={this.state.siteLists}
-                        linkTarget={this.state.openInNewTab ? "_blank" : "_self"}
+                        items={this.props.siteLists}
+                        linkTarget={this.props.openInNewTab ? "_blank" : "_self"}
+                        filterString={this.props.filterText}
+                        showAll={this.props.showAll}
                     />
                 </div>);
 
         }
     }
-    protected onChange = () => {
-        this.setState(this.getStoreState());
-    }
-    private getStoreState(): ISpSiteContentState {
-        return {
-            filterText: store.getFilterText(),
-            isWorkingOnIt: store.getWorkinOnIt(),
-            messageData: store.getMessageData(),
-            openInNewTab: store.getOpenInNewTag(),
-            showAll: store.getShowAll(),
-            siteLists: store.getSiteContent()
-        };
-    }
     private componentDidMount() {
-        this.subscription = store.addListener(constants.changeEvent, this.onChange);
-        actions.getAllSiteContent();
-    }
-    private componentWillUnmount(): void {
-        this.subscription.remove();
+        this.props.actions.getAllSiteContent();
     }
 }
+
+const mapStateToProps = (state: IMapStateToPropsState, ownProps: any): IMapStateToProps => {
+    return {
+        filterText: state.spSiteContent.filterText,
+        isWorkingOnIt: state.spSiteContent.isWorkingOnIt,
+        messageData: state.spSiteContent.messageData,
+        openInNewTab: state.spSiteContent.openInNewTab,
+        showAll: state.spSiteContent.showAll,
+        siteLists: state.spSiteContent.siteLists
+    };
+};
+
+const mapDispatchToProps = (dispatch: Dispatch<any>): IMapDispatchToISpSiteContentProps => {
+    return {
+        actions: bindActionCreators(spSiteContentActionsCreatorMap, dispatch) as any
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SpSiteContent);

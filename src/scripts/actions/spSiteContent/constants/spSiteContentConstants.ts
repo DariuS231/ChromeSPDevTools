@@ -1,4 +1,5 @@
 export const SpSiteContentConstants = {
+    ERROR_MESSAGE_GET_ALL_SITE_CONTENT: "An error occurred getting all site content.",
     changeEvent: "spSiteContentStorechange",
     getContentErrorMessage: "Failed to get web lists",
     itemImageHeight: 25,
@@ -24,4 +25,13 @@ export const SpSiteContentConstants = {
     settingsRelativeUrl: "/_layouts/listedit.aspx?List=",
     showingAllItemsMessage: "Showing all lists and libraries.",
     showingHiddenItemsMessage: "Showing only hidden lists and libraries."
+};
+
+export const ActionsId = {
+    HANDLE_ASYNC_ERROR: "HANDLE_ASYNC_ERROR",
+    SET_MESSAGE_DATA: "SET_MESSAGE_DATA",
+    SET_OPEN_IN_NEW_TAB: "SET_OPEN_IN_NEW_TAB",
+    SET_SHOW_ALL: "SET_SHOW_ALL",
+    SET_SITE_CONTENT: "SET_SITE_CONTENT",
+    SET_TEXT_FILTER: "SET_TEXT_FILTER",
 };

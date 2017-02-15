@@ -1,65 +1,69 @@
 import { MessageBarType } from "office-ui-fabric-react/lib/MessageBar";
-import Dispatcher from "../dispatcher/spSiteContentDispatcher";
-import { ActionsID } from "../enums/spSiteContentEnum";
-import { ISiteContent } from "../interfaces/spSiteContentInterfaces";
-import SpSiteContentApi from "./../api/spSiteContentApi";
-import { SpSiteContentConstants as constants } from "./../constants/spSiteContentConstants";
+import { ActionCreator, ActionCreatorsMapObject, Dispatch } from "redux";
+import SpSiteContentApi from "../api/spSiteContentApi";
+import { ISiteContent, ISpSiteContentActionCreatorsMapObject } from "../interfaces/spSiteContentInterfaces";
+import { IAction, IMessageData } from "./../../common/interfaces";
+import { ActionsId as actions, SpSiteContentConstants as constants } from "./../constants/spSiteContentConstants";
 
-class SpSiteContentActions {
-    private api: SpSiteContentApi;
-    constructor() {
-        this.api = new SpSiteContentApi();
-    }
-    public getAllSiteContent() {
-        this.api.getLists().then((items: ISiteContent[]) => {
-            Dispatcher.dispatch({
-                data: items,
-                type: ActionsID.SET_SITE_CONTENT
-            });
+const api: SpSiteContentApi = new SpSiteContentApi();
+
+const setAllSiteContent: ActionCreator<IAction<ISiteContent[]>> =
+    (siteContent: ISiteContent[]): IAction<ISiteContent[]> => {
+        return {
+            payload: siteContent,
+            type: actions.SET_SITE_CONTENT
+        };
+    };
+
+const handleAsyncError: ActionCreator<IAction<IMessageData>> =
+    (errorMessage: string, exceptionMessage: string): IAction<IMessageData> => {
+        // tslint:disable-next-line:no-console
+        console.log(exceptionMessage);
+        return {
+            payload: {
+                message: errorMessage,
+                showMessage: true,
+                type: MessageBarType.success
+            },
+            type: actions.HANDLE_ASYNC_ERROR
+        };
+    };
+
+const getAllSiteContent = () => {
+    return (dispatch: Dispatch<IAction<ISiteContent[]>>) => {
+        return api.getLists().then((siteContent: ISiteContent[]) => {
+            dispatch(setAllSiteContent(siteContent));
         }).catch((reason: any) => {
-            Dispatcher.dispatch({
-                data: {
-                    message: constants.getContentErrorMessage,
-                    showMessage: true,
-                    type: MessageBarType.error
-                },
-                type: ActionsID.SET_MESSAGE_DATA
-            });
+            dispatch(handleAsyncError(constants.ERROR_MESSAGE_GET_ALL_SITE_CONTENT, reason));
         });
+    };
+};
+const setFilter: ActionCreator<IAction<string>> = (filterText: string): IAction<string> => {
+    return {
+        payload: filterText,
+        type: actions.SET_TEXT_FILTER
+    };
+};
 
-    }
-    public setShowAll(showAll: boolean) {
-        Dispatcher.dispatch({
-            data: {
-                messageData: {
-                    message: showAll ? constants.showingAllItemsMessage : constants.showingHiddenItemsMessage,
-                    showMessage: true,
-                    type: MessageBarType.info
-                },
-                showAll
-            },
-            type: ActionsID.SET_SHOW_ALL
-        });
-    }
-    public setOpenInNewWindow(openInNewTab: boolean) {
-        Dispatcher.dispatch({
-            data: {
-                messageData: {
-                    message: openInNewTab ? constants.openInNewTab : constants.noOpenInNewTab,
-                    showMessage: true,
-                    type: MessageBarType.info
-                },
-                openInNewTab
-            },
-            type: ActionsID.SET_OPEN_IN_NEW_TAB
-        });
-    }
-    public setFilter(filterStr: string) {
-        Dispatcher.dispatch({
-            data: filterStr,
-            type: ActionsID.SET_TEXT_FILTER
-        });
-    }
-}
+const setShowAll: ActionCreator<IAction<boolean>> = (showAll: boolean): IAction<boolean> => {
+    return {
+        payload: showAll,
+        type: actions.SET_SHOW_ALL
+    };
+};
 
-export const actions = new SpSiteContentActions();
+const setOpenInNewWindow: ActionCreator<IAction<boolean>> = (openInNewWindow: boolean): IAction<boolean> => {
+    return {
+        payload: openInNewWindow,
+        type: actions.SET_OPEN_IN_NEW_TAB
+    };
+};
+
+const spSiteContentActionsCreatorMap: ISpSiteContentActionCreatorsMapObject = {
+    getAllSiteContent,
+    setShowAll,
+    setOpenInNewWindow,
+    setFilter
+};
+
+export default spSiteContentActionsCreatorMap;

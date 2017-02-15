@@ -1,9 +1,10 @@
 import * as React from "react";
 import { render } from "react-dom";
+import { Provider } from "react-redux";
 import { AppBase } from "./../common/AppBase";
 import SpCustomModalWrapper from "./../common/components/spCustomModalWrapper";
-import Utils from "./../common/utils";
-import SpSiteContent from "./components/spSiteContent";
+import Utils from "./../common/utils"; import SpSiteContent from "./components/spSiteContent";
+import { configureStore } from "./store/configureStore-dev";
 
 class App extends AppBase {
     constructor() {
@@ -12,12 +13,16 @@ class App extends AppBase {
     public show() {
         const that = this;
         Utils.ensureSPObject().then(() => {
-            render(<SpCustomModalWrapper
-                        onCloseClick={that.remove.bind(this)}
-                        modalDialogTitle="Lists and Libraries"
-                        modalWidth="700px"
-            ><SpSiteContent />
-            </SpCustomModalWrapper>, document.getElementById(that.baseDivId));
+
+            const store = configureStore({});
+            render(<Provider store={store}>
+                <SpCustomModalWrapper
+                    onCloseClick={that.remove.bind(this)}
+                    modalDialogTitle="Lists and Libraries"
+                    modalWidth="700px"
+                ><SpSiteContent />
+                </SpCustomModalWrapper>
+            </Provider>, document.getElementById(that.baseDivId));
         });
     }
 }
