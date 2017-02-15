@@ -22,7 +22,7 @@ export const SpSiteContentItem: React.StatelessComponent<ISpSiteContentItemProps
             />
             <div className="ms-ListBasicExample-itemContent">
                 <a
-                    title={props.item.title}
+                    title={props.item.description}
                     alt={props.item.title}
                     href={props.item.listUrl}
                     className="ms-ListBasicExample-itemName ms-font-l ms-fontColor-themePrimary ms-fontWeight-semibold"

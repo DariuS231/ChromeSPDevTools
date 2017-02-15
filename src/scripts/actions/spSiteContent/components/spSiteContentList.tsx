@@ -15,8 +15,7 @@ export const SpSiteContentList: React.StatelessComponent<ISpSiteContentListProps
         const filter: string = props.filterString.toLowerCase();
         let items: ISiteContent[] = filter !== ""
             ? props.items.filter((item: ISiteContent, index: number) => {
-                return item.title.toLowerCase().indexOf(filter) >= 0
-                    || item.description.toLowerCase().indexOf(filter) >= 0;
+                return item.title.toLowerCase().indexOf(filter) >= 0;
             }) : props.items;
         if (!props.showAll) {
             items = items.filter((item: ISiteContent, index: number) => {

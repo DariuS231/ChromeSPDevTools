@@ -17,7 +17,7 @@ export const SpSiteContentCheckBox: React.StatelessComponent<ISpSiteContentCheck
             const isChecked: boolean = e.target.checked;
             props.onCheckBoxChange(isChecked);
         };
-        return <div className="ms-Grid-col ms-u-sm3 ms-u-md3 ms-u-lg3">
+        return <div className="ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6">
             <Checkbox label={props.checkLabel} defaultChecked={props.isCkecked} onChange={onCheckBoxChange} />
         </div>;
     };

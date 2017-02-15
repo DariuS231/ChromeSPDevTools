@@ -1,21 +1,17 @@
-import { EventSubscription } from "fbemitter";
 import { MessageBarType } from "office-ui-fabric-react/lib/MessageBar";
 import * as React from "react";
 import { connect } from "react-redux";
 import { bindActionCreators, Dispatch } from "redux";
 import spSiteContentActionsCreatorMap from "../actions/spSiteContentActions";
-import { SpSiteContentConstants as constants } from "../constants/spSiteContentConstants";
 import {
     IMapStateToProps,
     IMapStateToPropsState,
     ISpSiteContentActionCreatorsMapObject,
     ISpSiteContentProps
 } from "../interfaces/spSiteContentInterfaces";
-import { ISiteContent } from "../interfaces/spSiteContentInterfaces";
 import FilterTextBox from "./../../common/components/filterTextBox";
 import MessageBar from "./../../common/components/MessageBar";
 import { WorkingOnIt } from "./../../common/components/WorkingOnIt";
-import { IMessageData } from "./../../common/interfaces";
 import { SpSiteContentCheckBox } from "./spSiteContentCheckBox";
 import { SpSiteContentList } from "./spSiteContentList";
 
@@ -23,10 +19,6 @@ interface IMapDispatchToISpSiteContentProps {
     actions: ISpSiteContentActionCreatorsMapObject;
 }
 class SpSiteContent extends React.Component<ISpSiteContentProps, {}> {
-    protected subscription: EventSubscription;
-    constructor() {
-        super();
-    }
     public render() {
         if (this.props.isWorkingOnIt) {
             return <WorkingOnIt />;
@@ -43,16 +35,18 @@ class SpSiteContent extends React.Component<ISpSiteContentProps, {}> {
                         filterStr={this.props.filterText}
                         parentOverrideClass="ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6"
                     >
-                        <SpSiteContentCheckBox
-                            checkLabel="Show All"
-                            isCkecked={this.props.showAll}
-                            onCheckBoxChange={this.props.actions.setShowAll}
-                        />
-                        <SpSiteContentCheckBox
-                            checkLabel="Open in new tab"
-                            isCkecked={this.props.openInNewTab}
-                            onCheckBoxChange={this.props.actions.setOpenInNewWindow}
-                        />
+                        <div className="ms-Grid-row">
+                            <SpSiteContentCheckBox
+                                checkLabel="Show All"
+                                isCkecked={this.props.showAll}
+                                onCheckBoxChange={this.props.actions.setShowAll}
+                            />
+                            <SpSiteContentCheckBox
+                                checkLabel="Open in new tab"
+                                isCkecked={this.props.openInNewTab}
+                                onCheckBoxChange={this.props.actions.setOpenInNewWindow}
+                            />
+                        </div>
                     </FilterTextBox>
                     <SpSiteContentList
                         items={this.props.siteLists}
