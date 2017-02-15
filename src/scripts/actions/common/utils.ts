@@ -19,7 +19,11 @@ export default class Utils {
     public static ensureSPObject(): Promise<any> {
         return new Promise((resolve, reject) => {
             if (typeof SP === "undefined") {
-                const scriptbase = _spPageContextInfo.webServerRelativeUrl + "/_layouts/";
+                let baseUrl: string = _spPageContextInfo.webServerRelativeUrl;
+                if (baseUrl === "/") {
+                    baseUrl = location.origin;
+                }
+                const scriptbase = baseUrl + "/_layouts/";
                 this.loadScript(scriptbase + "SP.Runtime.js").then(() => {
                     this.loadScript(scriptbase + "SP.js").then(() => {
                         resolve();

@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { Provider } from "react-redux";
-import { hashHistory, IndexRoute, Redirect, Route, Router } from "react-router";
+import { createMemoryHistory, IndexRoute, Redirect, Route, Router } from "react-router";
 import { AppBase } from "./../common/AppBase";
 import SpCustomModalWrapper from "./../common/components/spCustomModalWrapper";
 import Utils from "./../common/utils";
@@ -13,7 +13,7 @@ import { configureStore } from "./store/configureStore-dev";
 export class App extends AppBase {
     private _componentsDivId: string;
     private _customActionType: CustomActionType;
-
+    private memoryHistory: any;
     constructor(modalDialogName: string, componentsDivId: string, customActionType: CustomActionType) {
         super(modalDialogName);
 
@@ -21,10 +21,11 @@ export class App extends AppBase {
         this._customActionType = customActionType;
 
         this.onCloseWrapperClick = this.onCloseWrapperClick.bind(this);
+        this.memoryHistory = createMemoryHistory(window.location);
     }
 
     public onCloseWrapperClick() {
-        hashHistory.push("/");
+        this.memoryHistory.push("/");
         this.remove();
     }
     public show() {
@@ -41,9 +42,9 @@ export class App extends AppBase {
                     </div>
                 </SpCustomModalWrapper>;
             };
-
             ReactDOM.render(<Provider store={store}>
-                <Router history={hashHistory}>
+
+                <Router history={this.memoryHistory}>
                     <Route path="/" component={wrapper} >
                         <IndexRoute component={SpCustomActions} />
                         <Route path="newItem/:type" component={SpCustomActionItemEdit} />

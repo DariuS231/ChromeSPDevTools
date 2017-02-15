@@ -1,8 +1,7 @@
 import { Button, ButtonType } from "office-ui-fabric-react/lib/Button";
 import * as React from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router";
-import { hashHistory } from "react-router";
+import { createMemoryHistory, Link } from "react-router";
 import { bindActionCreators, Dispatch } from "redux";
 import propertyActionsCreatorsMap from "../actions/SpCustomActionsActions";
 import { customActionLocationHelper, ILocationItem } from "../helpers/customActionLocation";
@@ -30,7 +29,10 @@ interface ISpCustomActionsItemEditProps {
 interface ISpCustomActionsItemEditState {
     item: ICustomAction;
 }
+
+        const memoryHistory = createMemoryHistory(window.location);
 class SpCustomActionsItemEdit extends React.Component<ISpCustomActionsItemEditProps, ISpCustomActionsItemEditState> {
+
     constructor(props: ISpCustomActionsItemEditProps) {
         super(props);
         this.state = { item: this.props.item };
@@ -74,11 +76,11 @@ class SpCustomActionsItemEdit extends React.Component<ISpCustomActionsItemEditPr
     private saveItem() {
         if (this.state.item.id !== "") {
             this.props.updateCustomAction(this.state.item, this.props.customActionType).then(() => {
-                hashHistory.push("/");
+                memoryHistory.push("/");
             });
         } else {
             this.props.createCustomAction(this.state.item, this.props.customActionType).then(() => {
-                hashHistory.push("/");
+                memoryHistory.push("/");
             });
         }
     }
@@ -103,7 +105,7 @@ const mapStateToProps = (state: IMapStateToPropsState, ownProps: any): IMapState
             ca = filtered[0];
             locItem = customActionLocationHelper.getLocationItem(ca);
         } else {
-            hashHistory.push("/");
+            memoryHistory.push("/");
         }
     } else if (newCaType) {
         locItem = customActionLocationHelper.getLocationByKey(newCaType);
