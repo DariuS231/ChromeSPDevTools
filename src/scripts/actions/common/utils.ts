@@ -18,17 +18,20 @@ export default class Utils {
     }
     public static ensureSPObject(): Promise<any> {
         return new Promise((resolve, reject) => {
-            if (typeof SP === "undefined") {
+            if (typeof SP === "undefined" || typeof SP.SOD === "undefined"
+                || typeof SP.SOD.executeFunc === "undefined") {
                 let baseUrl: string = _spPageContextInfo.webServerRelativeUrl;
                 if (baseUrl === "/") {
                     baseUrl = location.origin;
                 }
-                const scriptbase = baseUrl + "/_layouts/";
+                const scriptbase = baseUrl + "/_layouts/15/";
+
                 this.loadScript(scriptbase + "SP.Runtime.js").then(() => {
                     this.loadScript(scriptbase + "SP.js").then(() => {
                         resolve();
                     });
                 });
+
             } else {
                 SP.SOD.executeFunc("sp.js", "SP.ClientContext", () => {
                     resolve();
