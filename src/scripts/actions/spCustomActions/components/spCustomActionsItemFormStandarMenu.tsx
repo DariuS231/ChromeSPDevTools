@@ -40,6 +40,7 @@ const SpCustomActionsItemFormStandarMenu: React.StatelessComponent<ISpCustomActi
             selectKey="group"
             label="Group"
             value={props.item.group}
+            required={true}
             onValueChange={props.onInputChange}
             options={[{ key: "ActionsMenu", text: "ActionsMenu" }, { key: "SiteActions", text: "SiteActions" }]}
         />
