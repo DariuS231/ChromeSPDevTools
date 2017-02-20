@@ -10,7 +10,7 @@
 
 const path = require('path');
 const webpack = require('webpack');
-
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 module.exports = {
     // To enhance the debugging process. More info: https://webpack.js.org/configuration/devtool/
     devtool: 'inline-source-map',
@@ -32,7 +32,12 @@ module.exports = {
         // Add '.ts' and '.tsx' as resolvable extensions.
         extensions: [".ts", ".tsx", ".js"]
     },
-    plugins: [],
+    plugins: [
+        new ExtractTextPlugin({
+            filename: './styles/bundle.css',
+            allChunks: true,
+        })
+    ],
     module: {
         // loaders -> rules in webpack 2
         rules: [
@@ -57,22 +62,24 @@ module.exports = {
             {
                 test: /\.scss$/i,
                 exclude: /node_modules/,
-                use: [
-                    {
-                        loader: 'style-loader'
-                    },
-                    {
-                        loader: 'css-loader',
-                        options: {
-                            sourceMap: true,
-                            importLoaders: 1,
-                            minimize: true
+                use: ExtractTextPlugin.extract({
+                    //fallback: 'style-loader',
+                    fallbackLoader: 'style-loader',
+                    //use: [
+                    loader: [
+                        {
+                            loader: 'css-loader',
+                            options: {
+                                sourceMap: true,
+                                importLoaders: 1,
+                                minimize: true
+                            }
                         },
-                    },
-                    {
-                        loader: 'sass-loader'
-                    }
-                ]
+                        {
+                            loader: 'sass-loader'
+                        }
+                    ]
+                })
             }
         ]
     }

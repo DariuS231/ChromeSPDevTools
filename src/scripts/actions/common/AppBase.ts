@@ -1,14 +1,10 @@
 import * as ReactDOM from "react-dom";
-import "./../styles/components.scss";
 import { constants } from "./constants";
 
 export class AppBase {
     protected baseDivId: string;
-    protected styleLinkId: string;
     constructor(divId: string) {
         this.baseDivId = divId;
-        this.styleLinkId = constants.STYLE_TAG_ID;
-        this.remove = this.remove.bind(this);
 
         let baseDiv: HTMLElement = document.getElementById(this.baseDivId);
         if (!baseDiv) {
@@ -20,19 +16,9 @@ export class AppBase {
             }
             parentEl.appendChild(baseDiv);
         }
-
-        const head = document.head || document.getElementsByTagName(constants.HTML_TAG_HEAD)[0];
-        const style: HTMLLinkElement = document.createElement(constants.HTML_TAG_LINK) as HTMLLinkElement;
-        // tslint:disable-next-line:max-line-length
-        const cssUrl = constants.STYLE_TAG_URL;
-        style.type = constants.STYLE_TAG_ATTR_TYPE;
-        style.rel = constants.STYLE_TAG_ATTR_REL;
-        style.id = this.styleLinkId;
-        style.href = cssUrl;
-        head.appendChild(style);
     }
     protected remove = (): void => {
-        const style = document.getElementById(this.styleLinkId);
+        const style = document.getElementById(constants.STYLE_TAG_ID);
         style.parentElement.removeChild(style);
         ReactDOM.unmountComponentAtNode(document.getElementById(this.baseDivId));
     }

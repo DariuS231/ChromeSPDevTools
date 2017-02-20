@@ -1,19 +1,30 @@
 import * as React from "react";
+import { constants } from "../actions/common/constants";
 
 interface IActionItemProps {
     item: any;
+    stylesUrl: string;
 }
 
 const ActionItem: React.StatelessComponent<IActionItemProps> = (props: IActionItemProps) => {
     const onItemClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
+        debugger;
         const codeStr = `
-            (function(cdnUrl) {
-                var script = HTMLScriptElement = document.createElement("script");
+            (function(cdnUrl, stylesUrl) {
+                var head = document.head || document.getElementsByTagName("${constants.HTML_TAG_HEAD}")[0];
+                var style = document.createElement("${constants.HTML_TAG_LINK}");
+                style.type = "${constants.STYLE_TAG_ATTR_TYPE}";
+                style.rel = "${constants.STYLE_TAG_ATTR_REL}";
+                style.id = "${constants.STYLE_TAG_ID}";
+                style.href = stylesUrl;
+                head.appendChild(style);
+
+                var script = document.createElement("${constants.HTML_TAG_SCRIPT}");
                 script.src = cdnUrl;
                 (document.head || document.documentElement).appendChild(script);
                 script.parentNode.removeChild
-            })("` + props.item.scriptUrl + `");`;
+            })("${props.item.scriptUrl}", "${props.stylesUrl}");`;
         chrome.tabs.query({ active: true, currentWindow: true }, (tab) => {
             chrome.tabs.executeScript(tab[0].id, {
                 code: codeStr

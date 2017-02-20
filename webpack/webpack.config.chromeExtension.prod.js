@@ -34,7 +34,7 @@ module.exports = {
             'process.env': {
                 'NODE_ENV': JSON.stringify('production') // Reduces 78 kb on React library
             },
-            'DEBUG': false, // Doesn´t have effect on my example
+            'DEBUG': true, // Doesn´t have effect on my example
             '__DEVTOOLS__': false // Doesn´t have effect on my example
         }),
         // Plugings for optimizing size and performance.
@@ -53,8 +53,8 @@ module.exports = {
                 evaluate: true,
                 if_return: true,
                 join_vars: true,
-                drop_console: true,
-                drop_debugger: true
+                drop_console: false,
+                drop_debugger: false
             },
             minimize: true,
             debug: false,
