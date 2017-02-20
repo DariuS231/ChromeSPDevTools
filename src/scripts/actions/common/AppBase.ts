@@ -1,39 +1,24 @@
-/// <reference path="../../../../typings/index.d.ts"/>
-
 import * as ReactDOM from "react-dom";
-
-import './../styles/components.scss';
+import { constants } from "./constants";
 
 export class AppBase {
-    baseDivId: string;
-    styleLinkId:string;
-    constructor(divId:string) {
+    protected baseDivId: string;
+    constructor(divId: string) {
         this.baseDivId = divId;
-        this.styleLinkId = 'spChromeDevToolStyles';
-        this.remove = this.remove.bind(this);
 
         let baseDiv: HTMLElement = document.getElementById(this.baseDivId);
         if (!baseDiv) {
-            baseDiv = document.createElement('div');
-            baseDiv.setAttribute('id', this.baseDivId)
-            let parentEl = document.querySelector('form') as HTMLElement;
-            if(!parentEl){ //There is no Form element on modern pages, so the content gets add to the body instead
-                parentEl = document.querySelector('body') as HTMLElement;
+            baseDiv = document.createElement(constants.HTML_TAG_DIV);
+            baseDiv.setAttribute(constants.HTML_ATTR_ID, this.baseDivId);
+            let parentEl = document.querySelector(constants.HTML_TAG_FORM) as HTMLElement;
+            if (!parentEl) { // There is no Form element on modern pages, so the content gets add to the body instead
+                parentEl = document.querySelector(constants.HTML_TAG_BODY) as HTMLElement;
             }
             parentEl.appendChild(baseDiv);
         }
-
-        let head = document.head || document.getElementsByTagName('head')[0];
-        let style = document.createElement('link');
-
-        style.type = 'text/css';
-        style.rel = 'stylesheet';
-        style.id = this.styleLinkId;
-        style.href = 'https://cdn.rawgit.com/DariuS231/ChromeSPDevTools/92a48bd7dff4e8696ecf9e1a6321eae4556ac88a/dist/actions/styles/bundle.css';
-        head.appendChild(style);
     }
-    remove = (): void => {
-        var style = document.getElementById(this.styleLinkId);
+    protected remove = (): void => {
+        const style = document.getElementById(constants.STYLE_TAG_ID);
         style.parentElement.removeChild(style);
         ReactDOM.unmountComponentAtNode(document.getElementById(this.baseDivId));
     }

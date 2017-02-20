@@ -1,46 +1,47 @@
-/// <reference path="../../../typings/index.d.ts"/>
+import * as React from "react";
+import { constants } from "../actions/common/constants";
 
-import * as React from 'react';
-
-interface ActionItemProps {
-    item: any
-}
-interface ActionItemState {
-
+interface IActionItemProps {
+    item: any;
+    stylesUrl: string;
 }
 
-export default class ActionItem extends React.Component<ActionItemProps, ActionItemState> {
+const ActionItem: React.StatelessComponent<IActionItemProps> = (props: IActionItemProps) => {
+    const onItemClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+        event.preventDefault();
+        debugger;
+        const codeStr = `
+            (function(cdnUrl, stylesUrl) {
+                var head = document.head || document.getElementsByTagName("${constants.HTML_TAG_HEAD}")[0];
+                var style = document.createElement("${constants.HTML_TAG_LINK}");
+                style.type = "${constants.STYLE_TAG_ATTR_TYPE}";
+                style.rel = "${constants.STYLE_TAG_ATTR_REL}";
+                style.id = "${constants.STYLE_TAG_ID}";
+                style.href = stylesUrl;
+                head.appendChild(style);
 
-    private onItemClick(e: any) {
-        e.preventDefault();
-
-        let codeStr = `
-            (function(cdnUrl) {
-                var script = HTMLScriptElement = document.createElement('script');
+                var script = document.createElement("${constants.HTML_TAG_SCRIPT}");
                 script.src = cdnUrl;
                 (document.head || document.documentElement).appendChild(script);
                 script.parentNode.removeChild
-            })('` + this.props.item.scriptUrl + `');`;
-        chrome.tabs.query({ active: true, currentWindow: true }, function (tab) {
+            })("${props.item.scriptUrl}", "${props.stylesUrl}");`;
+        chrome.tabs.query({ active: true, currentWindow: true }, (tab) => {
             chrome.tabs.executeScript(tab[0].id, {
                 code: codeStr
-            }, function () {
+            }, () => {
                 window.close();
             });
         });
 
         return false;
-    }
+    };
+    return <button className="ms-Button ms-Button--compound action-btn" onClick={onItemClick}>
+        <img src={props.item.image} />
+        <div>
+            <span className="ms-font-l ms-fontColor-themePrimary ms-fontWeight-regular">{props.item.title}</span>
+            <span className="ms-Button-description">{props.item.description}</span>
+        </div>
+    </button>;
+};
 
-    public render() {
-        let item: any = this.props.item;
-
-        return <button className="ms-Button ms-Button--compound action-btn" onClick={this.onItemClick.bind(this) }>
-            <img src={item.image} />
-            <div>
-                <span className="ms-font-l ms-fontColor-themePrimary ms-fontWeight-regular">{this.props.item.title}</span>
-                <span className="ms-Button-description">{this.props.item.description}</span>
-            </div>
-        </button>;
-    }
-}
+export default ActionItem;

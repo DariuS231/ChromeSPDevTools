@@ -1,7 +1,0 @@
-export enum ActionsID {
-    SET_SITE_CONTENT,
-    SET_SHOW_ALL,
-    SET_TEXT_FILTER,
-    SET_MESSAGE_DATA,
-    SET_OPEN_IN_NEW_TAB
-};

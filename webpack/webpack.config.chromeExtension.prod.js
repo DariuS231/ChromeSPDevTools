@@ -15,9 +15,10 @@ module.exports = {
     // To enhance the debugging process. More info: https://webpack.js.org/configuration/devtool/
     devtool: 'source-map',
     target: 'web',
-    // Using webpack multiple entry point 
+    // Using webpack multiple entry point
     entry: {
         'background': './src/scripts/chromeExtension/background.ts',
+        'content': './src/scripts/chromeExtension/content.ts',
         'popup': './src/scripts/chromeExtension/main.tsx'
     },
     output: {
@@ -31,13 +32,13 @@ module.exports = {
     plugins: [
         new webpack.DefinePlugin({
             'process.env': {
-                'NODE_ENV': JSON.stringify('production')      // Reduces 78 kb on React library
+                'NODE_ENV': JSON.stringify('production') // Reduces 78 kb on React library
             },
-            'DEBUG': false,                                 // Doesn´t have effect on my example
-            '__DEVTOOLS__': false                           // Doesn´t have effect on my example
+            'DEBUG': true, // Doesn´t have effect on my example
+            '__DEVTOOLS__': false // Doesn´t have effect on my example
         }),
         // Plugings for optimizing size and performance.
-        // Here you have all the available by now: 
+        // Here you have all the available by now:
         //    Webpack 1. https://github.com/webpack/webpack/blob/v1.13.3/lib/optimize
         //    Webpack 2. https://github.com/webpack/webpack/tree/master/lib/optimize
         new webpack.optimize.UglifyJsPlugin({
@@ -52,8 +53,8 @@ module.exports = {
                 evaluate: true,
                 if_return: true,
                 join_vars: true,
-                drop_console: true,
-                drop_debugger: true
+                drop_console: false,
+                drop_debugger: false
             },
             minimize: true,
             debug: false,
@@ -64,15 +65,14 @@ module.exports = {
 
         }),
         new webpack.optimize.AggressiveMergingPlugin(),
-        new ExtractTextPlugin({ 
-            filename: './../styles/bundle.css', 
+        new ExtractTextPlugin({
+            filename: './../styles/bundle.css',
             allChunks: true
         })
     ],
     module: {
         // loaders -> rules in webpack 2
-        rules: [
-            {
+        rules: [{
                 enforce: 'pre',
                 test: /\.js$/,
                 loader: 'source-map-loader',
@@ -98,8 +98,7 @@ module.exports = {
                     //fallback: 'style-loader',
                     fallbackLoader: 'style-loader',
                     //use: [
-                    loader: [
-                        {
+                    loader: [{
                             loader: 'css-loader',
                             options: {
                                 sourceMap: true,

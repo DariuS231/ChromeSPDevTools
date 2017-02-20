@@ -10,18 +10,18 @@
 
 const path = require('path');
 const webpack = require('webpack');
-
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 module.exports = {
     // To enhance the debugging process. More info: https://webpack.js.org/configuration/devtool/
     devtool: 'inline-source-map',
     target: 'web',
-    // Using webpack multiple entry point 
+    // Using webpack multiple entry point
     entry: {
         'spPropertyBag': './src/scripts/actions/spPropertyBag/app.tsx',
-         'spFeatures': './src/scripts/actions/spFeatures/main.tsx',
+         'spFeatures': './src/scripts/actions/spFeatures/app.tsx',
          'spSiteContent': './src/scripts/actions/spSiteContent/app.tsx',
-         'spWebCustomActions': './src/scripts/actions/spCustomActions/app_webCa.tsx',
-         'spSiteCustomActions': './src/scripts/actions/spCustomActions/app_siteCa.tsx'
+         'spWebCustomActions': './src/scripts/actions/spCustomActions/app_webCa.ts',
+         'spSiteCustomActions': './src/scripts/actions/spCustomActions/app_siteCa.ts'
     },
     output: {
         path: path.join(__dirname, './../dist/actions'),
@@ -32,7 +32,12 @@ module.exports = {
         // Add '.ts' and '.tsx' as resolvable extensions.
         extensions: [".ts", ".tsx", ".js"]
     },
-    plugins: [],
+    plugins: [
+        new ExtractTextPlugin({
+            filename: './styles/bundle.css',
+            allChunks: true,
+        })
+    ],
     module: {
         // loaders -> rules in webpack 2
         rules: [
@@ -57,22 +62,24 @@ module.exports = {
             {
                 test: /\.scss$/i,
                 exclude: /node_modules/,
-                use: [
-                    {
-                        loader: 'style-loader'
-                    },
-                    {
-                        loader: 'css-loader',
-                        options: {
-                            sourceMap: true,
-                            importLoaders: 1,
-                            minimize: true
+                use: ExtractTextPlugin.extract({
+                    //fallback: 'style-loader',
+                    fallbackLoader: 'style-loader',
+                    //use: [
+                    loader: [
+                        {
+                            loader: 'css-loader',
+                            options: {
+                                sourceMap: true,
+                                importLoaders: 1,
+                                minimize: true
+                            }
                         },
-                    },
-                    {
-                        loader: 'sass-loader'
-                    }
-                ]
+                        {
+                            loader: 'sass-loader'
+                        }
+                    ]
+                })
             }
         ]
     }

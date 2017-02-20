@@ -1,82 +1,101 @@
-import * as React from 'react';
-import SpCustomActionsItemFormScriptLink from '../components/spCustomActionsItemFormScriptLink'
-import SpCustomActionsItemFormStandarMenu from '../components/spCustomActionsItemFormStandarMenu'
-import { ICustomAction } from '../interfaces/spCustomActionsInterfaces';
-import { IContextualMenuItem } from 'office-ui-fabric-react/lib/ContextualMenu';
-import { Link } from 'react-router';
+import { IContextualMenuItem } from "office-ui-fabric-react/lib/ContextualMenu";
+import * as React from "react";
+import { Link } from "react-router";
+import SpCustomActionsItemFormScriptLink from "../components/spCustomActionsItemFormScriptLink";
+import SpCustomActionsItemFormStandarMenu from "../components/spCustomActionsItemFormStandarMenu";
+import { ICustomAction } from "../interfaces/spCustomActionsInterfaces";
 
 export interface ICustomActionType extends IContextualMenuItem {
-    type: string
+    type: string;
 }
 
 export interface ILocationItem {
-    key: string,
-    type: string,
-    name: string,
-    spLocationName: string,
-    renderForm: (item: ICustomAction, onChange: (value: string, key: string) => void) => JSX.Element
+    filterItem: (item: any) => boolean;
+    key: string;
+    type: string;
+    name: string;
+    spLocationName: string;
+    renderForm: (item: ICustomAction, onChange: (value: string, key: string) => void) => JSX.Element;
+    validateForm: (item: ICustomAction) => boolean;
 }
 class CustomActionLocationHelper {
-    private _location: Array<ILocationItem> = [
+    protected _location: ILocationItem[] = [
         {
-            key: 'ScriptSrc',
-            type: 'ScriptSrc',
-            name: 'Script Src',
-            spLocationName: 'ScriptLink',
+            filterItem: (item: any) => {
+                return item.Location === "ScriptLink" && !!item.ScriptSrc;
+            },
+            key: "ScriptSrc",
+            name: "Script Src",
             renderForm: (item: ICustomAction, onChange: (value: string, key: string) => void): JSX.Element => {
-                return <SpCustomActionsItemFormScriptLink item={item} onInputChange={onChange} isScriptBlock={false} />
+                return <SpCustomActionsItemFormScriptLink item={item} onInputChange={onChange} isScriptBlock={false} />;
+            },
+            spLocationName: "ScriptLink",
+            type: "ScriptSrc",
+            validateForm: (item: ICustomAction): boolean => {
+                return item.sequence > 0 && item.scriptSrc !== "";
             }
         },
         {
-            key: 'ScriptBlock',
-            type: 'ScriptBlock',
-            name: 'Script Block',
-            spLocationName: 'ScriptLink',
+            filterItem: (item: any) => {
+                return item.Location === "ScriptLink" && !!item.ScriptBlock;
+            },
+            key: "ScriptBlock",
+            name: "Script Block",
             renderForm: (item: ICustomAction, onChange: (value: string, key: string) => void): JSX.Element => {
-                return <SpCustomActionsItemFormScriptLink item={item} onInputChange={onChange} isScriptBlock={true} />
+                return <SpCustomActionsItemFormScriptLink item={item} onInputChange={onChange} isScriptBlock={true} />;
+            },
+            spLocationName: "ScriptLink",
+            type: "ScriptBlock",
+            validateForm: (item: ICustomAction): boolean => {
+                return item.sequence > 0 && item.scriptBlock !== "";
             }
         },
         {
-            key: 'StandardMenu',
-            type: 'StandardMenu',
-            name: 'Standard Menu',
-            spLocationName: 'Microsoft.SharePoint.StandardMenu',
+            filterItem: (item: any) => {
+                const allowedGroups = ["ActionsMenu", "SiteActions"];
+                return item.Location === "Microsoft.SharePoint.StandardMenu" && allowedGroups.indexOf(item.Group) >= 0;
+            },
+            key: "StandardMenu",
+            name: "Standard Menu",
             renderForm: (item: ICustomAction, onChange: (value: string, key: string) => void): JSX.Element => {
-                return <SpCustomActionsItemFormStandarMenu item={item} onInputChange={onChange} />
+                return <SpCustomActionsItemFormStandarMenu item={item} onInputChange={onChange} />;
+            },
+            spLocationName: "Microsoft.SharePoint.StandardMenu",
+            type: "StandardMenu",
+            validateForm: (item: ICustomAction): boolean => {
+                return item.sequence > 0 && item.group !== "" && item.url !== "";
             }
         }
-    ]
-    private _renderCharmMenuItem(item: ICustomActionType) {
-        return <Link className='ms-ContextualMenu-link' to={"newItem/" + item.type}>
-            <div className="ms-ContextualMenu-linkContent">
-                <span className="ms-ContextualMenu-itemText ms-fontWeight-regular">{item.name}</span>
-            </div>
-        </Link>;
-    }
-    public get supportedCustomActions(): Array<string> {
+    ];
+    public get supportedCustomActions(): string[] {
         return this._location.map((item: ILocationItem) => {
             return item.spLocationName;
-        })
+        });
     }
-    public get contextMenuItems(): Array<ICustomActionType> {
+    public get supportedCustomActionsFilter(): Array<(item: any) => boolean> {
+        return this._location.map((item: ILocationItem) => {
+            return item.filterItem;
+        });
+    }
+    public get contextMenuItems(): ICustomActionType[] {
         return this._location.map((item: ILocationItem) => {
             return {
+                className: "ms-ContextualMenu-item",
                 key: item.key,
                 name: item.name,
-                type: item.type,
                 onRender: this._renderCharmMenuItem,
-                className: 'ms-ContextualMenu-item'
-            }
-        })
+                type: item.type,
+            };
+        });
     }
     public getFormComponent(item: ICustomAction, onChange: (value: string, key: string) => void): JSX.Element {
-        let filtered: Array<ILocationItem>;
-        if (item.location === 'ScriptLink') {
+        let filtered: ILocationItem[];
+        if (item.location === "ScriptLink") {
             filtered = this._location.filter((location: ILocationItem) => {
                 if (item.scriptBlock) {
-                    return location.type === 'ScriptBlock';
+                    return location.type === "ScriptBlock";
                 } else {
-                    return location.type === 'ScriptSrc';
+                    return location.type === "ScriptSrc";
                 }
             });
         } else {
@@ -88,13 +107,13 @@ class CustomActionLocationHelper {
         return (filtered.length > 0) ? filtered[0].renderForm(item, onChange) : null;
     }
     public getLocationItem(item: ICustomAction): ILocationItem {
-        let filtered: Array<ILocationItem>;
-        if (item.location === 'ScriptLink') {
+        let filtered: ILocationItem[];
+        if (item.location === "ScriptLink") {
             filtered = this._location.filter((location: ILocationItem) => {
                 if (item.scriptBlock) {
-                    return location.type === 'ScriptBlock';
+                    return location.type === "ScriptBlock";
                 } else {
-                    return location.type === 'ScriptSrc';
+                    return location.type === "ScriptSrc";
                 }
             });
         } else {
@@ -107,7 +126,7 @@ class CustomActionLocationHelper {
     }
 
     public getLocationByKey(key: string): ILocationItem {
-        let filtered: Array<ILocationItem> = this._location.filter((location: ILocationItem) => {
+        const filtered: ILocationItem[] = this._location.filter((location: ILocationItem) => {
             return location.key === key;
         });
 
@@ -115,8 +134,16 @@ class CustomActionLocationHelper {
     }
 
     public getSpLocationNameByType(type: string): string {
-        const loc = this.getLocationByKey(type)
+        const loc = this.getLocationByKey(type);
         return (loc) ? loc.spLocationName : null;
+    }
+
+    private _renderCharmMenuItem(item: ICustomActionType) {
+        return <Link className="ms-ContextualMenu-link" to={"newItem/" + item.type}>
+            <div className="ms-ContextualMenu-linkContent">
+                <span className="ms-ContextualMenu-itemText ms-fontWeight-regular">{item.name}</span>
+            </div>
+        </Link>;
     }
 }
 
