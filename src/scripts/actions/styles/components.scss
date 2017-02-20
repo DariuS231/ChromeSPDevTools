@@ -243,11 +243,10 @@ $dividerColor: $ms-color-neutralLight;
     text-align: center;
     vertical-align: middle;
     margin-top: 6.5px;
-    >img,
-    >h2 {
-        display: inline-block;
-        vertical-align: middle;
-        margin: 20px
+    .ms-Spinner>.ms-Spinner-circle.ms-Spinner--large{
+      width: 60px;
+      height: 60px;
+      border-width: 10px;
     }
 }
 
