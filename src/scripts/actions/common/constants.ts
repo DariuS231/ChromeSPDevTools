@@ -14,7 +14,6 @@ export const constants  = {
     STYLE_TAG_ATTR_REL: "stylesheet",
     STYLE_TAG_ATTR_TYPE: "text/css",
     STYLE_TAG_ID: "spChromeDevToolStyles",
-    STYLE_TAG_URL: "https://cdn.rawgit.com/DariuS231/ChromeSPDevTools/92a48bd7dff4e8696ecf9e1a6321eae4556ac88a/dist/actions/styles/bundle.css",
     TYPE_OF_FUNCTION: "function",
     TYPE_OF_UNDEFINED: "undefined",
     URL_LAYOUTS: "/_layouts/15/",

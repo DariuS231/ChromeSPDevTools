@@ -1,3 +1,4 @@
+
 const request = new XMLHttpRequest();
 request.open("GET", "/_api/web/title", false);
 request.setRequestHeader("Accept", "application/json, text/javascript");

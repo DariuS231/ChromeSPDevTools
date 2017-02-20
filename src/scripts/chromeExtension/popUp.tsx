@@ -1,7 +1,6 @@
 import { List } from "office-ui-fabric-react/lib/List";
 import * as React from "react";
 import ActionItem from "./ActionItem";
-
 import "./styles/chromeExtePopUp.scss";
 
 interface IActionData {
@@ -16,12 +15,14 @@ interface IPopUpProps {
 }
 interface IPopUpState {
     actions: IActionData[];
+    stylesUrl: string;
 }
 
 export default class PopUp extends React.Component<IPopUpProps, IPopUpState> {
     constructor() {
         super();
-        this.state = { actions: [] };
+        this.state = { actions: [], stylesUrl: "" };
+        this.renderItem = this.renderItem.bind(this);
     }
     public render() {
         return <div className="container">
@@ -41,7 +42,7 @@ export default class PopUp extends React.Component<IPopUpProps, IPopUpState> {
         xobj.onreadystatechange = () => {
             if (xobj.readyState === 4 && xobj.status === 200) {
                 const data = JSON.parse(xobj.responseText);
-                that.setState({ actions: data });
+                that.setState({ actions: data.actions, stylesUrl: data.stylesUrl });
             }
         };
         xobj.send(null);
@@ -51,6 +52,6 @@ export default class PopUp extends React.Component<IPopUpProps, IPopUpState> {
         this.getActions();
     }
     private renderItem(item: IActionData, index: number) {
-        return <ActionItem item={item} key={index} />;
+        return <ActionItem item={item} key={index} stylesUrl={this.state.stylesUrl} />;
     }
 }
