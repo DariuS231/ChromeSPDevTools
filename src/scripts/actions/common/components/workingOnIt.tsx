@@ -1,10 +1,7 @@
 
-import {
-  Spinner,
-  SpinnerType
-} from "office-ui-fabric-react/lib/Spinner";
-import * as React from "react";
+import * as React from 'react';
 
 export const  WorkingOnIt = () => <div className="working-on-it-wrapper">
-    <Spinner type={ SpinnerType.large } label="Working on it..." />
+    <img src="/_layouts/15/images/gears_anv4.gif" alt="Working on it..." />
+    <h2>Working on it...</h2>
 </div>;

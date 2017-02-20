@@ -1,37 +1,47 @@
-import { MessageBarType } from "office-ui-fabric-react/lib/MessageBar";
-import { ICustomAction, IInitialState } from "../interfaces/spCustomActionsInterfaces";
-import { initialState } from "../store/initialState";
-import { ViewMode } from "./../../common/enums";
-import { IAction, IMessageData } from "./../../common/interfaces";
-import { ActionsId as actions, constants } from "./../constants/constants";
-import { CustomActionType } from "./../constants/enums";
+import { ActionsId as actions, constants } from './../constants/constants'
+import { ICustomAction, IInitialState } from '../interfaces/spCustomActionsInterfaces'
+import { MessageBarType } from 'office-ui-fabric-react/lib/MessageBar';
+import { IMessageData, IAction } from './../../common/interfaces'
+import { ViewMode } from './../../common/enums';
+import { CustomActionType } from './../constants/enums';
+
+const initialState: IInitialState = {
+    isWorkingOnIt: true,
+    userHasPermission: false,
+    customActions: [],
+    filterText: constants.EMPTY_STRING,
+    messageData: {
+        showMessage: false,
+        message: constants.EMPTY_STRING,
+        type: MessageBarType.info
+    },
+    customActionType:CustomActionType.Web
+}
 
 export const spCustomActionsReducer = (state: IInitialState = initialState, action: IAction<any>): IInitialState => {
     switch (action.type) {
         case actions.CREATE_CUSTOM_ACTION:
             const newCustomAction: ICustomAction = action.payload;
-            return {
-                ...state,
-                customActions: [...state.customActions, newCustomAction],
+            return Object.assign({}, state, {
+                customActions: [...state.customActions, Object.assign({}, newCustomAction)],
                 isWorkingOnIt: false,
                 messageData: {
-                    message: constants.MESSAGE_CUSTOM_ACTION_CREATED,
                     showMessage: true,
+                    message: constants.MESSAGE_CUSTOM_ACTION_CREATED,
                     type: MessageBarType.success
                 }
-            };
+            });
         case actions.DELETE_CUSTOM_ACTION:
             const delCustomAction: ICustomAction = action.payload;
-            return {
-                ...state,
-                customActions: [...state.customActions.filter((prop: ICustomAction) => prop.id !== delCustomAction.id)],
+            return Object.assign({}, state, {
+                customActions: [...state.customActions.filter(prop => prop.id !== delCustomAction.id)],
                 isWorkingOnIt: false,
                 messageData: {
-                    message: constants.MESSAGE_CUSTOM_ACTION_DELETED,
                     showMessage: true,
+                    message: constants.MESSAGE_CUSTOM_ACTION_DELETED,
                     type: MessageBarType.success
                 }
-            };
+            });
         case actions.UPDATE_CUSTOM_ACTION:
             const updtdCustomAction: ICustomAction = action.payload;
             const filtered = state.customActions.map((prop: ICustomAction) => {
@@ -41,40 +51,35 @@ export const spCustomActionsReducer = (state: IInitialState = initialState, acti
                     return prop;
                 }
             });
-            return {
-                ...state,
+            return Object.assign({}, state, {
                 customActions: filtered,
                 isWorkingOnIt: false,
                 messageData: {
-                    message: constants.MESSAGE_CUSTOM_ACTION_UPDATED,
                     showMessage: true,
+                    message: constants.MESSAGE_CUSTOM_ACTION_UPDATED,
                     type: MessageBarType.success
                 }
-            };
+            });
         case actions.SET_ALL_CUSTOM_ACTIONS:
-            const properties: ICustomAction[] = action.payload;
-            return {
-                ...state,
+            const properties: Array<ICustomAction> = action.payload;
+            return Object.assign({}, state, {
                 customActions: properties,
                 isWorkingOnIt: false
-            };
+            });
         case actions.SET_FILTER_TEXT:
             const filterText: string = action.payload;
-            return { ...state, filterText };
+            return Object.assign({}, state, { filterText: filterText });
         case actions.SET_MESSAGE_DATA:
             const messageData: IMessageData = action.payload;
-            return { ...state, messageData };
+            return Object.assign({}, state, { messageData: messageData });
         case actions.SET_USER_PERMISSIONS:
             const userHasPermission: boolean = action.payload;
-            return { ...state, userHasPermission };
+            return Object.assign({}, state, { userHasPermission: userHasPermission });
         case actions.SET_WORKING_ON_IT:
             const isWorkingOnIt: boolean = action.payload;
-            return { ...state, isWorkingOnIt };
-        case actions.HANDLE_ASYNC_ERROR:
-            const errorMessage: IMessageData = action.payload;
-            return { ...state, isWorkingOnIt: false, messageData: errorMessage };
+            return Object.assign({}, state, { isWorkingOnIt: isWorkingOnIt });
         default:
             return state;
     }
 
-};
+}

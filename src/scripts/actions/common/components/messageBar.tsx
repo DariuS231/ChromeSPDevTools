@@ -1,60 +1,56 @@
 
-import * as React from "react";
-import Utils from "../utils";
+import * as React from 'react';
+import Utils from '../utils';
+import { Button } from 'office-ui-fabric-react/lib/Button';
+import { MessageBar as MsBar, MessageBarType } from 'office-ui-fabric-react/lib/MessageBar';
+import { Label } from 'office-ui-fabric-react/lib/Label';
+import { Link } from 'office-ui-fabric-react/lib/Link';
 
-import { Button } from "office-ui-fabric-react/lib/Button";
-import { Label } from "office-ui-fabric-react/lib/Label";
-import { Link } from "office-ui-fabric-react/lib/Link";
-import { MessageBar as MsBar, MessageBarType } from "office-ui-fabric-react/lib/MessageBar";
-
-interface IMessageBarProps {
-    messageType: MessageBarType;
-    message: string;
-    showMessage: boolean;
-    onCloseMessageClick?: Function;
+interface MessageBarProps {
+    messageType: MessageBarType,
+    message: string,
+    showMessage: boolean,
+    onCloseMessageClick?: Function
 }
-interface IMessageBarState {
-    showMessage: boolean;
+interface MessageBarState {
+    showMessage: boolean
 }
 
-export default class MessageBar extends React.Component<IMessageBarProps, IMessageBarState> {
+export default class MessageBar extends React.Component<MessageBarProps, MessageBarState> {
+
     constructor() {
         super();
-        this.state = { showMessage: false };
-        this.onDismissClick = this.onDismissClick.bind(this);
-    }
-    public render() {
-        if (!this.state.showMessage) {
-            return null;
-        } else {
-            return <MsBar
-                messageBarType={this.props.messageType}
-                onDismiss={this.onDismissClick}
-            >{Utils.capitalize(MessageBarType[this.props.messageType])} - {this.props.message}
-            </MsBar>;
+        this.state = {
+            showMessage: false
         }
     }
-    protected componentDidMount() {
-        this.setState({ showMessage: this.props.showMessage });
+    componentDidMount() {
+        this.setState({
+            showMessage: this.props.showMessage
+        });
     }
-    protected componentWillReceiveProps(nextProps: any) {
+    componentWillReceiveProps(nextProps: any) {
         this.setState({
             showMessage: nextProps.showMessage
         });
-    }
-
-    protected onDismissClick(ev?: React.MouseEvent<HTMLButtonElement>) {
-        this.onCloseClick(ev);
-        return false;
     }
     private onCloseClick(e: any) {
         e.preventDefault();
         this.setState({
             showMessage: false
         });
-        if (this.props.onCloseMessageClick !== null) {
+        if(this.props.onCloseMessageClick !== null){
             this.props.onCloseMessageClick();
         }
         return false;
+    }
+    public render() {
+        if (!this.state.showMessage) {
+            return null;
+        } else {
+            return <MsBar messageBarType={ this.props.messageType } onDismiss={ (e) => { this.onCloseClick(e); return false; } }>
+                {Utils.capitalize(MessageBarType[this.props.messageType]) } - {this.props.message}
+            </MsBar>;
+        }
     }
 }

@@ -1,37 +1,27 @@
 export const SpSiteContentConstants = {
-    ERROR_MESSAGE_GET_ALL_SITE_CONTENT: "An error occurred getting all site content.",
-    changeEvent: "spSiteContentStorechange",
-    getContentErrorMessage: "Failed to get web lists",
-    itemImageHeight: 25,
-    itemImageWidth: 25,
-    noOpenInNewTab: "List and libraries links will open in the current tab.",
-    openInNewTab: "List and libraries links will open in a new tab.",
-    permissionsPageUrlClose: "%7D",
-    permissionsPageUrlMiddle: "%7D,list&List=%7B",
-    permissionsPageUrlOpen: "/_layouts/user.aspx?obj=%7B",
     selectFields: [
-        "RootFolder",
-        "Title",
-        "Id",
-        "Hidden",
-        "ItemCount",
-        "Created",
-        "ImageUrl",
-        "LastItemModifiedDate",
-        "Description",
-        "ParentWebUrl",
-        "DefaultNewFormUrl"
+        'RootFolder',
+        'Title',
+        'Id',
+        'Hidden',
+        'ItemCount',
+        'Created',
+        'ImageUrl',
+        'LastItemModifiedDate',
+        'Description',
+        'ParentWebUrl',
+        'DefaultNewFormUrl'
     ],
-    settingsRelativeUrl: "/_layouts/listedit.aspx?List=",
-    showingAllItemsMessage: "Showing all lists and libraries.",
-    showingHiddenItemsMessage: "Showing only hidden lists and libraries."
-};
-
-export const ActionsId = {
-    HANDLE_ASYNC_ERROR: "HANDLE_ASYNC_ERROR",
-    SET_MESSAGE_DATA: "SET_MESSAGE_DATA",
-    SET_OPEN_IN_NEW_TAB: "SET_OPEN_IN_NEW_TAB",
-    SET_SHOW_ALL: "SET_SHOW_ALL",
-    SET_SITE_CONTENT: "SET_SITE_CONTENT",
-    SET_TEXT_FILTER: "SET_TEXT_FILTER",
-};
+    itemImageWidth:25,
+    itemImageHeight:25,
+    settingsRelativeUrl: '/_layouts/15/listedit.aspx?List=',
+    permissionsPageUrlOpen: '/_layouts/15/user.aspx?obj=%7B',
+    permissionsPageUrlMiddle: '%7D,list&List=%7B',
+    permissionsPageUrlClose: '%7D',
+    changeEvent: 'spSiteContentStorechange',
+    getContentErrorMessage: 'Failed to get web lists',
+    showingAllItemsMessage: 'Showing all lists and libraries.',
+    showingHiddenItemsMessage: 'Showing only hidden lists and libraries.',
+    OpenInNewTab: 'List and libraries links will open in a new tab.',
+    NoOpenInNewTab: 'List and libraries links will open in the current tab.'
+}

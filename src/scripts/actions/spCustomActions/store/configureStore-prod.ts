@@ -1,14 +1,8 @@
 
-import { applyMiddleware, createStore } from "redux";
-import thunk from "redux-thunk";
-import { rootReducer } from "../reducers/index";
-import { initialState } from "../store/initialState";
-import { CustomActionType } from "./../constants/enums";
+import { createStore, applyMiddleware } from 'redux'
+import { rootReducer } from '../reducers/index'
+import thunk  from 'redux-thunk'; 
 
-export const configureStore = (caType: CustomActionType) => {
-    initialState.customActionType = caType;
-    const stateInitial = {
-        spCustomActionsReducer: initialState
-    };
-    return createStore(rootReducer, stateInitial, applyMiddleware(thunk));
-};
+export const configureStore = (initialState:any) => {
+    return createStore(rootReducer, initialState, applyMiddleware(thunk));
+}

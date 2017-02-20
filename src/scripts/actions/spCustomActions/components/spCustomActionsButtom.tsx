@@ -1,52 +1,34 @@
-import { Button, ButtonType } from "office-ui-fabric-react/lib/Button";
-import { ContextualMenu, DirectionalHint } from "office-ui-fabric-react/lib/ContextualMenu";
-import * as React from "react";
+import * as React from 'react';
 import * as ReactDOM from "react-dom";
-import { customActionLocationHelper } from "../helpers/customActionLocation";
+import { ContextualMenu, DirectionalHint } from 'office-ui-fabric-react/lib/ContextualMenu';
+import { Button, ButtonType } from 'office-ui-fabric-react/lib/Button';
+import { customActionLocationHelper } from '../helpers/customActionLocation'
 
-interface ISpCustomActionsButtomState {
-    isContextMenuVisible: boolean;
+interface SpCustomActionsButtomState {
+    isContextMenuVisible: boolean
 }
 
-export class SpCustomActionsButtom extends React.Component<{}, ISpCustomActionsButtomState> {
-    public input: HTMLElement;
+export class SpCustomActionsButtom extends React.Component<{}, SpCustomActionsButtomState> {
+    public refs: {
+        menuButton: HTMLElement;
+    };
     constructor() {
         super();
         this.state = { isContextMenuVisible: false };
-        this.refs = { menuButtonContainer: null };
+
         this._onClick = this._onClick.bind(this);
         this._onDismiss = this._onDismiss.bind(this);
-        this._contextualMenu = this._contextualMenu.bind(this);
-        this._divRefCallBack = this._divRefCallBack.bind(this);
     }
 
     public render() {
-        return (<div id="ContextualMenuButtonDiv" ref={this._divRefCallBack}>
-            <Button
-                onClick={this._onClick}
-                id="ContextualMenuButton"
-                buttonType={ButtonType.primary}
-            > New Custom Action
-                <i className="ms-Icon ms-Icon--ChevronDownSmall" aria-hidden="true" />
-            </Button>
-            {this._contextualMenu()}
+        return (<div id='ContextualMenuButtonDiv' ref="menuButton">
+            <Button onClick={this._onClick} id='ContextualMenuButton' buttonType={ButtonType.primary}> New Custom Action <i className="ms-Icon ms-Icon--ChevronDownSmall" aria-hidden="true"></i></Button>
+            {
+                this.state.isContextMenuVisible
+                    ? (<ContextualMenu target={this.refs.menuButton} isBeakVisible={true} beakWidth={10} shouldFocusOnMount={false} onDismiss={this._onDismiss} directionalHint={DirectionalHint.bottomRightEdge} items={customActionLocationHelper.contextMenuItems} />)
+                    : (null)
+            }
         </div>);
-    }
-    private _divRefCallBack(element: HTMLElement): void {
-        if (element) {
-            this.input = element;
-        }
-    }
-    private _contextualMenu(): JSX.Element {
-        return this.state.isContextMenuVisible && <ContextualMenu
-            target={this.input}
-            isBeakVisible={true}
-            beakWidth={10}
-            shouldFocusOnMount={false}
-            onDismiss={this._onDismiss}
-            directionalHint={DirectionalHint.bottomRightEdge}
-            items={customActionLocationHelper.contextMenuItems}
-        />;
     }
 
     private _onClick(event: React.MouseEvent<HTMLButtonElement>) {

@@ -1,11 +1,8 @@
-import * as axios from "axios";
+import * as axios from 'axios'
 
 export default class ApiBase {
-    protected reject: (reason?: any) => void;
-
-    constructor() {
-        this.requestErrorEventHandler = this.requestErrorEventHandler.bind(this);
-    }
+    
+    reject: (reason?: any) => void;
 
     public requestErrorEventHandler(sender: any, err: SP.ClientRequestFailedEventArgs): void {
         this.reject(err.get_message());
@@ -13,7 +10,7 @@ export default class ApiBase {
 
     public getRequest(url: string) {
         return axios.get(url, {
-            headers: { accept: "application/json;odata=verbose" }
+            headers: { 'accept': 'application/json;odata=verbose' }
         });
     }
 
@@ -23,14 +20,15 @@ export default class ApiBase {
             const web = ctx.get_web();
 
             if (typeof web.doesUserHavePermissions !== "function") {
-                this.reject("Cannot check permissions against a non-securable object.");
+                reject('Cannot check permissions against a non-securable object.')
             } else {
                 const ob: SP.BasePermissions = new SP.BasePermissions();
                 ob.set(permKind);
                 const per: any = web.doesUserHavePermissions(ob);
 
                 const onSuccess = (sender: any, args: SP.ClientRequestSucceededEventArgs) => {
-                    resolve(per.get_value());
+                    var hasPermissions = per.get_value();
+                    resolve(hasPermissions);
                 };
                 ctx.executeQueryAsync(onSuccess, this.requestErrorEventHandler);
             }

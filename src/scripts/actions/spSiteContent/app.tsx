@@ -1,28 +1,20 @@
 import * as React from "react";
 import { render } from "react-dom";
-import { Provider } from "react-redux";
-import { AppBase } from "./../common/AppBase";
-import SpCustomModalWrapper from "./../common/components/spCustomModalWrapper";
-import Utils from "./../common/utils"; import SpSiteContent from "./components/spSiteContent";
-import { configureStore } from "./store/configureStore-dev";
+import SpCustomModalWrapper from './../common/components/spCustomModalWrapper';
+import { AppBase } from './../common/AppBase';
+import SpSiteContent from './components/spSiteContent';
+import Utils from './../common/utils';
 
 class App extends AppBase {
     constructor() {
-        super("spPropBaseDiv");
+        super('spPropBaseDiv');
     }
     public show() {
-        const that = this;
+        let that = this;
         Utils.ensureSPObject().then(() => {
-
-            const store = configureStore({});
-            render(<Provider store={store}>
-                <SpCustomModalWrapper
-                    onCloseClick={that.remove.bind(this)}
-                    modalDialogTitle="Lists and Libraries"
-                    modalWidth="700px"
-                ><SpSiteContent />
-                </SpCustomModalWrapper>
-            </Provider>, document.getElementById(that.baseDivId));
+            render(<SpCustomModalWrapper onCloseClick={that.remove.bind(this)} modalDialogTitle="Lists and Libraries" modalWidth="700px">
+                <SpSiteContent />
+            </SpCustomModalWrapper>, document.getElementById(that.baseDivId));
         });
     }
 }
