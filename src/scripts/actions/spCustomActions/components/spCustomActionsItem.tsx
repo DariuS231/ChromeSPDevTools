@@ -20,8 +20,8 @@ interface ICustomActionItemProps {
 
 const CustomActionItem: React.StatelessComponent<ICustomActionItemProps> = (props: ICustomActionItemProps) => {
 
-    const deleteCustomAction = (e: any) => {
-        e.preventDefault();
+    const deleteCustomAction = (event: React.MouseEvent<HTMLButtonElement>) => {
+        event.preventDefault();
         if (confirm("Are you sure you want to remove this Custom Action?")) {
             props.deleteCustomAction(props.item, props.caType);
         }

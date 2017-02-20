@@ -70,15 +70,15 @@ class SpPropertyBagItem extends React.Component<ISpPropertyBagItemProps, ISpProp
     private getInputId() {
         return "spPropInput_" + this.props.item.key.trim();
     }
-    private onDeleteClick(e: any) {
-        e.preventDefault();
+    private onDeleteClick(event: React.MouseEvent<HTMLButtonElement>) {
+        event.preventDefault();
         if (confirm(constants.CONFIRM_DELETE_PROPERTY)) {
             this.props.deleteProperty(this.props.item);
         }
         return false;
     }
-    private onUpdateClick(e: any) {
-        e.preventDefault();
+    private onUpdateClick(event: React.MouseEvent<HTMLButtonElement>) {
+        event.preventDefault();
         this.props.updateProperty({ ...this.props.item, value: this.state.itemInputValue });
         return false;
     }
@@ -86,8 +86,8 @@ class SpPropertyBagItem extends React.Component<ISpPropertyBagItemProps, ISpProp
         this.setState({ ...this.state, itemInputValue: inputText });
         return false;
     }
-    private onUpdateBtnClick(e: any) {
-        e.preventDefault();
+    private onUpdateBtnClick(event: React.MouseEvent<HTMLButtonElement>) {
+        event.preventDefault();
         this.setState({ ...this.state, inEditMode: !this.state.inEditMode, itemInputValue: this.props.item.value });
         return false;
     }

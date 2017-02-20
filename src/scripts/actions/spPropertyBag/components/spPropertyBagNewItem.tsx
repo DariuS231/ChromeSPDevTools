@@ -32,8 +32,8 @@ export default class SpPropertyBagNewItem
         />;
     }
 
-    private addBtnClick(e: any) {
-        e.preventDefault();
+    private addBtnClick(event: React.MouseEvent<HTMLButtonElement>) {
+        event.preventDefault();
         this.props.addProperty(this.state.newProperty);
         this.setState({ newProperty: this.cleanProperty });
         return false;

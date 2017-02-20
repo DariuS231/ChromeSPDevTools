@@ -5,8 +5,8 @@ interface IActionItemProps {
 }
 
 const ActionItem: React.StatelessComponent<IActionItemProps> = (props: IActionItemProps) => {
-    const onItemClick = (e: any) => {
-        e.preventDefault();
+    const onItemClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+        event.preventDefault();
         const codeStr = `
             (function(cdnUrl) {
                 var script = HTMLScriptElement = document.createElement("script");
