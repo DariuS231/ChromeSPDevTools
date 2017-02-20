@@ -1,19 +1,28 @@
-import ApiBase from './../../common/apiBase';
-import { ICustomAction } from '../interfaces/spCustomActionsInterfaces'
-import { constants } from './../constants/constants';
-import { CustomActionType } from './../constants/enums';
-import { customActionLocationHelper } from '../helpers/customActionLocation'
+import { customActionLocationHelper } from "../helpers/customActionLocation";
+import { ICustomAction } from "../interfaces/spCustomActionsInterfaces";
+import ApiBase from "./../../common/apiBase";
+import { constants } from "./../constants/constants";
+import { CustomActionType } from "./../constants/enums";
 
 export default class SpCustomActionsApi extends ApiBase {
 
-    public getCustomActions(caType: CustomActionType): Promise<Array<ICustomAction>> {
+    public getCustomActions(caType: CustomActionType): Promise<ICustomAction[]> {
         return new Promise((resolve, reject) => {
+            this.reject = reject;
+            // tslint:disable-next-line:max-line-length
             const reqUrl = `${_spPageContextInfo.webAbsoluteUrl}/_api/${CustomActionType[caType]}${constants.CUSTOM_ACTION_REST_REQUEST_URL}`;
             this.getRequest(reqUrl).then((response: any) => {
-                let cusctomActions: Array<ICustomAction> = [];
-
+                let cusctomActions: ICustomAction[] = [];
+                const filters = customActionLocationHelper.supportedCustomActionsFilter;
+                const filtersCt = filters.length;
                 const caArray = response.data.value.filter((item: any) => {
-                    return customActionLocationHelper.supportedCustomActions.indexOf(item.Location) >= 0 ;
+                    let locAllowed: boolean = false;
+                    let loopCt = 0;
+                    while (!locAllowed && loopCt < filtersCt) {
+                        locAllowed = filters[loopCt](item);
+                        loopCt++;
+                    }
+                    return locAllowed;
                 });
 
                 const caArrayLength = caArray.length;
@@ -23,30 +32,31 @@ export default class SpCustomActionsApi extends ApiBase {
                     const scriptBlock: string = ca.ScriptBlock;
                     const url: string = ca.Url;
 
-                    cusctomActions.push({
-                        id: ca.Id,
-                        name: ca.Name,
+                    cusctomActions = cusctomActions.concat({
                         description: ca.Description,
-                        group:ca.Group,
-                        title: ca.Title,
-                        registrationType: ca.RegistrationType,
-                        scriptSrc: scriptSrc,
-                        scriptBlock: scriptBlock,
-                        location: ca.Location,
+                        group: ca.Group,
+                        id: ca.Id,
                         imageUrl: ca.ImageUrl,
-                        url: url,
-                        sequence: ca.Sequence
-                    })
+                        location: ca.Location,
+                        name: ca.Name,
+                        registrationType: ca.RegistrationType,
+                        sequence: ca.Sequence,
+                        scriptBlock,
+                        scriptSrc,
+                        title: ca.Title,
+                        url
+                    });
                 }
                 resolve(cusctomActions);
             }).catch((error: any) => {
-                reject(error);
+                this.reject(error);
             });
         });
     }
 
     public deleteCustomAction(caObj: ICustomAction, caType: CustomActionType): Promise<ICustomAction> {
         return new Promise((resolve, reject) => {
+            this.reject = reject;
             const caGuid: SP.Guid = new SP.Guid(caObj.id);
             const ctx: SP.ClientContext = SP.ClientContext.get_current();
             const ca: SP.UserCustomAction = (caType === CustomActionType.Web)
@@ -56,8 +66,8 @@ export default class SpCustomActionsApi extends ApiBase {
             ca.deleteObject();
             ctx.executeQueryAsync((sender: any, err: any) => {
                 resolve(caObj);
-            }, this.requestErrorEventHandler.bind(this));
-        })
+            }, this.requestErrorEventHandler);
+        });
     }
 
     public createCustomAction(ca: ICustomAction, caType: CustomActionType): Promise<ICustomAction> {
@@ -70,7 +80,7 @@ export default class SpCustomActionsApi extends ApiBase {
 
     private setCustomAction(caObj: ICustomAction, caType: CustomActionType, isNewCa: boolean): Promise<ICustomAction> {
         return new Promise((resolve, reject) => {
-
+            this.reject = reject;
             const ctx: SP.ClientContext = SP.ClientContext.get_current();
             const partenObj = (caType === CustomActionType.Web)
                 ? ctx.get_web()
@@ -92,14 +102,14 @@ export default class SpCustomActionsApi extends ApiBase {
             ca.set_location(caObj.location);
             ca.set_scriptSrc(caObj.scriptSrc);
             ca.set_scriptBlock(caObj.scriptBlock);
-            ca.set_url(caObj.url);  
+            ca.set_url(caObj.url);
             ca.set_imageUrl(caObj.imageUrl);
 
             ca.update();
             ctx.load(ca);
             ctx.executeQueryAsync((sender: any, err: any) => {
-                resolve(Object.assign({}, caObj, { id: ca.get_id().toString() }));
-            }, this.requestErrorEventHandler.bind(this));
+                resolve({ ...caObj, id: ca.get_id().toString() });
+            }, this.requestErrorEventHandler);
         });
     }
 }

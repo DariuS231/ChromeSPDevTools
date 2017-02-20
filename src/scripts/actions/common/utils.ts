@@ -1,3 +1,4 @@
+import { constants } from "./constants";
 
 export default class Utils {
     public static capitalize(srt: string): string {
@@ -5,12 +6,12 @@ export default class Utils {
     }
     public static loadScript(url: string): Promise<any> {
         return new Promise((resolve, reject) => {
-            var head = document.getElementsByTagName('head')[0];
-            var script = document.createElement('script');
-            script.type = 'text/javascript';
+            const head = document.getElementsByTagName(constants.HTML_TAG_HEAD)[0];
+            const script = document.createElement(constants.HTML_TAG_SCRIPT) as HTMLScriptElement;
+            script.type = constants.SCRIPT_TAG_TYPE;
             script.src = url;
 
-            script.onload = function () {
+            script.onload = () => {
                 resolve();
             };
             head.appendChild(script);
@@ -18,52 +19,26 @@ export default class Utils {
     }
     public static ensureSPObject(): Promise<any> {
         return new Promise((resolve, reject) => {
-            if (typeof SP == 'undefined') {
-                var scriptbase = _spPageContextInfo.webServerRelativeUrl + "/_layouts/15/";
-                this.loadScript(scriptbase + "SP.Runtime.js").then(() => {
-                    this.loadScript(scriptbase + "SP.js").then(() => {
+            if (typeof SP === constants.TYPE_OF_UNDEFINED || typeof SP.SOD === constants.TYPE_OF_UNDEFINED
+                || typeof SP.SOD.executeFunc === constants.TYPE_OF_UNDEFINED) {
+                let baseUrl: string = _spPageContextInfo.webServerRelativeUrl;
+                if (baseUrl === constants.URL_SLASH) {
+                    baseUrl = location.origin;
+                }
+                const scriptbase = baseUrl + constants.URL_LAYOUTS;
+
+                this.loadScript(scriptbase + constants.URL_SP_RUNTIME).then(() => {
+                    this.loadScript(scriptbase + constants.URL_SP).then(() => {
                         resolve();
                     });
                 });
+
             } else {
-                SP.SOD.executeFunc('sp.js', 'SP.ClientContext', function () {
+                SP.SOD.executeFunc(constants.URL_SP, constants.SP_TYPE_CLIENTCONTEXT, () => {
                     resolve();
                 });
             }
         });
     }
-    public static mergeObjects(...objs: any[]): any {
-        let extended: any = {};
-        let deep: boolean = false;
-        let i: number = 0;
-        let length: number = arguments.length;
 
-        // Check if a deep merge
-        if (Object.prototype.toString.call(arguments[0]) === '[object Boolean]') {
-            deep = arguments[0];
-            i++;
-        }
-
-        // Merge the object into the extended object
-        var merge = function (obj: any) {
-            for (var prop in obj) {
-                if (Object.prototype.hasOwnProperty.call(obj, prop)) {
-                    // If deep merge and property is an object, merge properties
-                    if (deep && Object.prototype.toString.call(obj[prop]) === '[object Object]') {
-                        extended[prop] = this.mergeObjects(true, extended[prop], obj[prop]);
-                    } else {
-                        extended[prop] = obj[prop];
-                    }
-                }
-            }
-        };
-
-        // Loop through each object and conduct a merge
-        for (; i < length; i++) {
-            var obj = arguments[i];
-            merge(obj);
-        }
-
-        return extended;
-    }
 }

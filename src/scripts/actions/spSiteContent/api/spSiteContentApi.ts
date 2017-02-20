@@ -1,42 +1,52 @@
-/// <reference path="../interfaces/spSiteContentInterfaces.ts"/>
-
-import ApiBase from './../../common/apiBase';
-import { SpSiteContentConstants as constants } from './../constants/spSiteContentConstants';
+import { ISiteContent } from "../interfaces/spSiteContentInterfaces";
+import ApiBase from "./../../common/apiBase";
+import { SpSiteContentConstants as constants } from "./../constants/spSiteContentConstants";
 
 export default class SpSiteContentApi extends ApiBase {
-    public getLists(): Promise<Array<ISiteContent>> {
+    public getLists(): Promise<ISiteContent[]> {
         return new Promise((resolve, reject) => {
+            this.reject = reject;
             const ctx = SP.ClientContext.get_current();
             const web = ctx.get_web();
             const siteConetent = web.get_lists();
-            
+
             ctx.load(web);
-            ctx.load(siteConetent, `Include(${constants.selectFields.join(',')})`);
+            ctx.load(siteConetent, `Include(${constants.selectFields.join(",")})`);
 
             const onSuccess = (sender: any, args: SP.ClientRequestSucceededEventArgs) => {
-                const items: Array<ISiteContent> = [], listEnumerator: any = siteConetent.getEnumerator();
+                const items: ISiteContent[] = [];
+                const listEnumerator: any = siteConetent.getEnumerator();
 
                 while (listEnumerator.moveNext()) {
-                    let oList: any = listEnumerator.get_current();
-                    let listId: any = oList.get_id();
-                    const paretnUrl = oList.get_parentWebUrl();
-                    let listItem: ISiteContent = {
-                        id: listId,
-                        title: oList.get_title(),
+                    const oList: any = listEnumerator.get_current();
+                    const listId: any = oList.get_id();
+                    let paretnUrl = oList.get_parentWebUrl();
+                    if (paretnUrl === "/") {
+                        paretnUrl = location.origin;
+                    }
+                    const permissionPageUrl = paretnUrl +
+                        constants.permissionsPageUrlOpen +
+                        listId +
+                        constants.permissionsPageUrlMiddle +
+                        listId +
+                        constants.permissionsPageUrlClose;
+                    const listItem: ISiteContent = {
+                        created: oList.get_created(),
                         description: oList.get_description(),
                         hidden: oList.get_hidden(),
-                        itemCount: oList.get_itemCount(),
+                        id: listId,
                         imageUrl: oList.get_imageUrl(),
-                        created: oList.get_created(),
+                        itemCount: oList.get_itemCount(),
                         lastModified: oList.get_lastItemModifiedDate(),
                         listUrl: oList.get_rootFolder().get_serverRelativeUrl(),
-                        settingsUrl: paretnUrl + constants.settingsRelativeUrl + listId,
                         newFormUrl: oList.get_defaultNewFormUrl(),
-                        permissionsPageUrl: paretnUrl + constants.permissionsPageUrlOpen + listId + constants.permissionsPageUrlMiddle + listId + constants.permissionsPageUrlClose,
-                    }
+                        permissionsPageUrl: permissionPageUrl,
+                        settingsUrl: paretnUrl + constants.settingsRelativeUrl + listId,
+                        title: oList.get_title()
+                    };
                     items.push(listItem);
                 }
-                items.sort(function (a, b) {
+                items.sort((a, b) => {
                     return a.title.localeCompare(b.title);
                 });
                 resolve(items);
