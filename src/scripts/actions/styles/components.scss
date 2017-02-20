@@ -162,7 +162,7 @@ $dividerColor: $ms-color-neutralLight;
     .filters-container {
         margin-top: 10px;
     }
-    .ms-Button {
+        .ms-Button {
         display: block;
         font-size: large;
         margin: 5px;
@@ -217,6 +217,20 @@ $dividerColor: $ms-color-neutralLight;
             }
         }
     }
+    .ms-Button{
+        &[disabled]{
+          background: transparent;
+          .ms-Icon {
+              color: #b1b1b1 !important;
+          }
+        }
+        .ms-Button-label{
+              vertical-align: top;
+              i{
+                    margin-left: 25px;
+              }
+        }
+      }
 }
 
 
@@ -269,6 +283,9 @@ $dividerColor: $ms-color-neutralLight;
     .ms-List-cell {
         width: 50%;
         display: inline-block;
+        .ms-ListBasicExample-itemCell{
+          min-height: 90px;
+        }
         &:nth-child(odd) {
             .ms-ListBasicExample-itemCell {
                 margin-right: 5px;
@@ -327,6 +344,9 @@ $dividerColor: $ms-color-neutralLight;
         .ms-ChoiceField {
             display: inline-block;
         }
+    }
+    .ms-Dropdown{
+      margin-bottom: 0px;
     }
     .edit-form-title{
         margin: 10px;

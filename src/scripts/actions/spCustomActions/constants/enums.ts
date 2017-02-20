@@ -1,5 +1,5 @@
 
-export enum CustomActionType{
+export enum CustomActionType {
     Site,
     Web
 }
