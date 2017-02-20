@@ -16,6 +16,7 @@ export interface ILocationItem {
     name: string;
     spLocationName: string;
     renderForm: (item: ICustomAction, onChange: (value: string, key: string) => void) => JSX.Element;
+    validateForm: (item: ICustomAction) => boolean;
 }
 class CustomActionLocationHelper {
     protected _location: ILocationItem[] = [
@@ -29,7 +30,10 @@ class CustomActionLocationHelper {
                 return <SpCustomActionsItemFormScriptLink item={item} onInputChange={onChange} isScriptBlock={false} />;
             },
             spLocationName: "ScriptLink",
-            type: "ScriptSrc"
+            type: "ScriptSrc",
+            validateForm: (item: ICustomAction): boolean => {
+                return item.sequence > 0 && item.scriptSrc !== "";
+            }
         },
         {
             filterItem: (item: any) => {
@@ -41,7 +45,10 @@ class CustomActionLocationHelper {
                 return <SpCustomActionsItemFormScriptLink item={item} onInputChange={onChange} isScriptBlock={true} />;
             },
             spLocationName: "ScriptLink",
-            type: "ScriptBlock"
+            type: "ScriptBlock",
+            validateForm: (item: ICustomAction): boolean => {
+                return item.sequence > 0 && item.scriptBlock !== "";
+            }
         },
         {
             filterItem: (item: any) => {
@@ -54,7 +61,10 @@ class CustomActionLocationHelper {
                 return <SpCustomActionsItemFormStandarMenu item={item} onInputChange={onChange} />;
             },
             spLocationName: "Microsoft.SharePoint.StandardMenu",
-            type: "StandardMenu"
+            type: "StandardMenu",
+            validateForm: (item: ICustomAction): boolean => {
+                return item.sequence > 0 && item.group !== "" && item.url !== "";
+            }
         }
     ];
     public get supportedCustomActions(): string[] {

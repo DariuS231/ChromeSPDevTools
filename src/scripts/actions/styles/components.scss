@@ -162,7 +162,7 @@ $dividerColor: $ms-color-neutralLight;
     .filters-container {
         margin-top: 10px;
     }
-    .ms-Button {
+        .ms-Button {
         display: block;
         font-size: large;
         margin: 5px;
@@ -217,7 +217,13 @@ $dividerColor: $ms-color-neutralLight;
             }
         }
     }
-      .ms-Button{
+    .ms-Button{
+        &[disabled]{
+          background: transparent;
+          .ms-Icon {
+              color: #b1b1b1 !important;
+          }
+        }
         .ms-Button-label{
               vertical-align: top;
               i{

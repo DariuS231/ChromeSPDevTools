@@ -30,7 +30,7 @@ interface ISpCustomActionsItemEditState {
     item: ICustomAction;
 }
 
-        const memoryHistory = createMemoryHistory(window.location);
+const memoryHistory = createMemoryHistory(window.location);
 class SpCustomActionsItemEdit extends React.Component<ISpCustomActionsItemEditProps, ISpCustomActionsItemEditState> {
 
     constructor(props: ISpCustomActionsItemEditProps) {
@@ -47,6 +47,7 @@ class SpCustomActionsItemEdit extends React.Component<ISpCustomActionsItemEditPr
         } else {
             titleStr = "Custom Action id " + this.props.item.id;
         }
+        const disableSaveBtn: boolean = !this.props.locationItem.validateForm(this.state.item);
         return (<div>
             <div className="ms-Grid-row">
                 <div className="ms-ListItem-actions ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
@@ -62,6 +63,7 @@ class SpCustomActionsItemEdit extends React.Component<ISpCustomActionsItemEditPr
                         rootProps={{ title: "Save" }}
                         ariaLabel="Save"
                         onClick={this.saveItem}
+                        disabled={disableSaveBtn}
                     />
                     <Link title="Cancel" aria-label="Cancel" className="ms-Button ms-Button--icon" to={"/"}>
                         <span className="ms-Button-icon">
