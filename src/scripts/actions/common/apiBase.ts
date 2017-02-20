@@ -1,4 +1,5 @@
 import * as axios from "axios";
+import { constants } from "./constants";
 
 export default class ApiBase {
     protected reject: (reason?: any) => void;
@@ -13,7 +14,7 @@ export default class ApiBase {
 
     public getRequest(url: string) {
         return axios.get(url, {
-            headers: { accept: "application/json;odata=verbose" }
+            headers: { accept: constants.AXIOS_HEADER_ACCEPT }
         });
     }
 
@@ -22,8 +23,8 @@ export default class ApiBase {
             const ctx = SP.ClientContext.get_current();
             const web = ctx.get_web();
 
-            if (typeof web.doesUserHavePermissions !== "function") {
-                this.reject("Cannot check permissions against a non-securable object.");
+            if (typeof web.doesUserHavePermissions !== constants.TYPE_OF_FUNCTION) {
+                this.reject(constants.MESSAGE_CANT_CHECK_PERMISSIONS);
             } else {
                 const ob: SP.BasePermissions = new SP.BasePermissions();
                 ob.set(permKind);
