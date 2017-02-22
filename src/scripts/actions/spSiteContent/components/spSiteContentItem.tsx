@@ -3,7 +3,7 @@ import * as React from "react";
 import { ISiteContent } from "../interfaces/spSiteContentInterfaces";
 import { IconLink } from "./../../common/components/iconLink";
 import { SpSiteContentConstants as constants } from "./../constants/spSiteContentConstants";
-import { SpSiteContentMenu } from "./spSiteContentMenu";
+import SpSiteContentMenu from "./spSiteContentMenu";
 
 interface ISpSiteContentItemProps {
     item: ISiteContent;

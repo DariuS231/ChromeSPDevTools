@@ -2,18 +2,24 @@ import { IconButton } from "office-ui-fabric-react/lib/Button";
 import { ContextualMenu, DirectionalHint } from "office-ui-fabric-react/lib/ContextualMenu";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
+import { connect } from "react-redux";
+import { bindActionCreators, Dispatch } from "redux";
+import spSiteContentActionsCreatorMap from "../actions/spSiteContentActions";
 import { ICustomOption, spSiteContentMenuHelper } from "../helpers/spSiteContentMenuOptions";
 import { ISiteContent } from "../interfaces/spSiteContentInterfaces";
+import { IMapStateToPropsState } from "../interfaces/spSiteContentInterfaces";
 
 interface ISpSiteContentMenuState {
     isContextMenuVisible: boolean;
 }
 interface ISpSiteContentMenuProps {
     item: ISiteContent;
-    linkTarget: string;
+    openInNewTab: boolean;
+    setListVisibility: (item: ISiteContent) => Promise<void>;
+    [key: string]: any;
 }
 
-export class SpSiteContentMenu extends React.Component<ISpSiteContentMenuProps, ISpSiteContentMenuState> {
+class SpSiteContentMenu extends React.Component<ISpSiteContentMenuProps, ISpSiteContentMenuState> {
     public input: HTMLElement;
     constructor() {
         super();
@@ -38,8 +44,7 @@ export class SpSiteContentMenu extends React.Component<ISpSiteContentMenuProps, 
         </div>);
     }
     private _onActionItemCliuck(ev?: React.MouseEvent<HTMLElement>, item?: ICustomOption) {
-        debugger;
-        console.log(item.actionName);
+        this.props[item.actionName](this.props.item);
     }
     private _divRefCallBack(element: HTMLElement): void {
         if (element) {
@@ -47,6 +52,7 @@ export class SpSiteContentMenu extends React.Component<ISpSiteContentMenuProps, 
         }
     }
     private _contextualMenu(): JSX.Element {
+        const linkTarget: string = this.props.openInNewTab ? "_blank" : "_self";
         return this.state.isContextMenuVisible && <ContextualMenu
             target={this.input}
             isBeakVisible={true}
@@ -54,7 +60,7 @@ export class SpSiteContentMenu extends React.Component<ISpSiteContentMenuProps, 
             shouldFocusOnMount={false}
             onDismiss={this._onDismiss}
             directionalHint={DirectionalHint.bottomRightEdge}
-            items={spSiteContentMenuHelper.getMenuOptions(this.props.linkTarget, this.props.item, this._onActionItemCliuck)}
+            items={spSiteContentMenuHelper.getMenuOptions(linkTarget, this.props.item, this._onActionItemCliuck)}
         />;
     }
 
@@ -69,3 +75,24 @@ export class SpSiteContentMenu extends React.Component<ISpSiteContentMenuProps, 
     }
 
 }
+
+interface IMapStateToProps{
+    openInNewTab: boolean;
+}
+interface IMapDispatchToISpSiteContentProps{
+    setListVisibility: (item: ISiteContent) => Promise<void>;
+}
+
+const mapStateToProps = (state: IMapStateToPropsState, ownProps: any): IMapStateToProps => {
+    return { openInNewTab: state.spSiteContent.openInNewTab };
+};
+
+const mapDispatchToProps = (dispatch: Dispatch<any>): IMapDispatchToISpSiteContentProps => {
+    return {
+        setListVisibility: (item: ISiteContent) => {
+            return dispatch(spSiteContentActionsCreatorMap.setListVisibility(item));
+        }
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SpSiteContentMenu);

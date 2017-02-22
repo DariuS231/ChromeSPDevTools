@@ -6,22 +6,17 @@ import { SpSiteContentItem } from "./SpSiteContentItem";
 
 interface ISpSiteContentListProps {
     items: ISiteContent[];
-    linkTarget: string;
     filterString: string;
     showAll: boolean;
+    linkTarget: string;
 }
 export const SpSiteContentList: React.StatelessComponent<ISpSiteContentListProps> =
     (props: ISpSiteContentListProps) => {
         const filter: string = props.filterString.toLowerCase();
-        let items: ISiteContent[] = filter !== ""
-            ? props.items.filter((item: ISiteContent, index: number) => {
-                return item.title.toLowerCase().indexOf(filter) >= 0;
-            }) : props.items;
-        if (!props.showAll) {
-            items = items.filter((item: ISiteContent, index: number) => {
-                return item.hidden;
-            });
-        }
+        const items: ISiteContent[] = props.items.filter((item: ISiteContent, index: number) => {
+            return (filter === "" || item.title.toLowerCase().indexOf(filter) >= 0)
+                && (props.showAll || item.hidden);
+        })
         const renderListItem = (item: ISiteContent, index: number) => {
             return <SpSiteContentItem item={item} linkTarget={props.linkTarget} />;
         };
