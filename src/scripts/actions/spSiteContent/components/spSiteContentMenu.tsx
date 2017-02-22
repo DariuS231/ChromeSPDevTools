@@ -1,14 +1,19 @@
-import { Button, ButtonType } from "office-ui-fabric-react/lib/Button";
+import { IconButton } from "office-ui-fabric-react/lib/Button";
 import { ContextualMenu, DirectionalHint } from "office-ui-fabric-react/lib/ContextualMenu";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { spSiteContentMenuHelper } from "../helpers/spSiteContentMenuOptions";
+import { ISiteContent } from "../interfaces/spSiteContentInterfaces";
 
 interface ISpSiteContentMenuState {
     isContextMenuVisible: boolean;
 }
+interface ISpSiteContentMenuProps {
+    item: ISiteContent;
+    linkTarget: string;
+}
 
-export class SpSiteContentMenu extends React.Component<{}, ISpSiteContentMenuState> {
+export class SpSiteContentMenu extends React.Component<ISpSiteContentMenuProps, ISpSiteContentMenuState> {
     public input: HTMLElement;
     constructor() {
         super();
@@ -22,13 +27,12 @@ export class SpSiteContentMenu extends React.Component<{}, ISpSiteContentMenuSta
 
     public render() {
         return (<div id="ContextualMenuButtonDiv" ref={this._divRefCallBack}>
-            <Button
+            <IconButton
                 onClick={this._onClick}
-                id="ContextualMenuButton"
-                buttonType={ButtonType.primary}
-            > New Custom Action
-                <i className="ms-Icon ms-Icon--ChevronDownSmall" aria-hidden="true" />
-            </Button>
+                icon="More"
+                title="More"
+                ariaLabel="More"
+            />
             {this._contextualMenu()}
         </div>);
     }
@@ -45,7 +49,7 @@ export class SpSiteContentMenu extends React.Component<{}, ISpSiteContentMenuSta
             shouldFocusOnMount={false}
             onDismiss={this._onDismiss}
             directionalHint={DirectionalHint.bottomRightEdge}
-            items={[]}
+            items={spSiteContentMenuHelper.getMenuOptions(this.props.linkTarget, this.props.item)}
         />;
     }
 
