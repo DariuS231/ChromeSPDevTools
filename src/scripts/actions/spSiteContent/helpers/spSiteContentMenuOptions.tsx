@@ -5,14 +5,21 @@ import { ISiteContent } from "../interfaces/spSiteContentInterfaces";
 
 export interface ICustomOption extends IContextualMenuItem {
     optionType: MenuOptionType;
-    linkTarget?: string;
     siteContent: ISiteContent;
-    getOptionLink?: (item: ISiteContent) => string;
     visibleIf?: (item: ISiteContent) => boolean;
-    actionName?: string;
+}
+
+export interface IActionOption extends ICustomOption {
+    actionName: string;
+}
+
+export interface ILinkOption extends ICustomOption {
+    linkTarget: string;
+    actionName: string;
+    getOptionLink?: (item: ISiteContent) => string;
 }
 class SpSiteContentMenuHelper {
-    protected _options: ICustomOption[] = [
+    protected _options: Array<ILinkOption | IActionOption> = [
         {
             key: "New Item",
             iconProps: {
@@ -26,10 +33,11 @@ class SpSiteContentMenuHelper {
             getOptionLink: (item: ISiteContent): string => {
                 return item.newFormUrl;
             },
+            onRender: this._renderCharmMenuItem,
             visibleIf: (item: ISiteContent): boolean => {
                 return !!item.newFormUrl;
             }
-        },
+        } as ILinkOption,
         {
             key: "Settings",
             iconProps: {
@@ -40,10 +48,11 @@ class SpSiteContentMenuHelper {
             optionType: MenuOptionType.Link,
             linkTarget: "_blank",
             siteContent: {} as ISiteContent,
+            onRender: this._renderCharmMenuItem,
             getOptionLink: (item: ISiteContent): string => {
                 return item.settingsUrl;
             }
-        },
+        } as ILinkOption,
         {
             key: "Permissions",
             iconProps: {
@@ -54,10 +63,11 @@ class SpSiteContentMenuHelper {
             optionType: MenuOptionType.Link,
             linkTarget: "_blank",
             siteContent: {} as ISiteContent,
+            onRender: this._renderCharmMenuItem,
             getOptionLink: (item: ISiteContent): string => {
                 return item.permissionsPageUrl;
             }
-        },
+        } as ILinkOption,
         {
             key: "MakeVisible",
             iconProps: {
@@ -66,12 +76,11 @@ class SpSiteContentMenuHelper {
             name: "Make Visible",
             title: "Make Visible",
             optionType: MenuOptionType.Action,
-            siteContent: {} as ISiteContent,
             actionName: "setListVisibility",
             visibleIf: (item: ISiteContent): boolean => {
                 return item.hidden;
             }
-        },
+        } as IActionOption,
         {
             key: "MakeHidden",
             iconProps: {
@@ -85,35 +94,28 @@ class SpSiteContentMenuHelper {
             visibleIf: (item: ISiteContent): boolean => {
                 return !item.hidden;
             }
-        }
+        } as IActionOption
     ];
 
     // tslint:disable-next-line:max-line-length
-    public getMenuOptions(linkTarge: string, item: ISiteContent, actionItemClick: (ev?: React.MouseEvent<HTMLElement>, item?: ICustomOption) => void): ICustomOption[] {
+    public getMenuOptions(linkTarge: string, item: ISiteContent, actionItemClick: (ev?: React.MouseEvent<HTMLElement>, item?: IActionOption) => void): Array<ILinkOption | IActionOption | IContextualMenuItem> {
         const filteredOpts = this._options.filter((option: ICustomOption) => {
             return !option.visibleIf || option.visibleIf(item);
-        })
-        return filteredOpts.map((option: ICustomOption) => {
-            const retOption: ICustomOption = {
-                key: option.key,
-                iconProps: option.iconProps,
-                name: option.name,
-                title: option.title,
-                linkTarget: linkTarge,
-                siteContent: item,
-                getOptionLink: option.getOptionLink
-            } as ICustomOption;
-            if(option.optionType === MenuOptionType.Link){
-                retOption.onRender = this._renderCharmMenuItem;
-            } else {
-                retOption.actionName = option.actionName;
-                retOption.onClick = actionItemClick;
+        });
+        return filteredOpts.map((option: ILinkOption | IActionOption) => {
+
+            switch (option.optionType) {
+                case MenuOptionType.Link:
+                    return { ...option, siteContent: item };
+                case MenuOptionType.Action:
+                    return { ...option, onClick: actionItemClick };
+                default:
+                    return option;
             }
-            return retOption;
         });
     }
 
-    private _renderCharmMenuItem(item: ICustomOption) {
+    private _renderCharmMenuItem(item: ILinkOption) {
         const linkUrl: string = item.getOptionLink(item.siteContent);
         // tslint:disable-next-line:max-line-length
         const iconClass = `ms-Icon ms-Icon--${item.iconProps.iconName} ms-ContextualMenu-icon ms-ContextualMenu-iconColor`;

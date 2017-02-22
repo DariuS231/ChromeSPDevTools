@@ -5,7 +5,7 @@ import * as ReactDOM from "react-dom";
 import { connect } from "react-redux";
 import { bindActionCreators, Dispatch } from "redux";
 import spSiteContentActionsCreatorMap from "../actions/spSiteContentActions";
-import { ICustomOption, spSiteContentMenuHelper } from "../helpers/spSiteContentMenuOptions";
+import { IActionOption, spSiteContentMenuHelper } from "../helpers/spSiteContentMenuOptions";
 import { ISiteContent } from "../interfaces/spSiteContentInterfaces";
 import { IMapStateToPropsState } from "../interfaces/spSiteContentInterfaces";
 
@@ -43,7 +43,7 @@ class SpSiteContentMenu extends React.Component<ISpSiteContentMenuProps, ISpSite
             {this._contextualMenu()}
         </div>);
     }
-    private _onActionItemCliuck(ev?: React.MouseEvent<HTMLElement>, item?: ICustomOption) {
+    private _onActionItemCliuck(ev?: React.MouseEvent<HTMLElement>, item?: IActionOption) {
         this.props[item.actionName](this.props.item);
     }
     private _divRefCallBack(element: HTMLElement): void {
