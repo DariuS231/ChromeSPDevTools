@@ -9,7 +9,6 @@ interface IActionItemProps {
 const ActionItem: React.StatelessComponent<IActionItemProps> = (props: IActionItemProps) => {
     const onItemClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
-        debugger;
         const codeStr = `
             (function(cdnUrl, stylesUrl) {
                 var head = document.head || document.getElementsByTagName("${constants.HTML_TAG_HEAD}")[0];
