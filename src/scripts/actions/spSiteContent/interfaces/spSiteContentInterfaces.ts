@@ -30,6 +30,8 @@ export interface ISpSiteContentActionCreatorsMapObject extends ActionCreatorsMap
     setShowAll: ActionCreator<IAction<boolean>>;
     setOpenInNewWindow: ActionCreator<IAction<boolean>>;
     setFilter: ActionCreator<IAction<string>>;
+    // tslint:disable-next-line:max-line-length
+    setListVisibility: (item: ISiteContent) => (dispatch: Dispatch<IAction<ISiteContent[]>>) => Promise<void>;
 }
 
 export interface IMapDispatchToProps {

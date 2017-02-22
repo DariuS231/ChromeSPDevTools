@@ -2,7 +2,7 @@ import { IconButton } from "office-ui-fabric-react/lib/Button";
 import { ContextualMenu, DirectionalHint } from "office-ui-fabric-react/lib/ContextualMenu";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import { spSiteContentMenuHelper } from "../helpers/spSiteContentMenuOptions";
+import { ICustomOption, spSiteContentMenuHelper } from "../helpers/spSiteContentMenuOptions";
 import { ISiteContent } from "../interfaces/spSiteContentInterfaces";
 
 interface ISpSiteContentMenuState {
@@ -23,6 +23,7 @@ export class SpSiteContentMenu extends React.Component<ISpSiteContentMenuProps, 
         this._onDismiss = this._onDismiss.bind(this);
         this._contextualMenu = this._contextualMenu.bind(this);
         this._divRefCallBack = this._divRefCallBack.bind(this);
+        this._onActionItemCliuck = this._onActionItemCliuck.bind(this);
     }
 
     public render() {
@@ -35,6 +36,10 @@ export class SpSiteContentMenu extends React.Component<ISpSiteContentMenuProps, 
             />
             {this._contextualMenu()}
         </div>);
+    }
+    private _onActionItemCliuck(ev?: React.MouseEvent<HTMLElement>, item?: ICustomOption) {
+        debugger;
+        console.log(item.actionName);
     }
     private _divRefCallBack(element: HTMLElement): void {
         if (element) {
@@ -49,7 +54,7 @@ export class SpSiteContentMenu extends React.Component<ISpSiteContentMenuProps, 
             shouldFocusOnMount={false}
             onDismiss={this._onDismiss}
             directionalHint={DirectionalHint.bottomRightEdge}
-            items={spSiteContentMenuHelper.getMenuOptions(this.props.linkTarget, this.props.item)}
+            items={spSiteContentMenuHelper.getMenuOptions(this.props.linkTarget, this.props.item, this._onActionItemCliuck)}
         />;
     }
 

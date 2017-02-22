@@ -5,10 +5,11 @@ import { ISiteContent } from "../interfaces/spSiteContentInterfaces";
 
 export interface ICustomOption extends IContextualMenuItem {
     optionType: MenuOptionType;
-    linkTarget: string;
+    linkTarget?: string;
     siteContent: ISiteContent;
     getOptionLink?: (item: ISiteContent) => string;
     visibleIf?: (item: ISiteContent) => boolean;
+    actionName?: string;
 }
 class SpSiteContentMenuHelper {
     protected _options: ICustomOption[] = [
@@ -64,12 +65,9 @@ class SpSiteContentMenuHelper {
             },
             name: "Make Visible",
             title: "Make Visible",
-            optionType: MenuOptionType.Link,
-            linkTarget: "_blank",
+            optionType: MenuOptionType.Action,
             siteContent: {} as ISiteContent,
-            getOptionLink: (item: ISiteContent): string => {
-                return item.permissionsPageUrl;
-            },
+            actionName: "setListVisibility",
             visibleIf: (item: ISiteContent): boolean => {
                 return item.hidden;
             }
@@ -81,33 +79,37 @@ class SpSiteContentMenuHelper {
             },
             name: "Make Hidden",
             title: "Make Hidden",
-            optionType: MenuOptionType.Link,
-            linkTarget: "_blank",
+            optionType: MenuOptionType.Action,
             siteContent: {} as ISiteContent,
-            getOptionLink: (item: ISiteContent): string => {
-                return item.permissionsPageUrl;
-            },
+            actionName: "setListVisibility",
             visibleIf: (item: ISiteContent): boolean => {
                 return !item.hidden;
             }
         }
     ];
 
-    public getMenuOptions(linkTarge: string, item: ISiteContent): ICustomOption[] {
+    // tslint:disable-next-line:max-line-length
+    public getMenuOptions(linkTarge: string, item: ISiteContent, actionItemClick: (ev?: React.MouseEvent<HTMLElement>, item?: ICustomOption) => void): ICustomOption[] {
         const filteredOpts = this._options.filter((option: ICustomOption) => {
             return !option.visibleIf || option.visibleIf(item);
         })
         return filteredOpts.map((option: ICustomOption) => {
-            return {
+            const retOption: ICustomOption = {
                 key: option.key,
                 iconProps: option.iconProps,
                 name: option.name,
                 title: option.title,
-                onRender: this._renderCharmMenuItem,
                 linkTarget: linkTarge,
                 siteContent: item,
                 getOptionLink: option.getOptionLink
             } as ICustomOption;
+            if(option.optionType === MenuOptionType.Link){
+                retOption.onRender = this._renderCharmMenuItem;
+            } else {
+                retOption.actionName = option.actionName;
+                retOption.onClick = actionItemClick;
+            }
+            return retOption;
         });
     }
 

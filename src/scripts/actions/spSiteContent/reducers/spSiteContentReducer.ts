@@ -29,6 +29,9 @@ export const spSiteContentReducer = (state: IInitialState = initialState, action
         case actions.SET_MESSAGE_DATA:
             const messageData: IMessageData = action.payload;
             return { ...state, isWorkingOnIt: false, messageData };
+        case actions.SET_WORKING_ON_IT:
+            const isWorkingOnIt: boolean = action.payload;
+            return { ...state, isWorkingOnIt };
         default:
             return state;
     }

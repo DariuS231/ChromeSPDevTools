@@ -54,4 +54,22 @@ export default class SpSiteContentApi extends ApiBase {
             ctx.executeQueryAsync(onSuccess, this.requestErrorEventHandler);
         });
     }
+    public setListVisibility(listId: string, isHidden: boolean): Promise<boolean> {
+        return new Promise((resolve, reject) => {
+            this.reject = reject;
+            const ctx = SP.ClientContext.get_current();
+            const web = ctx.get_web();
+            const list = web.get_lists().getById(listId);
+
+            list.set_hidden(isHidden);
+
+            list.update();
+            web.update();
+
+            const onSuccess = (sender: any, args: SP.ClientRequestSucceededEventArgs) => {
+                resolve(true);
+            };
+            ctx.executeQueryAsync(onSuccess, this.requestErrorEventHandler);
+        });
+    }
 }

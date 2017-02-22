@@ -38,6 +38,18 @@ const getAllSiteContent = () => {
         });
     };
 };
+
+const setListVisibility = (item: ISiteContent) => {
+    return (dispatch: Dispatch<IAction<ISiteContent>>) => {
+        dispatch(setWorkingOnIt(true));
+        return api.setListVisibility(item.id, !item.hidden).then(() => {
+            dispatch(getAllSiteContent());
+        }).catch((reason: any) => {
+            dispatch(handleAsyncError(constants.ERROR_MESSAGE_SET_LIST_VISIBILITY, reason));
+        });
+    };
+};
+
 const setFilter: ActionCreator<IAction<string>> = (filterText: string): IAction<string> => {
     return {
         payload: filterText,
@@ -52,6 +64,13 @@ const setShowAll: ActionCreator<IAction<boolean>> = (showAll: boolean): IAction<
     };
 };
 
+const setWorkingOnIt: ActionCreator<IAction<boolean>> = (isWorkingOnIt: boolean): IAction<boolean> => {
+    return {
+        payload: isWorkingOnIt,
+        type: actions.SET_WORKING_ON_IT
+    };
+};
+
 const setOpenInNewWindow: ActionCreator<IAction<boolean>> = (openInNewWindow: boolean): IAction<boolean> => {
     return {
         payload: openInNewWindow,
@@ -63,7 +82,8 @@ const spSiteContentActionsCreatorMap: ISpSiteContentActionCreatorsMapObject = {
     getAllSiteContent,
     setShowAll,
     setOpenInNewWindow,
-    setFilter
+    setFilter,
+    setListVisibility
 };
 
 export default spSiteContentActionsCreatorMap;
