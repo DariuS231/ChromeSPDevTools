@@ -89,11 +89,20 @@ class SpSiteContentMenuHelper {
             name: "Make Hidden",
             title: "Make Hidden",
             optionType: MenuOptionType.Action,
-            siteContent: {} as ISiteContent,
             actionName: "setListVisibility",
             visibleIf: (item: ISiteContent): boolean => {
                 return !item.hidden;
             }
+        } as IActionOption,
+        {
+            key: "ReIndex",
+            iconProps: {
+                iconName: "Search"
+            },
+            name: "Re-Index",
+            title: "Re-Index",
+            optionType: MenuOptionType.Action,
+            actionName: "setListVisibility"
         } as IActionOption
     ];
 

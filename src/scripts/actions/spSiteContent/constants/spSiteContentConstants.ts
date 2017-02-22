@@ -21,7 +21,11 @@ export const SpSiteContentConstants = {
         "LastItemModifiedDate",
         "Description",
         "ParentWebUrl",
-        "DefaultNewFormUrl"
+        "DefaultNewFormUrl",
+        "EnableAttachments",
+        "BaseTemplate",
+        "BaseType",
+        "NoCrawl"
     ],
     settingsRelativeUrl: "/_layouts/listedit.aspx?List=",
     showingAllItemsMessage: "Showing all lists and libraries.",

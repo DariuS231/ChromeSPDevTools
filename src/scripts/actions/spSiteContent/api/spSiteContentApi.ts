@@ -16,7 +16,7 @@ export default class SpSiteContentApi extends ApiBase {
             const onSuccess = (sender: any, args: SP.ClientRequestSucceededEventArgs) => {
                 const items: ISiteContent[] = [];
                 const listEnumerator: any = siteConetent.getEnumerator();
-
+                debugger;
                 while (listEnumerator.moveNext()) {
                     const oList: any = listEnumerator.get_current();
                     const listId: any = oList.get_id();
@@ -54,14 +54,30 @@ export default class SpSiteContentApi extends ApiBase {
             ctx.executeQueryAsync(onSuccess, this.requestErrorEventHandler);
         });
     }
-    public setListVisibility(listId: string, isHidden: boolean): Promise<boolean> {
+    public setListVisibility(item: ISiteContent): Promise<boolean> {
         return new Promise((resolve, reject) => {
             this.reject = reject;
             const ctx = SP.ClientContext.get_current();
             const web = ctx.get_web();
-            const list = web.get_lists().getById(listId);
+            const list = web.get_lists().getById(item.id);
 
-            list.set_hidden(isHidden);
+            list.set_hidden(!item.hidden);
+
+            list.update();
+            web.update();
+
+            const onSuccess = (sender: any, args: SP.ClientRequestSucceededEventArgs) => {
+                resolve(true);
+            };
+            ctx.executeQueryAsync(onSuccess, this.requestErrorEventHandler);
+        });
+    }
+    public reIndex(item: ISiteContent): Promise<boolean> {
+        return new Promise((resolve, reject) => {
+            this.reject = reject;
+            const ctx = SP.ClientContext.get_current();
+            const web = ctx.get_web();
+            const list = web.get_lists().getById(item.id);
 
             list.update();
             web.update();

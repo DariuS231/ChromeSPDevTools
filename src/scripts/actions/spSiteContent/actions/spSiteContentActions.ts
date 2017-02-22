@@ -42,7 +42,7 @@ const getAllSiteContent = () => {
 const setListVisibility = (item: ISiteContent) => {
     return (dispatch: Dispatch<IAction<ISiteContent>>) => {
         dispatch(setWorkingOnIt(true));
-        return api.setListVisibility(item.id, !item.hidden).then(() => {
+        return api.setListVisibility(item).then(() => {
             dispatch(getAllSiteContent());
         }).catch((reason: any) => {
             dispatch(handleAsyncError(constants.ERROR_MESSAGE_SET_LIST_VISIBILITY, reason));
