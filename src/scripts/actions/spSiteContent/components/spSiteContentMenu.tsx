@@ -17,6 +17,9 @@ interface ISpSiteContentMenuProps {
     openInNewTab: boolean;
     setListVisibility: (item: ISiteContent) => Promise<void>;
     reIndexList: (item: ISiteContent) => Promise<void>;
+    setListNoCrawl: (item: ISiteContent) => Promise<void>;
+    setListAttachments: (item: ISiteContent) => Promise<void>;
+    recycleList: (item: ISiteContent) => Promise<void>;
     [key: string]: any;
 }
 
@@ -83,6 +86,9 @@ interface IMapStateToProps{
 interface IMapDispatchToISpSiteContentProps{
     setListVisibility: (item: ISiteContent) => Promise<void>;
     reIndexList: (item: ISiteContent) => Promise<void>;
+    setListNoCrawl: (item: ISiteContent) => Promise<void>;
+    setListAttachments: (item: ISiteContent) => Promise<void>;
+    recycleList: (item: ISiteContent) => Promise<void>;
 }
 
 const mapStateToProps = (state: IMapStateToPropsState, ownProps: any): IMapStateToProps => {
@@ -96,6 +102,15 @@ const mapDispatchToProps = (dispatch: Dispatch<any>): IMapDispatchToISpSiteConte
         },
         setListVisibility: (item: ISiteContent) => {
             return dispatch(spSiteContentActionsCreatorMap.setListVisibility(item));
+        },
+        setListNoCrawl: (item: ISiteContent) => {
+            return dispatch(spSiteContentActionsCreatorMap.setListNoCrawl(item));
+        },
+        setListAttachments: (item: ISiteContent) => {
+            return dispatch(spSiteContentActionsCreatorMap.setListAttachments(item));
+        },
+        recycleList: (item: ISiteContent) => {
+            return dispatch(spSiteContentActionsCreatorMap.recycleList(item));
         }
     };
 };

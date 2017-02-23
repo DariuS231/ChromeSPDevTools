@@ -38,6 +38,9 @@ export interface ISpSiteContentActionCreatorsMapObject extends ActionCreatorsMap
     // tslint:disable-next-line:max-line-length
     setListVisibility: (item: ISiteContent) => (dispatch: Dispatch<IAction<ISiteContent[]>>) => Promise<void>;
     reIndexList: (item: ISiteContent) => (dispatch: Dispatch<IAction<ISiteContent[]>>) => Promise<void>;
+    setListNoCrawl: (item: ISiteContent) => (dispatch: Dispatch<IAction<ISiteContent[]>>) => Promise<void>;
+    setListAttachments: (item: ISiteContent) => (dispatch: Dispatch<IAction<ISiteContent[]>>) => Promise<void>;
+    recycleList: (item: ISiteContent) => (dispatch: Dispatch<IAction<ISiteContent[]>>) => Promise<void>;
 }
 
 export interface IMapDispatchToProps {
@@ -73,4 +76,9 @@ export interface IMapStateToProps {
     showAll: boolean;
     openInNewTab: boolean;
     filterText: string;
+}
+
+export interface IAllContentAndMessage {
+    siteContent: ISiteContent[];
+    messageData: IMessageData;
 }

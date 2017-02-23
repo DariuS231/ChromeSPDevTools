@@ -104,8 +104,73 @@ class SpSiteContentMenuHelper {
             optionType: MenuOptionType.Action,
             actionName: "reIndexList",
             visibleIf: (item: ISiteContent): boolean => {
+                return !item.noCrawl && window.location.hostname.indexOf(".sharepoint.com") > 0;
+            }
+        } as IActionOption,
+        {
+            key: "SetAttachments",
+            iconProps: {
+                iconName: "Attach"
+            },
+            name: "Disabla attachments",
+            title: "Disabla attachments",
+            optionType: MenuOptionType.Action,
+            actionName: "setListAttachments",
+            visibleIf: (item: ISiteContent): boolean => {
+                return item.enableAttachments && item.baseType === 0;
+            }
+        } as IActionOption,
+        {
+            key: "SetAttachments",
+            iconProps: {
+                iconName: "Attach"
+            },
+            name: "Enable attachments",
+            title: "Enable attachments",
+            optionType: MenuOptionType.Action,
+            actionName: "setListAttachments",
+            visibleIf: (item: ISiteContent): boolean => {
+                return !item.enableAttachments && item.baseType === 0;
+            }
+        } as IActionOption,
+        {
+            key: "SetNoCrawl",
+            iconProps: {
+                iconName: "StackIndicator"
+            },
+            name: "Show items in search",
+            title: "Show items in search",
+            optionType: MenuOptionType.Action,
+            actionName: "setListNoCrawl",
+            visibleIf: (item: ISiteContent): boolean => {
+                return item.noCrawl;
+            }
+        } as IActionOption,
+        {
+            key: "SetNoCrawl",
+            iconProps: {
+                iconName: "StackIndicator"
+            },
+            name: "Don't Show items in search",
+            title: "Don't Show items in search",
+            optionType: MenuOptionType.Action,
+            actionName: "setListNoCrawl",
+            visibleIf: (item: ISiteContent): boolean => {
                 return !item.noCrawl;
             }
+        } as IActionOption,
+        {
+            key: "Delete",
+            iconProps: {
+                iconName: "Delete",
+                style: {
+                    color: "red"
+                }
+            },
+            name: "Delete",
+            title: "Delete",
+            optionType: MenuOptionType.Action,
+            actionName: "recycleList"
         } as IActionOption
     ];
 

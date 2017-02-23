@@ -64,9 +64,66 @@ export default class SpSiteContentApi extends ApiBase {
             this.reject = reject;
             const ctx = SP.ClientContext.get_current();
             const web = ctx.get_web();
-            const list = web.get_lists().getById(item.id);
+            const list: SP.List = web.get_lists().getById(item.id);
 
             list.set_hidden(!item.hidden);
+
+            list.update();
+            web.update();
+
+            const onSuccess = (sender: any, args: SP.ClientRequestSucceededEventArgs) => {
+                resolve(true);
+            };
+            ctx.executeQueryAsync(onSuccess, this.requestErrorEventHandler);
+        });
+    }
+
+    public setAttachments(item: ISiteContent): Promise<boolean> {
+        return new Promise((resolve, reject) => {
+            this.reject = reject;
+            const ctx = SP.ClientContext.get_current();
+            const web = ctx.get_web();
+            const list: SP.List = web.get_lists().getById(item.id);
+
+            list.set_enableAttachments(!item.enableAttachments);
+
+            list.update();
+            web.update();
+
+            const onSuccess = (sender: any, args: SP.ClientRequestSucceededEventArgs) => {
+                resolve(true);
+            };
+            ctx.executeQueryAsync(onSuccess, this.requestErrorEventHandler);
+        });
+    }
+
+    public setNoCrawl(item: ISiteContent): Promise<boolean> {
+        return new Promise((resolve, reject) => {
+            this.reject = reject;
+            const ctx = SP.ClientContext.get_current();
+            const web = ctx.get_web();
+            const list: SP.List = web.get_lists().getById(item.id);
+
+            list.set_noCrawl(!item.noCrawl);
+
+            list.update();
+            web.update();
+
+            const onSuccess = (sender: any, args: SP.ClientRequestSucceededEventArgs) => {
+                resolve(true);
+            };
+            ctx.executeQueryAsync(onSuccess, this.requestErrorEventHandler);
+        });
+    }
+
+    public recycleList(item: ISiteContent): Promise<boolean> {
+        return new Promise((resolve, reject) => {
+            this.reject = reject;
+            const ctx = SP.ClientContext.get_current();
+            const web = ctx.get_web();
+            const list: SP.List = web.get_lists().getById(item.id);
+
+            list.recycle();
 
             list.update();
             web.update();
