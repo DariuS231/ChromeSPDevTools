@@ -16,6 +16,7 @@ interface ISpSiteContentMenuProps {
     item: ISiteContent;
     openInNewTab: boolean;
     setListVisibility: (item: ISiteContent) => Promise<void>;
+    reIndexList: (item: ISiteContent) => Promise<void>;
     [key: string]: any;
 }
 
@@ -81,6 +82,7 @@ interface IMapStateToProps{
 }
 interface IMapDispatchToISpSiteContentProps{
     setListVisibility: (item: ISiteContent) => Promise<void>;
+    reIndexList: (item: ISiteContent) => Promise<void>;
 }
 
 const mapStateToProps = (state: IMapStateToPropsState, ownProps: any): IMapStateToProps => {
@@ -89,6 +91,9 @@ const mapStateToProps = (state: IMapStateToPropsState, ownProps: any): IMapState
 
 const mapDispatchToProps = (dispatch: Dispatch<any>): IMapDispatchToISpSiteContentProps => {
     return {
+        reIndexList: (item: ISiteContent) => {
+            return dispatch(spSiteContentActionsCreatorMap.reIndexList(item));
+        },
         setListVisibility: (item: ISiteContent) => {
             return dispatch(spSiteContentActionsCreatorMap.setListVisibility(item));
         }

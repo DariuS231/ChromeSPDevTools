@@ -1,5 +1,6 @@
 
 export enum MenuOptionType {
     Link,
-    Action
+    Action,
+    Custom
 }

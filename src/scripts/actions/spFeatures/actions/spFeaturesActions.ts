@@ -79,7 +79,7 @@ const handleAsyncError: ActionCreator<IAction<IMessageData>> =
             payload: {
                 message: errorMessage,
                 showMessage: true,
-                type: MessageBarType.success
+                type: MessageBarType.error
             },
             type: actions.HANDLE_ASYNC_ERROR
         };

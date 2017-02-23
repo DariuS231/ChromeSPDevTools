@@ -23,7 +23,7 @@ const handleAsyncError: ActionCreator<IAction<IMessageData>> =
             payload: {
                 message: errorMessage,
                 showMessage: true,
-                type: MessageBarType.success
+                type: MessageBarType.error
             },
             type: actions.HANDLE_ASYNC_ERROR
         };
@@ -50,10 +50,33 @@ const setListVisibility = (item: ISiteContent) => {
     };
 };
 
+const reIndexList = (item: ISiteContent) => {
+    return (dispatch: Dispatch<IAction<ISiteContent>>) => {
+        return api.reIndex(item).then((dialogResult: SP.UI.DialogResult) => {
+            if(dialogResult === SP.UI.DialogResult.OK){
+                dispatch(setMessageData({
+                    showMessage:true,
+                    message: "The requeste has been sent, patience my young padawan...",
+                    type: MessageBarType.success
+                } as IMessageData));
+            }
+        }).catch((reason: any) => {
+            dispatch(handleAsyncError(constants.ERROR_MESSAGE_SET_LIST_VISIBILITY, reason));
+        });
+    };
+};
+
 const setFilter: ActionCreator<IAction<string>> = (filterText: string): IAction<string> => {
     return {
         payload: filterText,
         type: actions.SET_TEXT_FILTER
+    };
+};
+
+const setMessageData: ActionCreator<IAction<IMessageData>> = (messageData: IMessageData): IAction<IMessageData> => {
+    return {
+        payload: messageData,
+        type: actions.SET_MESSAGE_DATA
     };
 };
 
@@ -83,7 +106,8 @@ const spSiteContentActionsCreatorMap: ISpSiteContentActionCreatorsMapObject = {
     setShowAll,
     setOpenInNewWindow,
     setFilter,
-    setListVisibility
+    setListVisibility,
+    reIndexList
 };
 
 export default spSiteContentActionsCreatorMap;

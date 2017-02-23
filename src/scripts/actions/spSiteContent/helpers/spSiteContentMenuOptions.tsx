@@ -19,7 +19,7 @@ export interface ILinkOption extends ICustomOption {
     getOptionLink?: (item: ISiteContent) => string;
 }
 class SpSiteContentMenuHelper {
-    protected _options: Array<ILinkOption | IActionOption> = [
+    protected _options: Array<ILinkOption | IActionOption | ICustomOption> = [
         {
             key: "New Item",
             iconProps: {
@@ -102,22 +102,28 @@ class SpSiteContentMenuHelper {
             name: "Re-Index",
             title: "Re-Index",
             optionType: MenuOptionType.Action,
-            actionName: "setListVisibility"
+            actionName: "reIndexList",
+            visibleIf: (item: ISiteContent): boolean => {
+                return !item.noCrawl;
+            }
         } as IActionOption
     ];
+
 
     // tslint:disable-next-line:max-line-length
     public getMenuOptions(linkTarge: string, item: ISiteContent, actionItemClick: (ev?: React.MouseEvent<HTMLElement>, item?: IActionOption) => void): Array<ILinkOption | IActionOption | IContextualMenuItem> {
         const filteredOpts = this._options.filter((option: ICustomOption) => {
             return !option.visibleIf || option.visibleIf(item);
         });
-        return filteredOpts.map((option: ILinkOption | IActionOption) => {
+        return filteredOpts.map((option: ILinkOption | IActionOption | ICustomOption) => {
 
             switch (option.optionType) {
                 case MenuOptionType.Link:
-                    return { ...option, siteContent: item };
+                    return { ...option, siteContent: item, linkTarget: linkTarge };
                 case MenuOptionType.Action:
                     return { ...option, onClick: actionItemClick };
+                case MenuOptionType.Custom:
+                    return { ...option, siteContent: item };
                 default:
                     return option;
             }
@@ -134,6 +140,14 @@ class SpSiteContentMenuHelper {
                 <span className="ms-ContextualMenu-itemText">{item.name}</span>
             </div>
         </a>;
+    }
+
+    private _onReIndexClick(ev?: React.MouseEvent<HTMLElement>, item?: IActionOption) {
+        SP.SOD.execute("sp.ui.dialog.js", "SP.UI.ModalDialog.showModalDialog", {
+            dialogReturnValueCallback: () => { },
+            title: "Reindex List",
+            url: item.siteContent.reIndexUrl
+        });
     }
 }
 

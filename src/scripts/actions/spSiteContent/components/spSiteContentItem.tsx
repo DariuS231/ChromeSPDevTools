@@ -30,7 +30,10 @@ export const SpSiteContentItem: React.StatelessComponent<ISpSiteContentItemProps
                     {props.item.title}
                 </a>
                 <div className="ms-ListBasicExample-itemIndex">
-                    {`${props.item.itemCount} Items`}
+                    {`Items: ${props.item.itemCount} `}
+                </div>
+                <div className="ms-ListBasicExample-itemIndex">
+                    {`Modified: ${props.item.lastModified.toLocaleDateString()} ${props.item.lastModified.toLocaleTimeString()}`}
                 </div>
             </div>
             <div className="ms-ListItem-actions">
