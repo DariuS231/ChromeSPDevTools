@@ -23,6 +23,7 @@ export const SpSiteContentConstants = {
         "ImageUrl",
         "LastItemModifiedDate",
         "Description",
+        "EffectiveBasePermissions",
         "ParentWebUrl",
         "DefaultNewFormUrl",
         "EnableAttachments",

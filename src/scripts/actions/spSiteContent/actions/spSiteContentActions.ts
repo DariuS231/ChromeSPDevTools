@@ -47,7 +47,7 @@ const handleAsyncError: ActionCreator<IAction<IMessageData>> =
 const getAllSiteContent = (messageData?: IMessageData) => {
     return (dispatch: Dispatch<IAction<ISiteContent[]>>) => {
         return api.getLists().then((siteContent: ISiteContent[]) => {
-            if (messageData === null) {
+            if (typeof messageData !== "undefined") {
                 dispatch(setAllSiteContentAndMessage(siteContent, messageData));
             } else {
                 dispatch(setAllSiteContent(siteContent));
@@ -185,6 +185,7 @@ const spSiteContentActionsCreatorMap: ISpSiteContentActionCreatorsMapObject = {
     setOpenInNewWindow,
     setFilter,
     setListVisibility,
+    setMessageData,
     reIndexList,
     setListNoCrawl,
     setListAttachments,

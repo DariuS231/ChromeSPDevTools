@@ -19,6 +19,8 @@ export interface ISiteContent {
     baseTemplate: number;
     baseType: number;
     noCrawl: boolean;
+    userCanAddItems: boolean;
+    userCanManageList: boolean;
 }
 
 export interface IInitialState {
@@ -40,6 +42,7 @@ export interface ISpSiteContentActionCreatorsMapObject extends ActionCreatorsMap
     reIndexList: (item: ISiteContent) => (dispatch: Dispatch<IAction<ISiteContent[]>>) => Promise<void>;
     setListNoCrawl: (item: ISiteContent) => (dispatch: Dispatch<IAction<ISiteContent[]>>) => Promise<void>;
     setListAttachments: (item: ISiteContent) => (dispatch: Dispatch<IAction<ISiteContent[]>>) => Promise<void>;
+    setMessageData: ActionCreator<IAction<IMessageData>>;
     recycleList: (item: ISiteContent) => (dispatch: Dispatch<IAction<ISiteContent[]>>) => Promise<void>;
 }
 

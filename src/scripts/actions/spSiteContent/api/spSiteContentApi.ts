@@ -47,7 +47,9 @@ export default class SpSiteContentApi extends ApiBase {
                         permissionsPageUrl: permissionPageUrl,
                         reIndexUrl: reindexUrl,
                         settingsUrl: paretnUrl + constants.settingsRelativeUrl + listId,
-                        title: oList.get_title()
+                        title: oList.get_title(),
+                        userCanAddItems: oList.get_effectiveBasePermissions().has(SP.PermissionKind.addListItems),
+                        userCanManageList: oList.get_effectiveBasePermissions().has(SP.PermissionKind.manageLists)
                     };
                     items = items.concat(listItem);
                 }
@@ -70,6 +72,8 @@ export default class SpSiteContentApi extends ApiBase {
 
             list.update();
             web.update();
+            ctx.load(list);
+            ctx.load(web);
 
             const onSuccess = (sender: any, args: SP.ClientRequestSucceededEventArgs) => {
                 resolve(true);
@@ -89,6 +93,8 @@ export default class SpSiteContentApi extends ApiBase {
 
             list.update();
             web.update();
+            ctx.load(list);
+            ctx.load(web);
 
             const onSuccess = (sender: any, args: SP.ClientRequestSucceededEventArgs) => {
                 resolve(true);
@@ -108,6 +114,8 @@ export default class SpSiteContentApi extends ApiBase {
 
             list.update();
             web.update();
+            ctx.load(list);
+            ctx.load(web);
 
             const onSuccess = (sender: any, args: SP.ClientRequestSucceededEventArgs) => {
                 resolve(true);
@@ -124,9 +132,6 @@ export default class SpSiteContentApi extends ApiBase {
             const list: SP.List = web.get_lists().getById(item.id);
 
             list.recycle();
-
-            list.update();
-            web.update();
 
             const onSuccess = (sender: any, args: SP.ClientRequestSucceededEventArgs) => {
                 resolve(true);

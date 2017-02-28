@@ -35,7 +35,7 @@ class SpSiteContentMenuHelper {
             },
             onRender: this._renderCharmMenuItem,
             visibleIf: (item: ISiteContent): boolean => {
-                return !!item.newFormUrl;
+                return item.userCanAddItems && !!item.newFormUrl;
             }
         } as ILinkOption,
         {
@@ -50,7 +50,7 @@ class SpSiteContentMenuHelper {
             siteContent: {} as ISiteContent,
             onRender: this._renderCharmMenuItem,
             getOptionLink: (item: ISiteContent): string => {
-                return item.settingsUrl;
+                return item.userCanManageList && item.settingsUrl;
             }
         } as ILinkOption,
         {
@@ -65,7 +65,7 @@ class SpSiteContentMenuHelper {
             siteContent: {} as ISiteContent,
             onRender: this._renderCharmMenuItem,
             getOptionLink: (item: ISiteContent): string => {
-                return item.permissionsPageUrl;
+                return item.userCanManageList && item.permissionsPageUrl;
             }
         } as ILinkOption,
         {
@@ -78,7 +78,7 @@ class SpSiteContentMenuHelper {
             optionType: MenuOptionType.Action,
             actionName: "setListVisibility",
             visibleIf: (item: ISiteContent): boolean => {
-                return item.hidden;
+                return item.userCanManageList && item.hidden;
             }
         } as IActionOption,
         {
@@ -91,7 +91,7 @@ class SpSiteContentMenuHelper {
             optionType: MenuOptionType.Action,
             actionName: "setListVisibility",
             visibleIf: (item: ISiteContent): boolean => {
-                return !item.hidden;
+                return item.userCanManageList && !item.hidden;
             }
         } as IActionOption,
         {
@@ -104,7 +104,7 @@ class SpSiteContentMenuHelper {
             optionType: MenuOptionType.Action,
             actionName: "reIndexList",
             visibleIf: (item: ISiteContent): boolean => {
-                return !item.noCrawl && window.location.hostname.indexOf(".sharepoint.com") > 0;
+                return item.userCanManageList && !item.noCrawl && window.location.hostname.indexOf(".sharepoint.com") > 0;
             }
         } as IActionOption,
         {
@@ -117,7 +117,7 @@ class SpSiteContentMenuHelper {
             optionType: MenuOptionType.Action,
             actionName: "setListAttachments",
             visibleIf: (item: ISiteContent): boolean => {
-                return item.enableAttachments && item.baseType === 0;
+                return item.userCanManageList && item.enableAttachments && item.baseType === 0;
             }
         } as IActionOption,
         {
@@ -130,7 +130,7 @@ class SpSiteContentMenuHelper {
             optionType: MenuOptionType.Action,
             actionName: "setListAttachments",
             visibleIf: (item: ISiteContent): boolean => {
-                return !item.enableAttachments && item.baseType === 0;
+                return item.userCanManageList && !item.enableAttachments && item.baseType === 0;
             }
         } as IActionOption,
         {
@@ -143,7 +143,7 @@ class SpSiteContentMenuHelper {
             optionType: MenuOptionType.Action,
             actionName: "setListNoCrawl",
             visibleIf: (item: ISiteContent): boolean => {
-                return item.noCrawl;
+                return item.userCanManageList &&  item.noCrawl;
             }
         } as IActionOption,
         {
@@ -156,7 +156,7 @@ class SpSiteContentMenuHelper {
             optionType: MenuOptionType.Action,
             actionName: "setListNoCrawl",
             visibleIf: (item: ISiteContent): boolean => {
-                return !item.noCrawl;
+                return item.userCanManageList && !item.noCrawl;
             }
         } as IActionOption,
         {
@@ -170,7 +170,10 @@ class SpSiteContentMenuHelper {
             name: "Delete",
             title: "Delete",
             optionType: MenuOptionType.Action,
-            actionName: "recycleList"
+            actionName: "recycleList",
+            visibleIf: (item: ISiteContent): boolean => {
+                return item.userCanManageList;
+            }
         } as IActionOption
     ];
 
