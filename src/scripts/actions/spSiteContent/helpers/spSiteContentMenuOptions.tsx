@@ -1,19 +1,27 @@
-import { IContextualMenuItem } from "office-ui-fabric-react/lib/ContextualMenu";
+import { IContextualMenuItem, IContextualMenuProps } from "office-ui-fabric-react/lib/ContextualMenu";
 import * as React from "react";
 import { MenuOptionType } from "../constants/enums";
 import { ISiteContent } from "../interfaces/spSiteContentInterfaces";
 
-export interface ICustomOption extends IContextualMenuItem {
-    optionType: MenuOptionType;
-    siteContent: ISiteContent;
-    visibleIf?: (item: ISiteContent) => boolean;
+interface ICustomSubMenu extends IContextualMenuProps{
+    items: Array<ICustomOption | ICustomItemOption | IActionOption | ILinkOption>;
 }
 
-export interface IActionOption extends ICustomOption {
+export interface ICustomOption extends IContextualMenuItem {
+    optionType: MenuOptionType;
+    visibleIf?: (item: ISiteContent) => boolean;
+    subMenuProps?: ICustomSubMenu;
+}
+
+export interface ICustomItemOption extends ICustomOption {
+    siteContent: ISiteContent;
+}
+
+export interface IActionOption extends ICustomItemOption {
     actionName: string;
 }
 
-export interface ILinkOption extends ICustomOption {
+export interface ILinkOption extends ICustomItemOption {
     linkTarget: string;
     actionName: string;
     getOptionLink?: (item: ISiteContent) => string;
@@ -38,6 +46,12 @@ class SpSiteContentMenuHelper {
                 return item.userCanAddItems && !!item.newFormUrl;
             }
         } as ILinkOption,
+
+        {
+            key: "divider_1",
+            optionType: MenuOptionType.Divider,
+            name: "-",
+        },
         {
             key: "Settings",
             iconProps: {
@@ -69,96 +83,108 @@ class SpSiteContentMenuHelper {
             }
         } as ILinkOption,
         {
-            key: "MakeVisible",
+            key: "Advanced Seetings",
+            optionType: MenuOptionType.Parent,
+            name: "Advanced Seetings",
             iconProps: {
-                iconName: "RedEye"
+                iconName: "DeveloperTools"
             },
-            name: "Make Visible",
-            title: "Make Visible",
-            optionType: MenuOptionType.Action,
-            actionName: "setListVisibility",
-            visibleIf: (item: ISiteContent): boolean => {
-                return item.userCanManageList && item.hidden;
+            subMenuProps: {
+                items: [
+                    {
+                        key: "MakeVisible",
+                        iconProps: {
+                            iconName: "RedEye"
+                        },
+                        name: "Make Visible",
+                        title: "Make Visible",
+                        optionType: MenuOptionType.Action,
+                        actionName: "setListVisibility",
+                        visibleIf: (item: ISiteContent): boolean => {
+                            return item.userCanManageList && item.hidden;
+                        }
+                    } as IActionOption,
+                    {
+                        key: "MakeHidden",
+                        iconProps: {
+                            iconName: "Hide"
+                        },
+                        name: "Make Hidden",
+                        title: "Make Hidden",
+                        optionType: MenuOptionType.Action,
+                        actionName: "setListVisibility",
+                        visibleIf: (item: ISiteContent): boolean => {
+                            return item.userCanManageList && !item.hidden;
+                        }
+                    } as IActionOption,
+                    {
+                        key: "ReIndex",
+                        iconProps: {
+                            iconName: "Search"
+                        },
+                        name: "Re-Index",
+                        title: "Re-Index",
+                        optionType: MenuOptionType.Action,
+                        actionName: "reIndexList",
+                        visibleIf: (item: ISiteContent): boolean => {
+                            return item.userCanManageList && !item.noCrawl && window.location.hostname.indexOf(".sharepoint.com") > 0;
+                        }
+                    } as IActionOption,
+                    {
+                        key: "SetAttachments",
+                        iconProps: {
+                            iconName: "Attach"
+                        },
+                        name: "Disabla attachments",
+                        title: "Disabla attachments",
+                        optionType: MenuOptionType.Action,
+                        actionName: "setListAttachments",
+                        visibleIf: (item: ISiteContent): boolean => {
+                            return item.userCanManageList && item.enableAttachments && item.baseType === 0;
+                        }
+                    } as IActionOption,
+                    {
+                        key: "SetAttachments",
+                        iconProps: {
+                            iconName: "Attach"
+                        },
+                        name: "Enable attachments",
+                        title: "Enable attachments",
+                        optionType: MenuOptionType.Action,
+                        actionName: "setListAttachments",
+                        visibleIf: (item: ISiteContent): boolean => {
+                            return item.userCanManageList && !item.enableAttachments && item.baseType === 0;
+                        }
+                    } as IActionOption,
+                    {
+                        key: "SetNoCrawl",
+                        iconProps: {
+                            iconName: "StackIndicator"
+                        },
+                        name: "Show items in search",
+                        title: "Show items in search",
+                        optionType: MenuOptionType.Action,
+                        actionName: "setListNoCrawl",
+                        visibleIf: (item: ISiteContent): boolean => {
+                            return item.userCanManageList && item.noCrawl;
+                        }
+                    } as IActionOption,
+                    {
+                        key: "SetNoCrawl",
+                        iconProps: {
+                            iconName: "StackIndicator"
+                        },
+                        name: "Don't Show items in search",
+                        title: "Don't Show items in search",
+                        optionType: MenuOptionType.Action,
+                        actionName: "setListNoCrawl",
+                        visibleIf: (item: ISiteContent): boolean => {
+                            return item.userCanManageList && !item.noCrawl;
+                        }
+                    } as IActionOption,
+                ]
             }
-        } as IActionOption,
-        {
-            key: "MakeHidden",
-            iconProps: {
-                iconName: "Hide"
-            },
-            name: "Make Hidden",
-            title: "Make Hidden",
-            optionType: MenuOptionType.Action,
-            actionName: "setListVisibility",
-            visibleIf: (item: ISiteContent): boolean => {
-                return item.userCanManageList && !item.hidden;
-            }
-        } as IActionOption,
-        {
-            key: "ReIndex",
-            iconProps: {
-                iconName: "Search"
-            },
-            name: "Re-Index",
-            title: "Re-Index",
-            optionType: MenuOptionType.Action,
-            actionName: "reIndexList",
-            visibleIf: (item: ISiteContent): boolean => {
-                return item.userCanManageList && !item.noCrawl && window.location.hostname.indexOf(".sharepoint.com") > 0;
-            }
-        } as IActionOption,
-        {
-            key: "SetAttachments",
-            iconProps: {
-                iconName: "Attach"
-            },
-            name: "Disabla attachments",
-            title: "Disabla attachments",
-            optionType: MenuOptionType.Action,
-            actionName: "setListAttachments",
-            visibleIf: (item: ISiteContent): boolean => {
-                return item.userCanManageList && item.enableAttachments && item.baseType === 0;
-            }
-        } as IActionOption,
-        {
-            key: "SetAttachments",
-            iconProps: {
-                iconName: "Attach"
-            },
-            name: "Enable attachments",
-            title: "Enable attachments",
-            optionType: MenuOptionType.Action,
-            actionName: "setListAttachments",
-            visibleIf: (item: ISiteContent): boolean => {
-                return item.userCanManageList && !item.enableAttachments && item.baseType === 0;
-            }
-        } as IActionOption,
-        {
-            key: "SetNoCrawl",
-            iconProps: {
-                iconName: "StackIndicator"
-            },
-            name: "Show items in search",
-            title: "Show items in search",
-            optionType: MenuOptionType.Action,
-            actionName: "setListNoCrawl",
-            visibleIf: (item: ISiteContent): boolean => {
-                return item.userCanManageList &&  item.noCrawl;
-            }
-        } as IActionOption,
-        {
-            key: "SetNoCrawl",
-            iconProps: {
-                iconName: "StackIndicator"
-            },
-            name: "Don't Show items in search",
-            title: "Don't Show items in search",
-            optionType: MenuOptionType.Action,
-            actionName: "setListNoCrawl",
-            visibleIf: (item: ISiteContent): boolean => {
-                return item.userCanManageList && !item.noCrawl;
-            }
-        } as IActionOption,
+        },
         {
             key: "Delete",
             iconProps: {
@@ -177,27 +203,41 @@ class SpSiteContentMenuHelper {
         } as IActionOption
     ];
 
+    // tslint:disable-next-line:max-line-length
+    public getMenuOptions(linkTarge: string, item: ISiteContent, actionItemClick: (ev?: React.MouseEvent<HTMLElement>, item?: IActionOption) => void): Array<ILinkOption | IActionOption | ICustomOption> {
+        return this.parseOptions(this._options, linkTarge, item, actionItemClick);
+    }
 
     // tslint:disable-next-line:max-line-length
-    public getMenuOptions(linkTarge: string, item: ISiteContent, actionItemClick: (ev?: React.MouseEvent<HTMLElement>, item?: IActionOption) => void): Array<ILinkOption | IActionOption | IContextualMenuItem> {
-        const filteredOpts = this._options.filter((option: ICustomOption) => {
+    private parseOptions(options: Array<ICustomOption | ICustomItemOption | IActionOption | ILinkOption>, linkTarge: string, item: ISiteContent, actionItemClick: (ev?: React.MouseEvent<HTMLElement>, item?: IActionOption) => void)
+        : Array<ICustomOption | ICustomItemOption | IActionOption | ILinkOption> {
+        const filteredOpts = options.filter((option: ICustomOption) => {
             return !option.visibleIf || option.visibleIf(item);
         });
         return filteredOpts.map((option: ILinkOption | IActionOption | ICustomOption) => {
-
+            let retOption: ILinkOption | IActionOption | ICustomOption;
             switch (option.optionType) {
                 case MenuOptionType.Link:
-                    return { ...option, siteContent: item, linkTarget: linkTarge };
+                    retOption = { ...option, siteContent: item, linkTarget: linkTarge };
                 case MenuOptionType.Action:
-                    return { ...option, onClick: actionItemClick };
+                    retOption = { ...option, onClick: actionItemClick };
                 case MenuOptionType.Custom:
-                    return { ...option, siteContent: item };
+                    retOption = { ...option, siteContent: item };
                 default:
-                    return option;
+                    retOption = option;
             }
+            if (typeof retOption.subMenuProps !== "undefined") {
+                const newSuMenuProps = {
+                    items: this.parseOptions(retOption.subMenuProps.items, linkTarge, item, actionItemClick)
+                };
+                retOption = {
+                    ...option,
+                    subMenuProps: newSuMenuProps
+                };
+            }
+            return retOption;
         });
     }
-
     private _renderCharmMenuItem(item: ILinkOption) {
         const linkUrl: string = item.getOptionLink(item.siteContent);
         // tslint:disable-next-line:max-line-length

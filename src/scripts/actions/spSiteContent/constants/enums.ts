@@ -2,5 +2,7 @@
 export enum MenuOptionType {
     Link,
     Action,
-    Custom
+    Custom,
+    Divider,
+    Parent
 }
