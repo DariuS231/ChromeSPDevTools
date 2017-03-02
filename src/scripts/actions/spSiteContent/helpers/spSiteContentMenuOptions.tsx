@@ -219,12 +219,16 @@ class SpSiteContentMenuHelper {
             switch (option.optionType) {
                 case MenuOptionType.Link:
                     retOption = { ...option, siteContent: item, linkTarget: linkTarge };
+                    break;
                 case MenuOptionType.Action:
-                    retOption = { ...option, onClick: actionItemClick };
+                    retOption = { ...option, onClick: actionItemClick, siteContent: item  };
+                    break;
                 case MenuOptionType.Custom:
                     retOption = { ...option, siteContent: item };
+                    break;
                 default:
                     retOption = option;
+                    break;
             }
             if (typeof retOption.subMenuProps !== "undefined") {
                 const newSuMenuProps = {
