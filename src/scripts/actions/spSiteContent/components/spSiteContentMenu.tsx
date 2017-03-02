@@ -4,6 +4,7 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { connect } from "react-redux";
 import { bindActionCreators, Dispatch } from "redux";
+import { DialogConfirm } from "../../common/components/dialogConfirm"
 import spSiteContentActionsCreatorMap from "../actions/spSiteContentActions";
 import { IActionOption, spSiteContentMenuHelper } from "../helpers/spSiteContentMenuOptions";
 import { ISiteContent } from "../interfaces/spSiteContentInterfaces";
@@ -11,6 +12,7 @@ import { IMapStateToPropsState } from "../interfaces/spSiteContentInterfaces";
 
 interface ISpSiteContentMenuState {
     isContextMenuVisible: boolean;
+    isDialogConfirmVisible: boolean;
 }
 interface ISpSiteContentMenuProps {
     item: ISiteContent;
@@ -27,11 +29,12 @@ class SpSiteContentMenu extends React.Component<ISpSiteContentMenuProps, ISpSite
     public input: HTMLElement;
     constructor() {
         super();
-        this.state = { isContextMenuVisible: false };
+        this.state = { isContextMenuVisible: false, isDialogConfirmVisible: false };
         this.refs = { menuButtonContainer: null };
         this._onClick = this._onClick.bind(this);
         this._onDismiss = this._onDismiss.bind(this);
         this._contextualMenu = this._contextualMenu.bind(this);
+        this._confirmDialog = this._confirmDialog.bind(this);
         this._divRefCallBack = this._divRefCallBack.bind(this);
         this._onActionItemCliuck = this._onActionItemCliuck.bind(this);
     }
@@ -45,6 +48,7 @@ class SpSiteContentMenu extends React.Component<ISpSiteContentMenuProps, ISpSite
                 ariaLabel="More"
             />
             {this._contextualMenu()}
+            {/*this._confirmDialog()*/}
         </div>);
     }
     private _onActionItemCliuck(ev?: React.MouseEvent<HTMLElement>, item?: IActionOption) {
@@ -67,15 +71,23 @@ class SpSiteContentMenu extends React.Component<ISpSiteContentMenuProps, ISpSite
             items={spSiteContentMenuHelper.getMenuOptions(linkTarget, this.props.item, this._onActionItemCliuck)}
         />;
     }
+    private _confirmDialog(dgTitle: string, dgText: string, onOk: () => void ): JSX.Element {
+        const linkTarget: string = this.props.openInNewTab ? "_blank" : "_self";
+        return this.state.isDialogConfirmVisible && <DialogConfirm
+            dialogText={dgText}
+            dialogTitle={dgTitle}
+            onOk={onOk}
+        />;
+    }
 
     private _onClick(event: React.MouseEvent<HTMLButtonElement>) {
         event.preventDefault();
-        this.setState({ isContextMenuVisible: !this.state.isContextMenuVisible });
+        this.setState({ isContextMenuVisible: !this.state.isContextMenuVisible } as ISpSiteContentMenuState);
         return false;
     }
 
     private _onDismiss() {
-        this.setState({ isContextMenuVisible: false });
+        this.setState({ isContextMenuVisible: false } as ISpSiteContentMenuState);
     }
 
 }

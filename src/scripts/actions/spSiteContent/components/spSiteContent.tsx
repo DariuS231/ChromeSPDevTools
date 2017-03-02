@@ -19,6 +19,10 @@ interface IMapDispatchToISpSiteContentProps {
     actions: ISpSiteContentActionCreatorsMapObject;
 }
 class SpSiteContent extends React.Component<ISpSiteContentProps, {}> {
+    constructor() {
+        super();
+        this.onMessageClose = this.onMessageClose.bind(this);
+    }
     public render() {
         if (this.props.isWorkingOnIt) {
             return <WorkingOnIt />;

@@ -1,7 +1,6 @@
+import { SearchBox } from "office-ui-fabric-react/lib/SearchBox";
 import * as React from "react";
 import { IAction } from "../interfaces";
-
-import { SearchBox } from "office-ui-fabric-react/lib/SearchBox";
 
 interface IFilterTextBoxProps {
     setFilterText: (filterText: string) => IAction<string>;

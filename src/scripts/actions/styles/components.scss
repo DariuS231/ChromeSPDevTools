@@ -316,6 +316,14 @@ $dividerColor: $ms-color-neutralLight;
             margin-top: 10px;
         }
     }
+    #ContextualMenuButtonDiv {
+        .ms-Button--icon {
+            min-width: 35px;
+            &:hover {
+                background-color: #c6c6c6;
+            }
+        }
+    }
 }
 
 
