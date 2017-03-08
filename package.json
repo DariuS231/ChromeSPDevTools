@@ -29,7 +29,7 @@
     "@types/react-router": "^2.0.46",
     "@types/redux-immutable-state-invariant": "^1.2.29",
     "@types/redux-thunk": "^2.1.32",
-    "@types/sharepoint": "^2013.0.31",
+    "@types/sharepoint": "^2013.1.2",
     "@types/whatwg-fetch": "0.0.32",
     "@types/whatwg-streams": "0.0.1",
     "awesome-typescript-loader": "^3.0.0-beta.18",
