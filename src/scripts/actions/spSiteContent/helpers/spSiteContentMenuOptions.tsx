@@ -3,6 +3,10 @@ import * as React from "react";
 import { MenuOptionType } from "../constants/enums";
 import { ISiteContent } from "../interfaces/spSiteContentInterfaces";
 
+interface IModalDialogData {
+    dialogTitle: string;
+    dialogText: string;
+}
 interface ICustomSubMenu extends IContextualMenuProps{
     items: Array<ICustomOption | ICustomItemOption | IActionOption | ILinkOption>;
 }
@@ -14,6 +18,7 @@ export interface ICustomOption extends IContextualMenuItem {
 }
 
 export interface ICustomItemOption extends ICustomOption {
+    dialogData?: IModalDialogData;
     siteContent: ISiteContent;
 }
 
@@ -92,6 +97,10 @@ class SpSiteContentMenuHelper {
             subMenuProps: {
                 items: [
                     {
+                        dialogData: {
+                            dialogTitle: "Make visible?",
+                            dialogText: "Are you sure you want to make the selected List/Library visible?"
+                        },
                         key: "MakeVisible",
                         iconProps: {
                             iconName: "RedEye"
@@ -105,6 +114,10 @@ class SpSiteContentMenuHelper {
                         }
                     } as IActionOption,
                     {
+                        dialogData: {
+                            dialogTitle: "Make hidden?",
+                            dialogText: "Are you sure you want to make the selected List/Library hidden?"
+                        },
                         key: "MakeHidden",
                         iconProps: {
                             iconName: "Hide"
@@ -131,12 +144,16 @@ class SpSiteContentMenuHelper {
                         }
                     } as IActionOption,
                     {
+                        dialogData: {
+                            dialogTitle: "Disable attachment?",
+                            dialogText: "Are you sure you want prevent users from attaching files to items in this list?"
+                        },
                         key: "SetAttachments",
                         iconProps: {
                             iconName: "Attach"
                         },
-                        name: "Disabla attachments",
-                        title: "Disabla attachments",
+                        name: "Disable attachments",
+                        title: "Disable attachments",
                         optionType: MenuOptionType.Action,
                         actionName: "setListAttachments",
                         visibleIf: (item: ISiteContent): boolean => {
@@ -144,6 +161,10 @@ class SpSiteContentMenuHelper {
                         }
                     } as IActionOption,
                     {
+                        dialogData: {
+                            dialogTitle: "Enable attachment?",
+                            dialogText: "Are you sure you want allow users to attach files to items in this list?"
+                        },
                         key: "SetAttachments",
                         iconProps: {
                             iconName: "Attach"
@@ -157,6 +178,10 @@ class SpSiteContentMenuHelper {
                         }
                     } as IActionOption,
                     {
+                        dialogData: {
+                            dialogTitle: "Show items in search?",
+                            dialogText: "Are you sure you want allow items from this list to appear in search results?"
+                        },
                         key: "SetNoCrawl",
                         iconProps: {
                             iconName: "StackIndicator"
@@ -170,6 +195,10 @@ class SpSiteContentMenuHelper {
                         }
                     } as IActionOption,
                     {
+                        dialogData: {
+                            dialogTitle: "Remove items in search?",
+                            dialogText: "Are you sure you want prevent items from this list to appear in search results?"
+                        },
                         key: "SetNoCrawl",
                         iconProps: {
                             iconName: "StackIndicator"
@@ -186,6 +215,10 @@ class SpSiteContentMenuHelper {
             }
         },
         {
+            dialogData: {
+                dialogTitle: "Remove Item?",
+                dialogText: "Are you sure you want to sent th selected List/Library to the recicly bin?"
+            },
             key: "Delete",
             iconProps: {
                 iconName: "Delete",

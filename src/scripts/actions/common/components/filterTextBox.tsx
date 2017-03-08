@@ -1,5 +1,6 @@
 import { SearchBox } from "office-ui-fabric-react/lib/SearchBox";
 import * as React from "react";
+import { constants } from "../constants";
 import { IAction } from "../interfaces";
 
 interface IFilterTextBoxProps {
@@ -37,7 +38,7 @@ class FilterTextBox extends React.Component<IFilterTextBoxProps, {}> {
 
     private _divRefCallBack(element: HTMLElement): void {
         if (element && !!this.props.referenceCallBack) {
-            this.props.referenceCallBack(element.querySelector("input"));
+            this.props.referenceCallBack(element.querySelector(constants.HTML_TAG_INPUT) as HTMLElement);
         }
     }
 }

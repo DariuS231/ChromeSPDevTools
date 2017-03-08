@@ -10,9 +10,16 @@ import { IActionOption, spSiteContentMenuHelper } from "../helpers/spSiteContent
 import { ISiteContent } from "../interfaces/spSiteContentInterfaces";
 import { IMapStateToPropsState } from "../interfaces/spSiteContentInterfaces";
 
+interface IDialogData {
+    isDialogConfirmVisible: boolean;
+    dialogTitle: string;
+    dialogText: string;
+    onOk: () => void;
+}
+
 interface ISpSiteContentMenuState {
     isContextMenuVisible: boolean;
-    isDialogConfirmVisible: boolean;
+    dialogData: IDialogData;
 }
 interface ISpSiteContentMenuProps {
     item: ISiteContent;
@@ -29,7 +36,12 @@ class SpSiteContentMenu extends React.Component<ISpSiteContentMenuProps, ISpSite
     public input: HTMLElement;
     constructor() {
         super();
-        this.state = { isContextMenuVisible: false, isDialogConfirmVisible: false };
+        this.state = {
+            dialogData: {
+                isDialogConfirmVisible: false,
+            } as IDialogData,
+            isContextMenuVisible: false
+        };
         this.refs = { menuButtonContainer: null };
         this._onClick = this._onClick.bind(this);
         this._onDismiss = this._onDismiss.bind(this);
@@ -37,6 +49,8 @@ class SpSiteContentMenu extends React.Component<ISpSiteContentMenuProps, ISpSite
         this._confirmDialog = this._confirmDialog.bind(this);
         this._divRefCallBack = this._divRefCallBack.bind(this);
         this._onActionItemCliuck = this._onActionItemCliuck.bind(this);
+        this._getDialogOnClickCallBack = this._getDialogOnClickCallBack.bind(this);
+        this._onConfirmDialogClose = this._onConfirmDialogClose.bind(this);
     }
 
     public render() {
@@ -48,11 +62,28 @@ class SpSiteContentMenu extends React.Component<ISpSiteContentMenuProps, ISpSite
                 ariaLabel="More"
             />
             {this._contextualMenu()}
-            {/*this._confirmDialog()*/}
+            {this._confirmDialog()}
         </div>);
     }
+    private _getDialogOnClickCallBack(actionName: string): () => void {
+        return () => {
+            this.props[actionName](this.props.item);
+        }
+    }
     private _onActionItemCliuck(ev?: React.MouseEvent<HTMLElement>, item?: IActionOption) {
-        this.props[item.actionName](this.props.item);
+        const runAction = this._getDialogOnClickCallBack(item.actionName);
+        if (!!item.dialogData) {
+            this.setState({
+                dialogData: {
+                    isDialogConfirmVisible: true,
+                    dialogText: item.dialogData.dialogText,
+                    dialogTitle: item.dialogData.dialogTitle,
+                    onOk: runAction
+                } as IDialogData
+            } as ISpSiteContentMenuState)
+        } else {
+            runAction();
+        }
     }
     private _divRefCallBack(element: HTMLElement): void {
         if (element) {
@@ -71,13 +102,21 @@ class SpSiteContentMenu extends React.Component<ISpSiteContentMenuProps, ISpSite
             items={spSiteContentMenuHelper.getMenuOptions(linkTarget, this.props.item, this._onActionItemCliuck)}
         />;
     }
-    private _confirmDialog(dgTitle: string, dgText: string, onOk: () => void ): JSX.Element {
-        const linkTarget: string = this.props.openInNewTab ? "_blank" : "_self";
-        return this.state.isDialogConfirmVisible && <DialogConfirm
-            dialogText={dgText}
-            dialogTitle={dgTitle}
-            onOk={onOk}
+    private _confirmDialog(): JSX.Element {
+        return this.state.dialogData.isDialogConfirmVisible && <DialogConfirm
+            dialogText={this.state.dialogData.dialogText}
+            dialogTitle={this.state.dialogData.dialogTitle}
+            onOk={this.state.dialogData.onOk}
+            onCancel={this._onConfirmDialogClose}
         />;
+    }
+
+    private _onConfirmDialogClose() {
+        this.setState({
+            dialogData: {
+                isDialogConfirmVisible: false,
+            } as IDialogData
+        } as ISpSiteContentMenuState);
     }
 
     private _onClick(event: React.MouseEvent<HTMLButtonElement>) {
@@ -92,10 +131,10 @@ class SpSiteContentMenu extends React.Component<ISpSiteContentMenuProps, ISpSite
 
 }
 
-interface IMapStateToProps{
+interface IMapStateToProps {
     openInNewTab: boolean;
 }
-interface IMapDispatchToISpSiteContentProps{
+interface IMapDispatchToISpSiteContentProps {
     setListVisibility: (item: ISiteContent) => Promise<void>;
     reIndexList: (item: ISiteContent) => Promise<void>;
     setListNoCrawl: (item: ISiteContent) => Promise<void>;

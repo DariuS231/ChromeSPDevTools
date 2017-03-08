@@ -1,11 +1,10 @@
 
-import * as React from "react";
-import Utils from "../utils";
-
 import { Button } from "office-ui-fabric-react/lib/Button";
 import { Label } from "office-ui-fabric-react/lib/Label";
 import { Link } from "office-ui-fabric-react/lib/Link";
 import { MessageBar as MsBar, MessageBarType } from "office-ui-fabric-react/lib/MessageBar";
+import * as React from "react";
+import Utils from "../utils";
 
 interface IMessageBarProps {
     messageType: MessageBarType;
