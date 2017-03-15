@@ -8,7 +8,8 @@ export default class Utils {
         debugger;
         const args: string = Array.prototype.slice.call(arguments, 1);
         const srt: string = Array.prototype.slice.call(arguments, 0, 1);
-        return srt.replace(/{(\d+)}/g, (match: any, number: number) => {
+
+        return (srt.length <= 0 ) ? "" : srt[0].replace(/{(\d+)}/g, (match: any, number: number) => {
             return typeof args[number] !== "undefined"
                 ? args[number]
                 : match
