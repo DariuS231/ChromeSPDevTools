@@ -4,6 +4,17 @@ export default class Utils {
     public static capitalize(srt: string): string {
         return srt.charAt(0).toUpperCase() + srt.slice(1);
     }
+    public static formatString(...objs: string[]): string {
+        debugger;
+        const args: string = Array.prototype.slice.call(arguments, 1);
+        const srt: string = Array.prototype.slice.call(arguments, 0, 1);
+        return srt.replace(/{(\d+)}/g, (match: any, number: number) => {
+            return typeof args[number] !== "undefined"
+                ? args[number]
+                : match
+                ;
+        });
+    }
     public static loadScript(url: string): Promise<any> {
         return new Promise((resolve, reject) => {
             const head = document.getElementsByTagName(constants.HTML_TAG_HEAD)[0];

@@ -1,8 +1,11 @@
 import { MessageBarType } from "office-ui-fabric-react/lib/MessageBar";
 import { ActionCreator, ActionCreatorsMapObject, Dispatch } from "redux";
 import SpSiteContentApi from "../api/spSiteContentApi";
-// tslint:disable-next-line:max-line-length
-import { IAllContentAndMessage, ISiteContent, ISpSiteContentActionCreatorsMapObject } from "../interfaces/spSiteContentInterfaces";
+import {
+    IAllContentAndMessage,
+    ISiteContent,
+    ISpSiteContentActionCreatorsMapObject
+} from "../interfaces/spSiteContentInterfaces";
 import { IAction, IMessageData } from "./../../common/interfaces";
 import { ActionsId as actions, SpSiteContentConstants as constants } from "./../constants/spSiteContentConstants";
 
