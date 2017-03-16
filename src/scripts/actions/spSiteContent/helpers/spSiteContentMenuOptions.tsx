@@ -3,11 +3,13 @@ import * as React from "react";
 import { MenuOptionType } from "../constants/enums";
 import { ISiteContent } from "../interfaces/spSiteContentInterfaces";
 
+type PropertyFunction = (item: ISiteContent) => ICustomOption | ICustomItemOption | IActionOption | ILinkOption;
+
 interface IModalDialogData {
     dialogTitle: string;
     dialogText: string;
 }
-interface ICustomSubMenu extends IContextualMenuProps{
+interface ICustomSubMenu extends IContextualMenuProps {
     items: Array<ICustomOption | ICustomItemOption | IActionOption | ILinkOption>;
 }
 
@@ -32,7 +34,7 @@ export interface ILinkOption extends ICustomItemOption {
     getOptionLink?: (item: ISiteContent) => string;
 }
 class SpSiteContentMenuHelper {
-    protected _options: Array<ILinkOption | IActionOption | ICustomOption> = [
+    protected _options: Array<ILinkOption | IActionOption | ICustomOption | PropertyFunction> = [
         {
             key: "New Item",
             iconProps: {
@@ -72,21 +74,23 @@ class SpSiteContentMenuHelper {
                 return item.userCanManageList && item.settingsUrl;
             }
         } as ILinkOption,
-        {
-            key: "Permissions",
-            iconProps: {
-                iconName: "Permissions"
-            },
-            name: "Permissions",
-            title: "Permissions",
-            optionType: MenuOptionType.Link,
-            linkTarget: "_blank",
-            siteContent: {} as ISiteContent,
-            onRender: this._renderCharmMenuItem,
-            getOptionLink: (item: ISiteContent): string => {
-                return item.userCanManageList && item.permissionsPageUrl;
-            }
-        } as ILinkOption,
+        (renderItem: ISiteContent): ILinkOption => {
+            return {
+                key: "Permissions",
+                iconProps: {
+                    iconName: "Permissions"
+                },
+                name: "Permissions",
+                title: "Permissions: " + renderItem.title,
+                optionType: MenuOptionType.Link,
+                linkTarget: "_blank",
+                siteContent: {} as ISiteContent,
+                onRender: this._renderCharmMenuItem,
+                getOptionLink: (item: ISiteContent): string => {
+                    return item.userCanManageList && item.permissionsPageUrl;
+                }
+            } as ILinkOption;
+        },
         {
             key: "Advanced Seetings",
             optionType: MenuOptionType.Parent,
@@ -238,43 +242,53 @@ class SpSiteContentMenuHelper {
 
     // tslint:disable-next-line:max-line-length
     public getMenuOptions(linkTarge: string, item: ISiteContent, actionItemClick: (ev?: React.MouseEvent<HTMLElement>, item?: IActionOption) => void): Array<ILinkOption | IActionOption | ICustomOption> {
-        return this.parseOptions(this._options, linkTarge, item, actionItemClick);
+        return this.parseAndFilterOptions(this._options, linkTarge, item, actionItemClick);
     }
 
     // tslint:disable-next-line:max-line-length
-    private parseOptions(options: Array<ICustomOption | ICustomItemOption | IActionOption | ILinkOption>, linkTarge: string, item: ISiteContent, actionItemClick: (ev?: React.MouseEvent<HTMLElement>, item?: IActionOption) => void)
+    private parseAndFilterOptions(options: Array<ICustomOption | ICustomItemOption | IActionOption | ILinkOption | PropertyFunction>, linkTarge: string, item: ISiteContent, actionItemClick: (ev?: React.MouseEvent<HTMLElement>, item?: IActionOption) => void)
         : Array<ICustomOption | ICustomItemOption | IActionOption | ILinkOption> {
-        const filteredOpts = options.filter((option: ICustomOption) => {
-            return !option.visibleIf || option.visibleIf(item);
-        });
-        return filteredOpts.map((option: ILinkOption | IActionOption | ICustomOption) => {
-            let retOption: ILinkOption | IActionOption | ICustomOption;
-            switch (option.optionType) {
-                case MenuOptionType.Link:
-                    retOption = { ...option, siteContent: item, linkTarget: linkTarge };
-                    break;
-                case MenuOptionType.Action:
-                    retOption = { ...option, onClick: actionItemClick, siteContent: item  };
-                    break;
-                case MenuOptionType.Custom:
-                    retOption = { ...option, siteContent: item };
-                    break;
-                default:
-                    retOption = option;
-                    break;
+        const newArray: Array<ICustomOption | ICustomItemOption | IActionOption | ILinkOption> = [];
+
+        options.forEach(option => {
+            let parsedOption: ICustomOption | ICustomItemOption | IActionOption | ILinkOption;
+
+            if (typeof option === "function") {
+                parsedOption = (option as PropertyFunction)(item);
+            } else {
+                parsedOption = option as ICustomOption | ICustomItemOption | IActionOption | ILinkOption;
             }
-            if (typeof retOption.subMenuProps !== "undefined") {
-                const newSuMenuProps = {
-                    items: this.parseOptions(retOption.subMenuProps.items, linkTarge, item, actionItemClick)
-                };
-                retOption = {
-                    ...option,
-                    subMenuProps: newSuMenuProps
-                };
+
+            if (!parsedOption.visibleIf || parsedOption.visibleIf(item)) {
+                switch (parsedOption.optionType) {
+                    case MenuOptionType.Link:
+                        parsedOption = { ...parsedOption, siteContent: item, linkTarget: linkTarge };
+                        break;
+                    case MenuOptionType.Action:
+                        parsedOption = { ...parsedOption, onClick: actionItemClick, siteContent: item };
+                        break;
+                    case MenuOptionType.Custom:
+                        parsedOption = { ...parsedOption, siteContent: item };
+                        break;
+                    default:
+                        parsedOption = parsedOption;
+                        break;
+                }
+                if (typeof parsedOption.subMenuProps !== "undefined") {
+                    const newSuMenuProps = {
+                        items: this.parseAndFilterOptions(parsedOption.subMenuProps.items, linkTarge, item, actionItemClick)
+                    };
+                    parsedOption = {
+                        ...parsedOption,
+                        subMenuProps: newSuMenuProps
+                    };
+                }
+                newArray.push(parsedOption);
             }
-            return retOption;
         });
+        return newArray;
     }
+
     private _renderCharmMenuItem(item: ILinkOption) {
         const linkUrl: string = item.getOptionLink(item.siteContent);
         // tslint:disable-next-line:max-line-length
