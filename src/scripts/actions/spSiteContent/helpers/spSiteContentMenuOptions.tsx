@@ -1,5 +1,6 @@
 import { IContextualMenuItem, IContextualMenuProps } from "office-ui-fabric-react/lib/ContextualMenu";
 import * as React from "react";
+import utils from "../../common/utils";
 import { MenuOptionType } from "../constants/enums";
 import { ISiteContent } from "../interfaces/spSiteContentInterfaces";
 
@@ -10,7 +11,7 @@ interface IModalDialogData {
     dialogText: string;
 }
 interface ICustomSubMenu extends IContextualMenuProps {
-    items: Array<ICustomOption | ICustomItemOption | IActionOption | ILinkOption>;
+    items: Array<ICustomOption | ICustomItemOption | IActionOption | ILinkOption | any>;
 }
 
 export interface ICustomOption extends IContextualMenuItem {
@@ -53,7 +54,6 @@ class SpSiteContentMenuHelper {
                 return item.userCanAddItems && !!item.newFormUrl;
             }
         } as ILinkOption,
-
         {
             key: "divider_1",
             optionType: MenuOptionType.Divider,
@@ -81,7 +81,7 @@ class SpSiteContentMenuHelper {
                     iconName: "Permissions"
                 },
                 name: "Permissions",
-                title: "Permissions: " + renderItem.title,
+                title: utils.formatString("Permissions: {0}", renderItem.title),
                 optionType: MenuOptionType.Link,
                 linkTarget: "_blank",
                 siteContent: {} as ISiteContent,
@@ -100,40 +100,31 @@ class SpSiteContentMenuHelper {
             },
             subMenuProps: {
                 items: [
-                    {
-                        dialogData: {
-                            dialogTitle: "Make visible?",
-                            dialogText: "Are you sure you want to make the selected List/Library visible?"
-                        },
-                        key: "MakeVisible",
-                        iconProps: {
-                            iconName: "RedEye"
-                        },
-                        name: "Make Visible",
-                        title: "Make Visible",
-                        optionType: MenuOptionType.Action,
-                        actionName: "setListVisibility",
-                        visibleIf: (item: ISiteContent): boolean => {
-                            return item.userCanManageList && item.hidden;
-                        }
-                    } as IActionOption,
-                    {
-                        dialogData: {
-                            dialogTitle: "Make hidden?",
-                            dialogText: "Are you sure you want to make the selected List/Library hidden?"
-                        },
-                        key: "MakeHidden",
-                        iconProps: {
-                            iconName: "Hide"
-                        },
-                        name: "Make Hidden",
-                        title: "Make Hidden",
-                        optionType: MenuOptionType.Action,
-                        actionName: "setListVisibility",
-                        visibleIf: (item: ISiteContent): boolean => {
-                            return item.userCanManageList && !item.hidden;
-                        }
-                    } as IActionOption,
+                    (renderItem: ISiteContent): IActionOption => {
+                        const dialogTitle = utils.formatString("Make {0}?", (renderItem.hidden ? "visible" : "hidden"));
+                        const dialogText = utils.formatString("Are you sure you want to make the {0} List {1}?",
+                            renderItem.title,
+                            (renderItem.hidden ? "visible" : "hidden"));
+                        const iconName = renderItem.hidden ? "RedEye" : "Hide";
+                        const optionTitle = utils.formatString("Make {0}", (renderItem.hidden ? "visible" : "hidden"));
+                        return {
+                            dialogData: {
+                                dialogTitle,
+                                dialogText
+                            },
+                            key: "MakeVisibility",
+                            iconProps: {
+                                iconName
+                            },
+                            name: optionTitle,
+                            title: optionTitle,
+                            optionType: MenuOptionType.Action,
+                            actionName: "setListVisibility",
+                            visibleIf: (item: ISiteContent): boolean => {
+                                return item.userCanManageList;
+                            }
+                        } as IActionOption;
+                    },
                     {
                         key: "ReIndex",
                         iconProps: {
@@ -144,77 +135,64 @@ class SpSiteContentMenuHelper {
                         optionType: MenuOptionType.Action,
                         actionName: "reIndexList",
                         visibleIf: (item: ISiteContent): boolean => {
-                            return item.userCanManageList && !item.noCrawl && window.location.hostname.indexOf(".sharepoint.com") > 0;
+                            return item.userCanManageList && !item.noCrawl
+                                && window.location.hostname.indexOf(".sharepoint.com") > 0;
                         }
                     } as IActionOption,
-                    {
-                        dialogData: {
-                            dialogTitle: "Disable attachment?",
-                            dialogText: "Are you sure you want prevent users from attaching files to items in this list?"
-                        },
-                        key: "SetAttachments",
-                        iconProps: {
-                            iconName: "Attach"
-                        },
-                        name: "Disable attachments",
-                        title: "Disable attachments",
-                        optionType: MenuOptionType.Action,
-                        actionName: "setListAttachments",
-                        visibleIf: (item: ISiteContent): boolean => {
-                            return item.userCanManageList && item.enableAttachments && item.baseType === 0;
-                        }
-                    } as IActionOption,
-                    {
-                        dialogData: {
-                            dialogTitle: "Enable attachment?",
-                            dialogText: "Are you sure you want allow users to attach files to items in this list?"
-                        },
-                        key: "SetAttachments",
-                        iconProps: {
-                            iconName: "Attach"
-                        },
-                        name: "Enable attachments",
-                        title: "Enable attachments",
-                        optionType: MenuOptionType.Action,
-                        actionName: "setListAttachments",
-                        visibleIf: (item: ISiteContent): boolean => {
-                            return item.userCanManageList && !item.enableAttachments && item.baseType === 0;
-                        }
-                    } as IActionOption,
-                    {
-                        dialogData: {
-                            dialogTitle: "Show items in search?",
-                            dialogText: "Are you sure you want allow items from this list to appear in search results?"
-                        },
-                        key: "SetNoCrawl",
-                        iconProps: {
-                            iconName: "StackIndicator"
-                        },
-                        name: "Show items in search",
-                        title: "Show items in search",
-                        optionType: MenuOptionType.Action,
-                        actionName: "setListNoCrawl",
-                        visibleIf: (item: ISiteContent): boolean => {
-                            return item.userCanManageList && item.noCrawl;
-                        }
-                    } as IActionOption,
-                    {
-                        dialogData: {
-                            dialogTitle: "Remove items in search?",
-                            dialogText: "Are you sure you want prevent items from this list to appear in search results?"
-                        },
-                        key: "SetNoCrawl",
-                        iconProps: {
-                            iconName: "StackIndicator"
-                        },
-                        name: "Don't Show items in search",
-                        title: "Don't Show items in search",
-                        optionType: MenuOptionType.Action,
-                        actionName: "setListNoCrawl",
-                        visibleIf: (item: ISiteContent): boolean => {
-                            return item.userCanManageList && !item.noCrawl;
-                        }
-                    } as IActionOption,
+                    (renderItem: ISiteContent): IActionOption => {
+                        const dialogTitle = utils.formatString("{0} attachments?",
+                            (renderItem.enableAttachments ? "Disable" : "Enable"));
+                        const dialogText = utils.formatString("Are you sure you {0} want to allow users to attach files to items in the {1} list?",
+                            (renderItem.enableAttachments ? "don't" : ""),
+                            renderItem.title);
+                        const optionTitle = utils.formatString("{0} attachments",
+                            (renderItem.enableAttachments ? "Disable" : "Enable"));
+
+                        return {
+                            dialogData: {
+                                dialogTitle,
+                                dialogText
+                            },
+                            key: "SetAttachments",
+                            iconProps: {
+                                iconName: "Attach"
+                            },
+                            name: optionTitle,
+                            title: optionTitle,
+                            optionType: MenuOptionType.Action,
+                            actionName: "setListAttachments",
+                            visibleIf: (item: ISiteContent): boolean => {
+                                return item.userCanManageList && item.baseType === 0;
+                            }
+                        } as IActionOption;
+                    },
+                    (renderItem: ISiteContent): IActionOption => {
+
+                        const dialogTitle = utils.formatString("{0} items in search?",
+                            (renderItem.noCrawl ? "Show" : "Hide"));
+                        const dialogText = utils.formatString("Are you sure you want {0} items from the {1} list in search result pages?",
+                            (renderItem.noCrawl ? "show" : "hide"),
+                            renderItem.title);
+                        const optionTitle = utils.formatString("{0} items in search",
+                            (renderItem.noCrawl ? "Show" : "Hide"));
+                        return {
+                            dialogData: {
+                                dialogTitle,
+                                dialogText
+                            },
+                            key: "SetCrawl",
+                            iconProps: {
+                                iconName: "StackIndicator"
+                            },
+                            name: optionTitle,
+                            title: optionTitle,
+                            optionType: MenuOptionType.Action,
+                            actionName: "setListNoCrawl",
+                            visibleIf: (item: ISiteContent): boolean => {
+                                return item.userCanManageList;
+                            }
+                        } as IActionOption;
+                    }
                 ]
             }
         },
