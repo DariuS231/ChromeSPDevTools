@@ -196,26 +196,30 @@ class SpSiteContentMenuHelper {
                 ]
             }
         },
-        {
-            dialogData: {
-                dialogTitle: "Remove Item?",
-                dialogText: "Are you sure you want to sent th selected List/Library to the recicly bin?"
-            },
-            key: "Delete",
-            iconProps: {
-                iconName: "Delete",
-                style: {
-                    color: "red"
+        (renderItem: ISiteContent): IActionOption => {
+            const dialogText = utils.formatString("Are you sure you want to send the {0} List to the recicly bin?",
+                renderItem.title);
+            return {
+                dialogData: {
+                    dialogTitle: "Delete List?",
+                    dialogText
+                },
+                key: "Delete",
+                iconProps: {
+                    iconName: "Delete",
+                    style: {
+                        color: "red"
+                    }
+                },
+                name: "Delete",
+                title: "Delete",
+                optionType: MenuOptionType.Action,
+                actionName: "recycleList",
+                visibleIf: (item: ISiteContent): boolean => {
+                    return item.userCanManageList;
                 }
-            },
-            name: "Delete",
-            title: "Delete",
-            optionType: MenuOptionType.Action,
-            actionName: "recycleList",
-            visibleIf: (item: ISiteContent): boolean => {
-                return item.userCanManageList;
-            }
-        } as IActionOption
+            } as IActionOption;
+        }
     ];
 
     // tslint:disable-next-line:max-line-length
