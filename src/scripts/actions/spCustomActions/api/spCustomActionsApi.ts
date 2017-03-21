@@ -8,7 +8,6 @@ export default class SpCustomActionsApi extends ApiBase {
 
     public getCustomActions(caType: CustomActionType): Promise<ICustomAction[]> {
         return new Promise((resolve, reject) => {
-            this.reject = reject;
             // tslint:disable-next-line:max-line-length
             const reqUrl = `${_spPageContextInfo.webAbsoluteUrl}/_api/${CustomActionType[caType]}${constants.CUSTOM_ACTION_REST_REQUEST_URL}`;
             this.getRequest(reqUrl).then((response: any) => {
@@ -49,14 +48,13 @@ export default class SpCustomActionsApi extends ApiBase {
                 }
                 resolve(cusctomActions);
             }).catch((error: any) => {
-                this.reject(error);
+                reject(error);
             });
         });
     }
 
     public deleteCustomAction(caObj: ICustomAction, caType: CustomActionType): Promise<ICustomAction> {
         return new Promise((resolve, reject) => {
-            this.reject = reject;
             const caGuid: SP.Guid = new SP.Guid(caObj.id);
             const ctx: SP.ClientContext = SP.ClientContext.get_current();
             const ca: SP.UserCustomAction = (caType === CustomActionType.Web)
@@ -66,7 +64,7 @@ export default class SpCustomActionsApi extends ApiBase {
             ca.deleteObject();
             ctx.executeQueryAsync((sender: any, err: any) => {
                 resolve(caObj);
-            }, this.requestErrorEventHandler);
+            },  this.getErroResolver(reject, constants.ERROR_MESSAGE_DELETING_CUSTOM_ACTION));
         });
     }
 
@@ -80,7 +78,6 @@ export default class SpCustomActionsApi extends ApiBase {
 
     private setCustomAction(caObj: ICustomAction, caType: CustomActionType, isNewCa: boolean): Promise<ICustomAction> {
         return new Promise((resolve, reject) => {
-            this.reject = reject;
             const ctx: SP.ClientContext = SP.ClientContext.get_current();
             const partenObj = (caType === CustomActionType.Web)
                 ? ctx.get_web()
@@ -109,7 +106,7 @@ export default class SpCustomActionsApi extends ApiBase {
             ctx.load(ca);
             ctx.executeQueryAsync((sender: any, err: any) => {
                 resolve({ ...caObj, id: ca.get_id().toString() });
-            }, this.requestErrorEventHandler);
+            },  this.getErroResolver(reject, constants.ERROR_MESSAGE_SETTING_CUSTOM_ACTION));
         });
     }
 }

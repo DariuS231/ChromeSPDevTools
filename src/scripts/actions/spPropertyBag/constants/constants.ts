@@ -24,6 +24,7 @@ export const constants  = {
     ERROR_MESSAGE_DELETE_PROPERTY: "An error occurred deleting the selected web property",
     ERROR_MESSAGE_GET_ALL_PROPERTIES: "An error occurred gettin all web properties",
     ERROR_MESSAGE_UPDATE_PROPERTY: "An error occurred updating the selected web property",
+    ERROR_MESSAGE_RESOLVER_SETTING_PROPERTY: "Setting the value of the Property Bag",
     MESSAGE_PROPERTY_CREATED: "A new property has been created.",
     MESSAGE_PROPERTY_DELETED: "The selected property has been deleted.",
     MESSAGE_PROPERTY_UPDATED: "The selected property has been updated.",

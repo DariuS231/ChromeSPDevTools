@@ -7,7 +7,6 @@ export default class SpFeaturesApi extends ApiBase {
 
     public getFeatures(scope: FeatureScope): Promise<IFeature[]> {
         return new Promise((resolve, reject) => {
-            this.reject = reject;
             const url = _spPageContextInfo.webAbsoluteUrl
                 + "/_layouts/ManageFeatures.aspx"
                 + (scope === FeatureScope.Site ? "?Scope=Site" : "");
@@ -34,14 +33,13 @@ export default class SpFeaturesApi extends ApiBase {
                 }
                 resolve(items);
             }).catch((error: any) => {
-                this.reject(error);
+                reject(error);
             });
         });
     }
 
     public activateFeature(feature: IFeature): Promise<IFeature> {
         return new Promise((resolve, reject) => {
-            this.reject = reject;
             const ctx = SP.ClientContext.get_current();
             if (feature.scope === FeatureScope.Site) {
                 ctx.get_site().get_features().add(new SP.Guid(feature.id), true, SP.FeatureDefinitionScope.none);
@@ -57,7 +55,7 @@ export default class SpFeaturesApi extends ApiBase {
                 } else {
                     ctx.get_web().get_features().add(new SP.Guid(feature.id), true, SP.FeatureDefinitionScope.site);
                 }
-                ctx.executeQueryAsync(onSuccess, this.requestErrorEventHandler);
+                ctx.executeQueryAsync(onSuccess,  this.getErroResolver(reject, constants.ERROR_MESSAGE_RESOLVER_ACTIVATING_FEATURE));
             };
             ctx.executeQueryAsync(onSuccess, onError);
         });
@@ -65,7 +63,6 @@ export default class SpFeaturesApi extends ApiBase {
 
     public deActivateFeature(feature: IFeature): Promise<IFeature> {
         return new Promise((resolve, reject) => {
-            this.reject = reject;
             const ctx = SP.ClientContext.get_current();
 
             if (feature.scope === FeatureScope.Site) {
@@ -76,7 +73,7 @@ export default class SpFeaturesApi extends ApiBase {
 
             ctx.executeQueryAsync((sender: any, err: any) => {
                 resolve({ ...feature, activated: false });
-            }, this.requestErrorEventHandler);
+            },  this.getErroResolver(reject, constants.ERROR_MESSAGE_RESOLVER_DEACTIVATING_FEATURE));
         });
     }
 }

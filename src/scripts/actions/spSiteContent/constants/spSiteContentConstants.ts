@@ -1,6 +1,11 @@
 export const SpSiteContentConstants = {
     ERROR_MESSAGE_GET_ALL_SITE_CONTENT: "An error occurred getting all site content.",
     ERROR_MESSAGE_REINDEX_LIST: "An error occurred sending the list reindex request.",
+    ERROR_MESSAGE_RESOLVER_GETTING_LISTS: "Getting the lists and libraries",
+    ERROR_MESSAGE_RESOLVER_SETTING_VISIBILITY: "Setting the Visibility of the list",
+    ERROR_MESSAGE_RESOLVER_SETTING_ATTACHMENTS: "Setting the attachments",
+    ERROR_MESSAGE_RESOLVER_SETTING_NO_CRAWL: "Setting no crawl",
+    ERROR_MESSAGE_RESOLVER_DELETING_LIST: "Deleting the list",
     ERROR_MESSAGE_SET_LIST_ATTACHMENTS_ENABLE: "An error occurred setting the attachments.",
     ERROR_MESSAGE_SET_LIST_NO_CRAWL: "An error occurred setting list crawl.",
     ERROR_MESSAGE_SET_LIST_VISIBILITY: "An error occurred setting the list visibility.",

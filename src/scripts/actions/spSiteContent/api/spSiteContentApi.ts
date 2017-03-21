@@ -5,7 +5,6 @@ import { SpSiteContentConstants as constants } from "./../constants/spSiteConten
 export default class SpSiteContentApi extends ApiBase {
     public getLists(): Promise<ISiteContent[]> {
         return new Promise((resolve, reject) => {
-            this.reject = reject;
             const ctx = SP.ClientContext.get_current();
             const web = ctx.get_web();
             const siteConetent = web.get_lists();
@@ -58,12 +57,11 @@ export default class SpSiteContentApi extends ApiBase {
                 });
                 resolve(items);
             };
-            ctx.executeQueryAsync(onSuccess, this.requestErrorEventHandler);
+            ctx.executeQueryAsync(onSuccess, this.getErroResolver(reject, constants.ERROR_MESSAGE_RESOLVER_GETTING_LISTS));
         });
     }
     public setListVisibility(item: ISiteContent): Promise<boolean> {
         return new Promise((resolve, reject) => {
-            this.reject = reject;
             const ctx = SP.ClientContext.get_current();
             const web = ctx.get_web();
             const list: SP.List = web.get_lists().getById(item.id);
@@ -78,13 +76,12 @@ export default class SpSiteContentApi extends ApiBase {
             const onSuccess = (sender: any, args: SP.ClientRequestSucceededEventArgs) => {
                 resolve(true);
             };
-            ctx.executeQueryAsync(onSuccess, this.requestErrorEventHandler);
+            ctx.executeQueryAsync(onSuccess, this.getErroResolver(reject, constants.ERROR_MESSAGE_RESOLVER_SETTING_VISIBILITY));
         });
     }
 
     public setAttachments(item: ISiteContent): Promise<boolean> {
         return new Promise((resolve, reject) => {
-            this.reject = reject;
             const ctx = SP.ClientContext.get_current();
             const web = ctx.get_web();
             const list: SP.List = web.get_lists().getById(item.id);
@@ -99,13 +96,12 @@ export default class SpSiteContentApi extends ApiBase {
             const onSuccess = (sender: any, args: SP.ClientRequestSucceededEventArgs) => {
                 resolve(true);
             };
-            ctx.executeQueryAsync(onSuccess, this.requestErrorEventHandler);
+            ctx.executeQueryAsync(onSuccess, this.getErroResolver(reject, constants.ERROR_MESSAGE_RESOLVER_SETTING_ATTACHMENTS));
         });
     }
 
     public setNoCrawl(item: ISiteContent): Promise<boolean> {
         return new Promise((resolve, reject) => {
-            this.reject = reject;
             const ctx = SP.ClientContext.get_current();
             const web = ctx.get_web();
             const list: SP.List = web.get_lists().getById(item.id);
@@ -120,13 +116,12 @@ export default class SpSiteContentApi extends ApiBase {
             const onSuccess = (sender: any, args: SP.ClientRequestSucceededEventArgs) => {
                 resolve(true);
             };
-            ctx.executeQueryAsync(onSuccess, this.requestErrorEventHandler);
+            ctx.executeQueryAsync(onSuccess, this.getErroResolver(reject, constants.ERROR_MESSAGE_RESOLVER_SETTING_NO_CRAWL));
         });
     }
 
     public recycleList(item: ISiteContent): Promise<boolean> {
         return new Promise((resolve, reject) => {
-            this.reject = reject;
             const ctx = SP.ClientContext.get_current();
             const web = ctx.get_web();
             const list: SP.List = web.get_lists().getById(item.id);
@@ -136,7 +131,7 @@ export default class SpSiteContentApi extends ApiBase {
             const onSuccess = (sender: any, args: SP.ClientRequestSucceededEventArgs) => {
                 resolve(true);
             };
-            ctx.executeQueryAsync(onSuccess, this.requestErrorEventHandler);
+            ctx.executeQueryAsync(onSuccess, this.getErroResolver(reject, constants.ERROR_MESSAGE_RESOLVER_DELETING_LIST));
         });
     }
     public reIndex(item: ISiteContent): Promise<SP.UI.DialogResult> {

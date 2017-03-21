@@ -16,6 +16,8 @@ export const constants  = {
     COMPONENT_DIV_ID: "spFeaturesBaseDiv",
     EMPTY_STRING: "",
     ERROR_MESSAGE_ACTIVATING_FEATURE: "An error occurred activating the selected feature",
+    ERROR_MESSAGE_RESOLVER_ACTIVATING_FEATURE: "Activating the selected feature",
+    ERROR_MESSAGE_RESOLVER_DEACTIVATING_FEATURE: "Deactivating the selected feature",
     ERROR_MESSAGE_CHECK_USER_PERMISSIONS: "An error occurred checking current user's permissions",
     ERROR_MESSAGE_DEACTIVATING_FEATURE: "An error occurred deactivating the selected feature",
     ERROR_MESSAGE_GETTING_FEATURES: "An error occurred getting all the features",

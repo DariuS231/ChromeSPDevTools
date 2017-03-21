@@ -2,14 +2,13 @@ import * as axios from "axios";
 import { constants } from "./constants";
 
 export default class ApiBase {
-    protected reject: (reason?: any) => void;
-
-    constructor() {
-        this.requestErrorEventHandler = this.requestErrorEventHandler.bind(this);
-    }
-
-    public requestErrorEventHandler(sender: any, err: SP.ClientRequestFailedEventArgs): void {
-        this.reject(err.get_message());
+    protected getErroResolver(reject: (reason?: any) => void, actionText: string): (sender: any, err: SP.ClientRequestFailedEventArgs) => void {
+        return (sender: any, err: SP.ClientRequestFailedEventArgs): void => {
+            const errorMsg: string = err.get_message();
+            const errorTrace: string = err.get_stackTrace();
+            console.log("An error occured while " + actionText + "\nMessage: " + errorMsg + "\nError Trace: " + errorTrace);
+            reject(errorMsg);
+        }
     }
 
     public getRequest(url: string) {
@@ -24,7 +23,7 @@ export default class ApiBase {
             const web = ctx.get_web();
 
             if (typeof web.doesUserHavePermissions !== constants.TYPE_OF_FUNCTION) {
-                this.reject(constants.MESSAGE_CANT_CHECK_PERMISSIONS);
+                reject(constants.MESSAGE_CANT_CHECK_PERMISSIONS);
             } else {
                 const ob: SP.BasePermissions = new SP.BasePermissions();
                 ob.set(permKind);
@@ -33,7 +32,7 @@ export default class ApiBase {
                 const onSuccess = (sender: any, args: SP.ClientRequestSucceededEventArgs) => {
                     resolve(per.get_value());
                 };
-                ctx.executeQueryAsync(onSuccess, this.requestErrorEventHandler);
+                ctx.executeQueryAsync(onSuccess, this.getErroResolver(reject, constants.MESSAGE_CHECKING_CURRENT_USER_PERMISSIONS));
             }
         });
 

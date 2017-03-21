@@ -21,6 +21,8 @@ export const constants = {
     EDIT_TEXT: "Edit",
     EMPTY_STRING: "",
     EMPTY_TEXTBOX_ERROR_MESSAGE: "The value can not be empty",
+    ERROR_MESSAGE_DELETING_CUSTOM_ACTION: "Deleting the custom action",
+    ERROR_MESSAGE_SETTING_CUSTOM_ACTION: "Creating or updating the custom action",
     ERROR_MESSAGE_CHECK_USER_PERMISSIONS: "An error occurred checking current user's permissions",
     ERROR_MESSAGE_CREATE_CUSTOM_ACTION: "An error occurred creating a new web custom action",
     ERROR_MESSAGE_DELETE_CUSTOM_ACTION: "An error occurred deleting the selected custom action",

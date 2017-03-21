@@ -12,6 +12,7 @@ export const constants  = {
     HTML_TAG_LINK: "link",
     HTML_TAG_SCRIPT: "script",
     MESSAGE_CANT_CHECK_PERMISSIONS: "Cannot check permissions against a non-securable object.",
+    MESSAGE_CHECKING_CURRENT_USER_PERMISSIONS: "Checking current's user permission",
     MODAL_WRAPPER_CLOSE_BUTTON_HREF: "javascript:void(0)",
     MODAL_WRAPPER_CLOSE_BUTTON_TEXT: "Close",
     SCRIPT_TAG_TYPE: "text/javascript",
