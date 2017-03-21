@@ -1,4 +1,5 @@
 import * as React from "react";
+import { constants } from "../constants";
 import Utils from "../utils";
 
 interface ISpCustomModalWrapperProps {
@@ -13,7 +14,6 @@ export default class SpCustomModalWrapper extends React.Component<ISpCustomModal
         this.closeBtnClick = this.closeBtnClick.bind(this);
     }
     public render() {
-
         return <div className="chrome-sp-dev-tool-wrapper">
             <div
                 className="sp-dev-too-modal"
@@ -25,9 +25,9 @@ export default class SpCustomModalWrapper extends React.Component<ISpCustomModal
                     >{this.props.modalDialogTitle}
                     </span>
                     <a
-                        title="Close"
+                        title={constants.MODAL_WRAPPER_CLOSE_BUTTON_TEXT}
                         className="ms-Button ms-Button--icon sp-dev-tool-close-btn"
-                        href="javascript:void(0)"
+                        href={constants.MODAL_WRAPPER_CLOSE_BUTTON_HREF}
                         onClick={this.closeBtnClick}
                     >
                         <span className="ms-Button-icon">

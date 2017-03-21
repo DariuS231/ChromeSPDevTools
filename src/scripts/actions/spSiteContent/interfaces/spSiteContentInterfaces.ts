@@ -8,12 +8,19 @@ export interface ISiteContent {
     hidden: boolean;
     itemCount: number;
     imageUrl: string;
-    created: any;
-    lastModified: any;
+    created: Date;
+    lastModified: Date;
     listUrl: string;
     settingsUrl: string;
     newFormUrl: string;
     permissionsPageUrl: string;
+    reIndexUrl: string;
+    enableAttachments: boolean;
+    baseTemplate: number;
+    baseType: number;
+    noCrawl: boolean;
+    userCanAddItems: boolean;
+    userCanManageList: boolean;
 }
 
 export interface IInitialState {
@@ -30,6 +37,13 @@ export interface ISpSiteContentActionCreatorsMapObject extends ActionCreatorsMap
     setShowAll: ActionCreator<IAction<boolean>>;
     setOpenInNewWindow: ActionCreator<IAction<boolean>>;
     setFilter: ActionCreator<IAction<string>>;
+    // tslint:disable-next-line:max-line-length
+    setListVisibility: (item: ISiteContent) => (dispatch: Dispatch<IAction<ISiteContent[]>>) => Promise<void>;
+    reIndexList: (item: ISiteContent) => (dispatch: Dispatch<IAction<ISiteContent[]>>) => Promise<void>;
+    setListNoCrawl: (item: ISiteContent) => (dispatch: Dispatch<IAction<ISiteContent[]>>) => Promise<void>;
+    setListAttachments: (item: ISiteContent) => (dispatch: Dispatch<IAction<ISiteContent[]>>) => Promise<void>;
+    setMessageData: ActionCreator<IAction<IMessageData>>;
+    recycleList: (item: ISiteContent) => (dispatch: Dispatch<IAction<ISiteContent[]>>) => Promise<void>;
 }
 
 export interface IMapDispatchToProps {
@@ -65,4 +79,9 @@ export interface IMapStateToProps {
     showAll: boolean;
     openInNewTab: boolean;
     filterText: string;
+}
+
+export interface IAllContentAndMessage {
+    siteContent: ISiteContent[];
+    messageData: IMessageData;
 }

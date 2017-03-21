@@ -1,10 +1,9 @@
-/* tslint:disable:max-line-length */
-
 import { Image, ImageFit } from "office-ui-fabric-react/lib/Image";
 import * as React from "react";
 import { ISiteContent } from "../interfaces/spSiteContentInterfaces";
 import { IconLink } from "./../../common/components/iconLink";
 import { SpSiteContentConstants as constants } from "./../constants/spSiteContentConstants";
+import SpSiteContentMenu from "./spSiteContentMenu";
 
 interface ISpSiteContentItemProps {
     item: ISiteContent;
@@ -31,25 +30,14 @@ export const SpSiteContentItem: React.StatelessComponent<ISpSiteContentItemProps
                     {props.item.title}
                 </a>
                 <div className="ms-ListBasicExample-itemIndex">
-                    {`${props.item.itemCount} Items`}
+                    {`Items: ${props.item.itemCount} `}
                 </div>
-                {props.item.newFormUrl && <IconLink title="New Item" text="New Item" icon="AddTo" href={props.item.newFormUrl} linkTarget={props.linkTarget} />}
+                <div className="ms-ListBasicExample-itemIndex">
+                    {`Modified: ${props.item.lastModified.toLocaleDateString()} ${props.item.lastModified.toLocaleTimeString()}`}
+                </div>
             </div>
             <div className="ms-ListItem-actions">
-                <IconLink
-                    title="Settings"
-                    href={props.item.settingsUrl}
-                    icon="Settings"
-                    linkTarget={props.linkTarget}
-                />
-                <IconLink
-                    title={`Permissions: ${props.item.title}`}
-                    href={props.item.permissionsPageUrl}
-                    icon="SecurityGroup"
-                    linkTarget={props.linkTarget}
-                />
+                <SpSiteContentMenu item={props.item} linkTarget={props.linkTarget} />
             </div>
         </div>
     );
-
-/* tslint:enable:max-line-length */

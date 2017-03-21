@@ -1,5 +1,5 @@
 import { MessageBarType } from "office-ui-fabric-react/lib/MessageBar";
-import { IInitialState, ISiteContent } from "../interfaces/spSiteContentInterfaces";
+import { IAllContentAndMessage, IInitialState, ISiteContent } from "../interfaces/spSiteContentInterfaces";
 import { IAction, IMessageData } from "./../../common/interfaces";
 import { ActionsId as actions, SpSiteContentConstants as constants } from "./../constants/spSiteContentConstants";
 
@@ -17,6 +17,14 @@ export const spSiteContentReducer = (state: IInitialState = initialState, action
         case actions.SET_SITE_CONTENT:
             const allSiteContent: ISiteContent[] = action.payload;
             return { ...state, isWorkingOnIt: false, siteLists: allSiteContent };
+        case actions.SET_SITE_CONTENT_AND_MESSAGE:
+            const allSiteContentAndMessage: IAllContentAndMessage = action.payload;
+            return {
+                ...state,
+                isWorkingOnIt: false,
+                messageData: allSiteContentAndMessage.messageData,
+                siteLists: allSiteContentAndMessage.siteContent
+            };
         case actions.SET_SHOW_ALL:
             const showAll: boolean = action.payload;
             return { ...state, showAll };
@@ -29,6 +37,9 @@ export const spSiteContentReducer = (state: IInitialState = initialState, action
         case actions.SET_MESSAGE_DATA:
             const messageData: IMessageData = action.payload;
             return { ...state, isWorkingOnIt: false, messageData };
+        case actions.SET_WORKING_ON_IT:
+            const isWorkingOnIt: boolean = action.payload;
+            return { ...state, isWorkingOnIt };
         default:
             return state;
     }

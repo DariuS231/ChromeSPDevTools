@@ -19,6 +19,10 @@ interface IMapDispatchToISpSiteContentProps {
     actions: ISpSiteContentActionCreatorsMapObject;
 }
 class SpSiteContent extends React.Component<ISpSiteContentProps, {}> {
+    constructor() {
+        super();
+        this.onMessageClose = this.onMessageClose.bind(this);
+    }
     public render() {
         if (this.props.isWorkingOnIt) {
             return <WorkingOnIt />;
@@ -26,6 +30,7 @@ class SpSiteContent extends React.Component<ISpSiteContentProps, {}> {
             return (
                 <div className="action-container sp-siteContent">
                     <MessageBar
+                        onCloseMessageClick={this.onMessageClose}
                         message={this.props.messageData.message}
                         messageType={this.props.messageData.type}
                         showMessage={this.props.messageData.showMessage}
@@ -60,6 +65,13 @@ class SpSiteContent extends React.Component<ISpSiteContentProps, {}> {
     }
     private componentDidMount() {
         this.props.actions.getAllSiteContent();
+    }
+    private onMessageClose() {
+        this.props.actions.setMessageData({
+            message: "",
+            showMessage: false,
+            type: MessageBarType.info
+        });
     }
 }
 

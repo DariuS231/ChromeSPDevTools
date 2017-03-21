@@ -1,5 +1,9 @@
 export const SpSiteContentConstants = {
     ERROR_MESSAGE_GET_ALL_SITE_CONTENT: "An error occurred getting all site content.",
+    ERROR_MESSAGE_REINDEX_LIST: "An error occurred sending the list reindex request.",
+    ERROR_MESSAGE_SET_LIST_ATTACHMENTS_ENABLE: "An error occurred setting the attachments.",
+    ERROR_MESSAGE_SET_LIST_NO_CRAWL: "An error occurred setting list crawl.",
+    ERROR_MESSAGE_SET_LIST_VISIBILITY: "An error occurred setting the list visibility.",
     changeEvent: "spSiteContentStorechange",
     getContentErrorMessage: "Failed to get web lists",
     itemImageHeight: 25,
@@ -19,8 +23,13 @@ export const SpSiteContentConstants = {
         "ImageUrl",
         "LastItemModifiedDate",
         "Description",
+        "EffectiveBasePermissions",
         "ParentWebUrl",
-        "DefaultNewFormUrl"
+        "DefaultNewFormUrl",
+        "EnableAttachments",
+        "BaseTemplate",
+        "BaseType",
+        "NoCrawl"
     ],
     settingsRelativeUrl: "/_layouts/listedit.aspx?List=",
     showingAllItemsMessage: "Showing all lists and libraries.",
@@ -33,5 +42,7 @@ export const ActionsId = {
     SET_OPEN_IN_NEW_TAB: "SET_OPEN_IN_NEW_TAB",
     SET_SHOW_ALL: "SET_SHOW_ALL",
     SET_SITE_CONTENT: "SET_SITE_CONTENT",
+    SET_SITE_CONTENT_AND_MESSAGE: "SET_SITE_CONTENT_AND_MESSAGE",
     SET_TEXT_FILTER: "SET_TEXT_FILTER",
+    SET_WORKING_ON_IT: "SET_WORKING_ON_IT"
 };

@@ -162,7 +162,7 @@ $dividerColor: $ms-color-neutralLight;
     .filters-container {
         margin-top: 10px;
     }
-        .ms-Button {
+    .ms-Button {
         display: block;
         font-size: large;
         margin: 5px;
@@ -199,7 +199,7 @@ $dividerColor: $ms-color-neutralLight;
     background-color: rgba(0, 0, 0, 0.498039);
     top: 0px;
     bottom: 0px;
-    z-index: 9999;
+    z-index: 1500;
     >.sp-dev-too-modal {
         background: white;
         width: 700px;
@@ -217,20 +217,20 @@ $dividerColor: $ms-color-neutralLight;
             }
         }
     }
-    .ms-Button{
-        &[disabled]{
-          background: transparent;
-          .ms-Icon {
-              color: #b1b1b1 !important;
-          }
+    .ms-Button {
+        &[disabled] {
+            background: transparent;
+            .ms-Icon {
+                color: #b1b1b1 !important;
+            }
         }
-        .ms-Button-label{
-              vertical-align: top;
-              i{
-                    margin-left: 25px;
-              }
+        .ms-Button-label {
+            vertical-align: top;
+            i {
+                margin-left: 25px;
+            }
         }
-      }
+    }
 }
 
 
@@ -243,10 +243,10 @@ $dividerColor: $ms-color-neutralLight;
     text-align: center;
     vertical-align: middle;
     margin-top: 6.5px;
-    .ms-Spinner>.ms-Spinner-circle.ms-Spinner--large{
-      width: 60px;
-      height: 60px;
-      border-width: 10px;
+    .ms-Spinner>.ms-Spinner-circle.ms-Spinner--large {
+        width: 60px;
+        height: 60px;
+        border-width: 10px;
     }
 }
 
@@ -282,8 +282,8 @@ $dividerColor: $ms-color-neutralLight;
     .ms-List-cell {
         width: 50%;
         display: inline-block;
-        .ms-ListBasicExample-itemCell{
-          min-height: 90px;
+        .ms-ListBasicExample-itemCell {
+            min-height: 90px;
         }
         &:nth-child(odd) {
             .ms-ListBasicExample-itemCell {
@@ -316,6 +316,14 @@ $dividerColor: $ms-color-neutralLight;
             margin-top: 10px;
         }
     }
+    #ContextualMenuButtonDiv {
+        .ms-Button--icon {
+            min-width: 35px;
+            &:hover {
+                background-color: #c6c6c6;
+            }
+        }
+    }
 }
 
 
@@ -344,18 +352,20 @@ $dividerColor: $ms-color-neutralLight;
             display: inline-block;
         }
     }
-    .ms-Dropdown{
-      margin-bottom: 0px;
+    .ms-Dropdown {
+        margin-bottom: 0px;
     }
-    .edit-form-title{
+    .edit-form-title {
         margin: 10px;
     }
-    #ContextualMenuButton{
+    #ContextualMenuButton {
         width: 100%;
     }
 }
-.ms-ContextualMenu-link{
+
+.ms-ContextualMenu-link {
     margin-left: 0;
+    text-decoration: none !important;
 }
 
 // /***   Web/Site Features ***/
@@ -395,6 +405,3 @@ $dividerColor: $ms-color-neutralLight;
         margin-left: 5px;
     }
 }
-
-
-
