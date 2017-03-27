@@ -54,7 +54,7 @@ class SpSiteContentMenu extends React.Component<ISpSiteContentMenuProps, ISpSite
     }
 
     public render() {
-        return (<div id="ContextualMenuButtonDiv" ref={this._divRefCallBack}>
+        return (<div className="sp-siteContent-contextMenu" ref={this._divRefCallBack}>
             <IconButton
                 onClick={this._onClick}
                 icon="More"

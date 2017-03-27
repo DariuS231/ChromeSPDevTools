@@ -35,7 +35,7 @@ module.exports = {
     plugins: [
         new ExtractTextPlugin({
             filename: './styles/bundle.css',
-            allChunks: true,
+            allChunks: true
         })
     ],
     module: {
@@ -61,7 +61,6 @@ module.exports = {
             },
             {
                 test: /\.scss$/i,
-                exclude: /node_modules/,
                 use: ExtractTextPlugin.extract({
                     //fallback: 'style-loader',
                     fallbackLoader: 'style-loader',

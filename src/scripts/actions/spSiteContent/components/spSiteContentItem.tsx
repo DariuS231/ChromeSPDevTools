@@ -12,7 +12,7 @@ interface ISpSiteContentItemProps {
 
 export const SpSiteContentItem: React.StatelessComponent<ISpSiteContentItemProps> =
     (props: ISpSiteContentItemProps) => (
-        <div className="ms-ListBasicExample-itemCell" data-is-focusable={true}>
+        <div className="ms-ListBasicExample-itemCell">
             <Image
                 src={props.item.imageUrl}
                 width={constants.itemImageWidth}

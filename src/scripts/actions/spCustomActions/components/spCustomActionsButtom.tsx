@@ -21,7 +21,7 @@ export class SpCustomActionsButtom extends React.Component<{}, ISpCustomActionsB
     }
 
     public render() {
-        return (<div id="ContextualMenuButtonDiv" ref={this._divRefCallBack}>
+        return (<div className="spSiteContent_contextMenu" ref={this._divRefCallBack}>
             <Button
                 onClick={this._onClick}
                 id="ContextualMenuButton"

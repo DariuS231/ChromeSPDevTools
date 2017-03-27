@@ -1,6 +1,8 @@
 import * as ReactDOM from "react-dom";
 import { constants } from "./constants";
 
+import "./../styles/components.scss";
+
 export class AppBase {
     protected baseDivId: string;
     constructor(divId: string) {

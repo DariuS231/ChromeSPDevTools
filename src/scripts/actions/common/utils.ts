@@ -5,7 +5,6 @@ export default class Utils {
         return srt.charAt(0).toUpperCase() + srt.slice(1);
     }
     public static formatString(...objs: string[]): string {
-        debugger;
         const args: string = Array.prototype.slice.call(arguments, 1);
         const srt: string = Array.prototype.slice.call(arguments, 0, 1);
 
