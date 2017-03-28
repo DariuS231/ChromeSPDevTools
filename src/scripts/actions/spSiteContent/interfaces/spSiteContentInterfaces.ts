@@ -8,6 +8,7 @@ export interface ISiteContent {
     hidden: boolean;
     itemCount: number;
     imageUrl: string;
+    isFavourite: boolean;
     created: Date;
     lastModified: Date;
     listUrl: string;

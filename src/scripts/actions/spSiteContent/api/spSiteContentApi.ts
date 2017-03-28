@@ -38,6 +38,7 @@ export default class SpSiteContentApi extends ApiBase {
                         hidden: oList.get_hidden(),
                         id: listId,
                         imageUrl: oList.get_imageUrl(),
+                        isFavourite: true,
                         itemCount: oList.get_itemCount(),
                         lastModified: oList.get_lastItemModifiedDate(),
                         listUrl: oList.get_rootFolder().get_serverRelativeUrl(),

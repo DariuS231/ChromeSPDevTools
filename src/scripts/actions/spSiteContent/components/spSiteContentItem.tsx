@@ -1,6 +1,7 @@
 import { Image, ImageFit } from "office-ui-fabric-react/lib/Image";
 import * as React from "react";
 import { ISiteContent } from "../interfaces/spSiteContentInterfaces";
+import { FavouriteButton } from "./../../common/components/favouriteButton";
 import { IconLink } from "./../../common/components/iconLink";
 import { SpSiteContentConstants as constants } from "./../constants/spSiteContentConstants";
 import SpSiteContentMenu from "./spSiteContentMenu";
@@ -37,6 +38,7 @@ export const SpSiteContentItem: React.StatelessComponent<ISpSiteContentItemProps
                 </div>
             </div>
             <div className="ms-ListItem-actions">
+                <FavouriteButton isFavourite={props.item.isFavourite} onClick={(event:any) => { console.log("Clicked Fav"); }} />
                 <SpSiteContentMenu item={props.item} linkTarget={props.linkTarget} />
             </div>
         </div>

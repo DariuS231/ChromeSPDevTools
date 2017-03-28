@@ -4,13 +4,13 @@
         "title": "Property bags",
         "description": "Create, Update or Delete Web Property Bags.",
         "image": "/images/sp-bag-64-blue.png",
-        "scriptUrl": "https://localhost:8080/dist/actions/SpPropertyBag/SpPropertyBag.js"
+        "scriptUrl": "https://localhost:8080/dist/actions/spPropertyBag/spPropertyBag.js"
     },
     {
         "title": "Site lists",
         "description": "All site lists, including hidden.",
         "image": "/images/content-management-64-blue.png",
-        "scriptUrl": "https://localhost:8080/dist/actions/SpSiteContent/SpSiteContent.js"
+        "scriptUrl": "https://localhost:8080/dist/actions/spSiteContent/spSiteContent.js"
     },
     {
         "title": "Site Custom Actions",
