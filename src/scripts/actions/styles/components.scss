@@ -217,6 +217,9 @@ $dividerColor: $ms-color-neutralLight;
             }
         }
     }
+    a.ms-Button.ms-Button--icon {
+        height: 25px;
+    }
     .ms-Button {
         &[disabled] {
             background: transparent;
@@ -273,6 +276,9 @@ $dividerColor: $ms-color-neutralLight;
     .spProp-create-button {
         padding-left: 17px;
     }
+    .ms-ListItem-actions {
+        width: 90px;
+    }
 }
 
 
@@ -286,6 +292,9 @@ $dividerColor: $ms-color-neutralLight;
             min-height: 90px;
             &:hover{
                 background-color: transparent !important;
+            }
+            .ms-ListItem-actions{
+              width: 30px;
             }
         }
         &:nth-child(odd) {
@@ -349,6 +358,11 @@ $dividerColor: $ms-color-neutralLight;
     }
     #ContextualMenuButton {
         width: 100%;
+        font-size: 14px !important;
+        i {
+          vertical-align: middle;
+          padding-left: 20px;
+        }
     }
 }
 

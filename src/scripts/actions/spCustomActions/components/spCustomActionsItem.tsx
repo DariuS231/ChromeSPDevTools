@@ -20,7 +20,7 @@ interface ICustomActionItemProps {
 
 const CustomActionItem: React.StatelessComponent<ICustomActionItemProps> = (props: ICustomActionItemProps) => {
 
-    const deleteCustomAction = (event: React.MouseEvent<HTMLButtonElement>) => {
+    const deleteCustomAction = (event: any) => {
         event.preventDefault();
         if (confirm("Are you sure you want to remove this Custom Action?")) {
             props.deleteCustomAction(props.item, props.caType);
@@ -64,13 +64,12 @@ const CustomActionItem: React.StatelessComponent<ICustomActionItemProps> = (prop
             {valueInput}
         </div>
         <div className="ms-ListItem-actions ms-Grid-col ms-u-sm1 ms-u-md1 ms-u-lg1">
-            <Button
-                buttonType={ButtonType.icon}
-                icon="Delete"
-                rootProps={{ title: "Delete" }}
-                ariaLabel="Delete"
-                onClick={deleteCustomAction}
-            />
+            <a title="Delete" aria-label="Delete" className="ms-Button ms-Button--icon" onClick={deleteCustomAction}>
+                <span className="ms-Button-icon">
+                    <i className="ms-Icon ms-Icon--Delete" />
+                </span>
+                <span className="ms-Button-label" />
+            </a>
             <Link title="Edit" aria-label="Edit" className="ms-Button ms-Button--icon" to={"item/" + props.item.id}>
                 <span className="ms-Button-icon">
                     <i className="ms-Icon ms-Icon--Edit" />

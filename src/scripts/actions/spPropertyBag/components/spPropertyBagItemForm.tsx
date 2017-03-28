@@ -1,4 +1,4 @@
-import { Button, ButtonType } from "office-ui-fabric-react/lib/Button";
+import { IconButton } from "office-ui-fabric-react/lib/Button";
 import { TextField } from "office-ui-fabric-react/lib/TextField";
 import * as React from "react";
 import { constants } from "./../constants/constants";
@@ -10,8 +10,8 @@ interface ISpPropertyBagItemFormProps {
     isEditMode: boolean;
     getErrorMessage: (value: string) => string | PromiseLike<string>;
     onInputValueChange: (newValue: any) => void;
-    topBtnClick: React.EventHandler<React.MouseEvent<Button | HTMLButtonElement | HTMLAnchorElement>>;
-    bottomBtnClick: React.EventHandler<React.MouseEvent<Button | HTMLButtonElement | HTMLAnchorElement>>;
+    topBtnClick: React.EventHandler<React.MouseEvent<IconButton | HTMLButtonElement | HTMLAnchorElement>>;
+    bottomBtnClick: React.EventHandler<React.MouseEvent<IconButton | HTMLButtonElement | HTMLAnchorElement>>;
 }
 
 export const SpPropertyBagItemForm: React.StatelessComponent<ISpPropertyBagItemFormProps> =
@@ -31,20 +31,19 @@ export const SpPropertyBagItemForm: React.StatelessComponent<ISpPropertyBagItemF
             />
         </div>
         <div className="ms-ListItem-actions ms-Grid-col ms-u-sm1 ms-u-md1 ms-u-lg1">
-            <Button
-                buttonType={ButtonType.icon}
-                icon={topBtnText}
-                rootProps={{ title: topBtnText }}
-                ariaLabel={topBtnText}
-                onClick={props.topBtnClick}
-            />
-            <Button
-                buttonType={ButtonType.icon}
-                icon={bottomBtnText}
-                rootProps={{ title: bottomBtnText }}
-                ariaLabel={bottomBtnText}
-                onClick={props.bottomBtnClick}
-            />
+            <a title={topBtnText} aria-label={topBtnText} className="ms-Button ms-Button--icon" onClick={props.topBtnClick}>
+                <span className="ms-Button-icon">
+                    <i className={"ms-Icon ms-Icon--" + topBtnText}/>
+                </span>
+                <span className="ms-Button-label" />
+            </a>
+
+            <a title={bottomBtnText} aria-label={bottomBtnText} className="ms-Button ms-Button--icon" onClick={props.bottomBtnClick}>
+                <span className="ms-Button-icon">
+                    <i className={"ms-Icon ms-Icon--" + bottomBtnText} />
+                </span>
+                <span className="ms-Button-label" />
+            </a>
         </div>
     </div>);
 };
