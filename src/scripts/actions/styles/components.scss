@@ -217,6 +217,9 @@ $dividerColor: $ms-color-neutralLight;
             }
         }
     }
+    a.ms-Button.ms-Button--icon {
+        height: 25px;
+    }
     .ms-Button {
         &[disabled] {
             background: transparent;
@@ -287,6 +290,9 @@ $dividerColor: $ms-color-neutralLight;
             &:hover{
                 background-color: transparent !important;
             }
+            .ms-ListItem-actions{
+              width: 30px;
+            }
         }
         &:nth-child(odd) {
             .ms-ListBasicExample-itemCell {
@@ -349,6 +355,12 @@ $dividerColor: $ms-color-neutralLight;
     }
     #ContextualMenuButton {
         width: 100%;
+        height: 30px;
+        font-size: 14px !important;
+        i {
+          vertical-align: middle;
+          padding-left: 20px;
+        }
     }
 }
 

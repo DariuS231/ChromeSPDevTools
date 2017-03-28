@@ -10,6 +10,6 @@ interface IIconLinkProps {
 }
 export const IconLink: React.StatelessComponent<IIconLinkProps> = (props: IIconLinkProps) => (
     <a target={props.linkTarget} href={props.href} title={props.title} className="ms-ListItem-action" >
-            <i className={`ms-Icon ms-Icon--${props.icon}`} /> {props.text}
+        <i className={`ms-Icon ms-Icon--${props.icon}`} /> {props.text}
     </a>
 );

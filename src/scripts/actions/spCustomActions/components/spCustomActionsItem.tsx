@@ -3,10 +3,11 @@ import { Button, ButtonType } from "office-ui-fabric-react/lib/Button";
 import { TextField } from "office-ui-fabric-react/lib/TextField";
 import * as React from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router";
 import { bindActionCreators, Dispatch } from "redux";
 import propertyActionsCreatorsMap from "../actions/SpCustomActionsActions";
 import { ICustomAction, IMapStateToPropsState } from "../interfaces/spCustomActionsInterfaces";
+import { IconButton } from "./../../common/components/iconButton";
+import { IconRouteLink } from "./../../common/components/iconRouteLink";
 import { ViewMode } from "./../../common/enums";
 import Utils from "./../../common/utils";
 import { CustomActionType } from "./../constants/enums";
@@ -20,7 +21,7 @@ interface ICustomActionItemProps {
 
 const CustomActionItem: React.StatelessComponent<ICustomActionItemProps> = (props: ICustomActionItemProps) => {
 
-    const deleteCustomAction = (event: React.MouseEvent<HTMLButtonElement>) => {
+    const deleteCustomAction = (event: any) => {
         event.preventDefault();
         if (confirm("Are you sure you want to remove this Custom Action?")) {
             props.deleteCustomAction(props.item, props.caType);
@@ -64,19 +65,8 @@ const CustomActionItem: React.StatelessComponent<ICustomActionItemProps> = (prop
             {valueInput}
         </div>
         <div className="ms-ListItem-actions ms-Grid-col ms-u-sm1 ms-u-md1 ms-u-lg1">
-            <Button
-                buttonType={ButtonType.icon}
-                icon="Delete"
-                rootProps={{ title: "Delete" }}
-                ariaLabel="Delete"
-                onClick={deleteCustomAction}
-            />
-            <Link title="Edit" aria-label="Edit" className="ms-Button ms-Button--icon" to={"item/" + props.item.id}>
-                <span className="ms-Button-icon">
-                    <i className="ms-Icon ms-Icon--Edit" />
-                </span>
-                <span className="ms-Button-label" />
-            </Link>
+            <IconButton icon="Delete" onClick={deleteCustomAction} title="Delete" />
+            <IconRouteLink icon="Edit" route={"item/" + props.item.id} title="Edit" />
         </div>
     </div>;
 

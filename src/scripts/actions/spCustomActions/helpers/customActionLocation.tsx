@@ -139,7 +139,7 @@ class CustomActionLocationHelper {
     }
 
     private _renderCharmMenuItem(item: ICustomActionType) {
-        return <Link className="ms-ContextualMenu-link" to={"newItem/" + item.type}>
+        return <Link className="ms-ContextualMenu-link" to={"newItem/" + item.type} key={item.name}>
             <div className="ms-ContextualMenu-linkContent">
                 <span className="ms-ContextualMenu-itemText ms-fontWeight-regular">{item.name}</span>
             </div>

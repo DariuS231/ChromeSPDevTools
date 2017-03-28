@@ -1,6 +1,6 @@
-import { Button, ButtonType } from "office-ui-fabric-react/lib/Button";
 import { TextField } from "office-ui-fabric-react/lib/TextField";
 import * as React from "react";
+import { IconButton } from "./../../common/components/iconButton";
 import { constants } from "./../constants/constants";
 
 interface ISpPropertyBagItemFormProps {
@@ -10,8 +10,8 @@ interface ISpPropertyBagItemFormProps {
     isEditMode: boolean;
     getErrorMessage: (value: string) => string | PromiseLike<string>;
     onInputValueChange: (newValue: any) => void;
-    topBtnClick: React.EventHandler<React.MouseEvent<Button | HTMLButtonElement | HTMLAnchorElement>>;
-    bottomBtnClick: React.EventHandler<React.MouseEvent<Button | HTMLButtonElement | HTMLAnchorElement>>;
+    topBtnClick: React.EventHandler<React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>>;
+    bottomBtnClick: React.EventHandler<React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>>;
 }
 
 export const SpPropertyBagItemForm: React.StatelessComponent<ISpPropertyBagItemFormProps> =
@@ -31,20 +31,8 @@ export const SpPropertyBagItemForm: React.StatelessComponent<ISpPropertyBagItemF
             />
         </div>
         <div className="ms-ListItem-actions ms-Grid-col ms-u-sm1 ms-u-md1 ms-u-lg1">
-            <Button
-                buttonType={ButtonType.icon}
-                icon={topBtnText}
-                rootProps={{ title: topBtnText }}
-                ariaLabel={topBtnText}
-                onClick={props.topBtnClick}
-            />
-            <Button
-                buttonType={ButtonType.icon}
-                icon={bottomBtnText}
-                rootProps={{ title: bottomBtnText }}
-                ariaLabel={bottomBtnText}
-                onClick={props.bottomBtnClick}
-            />
+            <IconButton title={topBtnText} icon={topBtnText} onClick={props.topBtnClick} />
+            <IconButton title={bottomBtnText} icon={bottomBtnText} onClick={props.bottomBtnClick} />
         </div>
     </div>);
 };
