@@ -1,5 +1,5 @@
 {
-  "stylesUrl": "https://cdn.rawgit.com/DariuS231/ChromeSPDevTools/a15f3e5968aed58bdc4f3418ed6cecc2201462d9/dist/actions/styles/bundle.css",
+  "stylesUrl": "https://localhost:8080/dist/actions/styles/bundle.css",
   "actions": [{
         "title": "Property bags",
         "description": "Create, Update or Delete Web Property Bags.",

@@ -1,12 +1,13 @@
 import { Button, ButtonType } from "office-ui-fabric-react/lib/Button";
 import * as React from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router";
 import { bindActionCreators, Dispatch } from "redux";
 import propertyActionsCreatorsMap from "../actions/SpCustomActionsActions";
 import { customActionLocationHelper, ILocationItem } from "../helpers/customActionLocation";
 import { ICustomAction, IMapStateToPropsState } from "../interfaces/spCustomActionsInterfaces";
 import { spCustomActionsHistory } from "../router/spCustomActionsHistory";
+import { IconButton } from "./../../common/components/iconButton";
+import { IconRouteLink } from "./../../common/components/iconRouteLink";
 import { WorkingOnIt } from "./../../common/components/WorkingOnIt";
 import { CustomActionType } from "./../constants/enums";
 
@@ -55,7 +56,7 @@ class SpCustomActionsItemEdit extends React.Component<ISpCustomActionsItemEditPr
         if (this.props.isWorkingOnIt) {
             return <WorkingOnIt />;
         } else {
-        return (<div>
+            return (<div>
                 <div className="ms-Grid-row">
                     <div className="ms-ListItem-actions ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
                         <h2 className="ms-font-xl ms-fontSize-xl ms-u-textAlignCenter edit-form-title">{titleStr}</h2>
@@ -64,20 +65,8 @@ class SpCustomActionsItemEdit extends React.Component<ISpCustomActionsItemEditPr
                 <div className="ms-ListBasicExample-itemCell  ms-Grid-row" data-is-focusable={true}>
                     {this.props.locationItem.renderForm(this.state.item, this.onInputChange)}
                     <div className="ms-ListItem-actions ms-Grid-col ms-u-sm1 ms-u-md1 ms-u-lg1">
-                        <Button
-                            buttonType={ButtonType.icon}
-                            icon="Save"
-                            rootProps={{ title: "Save" }}
-                            ariaLabel="Save"
-                            onClick={this.saveItem}
-                            disabled={disableSaveBtn}
-                        />
-                        <Link title="Cancel" aria-label="Cancel" className="ms-Button ms-Button--icon" to={"/"}>
-                            <span className="ms-Button-icon">
-                                <i className="ms-Icon ms-Icon--Cancel" />
-                            </span>
-                            <span className="ms-Button-label" />
-                        </Link>
+                        <IconButton icon="Save" onClick={this.saveItem} title="Save" disabled={disableSaveBtn} />
+                        <IconRouteLink icon="Cancel" route="/" title="Cancel" />
                     </div>
                 </div>
             </div>);
@@ -86,7 +75,7 @@ class SpCustomActionsItemEdit extends React.Component<ISpCustomActionsItemEditPr
     private updateOrCreateSuccess() {
         spCustomActionsHistory.History.push("/");
     }
-    private saveItem(event: React.MouseEvent<HTMLButtonElement>) {
+    private saveItem(event: React.MouseEvent<HTMLElement>) {
         event.preventDefault();
         if (this.state.item.id !== "") {
             this.props.updateCustomAction(this.state.item, this.props.customActionType).then(
