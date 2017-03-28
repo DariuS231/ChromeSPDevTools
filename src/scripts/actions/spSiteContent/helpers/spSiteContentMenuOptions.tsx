@@ -92,9 +92,9 @@ class SpSiteContentMenuHelper {
             } as ILinkOption;
         },
         {
-            key: "Advanced Seetings",
+            key: "Advanced Settings",
             optionType: MenuOptionType.Parent,
-            name: "Advanced Seetings",
+            name: "Advanced Settings",
             iconProps: {
                 iconName: "DeveloperTools"
             },
