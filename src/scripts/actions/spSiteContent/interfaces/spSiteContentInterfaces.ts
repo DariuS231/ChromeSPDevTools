@@ -37,6 +37,7 @@ export interface ISpSiteContentActionCreatorsMapObject extends ActionCreatorsMap
     getAllSiteContent: () => (dispatch: Dispatch<IAction<ISiteContent[]>>) => Promise<void>;
     setShowAll: ActionCreator<IAction<boolean>>;
     setOpenInNewWindow: ActionCreator<IAction<boolean>>;
+    setFavoirute: ActionCreator<IAction<ISiteContent>>;
     setFilter: ActionCreator<IAction<string>>;
     // tslint:disable-next-line:max-line-length
     setListVisibility: (item: ISiteContent) => (dispatch: Dispatch<IAction<ISiteContent[]>>) => Promise<void>;

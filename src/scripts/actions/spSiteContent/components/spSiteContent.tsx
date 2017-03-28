@@ -58,6 +58,7 @@ class SpSiteContent extends React.Component<ISpSiteContentProps, {}> {
                         linkTarget={this.props.openInNewTab ? "_blank" : "_self"}
                         filterString={this.props.filterText}
                         showAll={this.props.showAll}
+                        setFavourite={this.props.actions.setFavoirute}
                     />
                 </div>);
 

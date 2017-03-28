@@ -1,6 +1,7 @@
 import { MessageBarType } from "office-ui-fabric-react/lib/MessageBar";
 import { ActionCreator, ActionCreatorsMapObject, Dispatch } from "redux";
 import SpSiteContentApi from "../api/spSiteContentApi";
+import { Favourites } from "../helpers/favourites"
 import {
     IAllContentAndMessage,
     ISiteContent,
@@ -10,8 +11,6 @@ import { IAction, IMessageData } from "./../../common/interfaces";
 import { ActionsId as actions, SpSiteContentConstants as constants } from "./../constants/spSiteContentConstants";
 
 const api: SpSiteContentApi = new SpSiteContentApi();
-
-
 
 const setAllSiteContent: ActionCreator<IAction<ISiteContent[]>> =
     (siteContent: ISiteContent[]): IAction<ISiteContent[]> => {
@@ -58,6 +57,15 @@ const getAllSiteContent = (messageData?: IMessageData) => {
         }).catch((reason: any) => {
             dispatch(handleAsyncError(constants.ERROR_MESSAGE_GET_ALL_SITE_CONTENT, reason));
         });
+    };
+};
+const setFavoirute = (item: ISiteContent) => {
+    const { isFavourite, id } = item;
+    !isFavourite ? Favourites.addToFavourites(id) : Favourites.removeFromFavourites(id);
+
+    return {
+        payload: { ...item, isFavourite: !isFavourite },
+        type: actions.SET_FAVOURITE
     };
 };
 
@@ -186,6 +194,7 @@ const spSiteContentActionsCreatorMap: ISpSiteContentActionCreatorsMapObject = {
     getAllSiteContent,
     setShowAll,
     setOpenInNewWindow,
+    setFavoirute,
     setFilter,
     setListVisibility,
     setMessageData,

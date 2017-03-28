@@ -14,7 +14,7 @@ class Cache {
         this.CacheObject.removeItem(completeKey);
     }
 
-    public get(key: string): any {
+    public get<T>(key: string): T {
         const completeKey: string = this.addKeyPrefix(key);
         if (this.isSupportedStorage) {
             const cachedDataStr = this.CacheObject.getItem(completeKey);

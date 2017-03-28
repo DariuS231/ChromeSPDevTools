@@ -1,3 +1,4 @@
+import { Favourites } from "../helpers/favourites";
 import { ISiteContent } from "../interfaces/spSiteContentInterfaces";
 import ApiBase from "./../../common/apiBase";
 import { SpSiteContentConstants as constants } from "./../constants/spSiteContentConstants";
@@ -17,7 +18,7 @@ export default class SpSiteContentApi extends ApiBase {
                 const listEnumerator: any = siteConetent.getEnumerator();
                 while (listEnumerator.moveNext()) {
                     const oList: SP.List = listEnumerator.get_current();
-                    const listId: any = oList.get_id();
+                    const listId: any = oList.get_id().toString();
                     let paretnUrl = oList.get_parentWebUrl();
                     if (paretnUrl === "/") {
                         paretnUrl = location.origin;
@@ -38,7 +39,7 @@ export default class SpSiteContentApi extends ApiBase {
                         hidden: oList.get_hidden(),
                         id: listId,
                         imageUrl: oList.get_imageUrl(),
-                        isFavourite: true,
+                        isFavourite: Favourites.Favourites.indexOf(listId) >= 0,
                         itemCount: oList.get_itemCount(),
                         lastModified: oList.get_lastItemModifiedDate(),
                         listUrl: oList.get_rootFolder().get_serverRelativeUrl(),
