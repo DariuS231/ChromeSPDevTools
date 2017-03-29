@@ -6,7 +6,7 @@ interface IFavouriteButtonProps {
     isFavourite: boolean;
 }
 export const FavouriteButton: React.StatelessComponent<IFavouriteButtonProps> = (props: IFavouriteButtonProps) => {
-    const title: string = props.isFavourite ? "Remove from favourites" : "Add to favourites";
-    const starType: string = props.isFavourite ? "FavoriteStarFill" : "FavoriteStar";
+    const title: string = props.isFavourite ? "Unpin favourite" : "Pin as favourites";
+    const starType: string = props.isFavourite ? "PinnedFill" : "Pin";
     return <IconButton icon={starType} title={title} onClick={props.onClick} />;
 };
