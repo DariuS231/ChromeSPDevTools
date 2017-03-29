@@ -158,7 +158,7 @@ $dividerColor: $ms-color-neutralLight;
 .action-container {
     overflow-y: auto;
     overflow-x: hidden;
-    height: 95%;
+    height: 90%;
     .filters-container {
         margin-top: 10px;
     }
@@ -292,6 +292,10 @@ $dividerColor: $ms-color-neutralLight;
             }
             .ms-ListItem-actions{
               width: 30px;
+            }
+
+            .ms-ListBasicExample-itemContent{
+                width:50%;
             }
         }
         &:nth-child(odd) {
