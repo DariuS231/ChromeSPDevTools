@@ -17,7 +17,13 @@ export const SpSiteContentList: React.StatelessComponent<ISpSiteContentListProps
         const filter: string = props.filterString.toLowerCase();
         const items: ISiteContent[] = props.items.filter((item: ISiteContent, index: number) => {
             return (filter === "" || item.title.toLowerCase().indexOf(filter) >= 0)
-                && (props.showAll || item.hidden);
+                && (item.isFavourite || (props.showAll || item.hidden));
+        });
+
+        items.sort((a: ISiteContent, b: ISiteContent) => {
+            return (a.isFavourite === b.isFavourite)
+                ? (a.title.toUpperCase() < b.title.toUpperCase() ? -1 : 1)
+                : (a.isFavourite ? -1 : 1);
         });
         const renderListItem = (item: ISiteContent, index: number) => {
             return <SpSiteContentItem item={item} linkTarget={props.linkTarget} setFavourite={props.setFavourite} />;
