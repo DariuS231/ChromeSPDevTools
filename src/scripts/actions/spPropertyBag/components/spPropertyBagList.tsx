@@ -18,7 +18,9 @@ export const SpPropertyBagList:
             }) : props.items;
 
         properties.sort((a, b) => {
-            return a.key.localeCompare(b.key);
+            return (a.isFavourite === b.isFavourite)
+                ? (a.key.toUpperCase() < b.key.toUpperCase() ? -1 : 1)
+                : (a.isFavourite ? -1 : 1);
         });
         const renderListItem = (item: IProperty, index: number) => {
             return (<SpPropertyBagItem item={item} key={item.key} itemIndex={index} />);

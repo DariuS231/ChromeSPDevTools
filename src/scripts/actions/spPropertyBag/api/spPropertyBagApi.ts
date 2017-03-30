@@ -1,3 +1,4 @@
+import { Favourites } from "../helpers/spPropertyBagfavourites";
 import ApiBase from "./../../common/apiBase";
 import { constants } from "./../constants/constants";
 
@@ -28,9 +29,11 @@ export default class SpPropertyBagApi extends ApiBase {
                         const propVal = rawData[prop];
                         if (typeof (propVal) === constants.STRING_STRING) {
                             // tslint:disable-next-line:max-line-length
-                            const value = propVal.replace(constants.PROPERTY_REST_DOUBLEQUOTES_REGEX, constants.PROPERTY_REST_DOUBLEQUOTES);
+                            const value: string = propVal.replace(constants.PROPERTY_REST_DOUBLEQUOTES_REGEX, constants.PROPERTY_REST_DOUBLEQUOTES);
+                            const key: string = this.decodeSpCharacters(prop);
                             props.push({
-                                key: this.decodeSpCharacters(prop),
+                                isFavourite: Favourites.Favourites.indexOf(key) >= 0,
+                                key,
                                 value
                             });
                         }

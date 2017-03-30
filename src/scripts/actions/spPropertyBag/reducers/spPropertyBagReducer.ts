@@ -75,6 +75,17 @@ export const spPropertyBagReducer = (state: IInitialState = initialState, action
         case actions.HANDLE_ASYNC_ERROR:
             const errorMessage: IMessageData = action.payload;
             return { ...state, isWorkingOnIt: false, messageData: errorMessage };
+        case actions.SET_FAVOURITE:
+            const favItem: IProperty = action.payload;
+            const itemArray: IProperty[] = state.webProperties;
+            const filteredFav = itemArray.map((prop: IProperty, index: number) => {
+                if (prop.key !== favItem.key) {
+                    return prop;
+                } else {
+                    return favItem;
+                }
+            });
+            return { ...state, webProperties: filteredFav };
         default:
             return state;
     }

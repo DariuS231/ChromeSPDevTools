@@ -15,7 +15,9 @@ interface ISpSiteContentItemProps {
 
 export const SpSiteContentItem: React.StatelessComponent<ISpSiteContentItemProps> =
     (props: ISpSiteContentItemProps) => {
-        const favouriteClick = (event: any) => { props.setFavourite(props.item); };
+        const favouriteClick = (event: any) => {
+            props.setFavourite(props.item);
+        };
         return <div className="ms-ListBasicExample-itemCell">
             <Image
                 src={props.item.imageUrl}
