@@ -6,7 +6,5 @@
 /// <reference path="../node_modules/@types/react-redux/index.d.ts" />
 /// <reference path="../node_modules/@types/redux-immutable-state-invariant/index.d.ts" />
 /// <reference path="../node_modules/@types/sharepoint/index.d.ts" />
-/// <reference path="../node_modules/@types/whatwg-fetch/index.d.ts" />
 /// <reference path="../node_modules/@types/redux-thunk/index.d.ts" />
-/// <reference path="../node_modules/@types/node/index.d.ts" />
 /// <reference path="custom/custom.d.ts" />
