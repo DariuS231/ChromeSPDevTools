@@ -18,7 +18,7 @@ export default class ApiBase {
     }
 
     public checkUserPermissions(permKind: SP.PermissionKind): Promise<boolean> {
-        return new Promise((resolve: (value?: {} | PromiseLike<{}>) => void, reject: (reason?: any) => void) => {
+        return new Promise((resolve: (value?: boolean | PromiseLike<boolean>) => void, reject: (reason?: any) => void) => {
             const ctx = SP.ClientContext.get_current();
             const web = ctx.get_web();
 

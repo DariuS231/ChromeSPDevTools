@@ -3,11 +3,13 @@
         "typings/index.d.ts"
     ],
     "compilerOptions": {
-        "sourceMap": true,
         "noImplicitAny": true,
         "module": "commonjs",
         "target": "es5",
         "jsx": "react",
-        "moduleResolution": "node"
+        "moduleResolution": "node",
+        "lib": ["es2017", "dom"],
+        "sourceMap": false,
+        "typeRoots": ["./node_modules/@types"]
     }
 }
