@@ -21,7 +21,7 @@ const DATA = {
 };
 
 // tslint:disable-next-line:no-any
-export function createListItems(count: number, startIndex: number = 0): any {
+function createListItems(count: number, startIndex: number = 0): any {
     return Array.apply(null, Array(count)).map((item: number, index: number) => {
         let size = 150 + Math.round(Math.random() * 100);
 
@@ -39,7 +39,7 @@ export function createListItems(count: number, startIndex: number = 0): any {
     });
 }
 
-export function createGroups(
+function createGroups(
     groupCount: number,
     groupDepth: number,
     startIndex: number,
@@ -57,7 +57,7 @@ export function createGroups(
             name: 'group ' + key + index,
             startIndex: index * count + startIndex,
             level: level,
-            isCollapsed:true,
+            isCollapsed: true,
             children: groupDepth > 1 ?
                 createGroups(groupCount, groupDepth - 1, index * count + startIndex, itemsPerGroup, level + 1, key + index) :
                 []
@@ -65,13 +65,13 @@ export function createGroups(
     });
 }
 
-export function lorem(wordCount: number): string {
+function lorem(wordCount: number): string {
     return Array.apply(null, Array(wordCount))
         .map((item: number) => _randWord(LOREM_IPSUM))
         .join(' ');
 }
 
-export function isGroupable(key: string): boolean {
+function isGroupable(key: string): boolean {
     return key === 'color' ||
         key === 'shape' ||
         key === 'location';
@@ -128,15 +128,12 @@ function _onRenderFooter(props: IGroupDividerProps): JSX.Element {
 }
 
 const SpSearchResults: React.StatelessComponent<ISpSearchListProps> = (props: ISpSearchListProps) => {
-    return <div style={{ display: "inline-block", width: "70%" }} >
-        <GroupedList ref='groupedList' items={_items} onRenderCell={_onRenderCell} groupProps={
-            {
-                onRenderHeader: _onRenderHeader,
-                onRenderFooter: _onRenderFooter
-            }
-        }
-            groups={_groups}
-        />
+    return <div style={{ display: "inline-block", width: "70%", verticalAlign: 'top' }} >
+        <div style={{ top: "0", position: 'relative' }}>
+            <GroupedList ref='groupedList' items={_items} onRenderCell={_onRenderCell} groups={_groups}
+                groupProps={{ onRenderHeader: _onRenderHeader, onRenderFooter: _onRenderFooter }}
+            />
+        </div>
     </div>;
 };
 
