@@ -2,6 +2,7 @@ import { ActionCreator, ActionCreatorsMapObject, Dispatch } from "redux";
 import { IAction, IMessageData } from "./../../common/interfaces";
 
 export interface IProperty {
+    isFavourite: boolean;
     key: string;
     value: string;
 }
@@ -21,6 +22,7 @@ export interface ISpPropertyBagActionCreatorsMapObject extends ActionCreatorsMap
     getAllProperties: () => (dispatch: Dispatch<IAction<IProperty[]>>) => Promise<void>;
     checkUserPermissions: (permissionKing: SP.PermissionKind) =>
         (dispatch: Dispatch<IAction<IProperty[]>>) => Promise<void>;
+    setFavourite: ActionCreator<IAction<IProperty>>;
     setFilterText: ActionCreator<IAction<string>>;
     setWorkingOnIt: ActionCreator<IAction<boolean>>;
     setUserHasPermissions: ActionCreator<IAction<boolean>>;

@@ -8,47 +8,50 @@ export default class SpCustomActionsApi extends ApiBase {
 
     public getCustomActions(caType: CustomActionType): Promise<ICustomAction[]> {
         return new Promise((resolve, reject) => {
-            // tslint:disable-next-line:max-line-length
-            const reqUrl = `${_spPageContextInfo.webAbsoluteUrl}/_api/${CustomActionType[caType]}${constants.CUSTOM_ACTION_REST_REQUEST_URL}`;
-            this.getRequest(reqUrl).then((response: any) => {
-                let cusctomActions: ICustomAction[] = [];
-                const filters = customActionLocationHelper.supportedCustomActionsFilter;
-                const filtersCt = filters.length;
-                const caArray = response.data.value.filter((item: any) => {
-                    let locAllowed: boolean = false;
-                    let loopCt = 0;
-                    while (!locAllowed && loopCt < filtersCt) {
-                        locAllowed = filters[loopCt](item);
-                        loopCt++;
-                    }
-                    return locAllowed;
-                });
+            this.getWebUrl().then(webUrl => {
 
-                const caArrayLength = caArray.length;
-                for (let i = 0; i < caArrayLength; i++) {
-                    const ca: any = caArray[i];
-                    const scriptSrc: string = ca.ScriptSrc;
-                    const scriptBlock: string = ca.ScriptBlock;
-                    const url: string = ca.Url;
-
-                    cusctomActions = cusctomActions.concat({
-                        description: ca.Description,
-                        group: ca.Group,
-                        id: ca.Id,
-                        imageUrl: ca.ImageUrl,
-                        location: ca.Location,
-                        name: ca.Name,
-                        registrationType: ca.RegistrationType,
-                        sequence: ca.Sequence,
-                        scriptBlock,
-                        scriptSrc,
-                        title: ca.Title,
-                        url
+                // tslint:disable-next-line:max-line-length
+                const reqUrl = `${webUrl}/_api/${CustomActionType[caType]}${constants.CUSTOM_ACTION_REST_REQUEST_URL}`;
+                this.getRequest(reqUrl).then((response: any) => {
+                    let customActions: ICustomAction[] = [];
+                    const filters = customActionLocationHelper.supportedCustomActionsFilter;
+                    const filtersCt = filters.length;
+                    const caArray = response.data.value.filter((item: any) => {
+                        let locAllowed: boolean = false;
+                        let loopCt = 0;
+                        while (!locAllowed && loopCt < filtersCt) {
+                            locAllowed = filters[loopCt](item);
+                            loopCt++;
+                        }
+                        return locAllowed;
                     });
-                }
-                resolve(cusctomActions);
-            }).catch((error: any) => {
-                reject(error);
+
+                    const caArrayLength = caArray.length;
+                    for (let i = 0; i < caArrayLength; i++) {
+                        const ca: any = caArray[i];
+                        const scriptSrc: string = ca.ScriptSrc;
+                        const scriptBlock: string = ca.ScriptBlock;
+                        const url: string = ca.Url;
+
+                        customActions = customActions.concat({
+                            description: ca.Description,
+                            group: ca.Group,
+                            id: ca.Id,
+                            imageUrl: ca.ImageUrl,
+                            location: ca.Location,
+                            name: ca.Name,
+                            registrationType: ca.RegistrationType,
+                            sequence: ca.Sequence,
+                            scriptBlock,
+                            scriptSrc,
+                            title: ca.Title,
+                            url
+                        });
+                    }
+                    resolve(customActions);
+                }).catch((error: any) => {
+                    reject(error);
+                });
             });
         });
     }
@@ -64,7 +67,7 @@ export default class SpCustomActionsApi extends ApiBase {
             ca.deleteObject();
             ctx.executeQueryAsync((sender: any, err: any) => {
                 resolve(caObj);
-            },  this.getErroResolver(reject, constants.ERROR_MESSAGE_DELETING_CUSTOM_ACTION));
+            }, this.getErrorResolver(reject, constants.ERROR_MESSAGE_DELETING_CUSTOM_ACTION));
         });
     }
 
@@ -79,16 +82,16 @@ export default class SpCustomActionsApi extends ApiBase {
     private setCustomAction(caObj: ICustomAction, caType: CustomActionType, isNewCa: boolean): Promise<ICustomAction> {
         return new Promise((resolve, reject) => {
             const ctx: SP.ClientContext = SP.ClientContext.get_current();
-            const partenObj = (caType === CustomActionType.Web)
+            const parentObj = (caType === CustomActionType.Web)
                 ? ctx.get_web()
                 : ctx.get_site();
 
             let ca: SP.UserCustomAction;
             if (isNewCa) {
-                ca = partenObj.get_userCustomActions().add();
+                ca = parentObj.get_userCustomActions().add();
             } else {
                 const caGuid: SP.Guid = new SP.Guid(caObj.id);
-                ca = partenObj.get_userCustomActions().getById(caGuid);
+                ca = parentObj.get_userCustomActions().getById(caGuid);
             }
 
             ca.set_title(caObj.title);
@@ -106,7 +109,7 @@ export default class SpCustomActionsApi extends ApiBase {
             ctx.load(ca);
             ctx.executeQueryAsync((sender: any, err: any) => {
                 resolve({ ...caObj, id: ca.get_id().toString() });
-            },  this.getErroResolver(reject, constants.ERROR_MESSAGE_SETTING_CUSTOM_ACTION));
+            }, this.getErrorResolver(reject, constants.ERROR_MESSAGE_SETTING_CUSTOM_ACTION));
         });
     }
 }

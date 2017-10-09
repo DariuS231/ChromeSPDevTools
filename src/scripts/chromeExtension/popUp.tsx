@@ -5,13 +5,13 @@ import "./styles/chromeExtePopUp.scss";
 
 interface IActionData {
     title: string;
-    descriptio: string;
+    description: string;
     image: string;
     scriptUrl: string;
 };
 
 interface IPopUpProps {
-    currentVerion: string;
+    currentVersion: string;
 }
 interface IPopUpState {
     actions: IActionData[];
@@ -30,7 +30,7 @@ export default class PopUp extends React.Component<IPopUpProps, IPopUpState> {
             <hr />
             <List items={this.state.actions} onRenderCell={this.renderItem} />
             <div className="ms-font-mi ms-fontWeight-light tool-version" >
-                <span>Version {this.props.currentVerion}</span>
+                <span>Version {this.props.currentVersion}</span>
             </div>
         </div>;
     }

@@ -1,3 +1,4 @@
+import { Favourites } from "../helpers/favourites";
 import { ISiteContent } from "../interfaces/spSiteContentInterfaces";
 import ApiBase from "./../../common/apiBase";
 import { SpSiteContentConstants as constants } from "./../constants/spSiteContentConstants";
@@ -7,23 +8,23 @@ export default class SpSiteContentApi extends ApiBase {
         return new Promise((resolve, reject) => {
             const ctx = SP.ClientContext.get_current();
             const web = ctx.get_web();
-            const siteConetent = web.get_lists();
+            const siteContent = web.get_lists();
 
             ctx.load(web);
-            ctx.load(siteConetent, `Include(${constants.selectFields.join(",")})`);
+            ctx.load(siteContent, `Include(${constants.selectFields.join(",")})`);
 
             const onSuccess = (sender: any, args: SP.ClientRequestSucceededEventArgs) => {
                 let items: ISiteContent[] = [];
-                const listEnumerator: any = siteConetent.getEnumerator();
+                const listEnumerator: any = siteContent.getEnumerator();
                 while (listEnumerator.moveNext()) {
                     const oList: SP.List = listEnumerator.get_current();
-                    const listId: any = oList.get_id();
-                    let paretnUrl = oList.get_parentWebUrl();
-                    if (paretnUrl === "/") {
-                        paretnUrl = location.origin;
+                    const listId: any = oList.get_id().toString();
+                    let parentUrl = oList.get_parentWebUrl();
+                    if (parentUrl === "/") {
+                        parentUrl = location.origin;
                     }
-                    const reindexUrl = paretnUrl + "/_layouts/15/ReindexListDialog.aspx?List={" + listId  + "}";
-                    const permissionPageUrl = paretnUrl +
+                    const reindexUrl = parentUrl + "/_layouts/15/ReindexListDialog.aspx?List={" + listId  + "}";
+                    const permissionPageUrl = parentUrl +
                         constants.permissionsPageUrlOpen +
                         listId +
                         constants.permissionsPageUrlMiddle +
@@ -38,6 +39,7 @@ export default class SpSiteContentApi extends ApiBase {
                         hidden: oList.get_hidden(),
                         id: listId,
                         imageUrl: oList.get_imageUrl(),
+                        isFavourite: Favourites.Favourites.indexOf(listId) >= 0,
                         itemCount: oList.get_itemCount(),
                         lastModified: oList.get_lastItemModifiedDate(),
                         listUrl: oList.get_rootFolder().get_serverRelativeUrl(),
@@ -45,7 +47,7 @@ export default class SpSiteContentApi extends ApiBase {
                         noCrawl: oList.get_noCrawl(),
                         permissionsPageUrl: permissionPageUrl,
                         reIndexUrl: reindexUrl,
-                        settingsUrl: paretnUrl + constants.settingsRelativeUrl + listId,
+                        settingsUrl: parentUrl + constants.settingsRelativeUrl + listId,
                         title: oList.get_title(),
                         userCanAddItems: oList.get_effectiveBasePermissions().has(SP.PermissionKind.addListItems),
                         userCanManageList: oList.get_effectiveBasePermissions().has(SP.PermissionKind.manageLists)
@@ -57,7 +59,7 @@ export default class SpSiteContentApi extends ApiBase {
                 });
                 resolve(items);
             };
-            ctx.executeQueryAsync(onSuccess, this.getErroResolver(reject, constants.ERROR_MESSAGE_RESOLVER_GETTING_LISTS));
+            ctx.executeQueryAsync(onSuccess, this.getErrorResolver(reject, constants.ERROR_MESSAGE_RESOLVER_GETTING_LISTS));
         });
     }
     public setListVisibility(item: ISiteContent): Promise<boolean> {
@@ -76,7 +78,7 @@ export default class SpSiteContentApi extends ApiBase {
             const onSuccess = (sender: any, args: SP.ClientRequestSucceededEventArgs) => {
                 resolve(true);
             };
-            ctx.executeQueryAsync(onSuccess, this.getErroResolver(reject, constants.ERROR_MESSAGE_RESOLVER_SETTING_VISIBILITY));
+            ctx.executeQueryAsync(onSuccess, this.getErrorResolver(reject, constants.ERROR_MESSAGE_RESOLVER_SETTING_VISIBILITY));
         });
     }
 
@@ -96,7 +98,7 @@ export default class SpSiteContentApi extends ApiBase {
             const onSuccess = (sender: any, args: SP.ClientRequestSucceededEventArgs) => {
                 resolve(true);
             };
-            ctx.executeQueryAsync(onSuccess, this.getErroResolver(reject, constants.ERROR_MESSAGE_RESOLVER_SETTING_ATTACHMENTS));
+            ctx.executeQueryAsync(onSuccess, this.getErrorResolver(reject, constants.ERROR_MESSAGE_RESOLVER_SETTING_ATTACHMENTS));
         });
     }
 
@@ -116,7 +118,7 @@ export default class SpSiteContentApi extends ApiBase {
             const onSuccess = (sender: any, args: SP.ClientRequestSucceededEventArgs) => {
                 resolve(true);
             };
-            ctx.executeQueryAsync(onSuccess, this.getErroResolver(reject, constants.ERROR_MESSAGE_RESOLVER_SETTING_NO_CRAWL));
+            ctx.executeQueryAsync(onSuccess, this.getErrorResolver(reject, constants.ERROR_MESSAGE_RESOLVER_SETTING_NO_CRAWL));
         });
     }
 
@@ -131,14 +133,14 @@ export default class SpSiteContentApi extends ApiBase {
             const onSuccess = (sender: any, args: SP.ClientRequestSucceededEventArgs) => {
                 resolve(true);
             };
-            ctx.executeQueryAsync(onSuccess, this.getErroResolver(reject, constants.ERROR_MESSAGE_RESOLVER_DELETING_LIST));
+            ctx.executeQueryAsync(onSuccess, this.getErrorResolver(reject, constants.ERROR_MESSAGE_RESOLVER_DELETING_LIST));
         });
     }
     public reIndex(item: ISiteContent): Promise<SP.UI.DialogResult> {
         return new Promise((resolve, reject) => {
             SP.SOD.execute("sp.ui.dialog.js", "SP.UI.ModalDialog.showModalDialog", {
-                dialogReturnValueCallback: (dialogRedult: SP.UI.DialogResult) => {
-                    resolve(dialogRedult);
+                dialogReturnValueCallback: (dialogResult: SP.UI.DialogResult) => {
+                    resolve(dialogResult);
                 },
                 title: "Reindex List",
                 url: item.reIndexUrl

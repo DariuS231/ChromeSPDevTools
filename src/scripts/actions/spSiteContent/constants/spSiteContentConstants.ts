@@ -43,6 +43,7 @@ export const SpSiteContentConstants = {
 
 export const ActionsId = {
     HANDLE_ASYNC_ERROR: "HANDLE_ASYNC_ERROR",
+    SET_FAVOURITE: "SET_FAVOURITE",
     SET_MESSAGE_DATA: "SET_MESSAGE_DATA",
     SET_OPEN_IN_NEW_TAB: "SET_OPEN_IN_NEW_TAB",
     SET_SHOW_ALL: "SET_SHOW_ALL",

@@ -12,8 +12,8 @@ export const ActionsId = {
 
 export const constants = {
     CANCEL_TEXT: "Cancel",
-    COMPONENT_SITE_CA_DIV_ID: "spSiteCuastomActionsBaseDiv",
-    COMPONENT_WEB_CA_DIV_ID: "spWebCuastomActionsBaseDiv",
+    COMPONENT_SITE_CA_DIV_ID: "spSiteCustomActionsBaseDiv",
+    COMPONENT_WEB_CA_DIV_ID: "spWebCustomActionsBaseDiv",
     CONFIRM_DELETE_CUSTOM_ACTION: "Are you sure you want to remove this custom action?",
     CREATE_TEXT: "Create",
     CUSTOM_ACTION_REST_REQUEST_URL: "/usercustomactions",
@@ -26,7 +26,7 @@ export const constants = {
     ERROR_MESSAGE_CHECK_USER_PERMISSIONS: "An error occurred checking current user's permissions",
     ERROR_MESSAGE_CREATE_CUSTOM_ACTION: "An error occurred creating a new web custom action",
     ERROR_MESSAGE_DELETE_CUSTOM_ACTION: "An error occurred deleting the selected custom action",
-    ERROR_MESSAGE_GET_ALL_CUSTOM_ACTIONS: "An error occurred gettin all custom actions",
+    ERROR_MESSAGE_GET_ALL_CUSTOM_ACTIONS: "An error occurred getting all custom actions",
     ERROR_MESSAGE_UPDATE_CUSTOM_ACTION: "An error occurred updating the selected custom action",
     MESSAGE_CUSTOM_ACTION_CREATED: "A new custom action has been created.",
     MESSAGE_CUSTOM_ACTION_DELETED: "The selected custom action has been deleted.",

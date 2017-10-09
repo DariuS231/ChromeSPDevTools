@@ -12,10 +12,7 @@ export class AppBase {
         if (!baseDiv) {
             baseDiv = document.createElement(constants.HTML_TAG_DIV);
             baseDiv.setAttribute(constants.HTML_ATTR_ID, this.baseDivId);
-            let parentEl = document.querySelector(constants.HTML_TAG_FORM) as HTMLElement;
-            if (!parentEl) { // There is no Form element on modern pages, so the content gets add to the body instead
-                parentEl = document.querySelector(constants.HTML_TAG_BODY) as HTMLElement;
-            }
+            let parentEl = document.querySelector(constants.HTML_TAG_BODY) as HTMLElement;
             parentEl.appendChild(baseDiv);
         }
     }

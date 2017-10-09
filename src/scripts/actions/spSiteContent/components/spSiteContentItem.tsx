@@ -1,18 +1,24 @@
 import { Image, ImageFit } from "office-ui-fabric-react/lib/Image";
 import * as React from "react";
 import { ISiteContent } from "../interfaces/spSiteContentInterfaces";
+import { FavouriteButton } from "./../../common/components/favouriteButton";
 import { IconLink } from "./../../common/components/iconLink";
+import { IAction } from "./../../common/interfaces";
 import { SpSiteContentConstants as constants } from "./../constants/spSiteContentConstants";
 import SpSiteContentMenu from "./spSiteContentMenu";
 
 interface ISpSiteContentItemProps {
     item: ISiteContent;
     linkTarget: string;
+    setFavourite: (item: ISiteContent) => IAction<ISiteContent>;
 }
 
 export const SpSiteContentItem: React.StatelessComponent<ISpSiteContentItemProps> =
-    (props: ISpSiteContentItemProps) => (
-        <div className="ms-ListBasicExample-itemCell">
+    (props: ISpSiteContentItemProps) => {
+        const favouriteClick = (event: any) => {
+            props.setFavourite(props.item);
+        };
+        return <div className="ms-ListBasicExample-itemCell">
             <Image
                 src={props.item.imageUrl}
                 width={constants.itemImageWidth}
@@ -37,7 +43,8 @@ export const SpSiteContentItem: React.StatelessComponent<ISpSiteContentItemProps
                 </div>
             </div>
             <div className="ms-ListItem-actions">
+                <FavouriteButton isFavourite={props.item.isFavourite} onClick={favouriteClick} />
                 <SpSiteContentMenu item={props.item} linkTarget={props.linkTarget} />
             </div>
         </div>
-    );
+    };

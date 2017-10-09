@@ -158,7 +158,7 @@ $dividerColor: $ms-color-neutralLight;
 .action-container {
     overflow-y: auto;
     overflow-x: hidden;
-    height: 95%;
+    height: 90%;
     .filters-container {
         margin-top: 10px;
     }
@@ -276,6 +276,16 @@ $dividerColor: $ms-color-neutralLight;
     .spProp-create-button {
         padding-left: 17px;
     }
+    .action-buttons{
+        display: inline-flex;
+        top: -5px;
+        right: -10px;
+        position: absolute;
+        > a {
+            margin-top: 0 !important;
+            padding-top: 0 !important;
+        }
+    }
 }
 
 
@@ -292,6 +302,10 @@ $dividerColor: $ms-color-neutralLight;
             }
             .ms-ListItem-actions{
               width: 30px;
+            }
+
+            .ms-ListBasicExample-itemContent{
+                width:50%;
             }
         }
         &:nth-child(odd) {

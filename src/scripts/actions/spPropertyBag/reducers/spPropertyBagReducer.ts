@@ -18,7 +18,7 @@ const initialState: IInitialState = {
 export const spPropertyBagReducer = (state: IInitialState = initialState, action: IAction<any>): IInitialState => {
     switch (action.type) {
         case actions.CREATE_PROPERTY:
-            const newPropperty: IProperty = action.payload;
+            const newProperty: IProperty = action.payload;
             return {
                 ...state, isWorkingOnIt: false,
                 messageData: {
@@ -26,10 +26,10 @@ export const spPropertyBagReducer = (state: IInitialState = initialState, action
                     showMessage: true,
                     type: MessageBarType.success
                 },
-                webProperties: [...state.webProperties, newPropperty]
+                webProperties: [...state.webProperties, newProperty]
             };
         case actions.DELETE_PROPERTY:
-            const delPropperty: IProperty = action.payload;
+            const delProperty: IProperty = action.payload;
             return {
                 ...state, isWorkingOnIt: false,
                 messageData: {
@@ -37,13 +37,13 @@ export const spPropertyBagReducer = (state: IInitialState = initialState, action
                     showMessage: true,
                     type: MessageBarType.success
                 },
-                webProperties: [...state.webProperties.filter((prop: IProperty) => prop.key !== delPropperty.key)]
+                webProperties: [...state.webProperties.filter((prop: IProperty) => prop.key !== delProperty.key)]
             };
         case actions.UPDATE_PROPERTY:
-            const updtdPropperty: IProperty = action.payload;
+            const updtdProperty: IProperty = action.payload;
             const filtered = state.webProperties.map((prop: IProperty) => {
-                if (prop.key === updtdPropperty.key) {
-                    return updtdPropperty;
+                if (prop.key === updtdProperty.key) {
+                    return updtdProperty;
                 } else {
                     return prop;
                 }
@@ -75,6 +75,17 @@ export const spPropertyBagReducer = (state: IInitialState = initialState, action
         case actions.HANDLE_ASYNC_ERROR:
             const errorMessage: IMessageData = action.payload;
             return { ...state, isWorkingOnIt: false, messageData: errorMessage };
+        case actions.SET_FAVOURITE:
+            const favItem: IProperty = action.payload;
+            const itemArray: IProperty[] = state.webProperties;
+            const filteredFav = itemArray.map((prop: IProperty, index: number) => {
+                if (prop.key !== favItem.key) {
+                    return prop;
+                } else {
+                    return favItem;
+                }
+            });
+            return { ...state, webProperties: filteredFav };
         default:
             return state;
     }

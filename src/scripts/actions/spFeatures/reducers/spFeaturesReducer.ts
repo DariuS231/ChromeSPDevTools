@@ -18,37 +18,37 @@ const initialState: IInitialState = {
 };
 
 export const spFeaturesReducer = (state: IInitialState = initialState, action: IAction<any>): IInitialState => {
-    const getFeatureUpdatedMessgae = (feature: IFeature): string => {
-        return "The web fueature " + feature.name + " has been " + (!feature.activated ? "Activated" : "Deactivated");
+    const getFeatureUpdatedMessage = (feature: IFeature): string => {
+        return "The web feature " + feature.name + " has been " + (!feature.activated ? "Activated" : "Deactivated");
     };
     switch (action.type) {
         case actions.SET_SITE_FEATURES_AFTER_UPDATE:
-            const fsiteFatures: IFeature[] = action.payload.features;
-            const fsiteFature: IFeature = action.payload.feature;
+            const fSiteFeatures: IFeature[] = action.payload.features;
+            const fSiteFeature: IFeature = action.payload.feature;
 
             return {
                 ...state,
                 isWorkingOnIt: false,
                 messageData: {
-                    message: getFeatureUpdatedMessgae(fsiteFature),
+                    message: getFeatureUpdatedMessage(fSiteFeature),
                     showMessage: true,
                     type: MessageBarType.success
                 },
-                siteFeatures: fsiteFatures
+                siteFeatures: fSiteFeatures
             };
         case actions.SET_WEB_FEATURES_AFTER_UPDATE:
-            const fwebFatures: IFeature[] = action.payload.features;
-            const fwebFature: IFeature = action.payload.feature;
+            const fWebFeatures: IFeature[] = action.payload.features;
+            const fWebFeature: IFeature = action.payload.feature;
 
             return {
                 ...state,
                 isWorkingOnIt: false,
                 messageData: {
-                    message: getFeatureUpdatedMessgae(fwebFature),
+                    message: getFeatureUpdatedMessage(fWebFeature),
                     showMessage: true,
                     type: MessageBarType.success
                 },
-                webFeatures: fwebFatures
+                webFeatures: fWebFeatures
             };
         case actions.SET_ALL_FEATURES:
             const webFeatures: IFeature[] = action.payload.webFeatures;

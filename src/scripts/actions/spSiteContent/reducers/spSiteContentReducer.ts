@@ -40,6 +40,16 @@ export const spSiteContentReducer = (state: IInitialState = initialState, action
         case actions.SET_WORKING_ON_IT:
             const isWorkingOnIt: boolean = action.payload;
             return { ...state, isWorkingOnIt };
+        case actions.SET_FAVOURITE:
+            const item: ISiteContent = action.payload;
+            const filtered = state.siteLists.map((list: ISiteContent) => {
+                if (item.id === list.id) {
+                    return item;
+                } else {
+                    return list;
+                }
+            });
+            return { ...state, siteLists: filtered };
         default:
             return state;
     }

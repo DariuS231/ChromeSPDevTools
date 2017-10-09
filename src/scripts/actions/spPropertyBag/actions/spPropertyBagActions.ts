@@ -2,6 +2,7 @@
 import { MessageBarType } from "office-ui-fabric-react/lib/MessageBar";
 import { ActionCreator, ActionCreatorsMapObject, Dispatch } from "redux";
 import SpPropertyBagApi from "../api/spPropertyBagApi";
+import { Favourites } from "../helpers/spPropertyBagfavourites";
 import { IProperty, ISpPropertyBagActionCreatorsMapObject } from "../interfaces/spPropertyBagInterfaces";
 import { IAction, IMessageData } from "./../../common/interfaces";
 import { ActionsId as actions, constants } from "./../constants/constants";
@@ -58,6 +59,16 @@ const setMessageData: ActionCreator<IAction<IMessageData>> = (messageData: IMess
         type: actions.SET_MESSAGE_DATA
     };
 };
+
+const setFavourite = (property: IProperty) => {
+    const newFav: boolean = !property.isFavourite;
+    newFav ? Favourites.addToFavourites(property.key) : Favourites.removeFromFavourites(property.key);
+    return {
+        payload: { ...property, isFavourite: newFav },
+        type: actions.SET_FAVOURITE
+    };
+};
+
 const handleAsyncError: ActionCreator<IAction<IMessageData>> =
     (errorMessage: string, exceptionMessage: string): IAction<IMessageData> => {
         // tslint:disable-next-line:no-console
@@ -141,6 +152,7 @@ const spPropertyBagActionsCreatorMap: ISpPropertyBagActionCreatorsMapObject = {
     deleteProperty,
     getAllProperties,
     checkUserPermissions,
+    setFavourite,
     setFilterText,
     setWorkingOnIt,
     setUserHasPermissions,

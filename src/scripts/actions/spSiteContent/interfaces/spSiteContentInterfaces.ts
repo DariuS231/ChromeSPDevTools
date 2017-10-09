@@ -8,6 +8,7 @@ export interface ISiteContent {
     hidden: boolean;
     itemCount: number;
     imageUrl: string;
+    isFavourite: boolean;
     created: Date;
     lastModified: Date;
     listUrl: string;
@@ -36,6 +37,7 @@ export interface ISpSiteContentActionCreatorsMapObject extends ActionCreatorsMap
     getAllSiteContent: () => (dispatch: Dispatch<IAction<ISiteContent[]>>) => Promise<void>;
     setShowAll: ActionCreator<IAction<boolean>>;
     setOpenInNewWindow: ActionCreator<IAction<boolean>>;
+    setFavourite: ActionCreator<IAction<ISiteContent>>;
     setFilter: ActionCreator<IAction<string>>;
     // tslint:disable-next-line:max-line-length
     setListVisibility: (item: ISiteContent) => (dispatch: Dispatch<IAction<ISiteContent[]>>) => Promise<void>;

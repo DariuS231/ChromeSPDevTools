@@ -13,6 +13,7 @@ interface ISpPropertyBagNewItemState {
 export default class SpPropertyBagNewItem
     extends React.Component<ISpPropertyBagNewItemProps, ISpPropertyBagNewItemState> {
     protected cleanProperty: IProperty = {
+        isFavourite: false,
         key: constants.EMPTY_STRING,
         value: constants.EMPTY_STRING
     };

@@ -8,8 +8,8 @@ export default class Utils {
         const args: string = Array.prototype.slice.call(arguments, 1);
         const srt: string = Array.prototype.slice.call(arguments, 0, 1);
 
-        return (srt.length <= 0 ) ? "" : srt[0].replace(/{(\d+)}/g, (match: any, number: number) => {
-            return typeof args[number] !== "undefined"
+        return (srt.length <= 0) ? "" : srt[0].replace(/{(\d+)}/g, (match: any, number: number) => {
+            return typeof args[number] !== constants.TYPE_OF_UNDEFINED
                 ? args[number]
                 : match
                 ;
@@ -32,14 +32,15 @@ export default class Utils {
         return new Promise((resolve, reject) => {
             if (typeof SP === constants.TYPE_OF_UNDEFINED || typeof SP.SOD === constants.TYPE_OF_UNDEFINED
                 || typeof SP.SOD.executeFunc === constants.TYPE_OF_UNDEFINED) {
-                let baseUrl: string = _spPageContextInfo.webServerRelativeUrl;
-                if (baseUrl === constants.URL_SLASH) {
-                    baseUrl = location.origin;
-                }
-                const scriptbase = baseUrl + constants.URL_LAYOUTS;
+                let baseUrl: string = "";
+                //let baseUrl: string = _spPageContextInfo.webServerRelativeUrl;
+                //if (baseUrl === constants.URL_SLASH) {
+                baseUrl = location.origin;
+                //}
+                const scriptBase = baseUrl + constants.URL_LAYOUTS;
 
-                this.loadScript(scriptbase + constants.URL_SP_RUNTIME).then(() => {
-                    this.loadScript(scriptbase + constants.URL_SP).then(() => {
+                this.loadScript(scriptBase + constants.URL_SP_RUNTIME).then(() => {
+                    this.loadScript(scriptBase + constants.URL_SP).then(() => {
                         resolve();
                     });
                 });
