@@ -60,7 +60,7 @@ const setMessageData: ActionCreator<IAction<IMessageData>> = (messageData: IMess
     };
 };
 
-const setFavoirute = (property: IProperty) => {
+const setFavourite = (property: IProperty) => {
     const newFav: boolean = !property.isFavourite;
     newFav ? Favourites.addToFavourites(property.key) : Favourites.removeFromFavourites(property.key);
     return {
@@ -152,7 +152,7 @@ const spPropertyBagActionsCreatorMap: ISpPropertyBagActionCreatorsMapObject = {
     deleteProperty,
     getAllProperties,
     checkUserPermissions,
-    setFavoirute,
+    setFavourite,
     setFilterText,
     setWorkingOnIt,
     setUserHasPermissions,

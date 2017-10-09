@@ -1,11 +1,13 @@
 
+import { constants } from "./constants";
+
 class Cache {
     private _keyPrefix: string = "spChromeDevTool_";
     private _isSupportedStorage: boolean = null;
 
     public get isSupportedStorage(): boolean {
         if (this._isSupportedStorage === null) {
-            this._isSupportedStorage = this.checkIfStorageisSupported();
+            this._isSupportedStorage = this.checkIfStorageIsSupported();
         }
         return this._isSupportedStorage;
     }
@@ -19,7 +21,7 @@ class Cache {
         if (this.isSupportedStorage) {
             const cachedDataStr = this.CacheObject.getItem(completeKey);
 
-            if (typeof cachedDataStr === "string") {
+            if (typeof cachedDataStr ===  constants.TYPE_OF_STRING) {
                 const cacheDataObj = JSON.parse(cachedDataStr);
                 if (cacheDataObj.expiryTime > (new Date())) {
                     return cacheDataObj.data;
@@ -34,7 +36,7 @@ class Cache {
         let didSetInCache = false;
         if (this.isSupportedStorage && valueObj !== undefined) {
             const nowDt = new Date();
-            const expiryTime: number = (typeof expireMinutes !== "undefined")
+            const expiryTime: number = (typeof expireMinutes !== constants.TYPE_OF_UNDEFINED)
                 ? nowDt.setMinutes(nowDt.getMinutes() + expireMinutes)
                 : 8640000000000000;
             const cacheDataObj: any = { data: valueObj, expiryTime };
@@ -47,18 +49,17 @@ class Cache {
     }
 
     private addKeyPrefix(key: string): string {
-        const undrscr = "_";
-        return this._keyPrefix + _spPageContextInfo.webAbsoluteUrl.replace(/:\/\/|\/|\./g, undrscr) + undrscr + key;
+        return this._keyPrefix + window.location.href.replace(/:\/\/|\/|\./g, "_") + "_" + key;
     }
 
     private get CacheObject(): Storage {
         return window.localStorage;
     }
-    private checkIfStorageisSupported() {
+    private checkIfStorageIsSupported() {
         const cacheObj = this.CacheObject;
         const supportsStorage = cacheObj && JSON
-            && typeof JSON.parse === "function"
-            && typeof JSON.stringify === "function";
+            && typeof JSON.parse === constants.TYPE_OF_FUNCTION
+            && typeof JSON.stringify === constants.TYPE_OF_FUNCTION;
         if (supportsStorage) {
             try {
                 const testKey = this._keyPrefix + "testingCache";

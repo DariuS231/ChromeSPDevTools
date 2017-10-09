@@ -3,7 +3,7 @@ import { FavouritesBase } from "../../common/favouriteBase";
 
 class FavouritesClass extends FavouritesBase {
     constructor() {
-        super("favourtites_SP_PropertyBag");
+        super("favourites_SP_PropertyBag");
     }
 }
 

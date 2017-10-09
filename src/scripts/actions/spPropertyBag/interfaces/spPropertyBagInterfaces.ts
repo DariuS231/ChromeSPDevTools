@@ -22,7 +22,7 @@ export interface ISpPropertyBagActionCreatorsMapObject extends ActionCreatorsMap
     getAllProperties: () => (dispatch: Dispatch<IAction<IProperty[]>>) => Promise<void>;
     checkUserPermissions: (permissionKing: SP.PermissionKind) =>
         (dispatch: Dispatch<IAction<IProperty[]>>) => Promise<void>;
-    setFavoirute: ActionCreator<IAction<IProperty>>;
+    setFavourite: ActionCreator<IAction<IProperty>>;
     setFilterText: ActionCreator<IAction<string>>;
     setWorkingOnIt: ActionCreator<IAction<boolean>>;
     setUserHasPermissions: ActionCreator<IAction<boolean>>;

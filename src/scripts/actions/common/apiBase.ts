@@ -1,12 +1,34 @@
 import * as axios from "axios";
 import { constants } from "./constants";
+import { AppCache } from "./cache";
 
 export default class ApiBase {
-    protected getErroResolver(reject: (reason?: any) => void, actionText: string): (sender: any, err: SP.ClientRequestFailedEventArgs) => void {
+
+    public getWebUrl(): Promise<string> {
+        return new Promise((resolve: (value?: string | PromiseLike<string>) => void, reject: (reason?: any) => void) => {
+            const cacheKey: string = `${window.location.href}_ChromeSPDevTools_url`;
+            let url: string = AppCache.get<string>(cacheKey);
+            if (!!url) {
+                resolve(url);
+            } else {
+                const ctx: SP.ClientContext = SP.ClientContext.get_current();
+                const web: SP.Web = ctx.get_web();
+                ctx.load(web);
+
+                ctx.executeQueryAsync(function () {
+                    url = web.get_url();
+                    AppCache.set(cacheKey, url);
+                    resolve(url);
+                }, this.getErrorResolver(reject, constants.MESSAGE_GETTING_WEB_URL));
+            }
+        });
+    }
+
+    protected getErrorResolver(reject: (reason?: any) => void, actionText: string): (sender: any, err: SP.ClientRequestFailedEventArgs) => void {
         return (sender: any, err: SP.ClientRequestFailedEventArgs): void => {
             const errorMsg: string = err.get_message();
             const errorTrace: string = err.get_stackTrace();
-            console.log("An error occured while " + actionText + "\nMessage: " + errorMsg + "\nError Trace: " + errorTrace);
+            console.log("An error occurred while " + actionText + "\nMessage: " + errorMsg + "\nError Trace: " + errorTrace);
             reject(errorMsg);
         }
     }
@@ -32,7 +54,7 @@ export default class ApiBase {
                 const onSuccess = (sender: any, args: SP.ClientRequestSucceededEventArgs) => {
                     resolve(per.get_value());
                 };
-                ctx.executeQueryAsync(onSuccess, this.getErroResolver(reject, constants.MESSAGE_CHECKING_CURRENT_USER_PERMISSIONS));
+                ctx.executeQueryAsync(onSuccess, this.getErrorResolver(reject, constants.MESSAGE_CHECKING_CURRENT_USER_PERMISSIONS));
             }
         });
 

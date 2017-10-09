@@ -43,12 +43,12 @@ class SpSiteContent extends React.Component<ISpSiteContentProps, {}> {
                         <div className="ms-Grid-row">
                             <SpSiteContentCheckBox
                                 checkLabel="Show All"
-                                isCkecked={this.props.showAll}
+                                isChecked={this.props.showAll}
                                 onCheckBoxChange={this.props.actions.setShowAll}
                             />
                             <SpSiteContentCheckBox
                                 checkLabel="Open in new tab"
-                                isCkecked={this.props.openInNewTab}
+                                isChecked={this.props.openInNewTab}
                                 onCheckBoxChange={this.props.actions.setOpenInNewWindow}
                             />
                         </div>
@@ -58,7 +58,7 @@ class SpSiteContent extends React.Component<ISpSiteContentProps, {}> {
                         linkTarget={this.props.openInNewTab ? "_blank" : "_self"}
                         filterString={this.props.filterText}
                         showAll={this.props.showAll}
-                        setFavourite={this.props.actions.setFavoirute}
+                        setFavourite={this.props.actions.setFavourite}
                     />
                 </div>);
 

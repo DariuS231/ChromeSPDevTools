@@ -59,7 +59,7 @@ const getAllSiteContent = (messageData?: IMessageData) => {
         });
     };
 };
-const setFavoirute = (item: ISiteContent) => {
+const setFavourite = (item: ISiteContent) => {
     const { isFavourite, id } = item;
     !isFavourite ? Favourites.addToFavourites(id) : Favourites.removeFromFavourites(id);
 
@@ -74,12 +74,12 @@ const setListVisibility = (item: ISiteContent) => {
         dispatch(setWorkingOnIt(true));
         return api.setListVisibility(item).then(() => {
             const msg = "The List " + item.title + " is now " + (!item.hidden ? "Hidden" : "visible") + ".";
-            const messagaeData = {
+            const messageData = {
                 message: msg,
                 showMessage: true,
                 type: MessageBarType.success
             } as IMessageData;
-            dispatch(getAllSiteContent(messagaeData));
+            dispatch(getAllSiteContent(messageData));
         }).catch((reason: any) => {
             dispatch(handleAsyncError(constants.ERROR_MESSAGE_SET_LIST_VISIBILITY, reason));
         });
@@ -92,12 +92,12 @@ const setListAttachments = (item: ISiteContent) => {
         return api.setAttachments(item).then(() => {
             // tslint:disable-next-line:max-line-length
             const msg = "Users " + (!item.enableAttachments ? "CAN" : "CAN NOT") + " attach files to items in this list " + item.title + ".";
-            const messagaeData = {
+            const messageData = {
                 message: msg,
                 showMessage: true,
                 type: MessageBarType.success
             } as IMessageData;
-            dispatch(getAllSiteContent(messagaeData));
+            dispatch(getAllSiteContent(messageData));
         }).catch((reason: any) => {
             dispatch(handleAsyncError(constants.ERROR_MESSAGE_SET_LIST_ATTACHMENTS_ENABLE, reason));
         });
@@ -109,12 +109,12 @@ const recycleList = (item: ISiteContent) => {
         dispatch(setWorkingOnIt(true));
         return api.recycleList(item).then(() => {
             const msg = "The List " + item.title + " has been deleted.";
-            const messagaeData = {
+            const messageData = {
                 message: msg,
                 showMessage: true,
                 type: MessageBarType.success
             } as IMessageData;
-            dispatch(getAllSiteContent(messagaeData));
+            dispatch(getAllSiteContent(messageData));
         }).catch((reason: any) => {
             dispatch(handleAsyncError(constants.ERROR_MESSAGE_SET_LIST_NO_CRAWL, reason));
         });
@@ -127,12 +127,12 @@ const setListNoCrawl = (item: ISiteContent) => {
         return api.setNoCrawl(item).then(() => {
             // tslint:disable-next-line:max-line-length
             const msg = "The items in " + item.title + " will " + (!item.noCrawl ? "NOT" : "NOW") + " be visible in search results.";
-            const messagaeData = {
+            const messageData = {
                 message: msg,
                 showMessage: true,
                 type: MessageBarType.success
             } as IMessageData;
-            dispatch(getAllSiteContent(messagaeData));
+            dispatch(getAllSiteContent(messageData));
         }).catch((reason: any) => {
             dispatch(handleAsyncError(constants.ERROR_MESSAGE_SET_LIST_NO_CRAWL, reason));
         });
@@ -144,7 +144,7 @@ const reIndexList = (item: ISiteContent) => {
         return api.reIndex(item).then((dialogResult: SP.UI.DialogResult) => {
             if (dialogResult === SP.UI.DialogResult.OK) {
                 dispatch(setMessageData({
-                    message: "The requeste has been sent, patience my young padawan...",
+                    message: "The request has been sent, patience my young padawan...",
                     showMessage: true,
                     type: MessageBarType.success
                 } as IMessageData));
@@ -194,7 +194,7 @@ const spSiteContentActionsCreatorMap: ISpSiteContentActionCreatorsMapObject = {
     getAllSiteContent,
     setShowAll,
     setOpenInNewWindow,
-    setFavoirute,
+    setFavourite,
     setFilter,
     setListVisibility,
     setMessageData,

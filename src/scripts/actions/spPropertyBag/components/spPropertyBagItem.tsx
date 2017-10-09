@@ -10,7 +10,7 @@ import { SpPropertyBagItemForm } from "./spPropertyBagItemForm";
 interface ISpPropertyBagItemActions {
     updateProperty: Function;
     deleteProperty: Function;
-    setFavoirute: (props: IProperty) => void;
+    setFavourite: (props: IProperty) => void;
 }
 
 interface ISpPropertyBagItemProps {
@@ -18,7 +18,7 @@ interface ISpPropertyBagItemProps {
     itemIndex: number;
     updateProperty: Function;
     deleteProperty: Function;
-    setFavoirute: (props: IProperty) => void;
+    setFavourite: (props: IProperty) => void;
 }
 
 interface ISpPropertyBagItemState {
@@ -52,7 +52,7 @@ class SpPropertyBagItem extends React.Component<ISpPropertyBagItemProps, ISpProp
                     onInputValueChange={this.onValueInputChange}
                     topBtnClick={isEditMode ? this.onUpdateClick : this.onDeleteClick}
                     bottomBtnClick={this.onUpdateBtnClick}
-                    setFavoirute={this.props.setFavoirute}
+                    setFavourite={this.props.setFavourite}
         />;
     }
     protected componentDidUpdate() {
@@ -111,8 +111,8 @@ const mapDispatchToProps = (dispatch: Dispatch<any>): ISpPropertyBagItemActions 
         deleteProperty: (property: IProperty) => {
             dispatch(propertyActionsCreatorsMap.deleteProperty(property));
         },
-        setFavoirute: (props: IProperty) => {
-            dispatch(propertyActionsCreatorsMap.setFavoirute(props));
+        setFavourite: (props: IProperty) => {
+            dispatch(propertyActionsCreatorsMap.setFavourite(props));
         },
         updateProperty: (property: IProperty) => {
             dispatch(propertyActionsCreatorsMap.updateProperty(property));

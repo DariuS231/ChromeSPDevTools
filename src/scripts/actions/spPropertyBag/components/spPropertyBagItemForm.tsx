@@ -14,7 +14,7 @@ interface ISpPropertyBagItemFormProps {
     onInputValueChange: (newValue: any) => void;
     topBtnClick: React.EventHandler<React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>>;
     bottomBtnClick: React.EventHandler<React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>>;
-    setFavoirute: (rops: IProperty) => void;
+    setFavourite: (props: IProperty) => void;
 }
 
 export const SpPropertyBagItemForm: React.StatelessComponent<ISpPropertyBagItemFormProps> =
@@ -22,7 +22,7 @@ export const SpPropertyBagItemForm: React.StatelessComponent<ISpPropertyBagItemF
     const topBtnText: string = props.isEditMode ? constants.SAVE_TEXT : constants.DELETE_TEXT;
     const bottomBtnText: string = props.isEditMode ? constants.CANCEL_TEXT : constants.EDIT_TEXT;
     const favouriteClick = (event: any) => {
-            props.setFavoirute({
+            props.setFavourite({
                 key: props.item.key,
                 value: props.item.value,
                 isFavourite: props.item.isFavourite
@@ -38,7 +38,7 @@ export const SpPropertyBagItemForm: React.StatelessComponent<ISpPropertyBagItemF
                 disabled={!props.isEditMode}
                 onChanged={props.onInputValueChange}
             />
-            
+
         <div className="action-buttons">
             <FavouriteButton isFavourite={props.item.isFavourite} onClick={favouriteClick} />
             <IconButton title={bottomBtnText} icon={bottomBtnText} onClick={props.bottomBtnClick} />
