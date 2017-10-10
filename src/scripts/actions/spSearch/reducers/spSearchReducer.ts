@@ -4,9 +4,21 @@ import { IAction, IMessageData } from "./../../common/interfaces";
 import { ActionsId as actions, constants } from "./../constants/constants";
 
 const initialState: IInitialState = {
+    results: new Array(),
+    textQuery: "*",
+    rowIndex: 10,
+    start: 0,
+    skip: 0,
+    trimDuplicates: true,
+    selectFields: new Array(),
+    sourceId: "",
+    Refiners: new Array(),
+    filters: "",
+    sortBy: new Array(),
+    showFetching: false
 };
 
-export const spFeaturesReducer = (state: IInitialState = initialState, action: IAction<any>): IInitialState => {
+export const spSearchReducer = (state: IInitialState = initialState, action: IAction<any>): IInitialState => {
 
     switch (action.type) {
         default:

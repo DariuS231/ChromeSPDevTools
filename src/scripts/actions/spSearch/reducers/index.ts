@@ -1,6 +1,4 @@
 import { combineReducers } from "redux";
-import { spFeaturesReducer } from "./spSearchReducer";
+import { spSearchReducer } from "./spSearchReducer";
 
-export const rootReducer = combineReducers({
-    spFeatures: spFeaturesReducer
-});
+export const rootReducer = combineReducers({ spSearch: spSearchReducer });
