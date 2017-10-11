@@ -1,8 +1,19 @@
-export const ActionsId  = {
-
+export const ActionsId = {
+    SET_QUERY_TEXT: "SET_QUERY_TEXT",
+    SET_TRIM_DUPLICATES: "SET_TRIM_DUPLICATES",
+    SET_ROW_LIMIT: "SET_ROW_LIMIT",
+    SET_START: "SET_START",
+    SET_SKIP: "SET_SKIP",
+    SET_SELECT_FIELDS: "SET_SELECT_FIELDS",
+    SET_REFINERS: "SET_REFINERS",
+    SET_FILTER: "SET_FILTER",
+    SET_SORT: "SET_SORT",
+    SET_RESULT_SOURCE: "SET_RESULT_SOURCE",
+    SET_FETCHING_DATA: "SET_FETCHING_DATA",
+    SET_SEARCH_RESULTS: "SET_SEARCH_RESULTS"
 };
 
-export const constants  = {
+export const constants = {
     COMPONENT_DIV_ID: "spSearchBaseDiv",
     EMPTY_STRING: "",
     MODAL_DIALOG_TITLE: "Search",
