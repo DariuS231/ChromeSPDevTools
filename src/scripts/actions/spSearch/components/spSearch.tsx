@@ -9,12 +9,16 @@ import MessageBar from "./../../common/components/MessageBar";
 import SpSearchSettings from "./spSearchSettings";
 import SpSearchResults from "./spSearchResults";
 import FilterTextBox from "./../../common/components/filterTextBox";
-import { IMapDispatchToISpSearchProps, IMapStateToProps, IMapStateToPropsState,ISpPropertyBagProps } from "../interfaces/spSearchInterfaces";
+import { IMapDispatchToISpSearchProps, IMapStateToProps, IMapStateToPropsState, ISpPropertyBagProps } from "../interfaces/spSearchInterfaces";
 
 
 class SpSearch extends React.Component<ISpPropertyBagProps, {}> {
     constructor() {
         super();
+        this.onSearchClick = this.onSearchClick.bind(this);
+    }
+    public onSearchClick(ev: any): void {
+        this.props.actions.getResults(this.props);
     }
     public render() {
 
@@ -24,12 +28,12 @@ class SpSearch extends React.Component<ISpPropertyBagProps, {}> {
                     <TextField multiline={true} resizable={false} value={this.props.textQuery} onChanged={this.props.actions.setQueryText} />
                 </div>
                 <div className="ms-Grid-col ms-u-sm2 ms-u-md2 ms-u-lg2">
-                    <Button value="Search" title="Search" icon="Search" description="Search" />
+                    <Button value="Search" title="Search" icon="Search" description="Search" onClick={this.onSearchClick} />
                 </div>
             </div>
 
             <SpSearchSettings {...this.props} />
-            <SpSearchResults />
+            <SpSearchResults results={this.props.results} />
         </div>);
 
     }

@@ -1,14 +1,14 @@
 import { MessageBarType } from "office-ui-fabric-react/lib/MessageBar";
 import { ActionCreator, ActionCreatorsMapObject, Dispatch } from "redux";
 import SpSearchApi from "../api/spSearchApi";
-import { ISearchResult, ISpSearchActionCreatorsMapObject } from "../interfaces/spSearchInterfaces";
+import { IInitialState, ISearchResult, ISpSearchActionCreatorsMapObject } from "../interfaces/spSearchInterfaces";
 import { IAction, IMessageData } from "./../../common/interfaces";
 import { ActionsId as actions, constants } from "./../constants/constants";
 
 const api = new SpSearchApi();
 
 
-const ActionFactory = <T>(typeId:string) =>{
+const ActionFactory = <T>(typeId: string) => {
     return (value: T): IAction<T> => {
         return {
             payload: value,
@@ -29,6 +29,14 @@ const setSortBy = ActionFactory<string[]>(actions.SET_SORT);
 const setResultSource = ActionFactory<string>(actions.SET_RESULT_SOURCE);
 const setSerchResults = ActionFactory<ISearchResult[]>(actions.SET_SEARCH_RESULTS);
 
+const getResults = (state: IInitialState) => {
+    return (dispatch: Dispatch<IAction<ISearchResult[]>>) => {
+        return api.getResults(state).then((results: ISearchResult[]) => {
+            dispatch(setSerchResults(results));
+        });
+    };
+};
+
 const spSearchActionsCreatorMap: ISpSearchActionCreatorsMapObject = {
     setQueryText,
     setTrimDuplicates,
@@ -40,7 +48,8 @@ const spSearchActionsCreatorMap: ISpSearchActionCreatorsMapObject = {
     setFilters,
     setSortBy,
     setResultSource,
-    setSerchResults
+    setSerchResults,
+    getResults
 };
 
 export default spSearchActionsCreatorMap;

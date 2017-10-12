@@ -7,6 +7,7 @@ import { GroupedList, IGroupDividerProps } from 'office-ui-fabric-react/lib/comp
 import { IGroup } from 'office-ui-fabric-react/lib/DetailsList';
 import { css } from 'office-ui-fabric-react/lib/Utilities';
 import { Link } from 'office-ui-fabric-react/lib/Link';
+import { IInitialState, ISearchResult, ISearchResultKeyValue } from "../interfaces/spSearchInterfaces";
 
 const LOREM_IPSUM = ('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut ' +
     'labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut ' +
@@ -83,6 +84,7 @@ function _randWord(array: string[]): string {
 }
 
 interface ISpSearchListProps {
+    results: ISearchResult[]
 }
 
 let _items: any[];
@@ -92,6 +94,7 @@ _items = _items || createListItems(20);
 _groups = createGroups(4, 0, 0, 5);
 
 function _onRenderCell(nestingDepth: number, item: any, itemIndex: number) {
+    debugger;
     return (
         <div data-selection-index={itemIndex}>
             <span className='ms-GroupedListExample-name'>
@@ -128,13 +131,14 @@ function _onRenderFooter(props: IGroupDividerProps): JSX.Element {
 }
 
 const SpSearchResults: React.StatelessComponent<ISpSearchListProps> = (props: ISpSearchListProps) => {
-    return <div style={{ display: "inline-block", width: "70%", verticalAlign: 'top' }} >
-        <div style={{ top: "0", position: 'relative' }}>
-            <GroupedList ref='groupedList' items={_items} onRenderCell={_onRenderCell} groups={_groups}
-                groupProps={{ onRenderHeader: _onRenderHeader, onRenderFooter: _onRenderFooter }}
-            />
+    return (
+        <div style={{ display: "inline-block", width: "70%", verticalAlign: 'top' }} >
+            <div style={{ top: "0", position: 'relative' }}>
+                <GroupedList ref='groupedList' items={props.results} onRenderCell={_onRenderCell}
+                />
+            </div>
         </div>
-    </div>;
+    );
 };
 
 export default SpSearchResults;

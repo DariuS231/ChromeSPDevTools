@@ -3,25 +3,31 @@ import { ActionCreator, ActionCreatorsMapObject, Dispatch } from "redux";
 import { IAction, IMessageData } from "./../../common/interfaces";
 
 
-export interface ISearchResult{
-    [key: string]: string
+export interface ISearchResultKeyValue {
+    Key: string;
+    Value: string;
+    ValueType: string;
+}
+
+export interface ISearchResult {
+    props: ISearchResultKeyValue[];
 }
 export interface IInitialState {
     results: ISearchResult[],
     textQuery: string,
-    rowLimit:number,
-    start:number,
-    skip:number,
+    rowLimit: number,
+    start: number,
+    skip: number,
     trimDuplicates: boolean,
-    selectFields:string[],
-    sourceId:string,
-    Refiners:string[],
-    filters:string,
+    selectFields: string[],
+    sourceId: string,
+    Refiners: string[],
+    filters: string,
     sortBy: string[]
-    showFetching:boolean
+    showFetching: boolean
 }
 
-export interface ISpSearchActionCreatorsMapObject extends ActionCreatorsMapObject{
+export interface ISpSearchActionCreatorsMapObject extends ActionCreatorsMapObject {
     setQueryText: ActionCreator<IAction<string>>;
     setTrimDuplicates: ActionCreator<IAction<boolean>>;
     setRowLimit: ActionCreator<IAction<number>>;
@@ -33,6 +39,7 @@ export interface ISpSearchActionCreatorsMapObject extends ActionCreatorsMapObjec
     setSortBy: ActionCreator<IAction<string[]>>;
     setResultSource: ActionCreator<IAction<string>>;
     setSerchResults: ActionCreator<IAction<ISearchResult[]>>;
+    getResults: (state: IInitialState) => (dispatch: Dispatch<IAction<ISearchResult[]>>) => Promise<void>;
 }
 
 export interface IMapDispatchToISpSearchProps {
@@ -47,30 +54,30 @@ export interface IMapStateToPropsState {
 export interface IMapStateToProps {
     results: ISearchResult[],
     textQuery: string,
-    rowLimit:number,
-    start:number,
-    skip:number,
+    rowLimit: number,
+    start: number,
+    skip: number,
     trimDuplicates: boolean,
-    selectFields:string[],
-    sourceId:string,
-    Refiners:string[],
-    filters:string,
+    selectFields: string[],
+    sourceId: string,
+    Refiners: string[],
+    filters: string,
     sortBy: string[]
-    showFetching:boolean
+    showFetching: boolean
 }
 
 export interface ISpPropertyBagProps {
     results: ISearchResult[],
     textQuery: string,
-    rowLimit:number,
-    start:number,
-    skip:number,
+    rowLimit: number,
+    start: number,
+    skip: number,
     trimDuplicates: boolean,
-    selectFields:string[],
-    sourceId:string,
-    Refiners:string[],
-    filters:string,
+    selectFields: string[],
+    sourceId: string,
+    Refiners: string[],
+    filters: string,
     sortBy: string[]
-    showFetching:boolean
+    showFetching: boolean
     actions: ISpSearchActionCreatorsMapObject;
 }
