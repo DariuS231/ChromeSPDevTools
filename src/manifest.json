@@ -1,6 +1,6 @@
 {
     "name": "Chrome SP Dev Tools",
-    "version": "1.4.0",
+    "version": "1.4.1",
     "manifest_version": 2,
     "description": "Chrome SP Dev Tools",
     "icons": {
@@ -11,20 +11,10 @@
         "76": "images/sp_dev_tool_logo_76.png",
         "128": "images/sp_dev_tool_logo_128.png"
     },
-    "background": {
-        "scripts": [
-            "scripts/background.js"
-        ]
-    },
-    "content_scripts": [{
-        "matches": ["<all_urls>"],
-        "js": ["scripts/content.js"]
-    }],
     "permissions": [
         "tabs",
         "http://*/*",
-        "https://*/*",
-        "background"
+        "https://*/*"
     ],
     "browser_action": {
         "default_icon": {

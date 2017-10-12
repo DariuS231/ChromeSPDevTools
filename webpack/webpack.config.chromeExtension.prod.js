@@ -17,8 +17,6 @@ module.exports = {
     target: 'web',
     // Using webpack multiple entry point
     entry: {
-        'background': './src/scripts/chromeExtension/background.ts',
-        'content': './src/scripts/chromeExtension/content.ts',
         'popup': './src/scripts/chromeExtension/main.tsx'
     },
     output: {
