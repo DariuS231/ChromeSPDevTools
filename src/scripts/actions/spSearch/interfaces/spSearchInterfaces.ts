@@ -8,12 +8,16 @@ export interface ISearchResultKeyValue {
     Value: string;
     ValueType: string;
 }
-
-export interface ISearchResult {
+export interface IResult {
+    key: string;
+    title:string;
     props: ISearchResultKeyValue[];
 }
+
+export type ISearchResult = Array<IResult>
+
 export interface IInitialState {
-    results: ISearchResult[],
+    results: ISearchResult,
     textQuery: string,
     rowLimit: number,
     start: number,
@@ -38,8 +42,8 @@ export interface ISpSearchActionCreatorsMapObject extends ActionCreatorsMapObjec
     setFilters: ActionCreator<IAction<string[]>>;
     setSortBy: ActionCreator<IAction<string[]>>;
     setResultSource: ActionCreator<IAction<string>>;
-    setSerchResults: ActionCreator<IAction<ISearchResult[]>>;
-    getResults: (state: IInitialState) => (dispatch: Dispatch<IAction<ISearchResult[]>>) => Promise<void>;
+    setSerchResults: ActionCreator<IAction<ISearchResult>>;
+    getResults: (state: IInitialState) => (dispatch: Dispatch<IAction<ISearchResult>>) => Promise<void>;
 }
 
 export interface IMapDispatchToISpSearchProps {
@@ -52,7 +56,7 @@ export interface IMapStateToPropsState {
 }
 
 export interface IMapStateToProps {
-    results: ISearchResult[],
+    results: ISearchResult,
     textQuery: string,
     rowLimit: number,
     start: number,
@@ -67,7 +71,7 @@ export interface IMapStateToProps {
 }
 
 export interface ISpPropertyBagProps {
-    results: ISearchResult[],
+    results: ISearchResult,
     textQuery: string,
     rowLimit: number,
     start: number,

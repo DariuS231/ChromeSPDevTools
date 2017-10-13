@@ -52,7 +52,7 @@ export const spSearchReducer = (state: IInitialState = initialState, action: IAc
             const sourceId: string = action.payload;
             return { ...state, sourceId: sourceId };
         case actions.SET_SEARCH_RESULTS:
-            const results: ISearchResult[] = action.payload;
+            const results: ISearchResult = action.payload;
             return { ...state, results: results };
 
         default:

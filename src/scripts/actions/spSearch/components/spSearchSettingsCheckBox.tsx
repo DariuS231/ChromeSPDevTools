@@ -1,4 +1,3 @@
-
 import { Checkbox } from "office-ui-fabric-react/lib/Checkbox";
 import * as React from "react";
 
@@ -12,9 +11,7 @@ const SpSearchSettingsCheckBox: React.StatelessComponent<SpSearchSettingsCheckBo
     const onTrimDuplicateChange = (ev?: React.FormEvent<HTMLElement | HTMLInputElement>, checked?: boolean) => {
         props.action(checked);
     }
-    console.log(props);
     return <Checkbox label={props.label} checked={props.checked} onChange={onTrimDuplicateChange} />;
-
 };
 
 export default SpSearchSettingsCheckBox;

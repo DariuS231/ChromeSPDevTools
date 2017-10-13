@@ -27,11 +27,11 @@ const setRefiners = ActionFactory<string[]>(actions.SET_REFINERS);
 const setFilters = ActionFactory<string[]>(actions.SET_FILTER);
 const setSortBy = ActionFactory<string[]>(actions.SET_SORT);
 const setResultSource = ActionFactory<string>(actions.SET_RESULT_SOURCE);
-const setSerchResults = ActionFactory<ISearchResult[]>(actions.SET_SEARCH_RESULTS);
+const setSerchResults = ActionFactory<ISearchResult>(actions.SET_SEARCH_RESULTS);
 
 const getResults = (state: IInitialState) => {
-    return (dispatch: Dispatch<IAction<ISearchResult[]>>) => {
-        return api.getResults(state).then((results: ISearchResult[]) => {
+    return (dispatch: Dispatch<IAction<ISearchResult>>) => {
+        return api.getResults(state).then((results: ISearchResult) => {
             dispatch(setSerchResults(results));
         });
     };

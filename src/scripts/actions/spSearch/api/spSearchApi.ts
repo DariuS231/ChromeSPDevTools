@@ -1,18 +1,37 @@
 import ApiBase from "./../../common/apiBase";
 import { constants } from "./../constants/constants";
-import { IInitialState, ISearchResult, ISearchResultKeyValue } from "../interfaces/spSearchInterfaces";
+import { IInitialState, ISearchResult, ISearchResultKeyValue, IResult } from "../interfaces/spSearchInterfaces";
 
 export default class SpSearchApi extends ApiBase {
-    public getResults(state: IInitialState): Promise<ISearchResult[]> {
+    public getResults(state: IInitialState): Promise<ISearchResult> {
         return new Promise((resolve, reject) => {
-            debugger;
             this.getWebUrl().then(webUrl => {
-                //const reqUrl = `${webUrl}/_api/search/query?querytext='*'&trimduplicates=false&selectproperties='Title%2cId%2cRefinableString43%2cPath'&refinementfilters='RefinableString43:test'&clienttype='ContentSearchRegular'`;
-                const reqUrl = `${webUrl}/_api/search/query?querytext='*'`;
+                let reqUrl = `${webUrl}/_api/search/query?querytext='${state.textQuery}'&trimduplicates=${state.trimDuplicates}`;
+
+                reqUrl += `&rowlimit=${state.rowLimit}`;
+                reqUrl += `&startrow=${state.start}`;
+                if (state.selectFields.length > 0) {
+                    reqUrl += `&selectproperties='${state.selectFields.join(",")}'`;
+                }
+                
                 this.getRequest(reqUrl).then((response: any) => {
                     const resultRows = response.data.PrimaryQueryResult.RelevantResults.Table.Rows;
-                    const results: ISearchResult[] = resultRows.map((item: any, index: number) => {
-                        return item.Cells as ISearchResultKeyValue[];
+                    const results: ISearchResult = resultRows.map((item: any, index: number) => {
+
+                        const cells: ISearchResultKeyValue[] = item.Cells as ISearchResultKeyValue[];
+
+                        const titleOpts: ISearchResultKeyValue[] = cells.filter((i: any, n: number) => {
+                            return ["Title", "DocId"].indexOf(i.Key) >= 0;
+                        });
+
+                        let titleStr: string = titleOpts.length === 2 ? titleOpts.find((i: any, n: number) => {
+                            return i.Key === "Title";
+                        }).Value : titleOpts[0].Value;
+                        return {
+                            key: index.toString(),
+                            title: titleStr,
+                            props: cells
+                        } as IResult;
                     });
                     resolve(results);
                 }).catch((error: any) => {
