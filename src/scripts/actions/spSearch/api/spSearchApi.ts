@@ -1,6 +1,11 @@
+import {
+    IInitialState,
+    IResult,
+    ISearchResult,
+    ISearchResultKeyValue
+} from "../interfaces/spSearchInterfaces";
 import ApiBase from "./../../common/apiBase";
 import { constants } from "./../constants/constants";
-import { IInitialState, ISearchResult, ISearchResultKeyValue, IResult } from "../interfaces/spSearchInterfaces";
 
 export default class SpSearchApi extends ApiBase {
     public getResults(state: IInitialState): Promise<ISearchResult> {
@@ -13,7 +18,10 @@ export default class SpSearchApi extends ApiBase {
                 if (state.selectFields.length > 0) {
                     reqUrl += `&selectproperties='${state.selectFields.join(",")}'`;
                 }
-                
+                if (state.sortBy.length > 0) {
+                    reqUrl += `&selectproperties='${state.sortBy.join(",")}'`;
+                }
+
                 this.getRequest(reqUrl).then((response: any) => {
                     const resultRows = response.data.PrimaryQueryResult.RelevantResults.Table.Rows;
                     const results: ISearchResult = resultRows.map((item: any, index: number) => {
@@ -24,7 +32,7 @@ export default class SpSearchApi extends ApiBase {
                             return ["Title", "DocId"].indexOf(i.Key) >= 0;
                         });
 
-                        let titleStr: string = titleOpts.length === 2 ? titleOpts.find((i: any, n: number) => {
+                        const titleStr: string = titleOpts.length === 2 ? titleOpts.find((i: any, n: number) => {
                             return i.Key === "Title";
                         }).Value : titleOpts[0].Value;
                         return {

@@ -1,13 +1,17 @@
+import { Button } from "office-ui-fabric-react/lib/";
+import { TextField } from "office-ui-fabric-react/lib/TextField";
 import * as React from "react";
 import { connect } from "react-redux";
 import { bindActionCreators, Dispatch } from "redux";
 import spSearchActionsCreatorMap from "../actions/spSearchActions";
-import { TextField } from "office-ui-fabric-react/lib/TextField";
-import { Button } from 'office-ui-fabric-react/lib/';
-import SpSearchSettings from "./spSearchSettings";
+import {
+    IMapDispatchToISpSearchProps,
+    IMapStateToProps,
+    IMapStateToPropsState,
+    ISpPropertyBagProps
+} from "../interfaces/spSearchInterfaces";
 import SpSearchResults from "./spSearchResults";
-import { IMapDispatchToISpSearchProps, IMapStateToProps, IMapStateToPropsState, ISpPropertyBagProps } from "../interfaces/spSearchInterfaces";
-
+import SpSearchSettings from "./spSearchSettings";
 
 class SpSearch extends React.Component<ISpPropertyBagProps, {}> {
     constructor() {
@@ -22,10 +26,19 @@ class SpSearch extends React.Component<ISpPropertyBagProps, {}> {
         return (<div className="sp-Search action-container">
             <div className="ms-Grid-row">
                 <div className="ms-Grid-col ms-u-sm10 ms-u-md10 ms-u-lg10">
-                    <TextField multiline={true} resizable={false} value={this.props.textQuery} onChanged={this.props.actions.setQueryText} />
+                    <TextField
+                        multiline={true}
+                        resizable={false}
+                        value={this.props.textQuery}
+                        onChanged={this.props.actions.setQueryText} />
                 </div>
                 <div className="ms-Grid-col ms-u-sm2 ms-u-md2 ms-u-lg2">
-                    <Button value="Search" title="Search" icon="Search" description="Search" onClick={this.onSearchClick} />
+                    <Button
+                        value="Search"
+                        title="Search"
+                        icon="Search"
+                        description="Search"
+                        onClick={this.onSearchClick} />
                 </div>
             </div>
 
@@ -35,7 +48,6 @@ class SpSearch extends React.Component<ISpPropertyBagProps, {}> {
 
     }
 }
-
 
 const mapStateToProps = (state: IMapStateToPropsState, ownProps: any): IMapStateToProps => {
     return {

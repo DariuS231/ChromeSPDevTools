@@ -2,20 +2,11 @@ import { MessageBarType } from "office-ui-fabric-react/lib/MessageBar";
 import { ActionCreator, ActionCreatorsMapObject, Dispatch } from "redux";
 import SpSearchApi from "../api/spSearchApi";
 import { IInitialState, ISearchResult, ISpSearchActionCreatorsMapObject } from "../interfaces/spSearchInterfaces";
+import { ActionFactory } from "./../../common/actionFactory";
 import { IAction, IMessageData } from "./../../common/interfaces";
 import { ActionsId as actions, constants } from "./../constants/constants";
 
 const api = new SpSearchApi();
-
-
-const ActionFactory = <T>(typeId: string) => {
-    return (value: T): IAction<T> => {
-        return {
-            payload: value,
-            type: typeId
-        };
-    };
-}
 
 const setQueryText = ActionFactory<string>(actions.SET_QUERY_TEXT);
 const setTrimDuplicates = ActionFactory<boolean>(actions.SET_TRIM_DUPLICATES);
@@ -27,12 +18,12 @@ const setRefiners = ActionFactory<string[]>(actions.SET_REFINERS);
 const setFilters = ActionFactory<string[]>(actions.SET_FILTER);
 const setSortBy = ActionFactory<string[]>(actions.SET_SORT);
 const setResultSource = ActionFactory<string>(actions.SET_RESULT_SOURCE);
-const setSerchResults = ActionFactory<ISearchResult>(actions.SET_SEARCH_RESULTS);
+const setSearchResults = ActionFactory<ISearchResult>(actions.SET_SEARCH_RESULTS);
 
 const getResults = (state: IInitialState) => {
     return (dispatch: Dispatch<IAction<ISearchResult>>) => {
         return api.getResults(state).then((results: ISearchResult) => {
-            dispatch(setSerchResults(results));
+            dispatch(setSearchResults(results));
         });
     };
 };
@@ -48,7 +39,7 @@ const spSearchActionsCreatorMap: ISpSearchActionCreatorsMapObject = {
     setFilters,
     setSortBy,
     setResultSource,
-    setSerchResults,
+    setSearchResults,
     getResults
 };
 

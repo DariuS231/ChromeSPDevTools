@@ -2,7 +2,6 @@
 import { ActionCreator, ActionCreatorsMapObject, Dispatch } from "redux";
 import { IAction, IMessageData } from "./../../common/interfaces";
 
-
 export interface ISearchResultKeyValue {
     Key: string;
     Value: string;
@@ -10,7 +9,7 @@ export interface ISearchResultKeyValue {
 }
 export interface IResult {
     key: string;
-    title:string;
+    title: string;
     props: ISearchResultKeyValue[];
 }
 
@@ -42,7 +41,7 @@ export interface ISpSearchActionCreatorsMapObject extends ActionCreatorsMapObjec
     setFilters: ActionCreator<IAction<string[]>>;
     setSortBy: ActionCreator<IAction<string[]>>;
     setResultSource: ActionCreator<IAction<string>>;
-    setSerchResults: ActionCreator<IAction<ISearchResult>>;
+    setSearchResults: ActionCreator<IAction<ISearchResult>>;
     getResults: (state: IInitialState) => (dispatch: Dispatch<IAction<ISearchResult>>) => Promise<void>;
 }
 
