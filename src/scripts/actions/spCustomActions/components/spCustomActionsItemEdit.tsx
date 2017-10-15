@@ -62,7 +62,7 @@ class SpCustomActionsItemEdit extends React.Component<ISpCustomActionsItemEditPr
                         <h2 className="ms-font-xl ms-fontSize-xl ms-u-textAlignCenter edit-form-title">{titleStr}</h2>
                     </div>
                 </div>
-                <div className="ms-ListBasicExample-itemCell  ms-Grid-row" data-is-focusable={true}>
+                <div className="ms-ListBasicSpChromeDevTool-itemCell  ms-Grid-row" data-is-focusable={true}>
                     {this.props.locationItem.renderForm(this.state.item, this.onInputChange)}
                     <div className="ms-ListItem-actions ms-Grid-col ms-u-sm1 ms-u-md1 ms-u-lg1">
                         <IconButton icon="Save" onClick={this.saveItem} title="Save" disabled={disableSaveBtn} />

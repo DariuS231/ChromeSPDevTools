@@ -14,8 +14,8 @@ import SpSearchSettingsInputStringArray from "./SpSearchSettingsInputStringArray
 const SpSearchSettings: React.StatelessComponent<ISpPropertyBagProps> = (props: ISpPropertyBagProps) => {
 
     return (
-        <div style={{ display: "inline-block", width: "30%", verticalAlign: "top" }} >
-            <div style={{ top: "0", position: "relative" }}>
+        <div className="sp-Search-columns settings" >
+            <div >
                 <div className="ms-Grid-row">
                     <div className="ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6">
                         <SpSearchSettingsCheckBox

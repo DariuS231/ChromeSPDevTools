@@ -46,67 +46,7 @@ $dividerColor: $ms-color-neutralLight;
     }
 }
 
-.ms-ListGridExample .ms-List-page {
-    overflow: hidden;
-    font-size: 0;
-}
-
-.ms-ListGridExample .ms-List-surface {
-    position: relative;
-}
-
-.ms-ListGridExample-tile {
-    text-align: center;
-    outline: none;
-    position: relative;
-    float: left;
-    background: $ms-color-neutralLighter;
-}
-
-.ms-ListGridExample-sizer {
-    padding-bottom: 100%;
-}
-
-.msListGridExample-padder {
-    position: absolute;
-    left: 2px;
-    top: 2px;
-    right: 2px;
-    bottom: 2px;
-}
-
-.ms-Fabric.is-focusVisible .ms-ListGridExample-tile:focus:after {
-    content: '';
-    position: absolute;
-    left: 2px;
-    right: 2px;
-    top: 2px;
-    bottom: 2px;
-    box-sizing: border-box;
-    border: 1px solid $ms-color-white;
-}
-
-.ms-ListGridExample-label {
-    background: rgba(0, 0, 0, .3);
-    color: #ffffff;
-    padding: 10px;
-    position: absolute;
-    bottom: 0;
-    font-size: 12px;
-    left: 0;
-    width: 100%;
-    font-size: $ms-font-size-s;
-    box-sizing: border-box;
-}
-
-.ms-ListGridExample-image {
-    width: 100%;
-    position: absolute;
-    left: 0;
-    top: 0;
-}
-
-.ms-ListBasicExample-itemCell {
+.ms-ListBasicSpChromeDevTool-itemCell {
     @include focus-border();
     min-height: 90px;
     padding: 10px;
@@ -115,15 +55,15 @@ $dividerColor: $ms-color-neutralLight;
     display: flex;
 }
 
-.ms-ListBasicExample-itemCell:hover {
+.ms-ListBasicSpChromeDevTool-itemCell:hover {
     background: #EEE;
 }
 
-.ms-ListBasicExample-itemImage {
+.ms-ListBasicSpChromeDevTool-itemImage {
     flex-shrink: 0;
 }
 
-.ms-ListBasicExample-itemContent {
+.ms-ListBasicSpChromeDevTool-itemContent {
     @include margin-left(10px);
     overflow: hidden;
     flex-grow: 1;
@@ -132,19 +72,19 @@ $dividerColor: $ms-color-neutralLight;
     text-overflow: ellipsis;
 }
 
-.ms-ListBasicExample-itemName {
+.ms-ListBasicSpChromeDevTool-itemName {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
-.ms-ListBasicExample-itemIndex {
+.ms-ListBasicSpChromeDevTool-itemIndex {
     font-size: $ms-font-size-s;
     color: $ms-color-neutralTertiary;
     margin-bottom: 10px;
 }
 
-.ms-ListBasicExample-chevron {
+.ms-ListBasicSpChromeDevTool-chevron {
     align-self: center;
     @include margin-left(10px);
     color: $ms-color-neutralTertiary;
@@ -276,12 +216,12 @@ $dividerColor: $ms-color-neutralLight;
     .spProp-create-button {
         padding-left: 17px;
     }
-    .action-buttons{
+    .action-buttons {
         display: inline-flex;
         top: -5px;
         right: -10px;
         position: absolute;
-        > a {
+        >a {
             margin-top: 0 !important;
             padding-top: 0 !important;
         }
@@ -295,26 +235,25 @@ $dividerColor: $ms-color-neutralLight;
     .ms-List-cell {
         width: 50%;
         display: inline-block;
-        .ms-ListBasicExample-itemCell {
+        .ms-ListBasicSpChromeDevTool-itemCell {
             min-height: 90px;
-            &:hover{
+            &:hover {
                 background-color: transparent !important;
             }
-            .ms-ListItem-actions{
-              width: 30px;
+            .ms-ListItem-actions {
+                width: 30px;
             }
-
-            .ms-ListBasicExample-itemContent{
-                width:50%;
+            .ms-ListBasicSpChromeDevTool-itemContent {
+                width: 50%;
             }
         }
         &:nth-child(odd) {
-            .ms-ListBasicExample-itemCell {
+            .ms-ListBasicSpChromeDevTool-itemCell {
                 margin-right: 5px;
             }
         }
         &:nth-child(even) {
-            .ms-ListBasicExample-itemCell {
+            .ms-ListBasicSpChromeDevTool-itemCell {
                 margin-left: 5px;
             }
         }
@@ -372,8 +311,8 @@ $dividerColor: $ms-color-neutralLight;
         height: 30px;
         font-size: 14px !important;
         i {
-          vertical-align: middle;
-          padding-left: 20px;
+            vertical-align: middle;
+            padding-left: 20px;
         }
     }
 }
@@ -388,12 +327,12 @@ $dividerColor: $ms-color-neutralLight;
     overflow-x: hidden;
     overflow-y: auto;
     height: 90%;
-    .ms-ListBasicExample-featureName {
+    .ms-ListBasicSpChromeDevTool-featureName {
         white-space: normal;
         overflow: visible;
         margin-right: 10px;
     }
-    .ms-ListBasicExample-featureContent {
+    .ms-ListBasicSpChromeDevTool-featureContent {
         @include margin-left(10px);
         overflow: hidden;
         flex-grow: 1;
@@ -403,7 +342,7 @@ $dividerColor: $ms-color-neutralLight;
     .ms-ListFeature-toggle {
         margin-top: -5px;
     }
-    .ms-ListBasicExample-itemCell {
+    .ms-ListBasicSpChromeDevTool-itemCell {
         min-height: 60px;
     }
     .web-feature-table {
@@ -418,5 +357,47 @@ $dividerColor: $ms-color-neutralLight;
         width: 49%;
         vertical-align: top;
         margin-left: 5px;
+    }
+}
+
+// /***   SP Search ***/
+.sp-Search {
+    overflow-y: hidden;
+    overflow-x: hidden;
+    height: 90%;
+    .sp-Search-columns {
+        display: inline-block;
+        vertical-align: top;
+        height: 90%;
+        >div {
+            top: 0px;
+            position: relative;
+        }
+        &.results {
+            width: 70%;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+        &.settings {
+            width: 30%
+        }
+    }
+    .ms-List-cell {
+        padding: 5px 10px;
+        .ms-DetailsRow-cell[data-automation-key="Value"] {
+            white-space: normal;
+        }
+        .ms-DetailsList.is-horizontalConstrained {
+            overflow: hidden;
+        }
+    }
+    .ms-ListBasicSpChromeDevTool-itemCell {
+        min-height: 40px;
+        .ms-ListBasicSpChromeDevTool-itemName {
+            text-decoration: none;
+            i {
+                vertical-align: middle;
+            }
+        }
     }
 }

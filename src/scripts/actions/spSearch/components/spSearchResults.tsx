@@ -13,8 +13,8 @@ const SpSearchResults: React.StatelessComponent<ISpSearchListProps> = (props: IS
     };
 
     return (
-        <div style={{ display: "inline-block", width: "70%", verticalAlign: "top" }} >
-            <div style={{ top: "0", position: "relative" }}>
+        <div className="sp-Search-columns results" >
+            <div>
                 <List items={props.results} onRenderCell={renderListItem} />
             </div>
         </div>
