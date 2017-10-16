@@ -37,7 +37,7 @@ const ActionItem: React.StatelessComponent<IActionItemProps> = (props: IActionIt
     return <button className="ms-Button ms-Button--compound action-btn" onClick={onItemClick}>
         <img src={props.item.image} />
         <div>
-            <span className="ms-font-l ms-fontColor-themePrimary ms-fontWeight-regular">{props.item.title}</span>
+            <span className="ms-font-m ms-fontColor-themePrimary ms-fontWeight-regular">{props.item.title}</span>
             <span className="ms-Button-description">{props.item.description}</span>
         </div>
     </button>;

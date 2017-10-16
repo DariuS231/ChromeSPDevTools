@@ -51,9 +51,9 @@ export default class PopUp extends React.Component<IPopUpProps, IPopUpState> {
     private actions() {
         return (
             <div className="container">
-                <span className="ms-font-xxl ms-fontColor-themePrimary ms-fontWeight-semibold">Chrome SP Dev Tools</span>
+                <span className="ms-font-xl ms-fontColor-themePrimary ms-fontWeight-semibold">Chrome SP Dev Tools</span>
                 <hr />
-                <List items={this.state.actions} onRenderCell={this.renderItem} />
+                <List items={this.state.actions} onRenderCell={this.renderItem} renderedWindowsAhead={4} />
                 <div className="ms-font-mi ms-fontWeight-light tool-version" >
                     <span>Version {this.props.currentVersion}</span>
                 </div>
@@ -72,7 +72,7 @@ export default class PopUp extends React.Component<IPopUpProps, IPopUpState> {
     private notSpSite() {
         return (
             <div className="container">
-                <span className="ms-font-xxl ms-fontColor-themePrimary ms-fontWeight-semibold">Not a SharePoint site</span>
+                <span className="ms-font-xl ms-fontColor-themePrimary ms-fontWeight-semibold">Not a SharePoint site</span>
                 <hr />
                 <div className="ms-font-m ms-fontWeight-light tool-version" >
                     <span>Try opening the tool on a SharePoint Tab</span>
