@@ -5,20 +5,35 @@ import { SpSearchResultsItem } from "./spSearchResultsItem";
 
 interface ISpSearchListProps {
     results: ISearchResult;
+    totalResults: number;
 }
 
 const SpSearchResults: React.StatelessComponent<ISpSearchListProps> = (props: ISpSearchListProps) => {
     const renderListItem = (item: IResult, index: number) => {
         return <SpSearchResultsItem item={item} />;
     };
-
-    return (
-        <div className="sp-Search-columns results" >
-            <div>
-                <List items={props.results} onRenderCell={renderListItem} />
+    if (props.totalResults > 0) {
+        return (
+            <div className="sp-Search-columns results" >
+                <div>
+                    Showing {props.results.length} out of {props.totalResults}
+                </div>
+                <div>
+                    <List items={props.results} onRenderCell={renderListItem} />
+                </div>
             </div>
-        </div>
-    );
+        );
+
+    } else {
+
+        return (
+            <div className="sp-Search-columns results" >
+                <div>
+                    There is nothing to see here!
+            </div>
+            </div>
+        );
+    }
 };
 
 export default SpSearchResults;

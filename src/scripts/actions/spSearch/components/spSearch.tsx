@@ -43,7 +43,7 @@ class SpSearch extends React.Component<ISpPropertyBagProps, {}> {
             </div>
 
             <SpSearchSettings {...this.props} />
-            <SpSearchResults results={this.props.results} />
+            <SpSearchResults results={this.props.results} totalResults={this.props.totalResults} />
         </div>);
 
     }
@@ -52,9 +52,9 @@ class SpSearch extends React.Component<ISpPropertyBagProps, {}> {
 const mapStateToProps = (state: IMapStateToPropsState, ownProps: any): IMapStateToProps => {
     return {
         results: state.spSearch.results,
+        totalResults: state.spSearch.totalResults,
         textQuery: state.spSearch.textQuery,
         rowLimit: state.spSearch.rowLimit,
-        start: state.spSearch.start,
         skip: state.spSearch.skip,
         trimDuplicates: state.spSearch.trimDuplicates,
         selectFields: state.spSearch.selectFields,

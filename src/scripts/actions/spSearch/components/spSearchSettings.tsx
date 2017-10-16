@@ -33,14 +33,9 @@ const SpSearchSettings: React.StatelessComponent<ISpPropertyBagProps> = (props: 
                             action={props.actions.setRowLimit} />
                     </div>
                     <div className="ms-Grid-col ms-u-sm4 ms-u-md4 ms-u-lg4">
-                        <SpSearchSettingsInputNumber
-                            label={"Start"}
-                            value={props.start}
-                            action={props.actions.setStart} />
-                    </div>
-                    <div className="ms-Grid-col ms-u-sm4 ms-u-md4 ms-u-lg4">
                         <SpSearchSettingsInputNumber label={"Skip"} value={props.skip} action={props.actions.setSkip} />
                     </div>
+                    <div className="ms-Grid-col ms-u-sm4 ms-u-md4 ms-u-lg4" />
                 </div>
                 <div className="ms-Grid-row">
                     <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
@@ -49,24 +44,24 @@ const SpSearchSettings: React.StatelessComponent<ISpPropertyBagProps> = (props: 
                             value={props.selectFields}
                             action={props.actions.setSelectFields} />
                     </div>
-                    <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
+                    {/* <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
                         <SpSearchSettingsInputStringArray
                             label={"Refiners"}
                             value={props.Refiners}
                             action={props.actions.setRefiners} />
-                    </div>
+                    </div> */}
                     <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
                         <SpSearchSettingsInputString
                             label={"Filters"}
                             value={props.filters}
                             action={props.actions.setFilters} />
                     </div>
-                    <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
+                    {/* <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
                         <SpSearchSettingsInputStringArray
                             label={"Sort"}
                             value={props.sortBy}
                             action={props.actions.setSortBy} />
-                    </div>
+                    </div> */}
                     <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
                         <SpSearchSettingsInputString
                             label={"Result Source Id"}

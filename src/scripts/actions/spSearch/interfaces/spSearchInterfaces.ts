@@ -15,72 +15,50 @@ export interface IResult {
 
 export type ISearchResult = Array<IResult>
 
-export interface IInitialState {
-    results: ISearchResult,
-    textQuery: string,
-    rowLimit: number,
-    start: number,
-    skip: number,
-    trimDuplicates: boolean,
-    selectFields: string[],
-    sourceId: string,
-    Refiners: string[],
-    filters: string,
-    sortBy: string[]
-    showFetching: boolean
+export interface IResultAndTotal {
+    results: ISearchResult;
+    total: number;
 }
-
 export interface ISpSearchActionCreatorsMapObject extends ActionCreatorsMapObject {
     setQueryText: ActionCreator<IAction<string>>;
     setTrimDuplicates: ActionCreator<IAction<boolean>>;
     setRowLimit: ActionCreator<IAction<number>>;
-    setStart: ActionCreator<IAction<number>>;
     setSkip: ActionCreator<IAction<number>>;
     setSelectFields: ActionCreator<IAction<string[]>>;
     setRefiners: ActionCreator<IAction<string[]>>;
     setFilters: ActionCreator<IAction<string[]>>;
     setSortBy: ActionCreator<IAction<string[]>>;
     setResultSource: ActionCreator<IAction<string>>;
-    setSearchResults: ActionCreator<IAction<ISearchResult>>;
-    getResults: (state: IInitialState) => (dispatch: Dispatch<IAction<ISearchResult>>) => Promise<void>;
+    setSearchResults: ActionCreator<IAction<IResultAndTotal>>;
+    getResults: (state: IInitialState) => (dispatch: Dispatch<IAction<IResultAndTotal>>) => Promise<void>;
 }
 
 export interface IMapDispatchToISpSearchProps {
     actions: ISpSearchActionCreatorsMapObject;
 }
 
-
 export interface IMapStateToPropsState {
     spSearch: IInitialState;
 }
 
-export interface IMapStateToProps {
-    results: ISearchResult,
-    textQuery: string,
-    rowLimit: number,
-    start: number,
-    skip: number,
-    trimDuplicates: boolean,
-    selectFields: string[],
-    sourceId: string,
-    Refiners: string[],
-    filters: string,
-    sortBy: string[]
-    showFetching: boolean
+export interface IInitialState {
+    results: ISearchResult;
+    totalResults: number;
+    textQuery: string;
+    rowLimit: number;
+    skip: number;
+    trimDuplicates: boolean;
+    selectFields: string[];
+    sourceId: string;
+    Refiners: string[];
+    filters: string;
+    sortBy: string[];
+    showFetching: boolean;
 }
 
-export interface ISpPropertyBagProps {
-    results: ISearchResult,
-    textQuery: string,
-    rowLimit: number,
-    start: number,
-    skip: number,
-    trimDuplicates: boolean,
-    selectFields: string[],
-    sourceId: string,
-    Refiners: string[],
-    filters: string,
-    sortBy: string[]
-    showFetching: boolean
+export interface IMapStateToProps extends IInitialState {
+}
+
+export interface ISpPropertyBagProps extends IInitialState {
     actions: ISpSearchActionCreatorsMapObject;
 }
