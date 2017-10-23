@@ -11,10 +11,8 @@ import { constants } from "./../constants/constants";
 export default class SpSearchApi extends ApiBase {
     public getResults(state: IInitialState): Promise<IResultAndTotal> {
         return new Promise((resolve, reject) => {
-            this.getWebUrl().then(webUrl => {
-                /*
-                sortlist='Rank:descending%2cmodifiedby:ascending'&clienttype='ContentSearchRegular'&properties='SourceLevel:SPSite,SourceName:My Site Collection Source'
-                */
+            this.getWebUrl().then((webUrl: string) => {
+
                 let reqUrl: string = `${webUrl}/_api/search/query`;
 
                 reqUrl += `?querytext='${state.textQuery}'`;
@@ -26,11 +24,13 @@ export default class SpSearchApi extends ApiBase {
                     reqUrl += `&selectproperties='${state.selectFields.join(",")}'`;
                 }
                 if (state.sortBy.length > 0) {
-                    //&sortlist='Rank:descending%2cmodifiedby:ascending'
                     reqUrl += `&sortlist='${state.sortBy.join(",")}'`;
                 }
-                if (state.sourceId !== '') {
+                if (state.sourceId !== "") {
                     reqUrl += `&sourceid='${state.sourceId}'`;
+                }
+                if (state.filters !== "") {
+                    reqUrl += `&refinementfilters='${state.filters}'`;
                 }
 
                 this.getRequest(reqUrl).then((response: any) => {

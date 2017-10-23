@@ -56,12 +56,12 @@ const SpSearchSettings: React.StatelessComponent<ISpPropertyBagProps> = (props: 
                             value={props.filters}
                             action={props.actions.setFilters} />
                     </div>
-                    {/* <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
+                    <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
                         <SpSearchSettingsInputStringArray
                             label={"Sort"}
                             value={props.sortBy}
                             action={props.actions.setSortBy} />
-                    </div> */}
+                    </div>
                     <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
                         <SpSearchSettingsInputString
                             label={"Result Source Id"}

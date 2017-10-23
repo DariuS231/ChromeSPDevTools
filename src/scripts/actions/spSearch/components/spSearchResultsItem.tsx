@@ -33,8 +33,8 @@ export class SpSearchResultsItem extends React.Component<ISpSearchResultsItemPro
                 <div className="ms-ListBasicSpChromeDevTool-itemContent">
                     <div className="ms-ListBasicSpChromeDevTool-itemName">
                         <a onClick={this.onToggle} href="#"> {this.props.item.title} {this.state.collapsed
-                            ? <i className="ms-Icon ms-Icon--ChevronDownSmall" aria-hidden="true"></i>
-                            : <i className="ms-Icon ms-Icon--ChevronUpSmall" aria-hidden="true"></i>
+                            ? <i className="ms-Icon ms-Icon--ChevronDownSmall" aria-hidden="true"/>
+                            : <i className="ms-Icon ms-Icon--ChevronUpSmall" aria-hidden="true" />
                         } </a>
                     </div>
 

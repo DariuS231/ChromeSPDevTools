@@ -33,7 +33,7 @@
         {
             "title": "Search",
             "description": "Search.",
-            "image": "/images/switch-64-blue.png",
+            "image": "/images/search-64-blue.png",
             "scriptUrl": "https://localhost:8080/dist/actions/spSearch/spSearch.js"
         }
     ]
