@@ -4,7 +4,8 @@ import { TextField } from "office-ui-fabric-react/lib/TextField";
 interface SpSearchSettingsInputStringArrayProps {
     label: string,
     value: string[],
-    action: any
+    action: any,
+    placeHolder?: string
 }
 const SpSearchSettingsInputStringArray: React.StatelessComponent<SpSearchSettingsInputStringArrayProps> = (props: SpSearchSettingsInputStringArrayProps) => {
 
@@ -12,7 +13,12 @@ const SpSearchSettingsInputStringArray: React.StatelessComponent<SpSearchSetting
 
         props.action(newValue.split(','));
     }
-    return <TextField label={props.label} type="text" value={props.value.join(',')} onChanged={oninputChange} />;
+    return <TextField
+        label={props.label}
+        type="text"
+        value={props.value.join(',')}
+        onChanged={oninputChange}
+        placeholder={props.placeHolder || ""} />;
 
 };
 

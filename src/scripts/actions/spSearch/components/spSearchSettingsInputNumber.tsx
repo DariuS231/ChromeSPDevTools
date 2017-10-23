@@ -11,7 +11,11 @@ const SpSearchSettingsInputNumber: React.StatelessComponent<SpSearchSettingsInpu
     const oninputChange = (newValue: number) => {
         props.action(newValue);
     }
-    return <TextField label={props.label} type="number" value={props.value.toString()} onChanged={oninputChange} />;
+    return <TextField
+        label={props.label}
+        type="number"
+        value={props.value.toString()}
+        onChanged={oninputChange} />;
 
 };
 

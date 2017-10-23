@@ -12,7 +12,7 @@ import SpSearchSettingsInputStringArray from "./SpSearchSettingsInputStringArray
 
 
 const SpSearchSettings: React.StatelessComponent<ISpPropertyBagProps> = (props: ISpPropertyBagProps) => {
-
+    const guidRegex: RegExp = /^[0-9aA-fF]{8}-([0-9aA-fF]{4}-){3}[0-9aA-fF]{12}$/;
     return (
         <div className="sp-Search-columns settings" >
             <div >
@@ -42,7 +42,8 @@ const SpSearchSettings: React.StatelessComponent<ISpPropertyBagProps> = (props: 
                         <SpSearchSettingsInputStringArray
                             label={"Select Fields"}
                             value={props.selectFields}
-                            action={props.actions.setSelectFields} />
+                            action={props.actions.setSelectFields}
+                            placeHolder={"ID,Title,ContentTypeId..."} />
                     </div>
                     {/* <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
                         <SpSearchSettingsInputStringArray
@@ -54,19 +55,24 @@ const SpSearchSettings: React.StatelessComponent<ISpPropertyBagProps> = (props: 
                         <SpSearchSettingsInputString
                             label={"Filters"}
                             value={props.filters}
-                            action={props.actions.setFilters} />
+                            action={props.actions.setFilters}
+                            placeHolder={"Title:Red Cars..."} />
                     </div>
                     <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
                         <SpSearchSettingsInputStringArray
                             label={"Sort"}
                             value={props.sortBy}
-                            action={props.actions.setSortBy} />
+                            action={props.actions.setSortBy}
+                            placeHolder={"Author:ascending,Size:descending..."} />
                     </div>
                     <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
                         <SpSearchSettingsInputString
                             label={"Result Source Id"}
                             value={props.sourceId}
-                            action={props.actions.setResultSource} />
+                            action={props.actions.setResultSource}
+                            placeHolder={"01234567-89AB-CDEF-GHIJ-KLMNOPQRSTUV"}
+                            valudation={str => { return !str || guidRegex.test(str) }}
+                            valudationError="Invalid GUID" />
                     </div>
                 </div>
 
