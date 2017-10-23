@@ -30,7 +30,8 @@ class SpSearch extends React.Component<ISpPropertyBagProps, {}> {
                         multiline={true}
                         resizable={false}
                         value={this.props.textQuery}
-                        onChanged={this.props.actions.setQueryText} />
+                        onChanged={this.props.actions.setQueryText}
+                        onGetErrorMessage={this._validateSearchText} />
                 </div>
                 <div className="ms-Grid-col ms-u-sm2 ms-u-md2 ms-u-lg2">
                     <Button
@@ -46,6 +47,9 @@ class SpSearch extends React.Component<ISpPropertyBagProps, {}> {
             <SpSearchResults results={this.props.results} totalResults={this.props.totalResults} />
         </div>);
 
+    }
+    private _validateSearchText(str: string): string {
+        return str.trim() === "" ? "Text Query can´t be empty." : "";
     }
 }
 
