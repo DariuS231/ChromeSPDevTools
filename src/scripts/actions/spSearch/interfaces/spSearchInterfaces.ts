@@ -54,6 +54,7 @@ export interface IInitialState {
     filters: string;
     sortBy: string[];
     showFetching: boolean;
+    messageData: IMessageData;
 }
 
 export interface IMapStateToProps extends IInitialState {

@@ -12,28 +12,16 @@ const SpSearchResults: React.StatelessComponent<ISpSearchListProps> = (props: IS
     const renderListItem = (item: IResult, index: number) => {
         return <SpSearchResultsItem item={item} />;
     };
-    if (props.totalResults > 0) {
-        return (
-            <div className="sp-Search-columns results" >
-                <div>
-                    Showing {props.results.length} out of {props.totalResults}
-                </div>
-                <div>
-                    <List items={props.results} onRenderCell={renderListItem} />
-                </div>
+    return (
+        <div>
+            <div>
+                Showing {props.results.length} out of {props.totalResults}
             </div>
-        );
-
-    } else {
-
-        return (
-            <div className="sp-Search-columns results" >
-                <div>
-                    There is nothing to see here!
-                </div>
+            <div>
+                <List items={props.results} onRenderCell={renderListItem} />
             </div>
-        );
-    }
+        </div>
+    );
 };
 
 export default SpSearchResults;

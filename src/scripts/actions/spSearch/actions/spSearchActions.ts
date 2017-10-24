@@ -24,12 +24,35 @@ const setSortBy = ActionFactory<string[]>(actions.SET_SORT);
 const setResultSource = ActionFactory<string>(actions.SET_RESULT_SOURCE);
 const setSearchResults = ActionFactory<IResultAndTotal>(actions.SET_SEARCH_RESULTS);
 const setFetchingData = ActionFactory<boolean>(actions.SET_FETCHING_DATA);
+const setMessageData = ActionFactory<IMessageData>(actions.SET_MESSAGE_DATA);
+const setErrorMessageData = ActionFactory<IMessageData>(actions.SET_ERROR_MESSAGE_DATA);
 
 const getResults = (state: IInitialState) => {
     return (dispatch: Dispatch<IAction<IResultAndTotal>>) => {
         dispatch(setFetchingData(true));
         return api.getResults(state).then((results: IResultAndTotal) => {
             dispatch(setSearchResults(results));
+        }).catch((reason: any) => {
+            let errorMessage: string = reason.message || reason;
+            if (!!reason.response
+                && !!reason.response.data
+                && !!reason.response.data["odata.error"]
+                && !!reason.response.data["odata.error"].code) {
+                errorMessage += ` | ${reason.response.data["odata.error"].code}`;
+            }
+            if (!!reason.response
+                && !!reason.response.data
+                && !!reason.response.data["odata.error"]
+                && !!reason.response.data["odata.error"].message
+                && !!reason.response.data["odata.error"].message.value) {
+                errorMessage += ` | ${reason.response.data["odata.error"].message.value}`;
+            }
+
+            dispatch(setErrorMessageData({
+                message: errorMessage,
+                showMessage: true,
+                type: MessageBarType.error
+            }));
         });
     };
 };

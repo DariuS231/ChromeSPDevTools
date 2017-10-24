@@ -1,6 +1,6 @@
 import { Button } from "office-ui-fabric-react/lib/";
-import { TextField } from "office-ui-fabric-react/lib/TextField";
 import { Spinner, SpinnerType } from "office-ui-fabric-react/lib/Spinner";
+import { TextField } from "office-ui-fabric-react/lib/TextField";
 import * as React from "react";
 import { connect } from "react-redux";
 import { bindActionCreators, Dispatch } from "redux";
@@ -11,6 +11,7 @@ import {
     IMapStateToPropsState,
     ISpPropertyBagProps
 } from "../interfaces/spSearchInterfaces";
+import SpSearchMessage from "./spSearchMessage";
 import SpSearchResults from "./spSearchResults";
 import SpSearchSettings from "./spSearchSettings";
 
@@ -18,6 +19,7 @@ class SpSearch extends React.Component<ISpPropertyBagProps, {}> {
     constructor() {
         super();
         this.onSearchClick = this.onSearchClick.bind(this);
+        this._resultsComponent = this._resultsComponent.bind(this);
     }
     public onSearchClick(ev: any): void {
         this.props.actions.getResults(this.props);
@@ -43,18 +45,26 @@ class SpSearch extends React.Component<ISpPropertyBagProps, {}> {
                         onClick={this.onSearchClick} />
                 </div>
             </div>
-
             <SpSearchSettings {...this.props} />
-            {
-                this.props.showFetching
-                    ? <div className="sp-Search-columns results" ><Spinner type={SpinnerType.large} label={"Fetching results..."} /></div>
-                    : <SpSearchResults results={this.props.results} totalResults={this.props.totalResults} />
-            }
-        </div>);
+            <div className="sp-Search-columns results" >
+                <SpSearchMessage messageData={this.props.messageData} />
+                {this._resultsComponent()}
+            </div>
+        </div>
+        );
 
     }
     private _validateSearchText(str: string): string {
         return str.trim() === "" ? "Text Query can´t be empty." : "";
+    }
+    private _resultsComponent() {
+        if (this.props.showFetching) {
+            return <Spinner type={SpinnerType.large} label={"Fetching results..."} />;
+        } else if (this.props.results.length > 0) {
+            return <SpSearchResults results={this.props.results} totalResults={this.props.totalResults} />;
+        } else {
+            return null;
+        }
     }
 }
 
@@ -71,7 +81,8 @@ const mapStateToProps = (state: IMapStateToPropsState, ownProps: any): IMapState
         Refiners: state.spSearch.Refiners,
         filters: state.spSearch.filters,
         sortBy: state.spSearch.sortBy,
-        showFetching: state.spSearch.showFetching
+        showFetching: state.spSearch.showFetching,
+        messageData: state.spSearch.messageData
     };
 };
 

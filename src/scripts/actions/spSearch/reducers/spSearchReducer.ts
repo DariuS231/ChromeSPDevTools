@@ -15,7 +15,12 @@ const initialState: IInitialState = {
     Refiners: new Array(),
     filters: "",
     sortBy: new Array(),
-    showFetching: false
+    showFetching: false,
+    messageData: {
+        message: "",
+        type: MessageBarType.info,
+        showMessage: false
+    }
 };
 
 export const spSearchReducer = (state: IInitialState = initialState, action: IAction<any>): IInitialState => {
@@ -51,10 +56,32 @@ export const spSearchReducer = (state: IInitialState = initialState, action: IAc
         case actions.SET_FETCHING_DATA:
             const showFetching: boolean = action.payload;
             return { ...state, showFetching };
+        case actions.SET_MESSAGE_DATA:
+            const messageData: IMessageData = action.payload;
+            return { ...state, messageData };
+        case actions.SET_ERROR_MESSAGE_DATA:
+            const errorMessageData: IMessageData = action.payload;
+            return { ...state, messageData: errorMessageData, results: [], totalResults: 0, showFetching: false };
         case actions.SET_SEARCH_RESULTS:
             const res: IResultAndTotal = action.payload;
-            return { ...state, results: res.results, totalResults: res.total, showFetching: false };
-
+            const msgData: IMessageData = (res.results.length === 0)
+                ? {
+                    showMessage: true,
+                    message: "The search did not yield any results.",
+                    type: MessageBarType.warning
+                }
+                : {
+                    showMessage: false,
+                    message: "",
+                    type: MessageBarType.info
+                };
+            return {
+                ...state,
+                results: res.results,
+                totalResults: res.total,
+                showFetching: false,
+                messageData: msgData
+            };
         default:
             return state;
     }
