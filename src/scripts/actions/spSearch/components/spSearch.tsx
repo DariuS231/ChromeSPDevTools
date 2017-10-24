@@ -1,5 +1,6 @@
 import { Button } from "office-ui-fabric-react/lib/";
 import { TextField } from "office-ui-fabric-react/lib/TextField";
+import { Spinner, SpinnerType } from "office-ui-fabric-react/lib/Spinner";
 import * as React from "react";
 import { connect } from "react-redux";
 import { bindActionCreators, Dispatch } from "redux";
@@ -44,7 +45,11 @@ class SpSearch extends React.Component<ISpPropertyBagProps, {}> {
             </div>
 
             <SpSearchSettings {...this.props} />
-            <SpSearchResults results={this.props.results} totalResults={this.props.totalResults} />
+            {
+                this.props.showFetching
+                    ? <div className="sp-Search-columns results" ><Spinner type={SpinnerType.large} label={"Fetching results..."} /></div>
+                    : <SpSearchResults results={this.props.results} totalResults={this.props.totalResults} />
+            }
         </div>);
 
     }

@@ -48,9 +48,12 @@ export const spSearchReducer = (state: IInitialState = initialState, action: IAc
         case actions.SET_RESULT_SOURCE:
             const sourceId: string = action.payload;
             return { ...state, sourceId };
+        case actions.SET_FETCHING_DATA:
+            const showFetching: boolean = action.payload;
+            return { ...state, showFetching };
         case actions.SET_SEARCH_RESULTS:
             const res: IResultAndTotal = action.payload;
-            return { ...state, results: res.results, totalResults: res.total };
+            return { ...state, results: res.results, totalResults: res.total, showFetching: false };
 
         default:
             return state;

@@ -23,9 +23,11 @@ const setFilters = ActionFactory<string[]>(actions.SET_FILTER);
 const setSortBy = ActionFactory<string[]>(actions.SET_SORT);
 const setResultSource = ActionFactory<string>(actions.SET_RESULT_SOURCE);
 const setSearchResults = ActionFactory<IResultAndTotal>(actions.SET_SEARCH_RESULTS);
+const setFetchingData = ActionFactory<boolean>(actions.SET_FETCHING_DATA);
 
 const getResults = (state: IInitialState) => {
     return (dispatch: Dispatch<IAction<IResultAndTotal>>) => {
+        dispatch(setFetchingData(true));
         return api.getResults(state).then((results: IResultAndTotal) => {
             dispatch(setSearchResults(results));
         });
