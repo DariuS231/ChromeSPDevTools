@@ -19,7 +19,7 @@ interface ISpSearchResultsItemState {
 
 export class SpSearchResultsItem extends React.Component<ISpSearchResultsItemProps, ISpSearchResultsItemState> {
     private _columns: IColumn[] = [
-        { key: "Key", name: "Key", fieldName: "Key", maxWidth: 150 } as IColumn,
+        { key: "Key", name: "Key", fieldName: "Key", maxWidth: 160, minWidth: 160 } as IColumn,
         { key: "Value", name: "Value", fieldName: "Value" } as IColumn
     ];
     constructor() {
@@ -32,8 +32,8 @@ export class SpSearchResultsItem extends React.Component<ISpSearchResultsItemPro
             <div className="ms-ListBasicSpChromeDevTool-itemCell" data-is-focusable={true} key={this.props.item.key}>
                 <div className="ms-ListBasicSpChromeDevTool-itemContent">
                     <div className="ms-ListBasicSpChromeDevTool-itemName">
-                        <a onClick={this.onToggle} href="#"> {this.props.item.title} {this.state.collapsed
-                            ? <i className="ms-Icon ms-Icon--ChevronDownSmall" aria-hidden="true"/>
+                        <a onClick={this.onToggle} href="#"> {this.props.item.title}{this.state.collapsed
+                            ? <i className="ms-Icon ms-Icon--ChevronDownSmall" aria-hidden="true" />
                             : <i className="ms-Icon ms-Icon--ChevronUpSmall" aria-hidden="true" />
                         } </a>
                     </div>

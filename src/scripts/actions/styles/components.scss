@@ -365,6 +365,7 @@ $dividerColor: $ms-color-neutralLight;
     overflow-y: hidden;
     overflow-x: hidden;
     height: 90%;
+    padding-top: 10px;
     .sp-Search-columns {
         display: inline-block;
         vertical-align: top;
@@ -382,14 +383,44 @@ $dividerColor: $ms-color-neutralLight;
             width: 30%
         }
     }
+    .ms-DetailsRow-cell {
+      padding: 5px 0;
+      min-height: 20px;
+    }
+    .ms-DetailsRow {
+      min-height: 26px;
+    }
+    .ms-DetailsList .ms-List-cell {
+      min-height: 26px;
+  }
     .ms-List-cell {
-        padding: 5px 10px;
+        padding: 0 10px;
         .ms-DetailsRow-cell[data-automation-key="Value"] {
             white-space: normal;
+            word-wrap: break-word;
         }
         .ms-DetailsList.is-horizontalConstrained {
             overflow: hidden;
         }
+        .ms-ListBasicSpChromeDevTool-itemCell {
+          min-height: 30px !important;
+          .ms-ListBasicSpChromeDevTool-itemName {
+              text-decoration: none;
+              i {
+                  vertical-align: middle;
+                  margin-left: 10px;
+                  right: 0;
+                  position: absolute;
+              }
+          }
+          &:hover{
+            background: transparent,
+          }
+
+        .ms-ListBasicSpChromeDevTool-itemContent{
+          margin-left: 0px;
+        }
+      }
     }
     .ms-ListBasicSpChromeDevTool-itemCell {
         min-height: 40px;
@@ -397,7 +428,25 @@ $dividerColor: $ms-color-neutralLight;
             text-decoration: none;
             i {
                 vertical-align: middle;
+                margin-left: 10px;
             }
         }
+        &:hover{
+          background: transparent,
+        }
     }
+    ::-webkit-input-placeholder { /* Chrome */
+      color:lightgrey !important;
+    }
+    input:not([type]),
+    input[type=email],
+    input[type=file],
+    input[type=password],
+    input[type=text],
+    select,
+    textarea {
+      background-color: transparent;
+      border-color: #c8c8c8;
+      color: #333333;
+  }
 }

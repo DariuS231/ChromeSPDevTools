@@ -30,7 +30,7 @@ const SpSearchResults: React.StatelessComponent<ISpSearchListProps> = (props: IS
             <div className="sp-Search-columns results" >
                 <div>
                     There is nothing to see here!
-            </div>
+                </div>
             </div>
         );
     }
