@@ -5,17 +5,17 @@ interface SpSearchSettingsInputStringProps {
     label: string,
     value: string,
     action: any,
-    valudation?: (value: string) => boolean,
-    valudationError?: string,
+    validation?: (value: string) => boolean,
+    validationError?: string,
     placeHolder?: string
 }
 const SpSearchSettingsInputString: React.StatelessComponent<SpSearchSettingsInputStringProps> = (props: SpSearchSettingsInputStringProps) => {
 
     const getErrorMessage = (value: string): string => {
-        if (!!props.valudation) {
-            return props.valudation(value)
+        if (!!props.validation) {
+            return props.validation(value)
                 ? ''
-                : props.valudationError;
+                : props.validationError;
         } else {
             return "";
         }

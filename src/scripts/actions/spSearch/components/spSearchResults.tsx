@@ -27,7 +27,7 @@ const SpSearchResults: React.StatelessComponent<ISpPropertyBagProps> = (props: I
         );
     } else {
         _resultsComponent = null;
-    };
+    }
 
     return (
         <div className="sp-Search-columns results" >

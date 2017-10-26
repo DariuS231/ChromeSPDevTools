@@ -28,6 +28,7 @@ export const constants  = {
     URL_SLASH: "/",
     URL_SP: "sp.js",
     URL_SP_RUNTIME: "SP.Runtime.js",
-    WORKING_ON_IT_TEXT: "Working on it..."
+    WORKING_ON_IT_TEXT: "Working on it...",
+    GUID_REGEX: /^[0-9aA-fF]{8}-([0-9aA-fF]{4}-){3}[0-9aA-fF]{12}$/
 };
 /* tslint:enable:max-line-length */

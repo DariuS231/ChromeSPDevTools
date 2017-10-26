@@ -1,16 +1,18 @@
 import { Button } from "office-ui-fabric-react/lib/";
 import { TextField } from "office-ui-fabric-react/lib/TextField";
 import * as React from "react";
+import utils from "../../common/utils";
 import { ISpPropertyBagProps } from "../interfaces/spSearchInterfaces";
 
 const SpSearchHeader: React.StatelessComponent<ISpPropertyBagProps> = (props: ISpPropertyBagProps) => {
 
-    const onSearchClick = (ev: any): void => {
+    const _onSearchClick = (ev: any): void => {
         props.actions.getResults(props);
-    }
+    };
     const _validateSearchText = (str: string): string => {
         return str.trim() === "" ? "Text Query can´t be empty." : "";
-    }
+    };
+
     return (
         < div className="ms-Grid-row" >
             <div className="ms-Grid-col ms-u-sm10 ms-u-md10 ms-u-lg10">
@@ -27,7 +29,7 @@ const SpSearchHeader: React.StatelessComponent<ISpPropertyBagProps> = (props: IS
                     title="Search"
                     icon="Search"
                     description="Search"
-                    onClick={onSearchClick} />
+                    onClick={_onSearchClick} />
             </div>
         </div >
     );
