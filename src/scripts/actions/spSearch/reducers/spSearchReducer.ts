@@ -20,7 +20,7 @@ const initialState: IInitialState = {
         message: "",
         type: MessageBarType.info,
         showMessage: false
-    }
+    } as IMessageData
 };
 
 export const spSearchReducer = (state: IInitialState = initialState, action: IAction<any>): IInitialState => {
@@ -61,7 +61,13 @@ export const spSearchReducer = (state: IInitialState = initialState, action: IAc
             return { ...state, messageData };
         case actions.SET_ERROR_MESSAGE_DATA:
             const errorMessageData: IMessageData = action.payload;
-            return { ...state, messageData: errorMessageData, results: [], totalResults: 0, showFetching: false };
+            return {
+                ...state,
+                messageData: errorMessageData,
+                results: [],
+                totalResults: 0,
+                showFetching: false
+            };
         case actions.SET_SEARCH_RESULTS:
             const res: IResultAndTotal = action.payload;
             const msgData: IMessageData = (res.results.length === 0)
