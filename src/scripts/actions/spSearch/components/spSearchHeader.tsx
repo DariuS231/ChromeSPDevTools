@@ -10,9 +10,13 @@ const SpSearchHeader: React.StatelessComponent<ISpPropertyBagProps> = (props: IS
         props.actions.getResults(props);
     };
     const _validateSearchText = (str: string): string => {
-        return str.trim() === "" ? "Text Query can´t be empty." : "";
+        const errorMessage: string = str.trim() === "" ? "Text Query can´t be empty." : "";
+        if (true && errorMessage !== "") {
+            props.actions.setQueryText(str);
+        }
+        return errorMessage;
     };
-
+    const disableBtn: boolean = !utils.isGuidValid(props.sourceId) || props.textQuery === "";
     return (
         < div className="ms-Grid-row" >
             <div className="ms-Grid-col ms-u-sm10 ms-u-md10 ms-u-lg10">
@@ -29,6 +33,7 @@ const SpSearchHeader: React.StatelessComponent<ISpPropertyBagProps> = (props: IS
                     title="Search"
                     icon="Search"
                     description="Search"
+                    disabled={disableBtn}
                     onClick={_onSearchClick} />
             </div>
         </div >
