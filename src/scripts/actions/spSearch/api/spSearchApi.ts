@@ -37,21 +37,7 @@ export default class SpSearchApi extends ApiBase {
                     const resultRows = response.data.PrimaryQueryResult.RelevantResults.Table.Rows;
                     const total: number = response.data.PrimaryQueryResult.RelevantResults.TotalRows;
                     const results: ISearchResult = resultRows.map((item: any, index: number) => {
-
-                        const cells: ISearchResultKeyValue[] = item.Cells as ISearchResultKeyValue[];
-
-                        const titleOpts: ISearchResultKeyValue[] = cells.filter((i: any, n: number) => {
-                            return ["Title", "DocId"].indexOf(i.Key) >= 0;
-                        });
-
-                        const titleStr: string = titleOpts.length === 2 ? titleOpts.find((i: any, n: number) => {
-                            return i.Key === "Title";
-                        }).Value : titleOpts[0].Value;
-                        return {
-                            key: index.toString(),
-                            title: titleStr,
-                            props: cells
-                        } as IResult;
+                        return this.parseCellValue(item.Cells as ISearchResultKeyValue[]);
                     });
                     resolve({ total, results });
                 }).catch((error: any) => {
@@ -59,5 +45,64 @@ export default class SpSearchApi extends ApiBase {
                 });
             });
         });
+    }
+    public getAllProperties(item: IResult): Promise<IResult> {
+        return new Promise((resolve, reject) => {
+            this.getWebUrl().then((webUrl: string) => {
+
+                let baseReqUrl: string = `${webUrl}/_api/search/query`;
+                baseReqUrl += `?querytext='IndexDocId:${item.key}'`;
+                baseReqUrl += `&rowlimit=1`;
+
+                let reqUrl = baseReqUrl + `&refiners='managedproperties(filter=600/0/*)'`;
+                reqUrl += `&selectproperties='DocId'`;
+
+                this.getRequest(reqUrl).then((respa: any) => {
+                    const refinersResult = respa.data.PrimaryQueryResult.RefinementResults.Refiners;
+                    const refiners = refinersResult.find((s: any, b: any) => {
+                        return s.Name === "managedproperties";
+                    });
+                    const propsStr: string = refiners.Entries.map((entry: any, index: any) => {
+                        return entry.RefinementName;
+                    }).join(",");
+
+                    reqUrl = baseReqUrl + `&selectproperties='${propsStr}'`;
+
+                    this.getRequest(reqUrl).then((respb: any) => {
+                        const respItem = respb.data.PrimaryQueryResult.RelevantResults.Table.Rows[0];
+                        const itemResult: IResult = this.parseCellValue(respItem.Cells as ISearchResultKeyValue[]);
+
+                        resolve(itemResult);
+                    }).catch((error: any) => {
+                        reject(error);
+                    });
+                }).catch((error: any) => {
+                    reject(error);
+                });
+            });
+        });
+    }
+    private parseCellValue(cells: ISearchResultKeyValue[]): IResult {
+        const cellsCt: number = cells.length;
+        let cellsIndex: number = 0;
+
+        let docIdStr: string = null;
+        let titleStr: string = null;
+        do {
+            const cell: ISearchResultKeyValue = cells[cellsIndex];
+            const cellKey: string = cell.Key.toLowerCase();
+            if (cellKey === "title") {
+                titleStr = cell.Value;
+            } else if (cellKey === "docid") {
+                docIdStr = cell.Value;
+            }
+            cellsIndex++;
+        } while (cellsIndex < cellsCt && (!docIdStr || !titleStr));
+
+        return {
+            key: docIdStr,
+            title: titleStr || docIdStr,
+            props: cells
+        } as IResult;
     }
 }

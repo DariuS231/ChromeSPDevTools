@@ -12,6 +12,7 @@ import { IResult, ISearchResult, ISearchResultKeyValue } from "../interfaces/spS
 
 interface ISpSearchResultsItemProps {
     item: IResult;
+    onSeeAllPropsClick: (ev?: React.FormEvent<HTMLElement | HTMLInputElement>) => void;
 }
 interface ISpSearchResultsItemState {
     collapsed: boolean;
@@ -37,10 +38,8 @@ export class SpSearchResultsItem extends React.Component<ISpSearchResultsItemPro
                             : <i className="ms-Icon ms-Icon--ChevronUpSmall" aria-hidden="true" />
                         } </a>
                     </div>
-
-                    <div className="ms-ListBasicSpChromeDevTool-itemDesc">
-                        {this.properties(this.state.collapsed, this.props.item.props)}
-                    </div>
+                    {this.properties(this.state.collapsed, this.props.item.props)}
+                    {this.loadAll(this.state.collapsed)}
                 </div>
             </div>
         );
@@ -49,13 +48,25 @@ export class SpSearchResultsItem extends React.Component<ISpSearchResultsItemPro
     private properties(collapsed: boolean, props: ISearchResultKeyValue[]) {
         if (!collapsed) {
             return (
-                <div>
-                    <DetailsList items={props} setKey="set" layoutMode={DetailsListLayoutMode.justified}
-                        selectionMode={SelectionMode.none}
-                        isHeaderVisible={false}
-                        columns={this._columns}
-
-                    />
+                <div className="ms-ListBasicSpChromeDevTool-itemDesc">
+                    <div>
+                        <DetailsList items={props} setKey="set" layoutMode={DetailsListLayoutMode.justified}
+                            selectionMode={SelectionMode.none}
+                            isHeaderVisible={false}
+                            columns={this._columns}
+                        />
+                    </div>
+                </div>
+            );
+        } else { return null; }
+    }
+    private loadAll(collapsed: boolean) {
+        if (!collapsed) {
+            return (
+                <div className="ms-ListBasicSpChromeDevTool-loadAll">
+                    <a href="#" onClick={this.props.onSeeAllPropsClick} className="ms-Link" >
+                        <i className="ms-Icon ms-Icon--BulletedList" /> Get all properties
+                    </a>
                 </div>
             );
         } else { return null; }

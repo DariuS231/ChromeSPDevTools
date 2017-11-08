@@ -92,6 +92,14 @@ $dividerColor: $ms-color-neutralLight;
     flex-shrink: 0;
 }
 
+.ms-ListBasicSpChromeDevTool-loadAll {
+    text-align: right;
+    i {
+        vertical-align: top;
+        font-size: 20px;
+    }
+}
+
 
 /***   Common ***/
 
@@ -384,15 +392,15 @@ $dividerColor: $ms-color-neutralLight;
         }
     }
     .ms-DetailsRow-cell {
-      padding: 5px 0;
-      min-height: 20px;
+        padding: 5px 0;
+        min-height: 20px;
     }
     .ms-DetailsRow {
-      min-height: 26px;
+        min-height: 26px;
     }
     .ms-DetailsList .ms-List-cell {
-      min-height: 26px;
-  }
+        min-height: 26px;
+    }
     .ms-List-cell {
         padding: 0 10px;
         .ms-DetailsRow-cell[data-automation-key="Value"] {
@@ -403,24 +411,23 @@ $dividerColor: $ms-color-neutralLight;
             overflow: hidden;
         }
         .ms-ListBasicSpChromeDevTool-itemCell {
-          min-height: 30px !important;
-          .ms-ListBasicSpChromeDevTool-itemName {
-              text-decoration: none;
-              i {
-                  vertical-align: middle;
-                  margin-left: 10px;
-                  right: 0;
-                  position: absolute;
-              }
-          }
-          &:hover{
-            background: transparent,
-          }
-
-        .ms-ListBasicSpChromeDevTool-itemContent{
-          margin-left: 0px;
+            min-height: 30px !important;
+            .ms-ListBasicSpChromeDevTool-itemName {
+                text-decoration: none;
+                i {
+                    vertical-align: middle;
+                    margin-left: 10px;
+                    right: 0;
+                    position: absolute;
+                }
+            }
+            &:hover {
+                background: transparent,
+            }
+            .ms-ListBasicSpChromeDevTool-itemContent {
+                margin-left: 0px;
+            }
         }
-      }
     }
     .ms-ListBasicSpChromeDevTool-itemCell {
         min-height: 40px;
@@ -431,12 +438,13 @@ $dividerColor: $ms-color-neutralLight;
                 margin-left: 10px;
             }
         }
-        &:hover{
-          background: transparent,
+        &:hover {
+            background: transparent,
         }
     }
-    ::-webkit-input-placeholder { /* Chrome */
-      color:lightgrey !important;
+     ::-webkit-input-placeholder {
+        /* Chrome */
+        color: lightgrey !important;
     }
     input:not([type]),
     input[type=email],
@@ -445,8 +453,8 @@ $dividerColor: $ms-color-neutralLight;
     input[type=text],
     select,
     textarea {
-      background-color: transparent;
-      border-color: #c8c8c8;
-      color: #333333;
-  }
+        background-color: transparent;
+        border-color: #c8c8c8;
+        color: #333333;
+    }
 }

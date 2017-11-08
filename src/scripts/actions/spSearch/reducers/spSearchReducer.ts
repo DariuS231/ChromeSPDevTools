@@ -1,5 +1,5 @@
 import { MessageBarType } from "office-ui-fabric-react/lib/MessageBar";
-import { IInitialState, IResultAndTotal, ISearchResult } from "../interfaces/spSearchInterfaces";
+import { IInitialState, IResult, IResultAndTotal, ISearchResult } from "../interfaces/spSearchInterfaces";
 import { IAction, IMessageData } from "./../../common/interfaces";
 import { ActionsId as actions, constants } from "./../constants/constants";
 
@@ -81,6 +81,16 @@ export const spSearchReducer = (state: IInitialState = initialState, action: IAc
                 totalResults: res.total,
                 showFetching: false,
                 messageData: msgData
+            };
+        case actions.SET_SEARCH_RESULT:
+            const item: IResult = action.payload;
+            const newList = state.results.map((result: IResult) => {
+                return (result.key === item.key) ? item : result;
+            });
+            return {
+                ...state,
+                results: newList,
+                showFetching: false
             };
         default:
             return state;

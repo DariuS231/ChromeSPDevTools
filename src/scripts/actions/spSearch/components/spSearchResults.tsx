@@ -6,8 +6,12 @@ import SpSearchMessage from "./spSearchMessage";
 import { SpSearchResultsItem } from "./spSearchResultsItem";
 
 const SpSearchResults: React.StatelessComponent<ISpPropertyBagProps> = (props: ISpPropertyBagProps) => {
+
     const renderListItem = (item: IResult, index: number) => {
-        return <SpSearchResultsItem item={item} />;
+        const onSeeAllPropsClick = (ev?: React.FormEvent<HTMLElement | HTMLInputElement>) => {
+            props.actions.getAllProperties(item);
+        };
+        return <SpSearchResultsItem item={item} onSeeAllPropsClick={onSeeAllPropsClick} />;
     };
 
     let _resultsComponent: JSX.Element;

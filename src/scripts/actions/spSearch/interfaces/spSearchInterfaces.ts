@@ -31,6 +31,7 @@ export interface ISpSearchActionCreatorsMapObject extends ActionCreatorsMapObjec
     setResultSource: ActionCreator<IAction<string>>;
     setSearchResults: ActionCreator<IAction<IResultAndTotal>>;
     getResults: (state: IInitialState) => (dispatch: Dispatch<IAction<IResultAndTotal>>) => Promise<void>;
+    getAllProperties: (item: IResult) => (dispatch: Dispatch<IAction<IResult>>) => Promise<void>;
 }
 
 export interface IMapDispatchToISpSearchProps {
