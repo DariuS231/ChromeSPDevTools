@@ -9,6 +9,12 @@ const SpSearchHeader: React.StatelessComponent<ISpPropertyBagProps> = (props: IS
     const _onSearchClick = (ev: any): void => {
         props.actions.getResults(props);
     };
+    const onKeyPress = (ev: any) => {
+        if (ev.key === "Enter") {
+            props.actions.getResults(props);
+            ev.preventDefault();
+        }
+    };
     const _validateSearchText = (str: string): string => {
         const errorMessage: string = str.trim() === "" ? "Text Query can´t be empty." : "";
         if (true && errorMessage !== "") {
@@ -25,7 +31,8 @@ const SpSearchHeader: React.StatelessComponent<ISpPropertyBagProps> = (props: IS
                     resizable={false}
                     value={props.textQuery}
                     onChanged={props.actions.setQueryText}
-                    onGetErrorMessage={_validateSearchText} />
+                    onGetErrorMessage={_validateSearchText}
+                    onKeyPress={onKeyPress} />
             </div>
             <div className="ms-Grid-col ms-u-sm2 ms-u-md2 ms-u-lg2">
                 <Button
