@@ -3,7 +3,7 @@ import { Spinner, SpinnerType } from "office-ui-fabric-react/lib/Spinner";
 import * as React from "react";
 import { IResult, ISearchResult, ISearchResultKeyValue, ISpPropertyBagProps } from "../interfaces/spSearchInterfaces";
 import SpSearchMessage from "./spSearchMessage";
-import { SpSearchResultsItem } from "./spSearchResultsItem";
+import SpSearchResultsItem from "./spSearchResultsItem";
 
 const SpSearchResults: React.StatelessComponent<ISpPropertyBagProps> = (props: ISpPropertyBagProps) => {
 
@@ -11,7 +11,10 @@ const SpSearchResults: React.StatelessComponent<ISpPropertyBagProps> = (props: I
         const onSeeAllPropsClick = (ev?: React.FormEvent<HTMLElement | HTMLInputElement>) => {
             props.actions.getAllProperties(item);
         };
-        return <SpSearchResultsItem item={item} onSeeAllPropsClick={onSeeAllPropsClick} />;
+        const onCollapseClick = (ev?: React.FormEvent<HTMLElement | HTMLInputElement>) => {
+            props.actions.setCollapsed(item);
+        };
+        return <SpSearchResultsItem item={item} onSeeAllPropsClick={onSeeAllPropsClick} onCollapse={onCollapseClick} />;
     };
 
     let _resultsComponent: JSX.Element;

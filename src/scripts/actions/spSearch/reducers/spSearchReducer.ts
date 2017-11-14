@@ -98,6 +98,17 @@ export const spSearchReducer = (state: IInitialState = initialState, action: IAc
                 results: newList,
                 showFetching: false
             };
+        case actions.SET_COLLAPSED:
+            const itemToCollapse: IResult = action.payload;
+            const newItem: IResult = { ...itemToCollapse, collapsed: !itemToCollapse.collapsed };
+            const newListAux = state.results.map((result: IResult) => {
+                return (result.key === newItem.key) ? newItem : result;
+            });
+            return {
+                ...state,
+                results: newListAux,
+                showFetching: false
+            };
         default:
             return state;
     }

@@ -26,6 +26,7 @@ const setResultSource = ActionFactory<string>(actions.SET_RESULT_SOURCE);
 const setSearchResults = ActionFactory<IResultAndTotal>(actions.SET_SEARCH_RESULTS);
 const setSearchResult = ActionFactory<IResult>(actions.SET_SEARCH_RESULT);
 const setFetchingData = ActionFactory<boolean>(actions.SET_FETCHING_DATA);
+const setCollapsed = ActionFactory<IResult>(actions.SET_COLLAPSED);
 const setMessageData = ActionFactory<IMessageData>(actions.SET_MESSAGE_DATA);
 const setErrorMessageData = ActionFactory<IMessageData>(actions.SET_ERROR_MESSAGE_DATA);
 
@@ -98,6 +99,7 @@ const spSearchActionsCreatorMap: ISpSearchActionCreatorsMapObject = {
     setRefiners,
     setFilters,
     setSortBy,
+    setCollapsed,
     setResultSource,
     setSearchResults,
     getResults,

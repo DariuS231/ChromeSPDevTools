@@ -37,7 +37,7 @@ export default class SpSearchApi extends ApiBase {
                     const resultRows = response.data.PrimaryQueryResult.RelevantResults.Table.Rows;
                     const total: number = response.data.PrimaryQueryResult.RelevantResults.TotalRows;
                     const results: ISearchResult = resultRows.map((item: any, index: number) => {
-                        return this.parseCellValue(item.Cells as ISearchResultKeyValue[]);
+                        return this.parseCellValue(item.Cells as ISearchResultKeyValue[], false, true);
                     });
                     resolve({ total, results });
                 }).catch((error: any) => {
@@ -70,7 +70,8 @@ export default class SpSearchApi extends ApiBase {
 
                     this.getRequest(reqUrl).then((respb: any) => {
                         const respItem = respb.data.PrimaryQueryResult.RelevantResults.Table.Rows[0];
-                        const itemResult: IResult = this.parseCellValue(respItem.Cells as ISearchResultKeyValue[]);
+                        const itemResult: IResult
+                            = this.parseCellValue(respItem.Cells as ISearchResultKeyValue[], true, false);
 
                         resolve(itemResult);
                     }).catch((error: any) => {
@@ -82,7 +83,7 @@ export default class SpSearchApi extends ApiBase {
             });
         });
     }
-    private parseCellValue(cells: ISearchResultKeyValue[]): IResult {
+    private parseCellValue(cells: ISearchResultKeyValue[], allPropsFetched: boolean, collapsed: boolean): IResult {
         const cellsCt: number = cells.length;
         let cellsIndex: number = 0;
 
@@ -102,7 +103,10 @@ export default class SpSearchApi extends ApiBase {
         return {
             key: docIdStr,
             title: titleStr || docIdStr,
-            props: cells
+            props: cells,
+            allPropsFetched,
+            collapsed
+
         } as IResult;
     }
 }

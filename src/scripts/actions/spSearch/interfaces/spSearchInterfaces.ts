@@ -10,6 +10,8 @@ export interface ISearchResultKeyValue {
 export interface IResult {
     key: string;
     title: string;
+    allPropsFetched: boolean;
+    collapsed: boolean;
     props: ISearchResultKeyValue[];
 }
 
@@ -28,6 +30,7 @@ export interface ISpSearchActionCreatorsMapObject extends ActionCreatorsMapObjec
     setRefiners: ActionCreator<IAction<string[]>>;
     setFilters: ActionCreator<IAction<string[]>>;
     setSortBy: ActionCreator<IAction<string[]>>;
+    setCollapsed: ActionCreator<IAction<IResult>>;
     setResultSource: ActionCreator<IAction<string>>;
     setSearchResults: ActionCreator<IAction<IResultAndTotal>>;
     getResults: (state: IInitialState) => (dispatch: Dispatch<IAction<IResultAndTotal>>) => Promise<void>;
