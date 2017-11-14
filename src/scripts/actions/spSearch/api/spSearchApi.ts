@@ -62,7 +62,9 @@ export default class SpSearchApi extends ApiBase {
                     const refiners = refinersResult.find((s: any, b: any) => {
                         return s.Name === "managedproperties";
                     });
-                    const propsStr: string = refiners.Entries.map((entry: any, index: any) => {
+                    const propsStr: string = refiners.Entries.filter((entry: any, index: number) => {
+                        return constants.PROPS_TO_IGNORE.indexOf(entry.RefinementName) === -1;
+                    }).map((entry: any, index: any) => {
                         return entry.RefinementName;
                     }).join(",");
 

@@ -1,6 +1,11 @@
 {
     "stylesUrl": "https://localhost:8080/dist/actions/styles/bundle.css",
     "actions": [{
+            "title": "Search",
+            "description": "Search.",
+            "image": "/images/search-64-blue.png",
+            "scriptUrl": "https://localhost:8080/dist/actions/spSearch/spSearch.js"
+        }, {
             "title": "Property bags",
             "description": "Create, Update or Delete Web Property Bags.",
             "image": "/images/sp-bag-64-blue.png",
@@ -29,12 +34,6 @@
             "description": "Activate, Deactivate site and web features.",
             "image": "/images/switch-64-blue.png",
             "scriptUrl": "https://localhost:8080/dist/actions/spFeatures/spFeatures.js"
-        },
-        {
-            "title": "Search",
-            "description": "Search.",
-            "image": "/images/search-64-blue.png",
-            "scriptUrl": "https://localhost:8080/dist/actions/spSearch/spSearch.js"
         }
     ]
 }
