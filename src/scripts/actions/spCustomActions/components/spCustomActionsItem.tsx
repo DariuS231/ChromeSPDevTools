@@ -57,8 +57,8 @@ const CustomActionItem: React.StatelessComponent<ICustomActionItemProps> = (prop
             break;
     }
 
-    return <div className="ms-ListBasicExample-itemCell  ms-Grid-row" data-is-focusable={true}>
-        <div className="ms-ListBasicExample-itemContent ms-Grid-col ms-u-sm11 ms-u-md11 ms-u-lg11">
+    return <div className="ms-ListBasicSpChromeDevTool-itemCell  ms-Grid-row" data-is-focusable={true}>
+        <div className="ms-ListBasicSpChromeDevTool-itemContent ms-Grid-col ms-u-sm11 ms-u-md11 ms-u-lg11">
             <TextField resizable={false} label="Name" value={props.item.name} disabled={true} />
             <TextField resizable={false} label="Sequence" value={props.item.sequence.toString()} disabled={true} />
             <TextField resizable={false} label="Location" value={props.item.location} disabled={true} />

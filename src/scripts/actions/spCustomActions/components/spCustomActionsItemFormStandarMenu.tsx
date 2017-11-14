@@ -11,7 +11,7 @@ interface ISpCustomActionsItemFormStandarMenuProps {
 
 const SpCustomActionsItemFormStandarMenu: React.StatelessComponent<ISpCustomActionsItemFormStandarMenuProps> =
     (props: ISpCustomActionsItemFormStandarMenuProps) => {
-    return <div className="ms-ListBasicExample-itemContent ms-Grid-col ms-u-sm11 ms-u-md11 ms-u-lg11">
+    return <div className="ms-ListBasicSpChromeDevTool-itemContent ms-Grid-col ms-u-sm11 ms-u-md11 ms-u-lg11">
         <SpCustomActionsItemInput
             inputKey="title"
             label="Title"

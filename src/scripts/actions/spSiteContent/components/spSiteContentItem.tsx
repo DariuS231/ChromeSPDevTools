@@ -18,27 +18,27 @@ export const SpSiteContentItem: React.StatelessComponent<ISpSiteContentItemProps
         const favouriteClick = (event: any) => {
             props.setFavourite(props.item);
         };
-        return <div className="ms-ListBasicExample-itemCell">
+        return <div className="ms-ListBasicSpChromeDevTool-itemCell">
             <Image
                 src={props.item.imageUrl}
                 width={constants.itemImageWidth}
                 height={constants.itemImageHeight}
-                className={"ms-ListBasicExample-itemImage" + (props.item.hidden ? " hidden-spList" : "")}
+                className={"ms-ListBasicSpChromeDevTool-itemImage" + (props.item.hidden ? " hidden-spList" : "")}
             />
-            <div className="ms-ListBasicExample-itemContent">
+            <div className="ms-ListBasicSpChromeDevTool-itemContent">
                 <a
                     title={props.item.description}
                     alt={props.item.title}
                     href={props.item.listUrl}
-                    className="ms-ListBasicExample-itemName ms-font-l ms-fontColor-themePrimary ms-fontWeight-semibold"
+                    className="ms-ListBasicSpChromeDevTool-itemName ms-font-l ms-fontColor-themePrimary ms-fontWeight-semibold"
                     target={props.linkTarget}
                 >
                     {props.item.title}
                 </a>
-                <div className="ms-ListBasicExample-itemIndex">
+                <div className="ms-ListBasicSpChromeDevTool-itemIndex">
                     {`Items: ${props.item.itemCount} `}
                 </div>
-                <div className="ms-ListBasicExample-itemIndex">
+                <div className="ms-ListBasicSpChromeDevTool-itemIndex">
                     {`Modified: ${props.item.lastModified.toLocaleDateString()} ${props.item.lastModified.toLocaleTimeString()}`}
                 </div>
             </div>

@@ -28,8 +28,8 @@ export const SpPropertyBagItemForm: React.StatelessComponent<ISpPropertyBagItemF
                 isFavourite: props.item.isFavourite
             } as IProperty);
         };
-    return (<div className="ms-ListBasicExample-itemCell  ms-Grid-row" data-is-focusable={true}>
-        <div className="ms-ListBasicExample-itemContent ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
+    return (<div className="ms-ListBasicSpChromeDevTool-itemCell  ms-Grid-row" data-is-focusable={true}>
+        <div className="ms-ListBasicSpChromeDevTool-itemContent ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
             <TextField
                 id={props.inputId}
                 onGetErrorMessage={props.getErrorMessage}

@@ -52,5 +52,8 @@ export default class Utils {
             }
         });
     }
+    public static isGuidValid(guid: string, omitEmpty: boolean = true): boolean {
+        return ((omitEmpty && !guid) || (!omitEmpty && !!guid)) || constants.GUID_REGEX.test(guid);
+    }
 
 }

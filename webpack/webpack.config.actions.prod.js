@@ -19,6 +19,7 @@ module.exports = {
     entry: {
         'spPropertyBag': './src/scripts/actions/spPropertyBag/app.tsx',
         'spFeatures': './src/scripts/actions/spFeatures/app.tsx',
+        'spSearch': './src/scripts/actions/spSearch/app.tsx',
         'spSiteContent': './src/scripts/actions/spSiteContent/app.tsx',
         'spWebCustomActions': './src/scripts/actions/spCustomActions/app_webCa.ts',
         'spSiteCustomActions': './src/scripts/actions/spCustomActions/app_siteCa.ts'
@@ -34,12 +35,12 @@ module.exports = {
     plugins: [
         new webpack.DefinePlugin({
             'process.env': {
-                'NODE_ENV': JSON.stringify('production')      // Reduces 78 kb on React library
+                'NODE_ENV': JSON.stringify('production') // Reduces 78 kb on React library
             },
-            'DEBUG': false,                                 // Doesn´t have effect on my example
-            '__DEVTOOLS__': false                           // Doesn´t have effect on my example
+            'DEBUG': false, // Doesn´t have effect on my example
+            '__DEVTOOLS__': false // Doesn´t have effect on my example
         }),
-         new webpack.NormalModuleReplacementPlugin(/\.\/store\/configureStore-dev$/, "./store/configureStore-prod"),
+        new webpack.NormalModuleReplacementPlugin(/\.\/store\/configureStore-dev$/, "./store/configureStore-prod"),
         // Plugings for optimizing size and performance.
         // Here you have all the available by now:
         //    Webpack 1. https://github.com/webpack/webpack/blob/v1.13.3/lib/optimize
@@ -75,8 +76,7 @@ module.exports = {
     ],
     module: {
         // loaders -> rules in webpack 2
-        rules: [
-            {
+        rules: [{
                 enforce: 'pre',
                 test: /\.js$/,
                 loader: 'source-map-loader',
@@ -102,8 +102,7 @@ module.exports = {
                     //fallback: 'style-loader',
                     fallbackLoader: 'style-loader',
                     //use: [
-                    loader: [
-                        {
+                    loader: [{
                             loader: 'css-loader',
                             options: {
                                 sourceMap: true,
