@@ -1,21 +1,21 @@
 {
-    "stylesUrl": "https://localhost:8080/dist/actions/styles/bundle.css",
+    "stylesUrl": "https://cdn.rawgit.com/DariuS231/ChromeSPDevTools/7ed432e5d11eeeb2247471e1a5addb946f8af8b4/dist/actions/styles/bundle.css",
     "actions": [{
             "title": "Search",
-            "description": "Search.",
+            "description": "SharePoint Search API Results.",
             "image": "/images/search-64-blue.png",
-            "scriptUrl": "https://localhost:8080/dist/actions/spSearch/spSearch.js"
+            "scriptUrl": "https://cdn.rawgit.com/DariuS231/ChromeSPDevTools/7ed432e5d11eeeb2247471e1a5addb946f8af8b4/dist/actions/spSearch/spSearch.js"
         }, {
             "title": "Property bags",
             "description": "Create, Update or Delete Web Property Bags.",
             "image": "/images/sp-bag-64-blue.png",
-            "scriptUrl": "https://localhost:8080/dist/actions/SpPropertyBag/SpPropertyBag.js"
+            "scriptUrl": "https://cdn.rawgit.com/DariuS231/ChromeSPDevTools/7ed432e5d11eeeb2247471e1a5addb946f8af8b4/dist/actions/SpPropertyBag/SpPropertyBag.js"
         },
         {
             "title": "Site lists",
             "description": "All site lists, including hidden.",
             "image": "/images/content-management-64-blue.png",
-            "scriptUrl": "https://localhost:8080/dist/actions/SpSiteContent/SpSiteContent.js"
+            "scriptUrl": "https://cdn.rawgit.com/DariuS231/ChromeSPDevTools/7ed432e5d11eeeb2247471e1a5addb946f8af8b4/dist/actions/SpSiteContent/SpSiteContent.js"
         },
         {
             "title": "Site Custom Actions",
@@ -33,7 +33,7 @@
             "title": "Site/Web Features",
             "description": "Activate, Deactivate site and web features.",
             "image": "/images/switch-64-blue.png",
-            "scriptUrl": "https://localhost:8080/dist/actions/spFeatures/spFeatures.js"
+            "scriptUrl": "https://cdn.rawgit.com/DariuS231/ChromeSPDevTools/7ed432e5d11eeeb2247471e1a5addb946f8af8b4/dist/actions/spFeatures/spFeatures.js"
         }
     ]
 }
