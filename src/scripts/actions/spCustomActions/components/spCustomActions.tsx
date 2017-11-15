@@ -38,7 +38,7 @@ class SpCustomActions extends React.Component<ISpCustomActionsProps, {}> {
                 <FilterTextBox
                     setFilterText={this.props.actions.setFilterText}
                     filterStr={this.props.filterText}
-                    parentOverrideClass="ms-Grid-col ms-u-sm4 ms-u-md4 ms-u-lg4 ms-u-smPush2"
+                    parentOverrideClass="ms-Grid-col ms-u-sm4 ms-u-md4 ms-u-lg4 ms-u-smPush2 buttonContainer"
                 ><SpCustomActionsButtom />
                 </FilterTextBox>
                 <SpCustomActionList

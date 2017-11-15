@@ -298,6 +298,16 @@ $dividerColor: $ms-color-neutralLight;
             }
         }
     }
+    .buttonContainer {
+        margin-top: -5px;
+        a {
+            color: white;
+            vertical-align: middle;
+            text-align: center;
+            text-decoration: none;
+            padding-bottom: 5px;
+        }
+    }
     .ms-ChoiceFieldGroup {
         .ms-ChoiceFieldGroup-title>label {
             color: #0078d7;

@@ -21,16 +21,16 @@ export class SpCustomActionsButtom extends React.Component<{}, ISpCustomActionsB
     }
 
     public render() {
-        return (<div id="ContextualMenuButtonDiv" ref={this._divRefCallBack}>
-            <Button
-                onClick={this._onClick}
-                id="ContextualMenuButton"
-                buttonType={ButtonType.primary}
-            > New Custom Action
+        return (
+            <div id="ContextualMenuButtonDiv" ref={this._divRefCallBack}>
+                <a href="#" onClick={this._onClick}
+                    id="ContextualMenuButton"
+                    className="ms-Button ms-Button--primary" > New Custom Action
                 <i className="ms-Icon ms-Icon--ChevronDownSmall" aria-hidden="true" />
-            </Button>
-            {this._contextualMenu()}
-        </div>);
+                </a>
+                {this._contextualMenu()}
+            </div>
+        );
     }
     private _divRefCallBack(element: HTMLElement): void {
         if (element) {
@@ -49,7 +49,7 @@ export class SpCustomActionsButtom extends React.Component<{}, ISpCustomActionsB
         />;
     }
 
-    private _onClick(event: React.MouseEvent<HTMLButtonElement>) {
+    private _onClick(event: any) {
         event.preventDefault();
         this.setState({ isContextMenuVisible: !this.state.isContextMenuVisible });
         return false;
