@@ -324,13 +324,18 @@ $dividerColor: $ms-color-neutralLight;
     .edit-form-title {
         margin: 10px;
     }
-    #ContextualMenuButton {
-        width: 100%;
-        height: 30px;
-        font-size: 14px !important;
-        i {
-            vertical-align: middle;
-            padding-left: 20px;
+    #ContextualMenuButtonDiv{
+        #ContextualMenuButton {
+            color: white;
+            text-decoration: none;
+            width: 100%;
+            height: 25px;
+            font-size: 14px!important;
+            padding-top: 5px;
+            i {
+                vertical-align: middle;
+                padding-left: 20px;
+            }
         }
     }
 }
