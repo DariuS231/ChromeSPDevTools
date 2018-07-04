@@ -5,6 +5,7 @@ import { ActionsId as actions, constants } from "./../constants/constants";
 
 const initialState: IInitialState = {
     results: new Array(),
+    webUrl: '',
     totalResults: 0,
     textQuery: "*",
     rowLimit: 10,
@@ -29,6 +30,9 @@ export const spSearchReducer = (state: IInitialState = initialState, action: IAc
         case actions.SET_QUERY_TEXT:
             const queryStr: string = action.payload;
             return { ...state, textQuery: queryStr };
+        case actions.SET_WEB_URL:
+            const webUrl: string = action.payload;
+            return { ...state, webUrl, showFetching: false };
         case actions.SET_TRIM_DUPLICATES:
             const trimDuplicates: boolean = action.payload;
             return { ...state, trimDuplicates };

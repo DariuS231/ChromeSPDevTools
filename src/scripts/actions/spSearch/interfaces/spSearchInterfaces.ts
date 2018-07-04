@@ -23,6 +23,7 @@ export interface IResultAndTotal {
 }
 export interface ISpSearchActionCreatorsMapObject extends ActionCreatorsMapObject {
     setQueryText: ActionCreator<IAction<string>>;
+    setWebUrl: ActionCreator<IAction<string>>;
     setTrimDuplicates: ActionCreator<IAction<boolean>>;
     setRowLimit: ActionCreator<IAction<number>>;
     setSkip: ActionCreator<IAction<number>>;
@@ -34,6 +35,7 @@ export interface ISpSearchActionCreatorsMapObject extends ActionCreatorsMapObjec
     setResultSource: ActionCreator<IAction<string>>;
     setSearchResults: ActionCreator<IAction<IResultAndTotal>>;
     getResults: (state: IInitialState) => (dispatch: Dispatch<IAction<IResultAndTotal>>) => Promise<void>;
+    getWebUrl: () => (dispatch: Dispatch<IAction<string>>) => Promise<void>;
     getAllProperties: (item: IResult) => (dispatch: Dispatch<IAction<IResult>>) => Promise<void>;
 }
 
@@ -48,6 +50,7 @@ export interface IMapStateToPropsState {
 export interface IInitialState {
     results: ISearchResult;
     totalResults: number;
+    webUrl: string;
     textQuery: string;
     rowLimit: number;
     skip: number;

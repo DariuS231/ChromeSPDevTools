@@ -3,11 +3,20 @@ import { TextField } from "office-ui-fabric-react/lib/TextField";
 import * as React from "react";
 import utils from "../../common/utils";
 import { ISpPropertyBagProps } from "../interfaces/spSearchInterfaces";
+import SpSearchApi from "../api/spSearchApi";
+
+const api = new SpSearchApi();
 
 const SpSearchHeader: React.StatelessComponent<ISpPropertyBagProps> = (props: ISpPropertyBagProps) => {
 
+    const copyTextId: string = "SpSearchHeader_copyText";
     const _onSearchClick = (ev: any): void => {
         props.actions.getResults(props);
+    };
+    const _onCopyClick = (ev: any): void => {
+        const copyText: HTMLInputElement = document.getElementById(copyTextId) as HTMLInputElement;
+        copyText.select();
+        document.execCommand("copy");
     };
     const onKeyPress = (ev: any) => {
         if (ev.key === "Enter") {
@@ -23,27 +32,44 @@ const SpSearchHeader: React.StatelessComponent<ISpPropertyBagProps> = (props: IS
         return errorMessage;
     };
     const disableBtn: boolean = !utils.isGuidValid(props.sourceId) || props.textQuery === "";
+    const reqUrl = api.buildRequestURL(props);
+
     return (
-        < div className="ms-Grid-row" >
-            <div className="ms-Grid-col ms-u-sm10 ms-u-md10 ms-u-lg10">
-                <TextField
-                    multiline={true}
-                    resizable={false}
-                    value={props.textQuery}
-                    onChanged={props.actions.setQueryText}
-                    onGetErrorMessage={_validateSearchText}
-                    onKeyPress={onKeyPress} />
+        <div>
+            <div className="ms-Grid-row" >
+                <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
+                    <div style={{ backgroundColor: "#f4f4f4", display:"inline-block", width:"83%", borderColor: "#f4f4f4", pointerEvents: "none", cursor: "default", marginBottom: "10px", wordBreak: "break-all", padding: "10px" }}>
+                        {reqUrl} 
+                    </div>
+                    <Button value="Copy" title="Copy" icon="Copy" description="Copy"
+                        disabled={disableBtn} onClick={_onCopyClick} style={{display:"inline-block", marginLeft:"0"}} />
+                    <div style={{ position: "absolute", top: "-200px" }}>
+                        <TextField value={reqUrl} id={copyTextId} />
+                    </div>
+                </div>
             </div>
-            <div className="ms-Grid-col ms-u-sm2 ms-u-md2 ms-u-lg2">
-                <Button
-                    value="Search"
-                    title="Search"
-                    icon="Search"
-                    description="Search"
-                    disabled={disableBtn}
-                    onClick={_onSearchClick} />
+            <div className="ms-Grid-row" >
+
+                <div className="ms-Grid-col ms-u-sm10 ms-u-md10 ms-u-lg10">
+                    <TextField
+                        multiline={true}
+                        resizable={false}
+                        value={props.textQuery}
+                        onChanged={props.actions.setQueryText}
+                        onGetErrorMessage={_validateSearchText}
+                        onKeyPress={onKeyPress} />
+                </div>
+                <div className="ms-Grid-col ms-u-sm2 ms-u-md2 ms-u-lg2">
+                    <Button
+                        value="Search"
+                        title="Search"
+                        icon="Search"
+                        description="Search"
+                        disabled={disableBtn}
+                        onClick={_onSearchClick} />
+                </div>
             </div>
-        </div >
+        </div>
     );
 
 };

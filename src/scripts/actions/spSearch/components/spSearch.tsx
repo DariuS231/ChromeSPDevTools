@@ -13,6 +13,11 @@ import SpSearchResults from "./spSearchResults";
 import SpSearchSettings from "./spSearchSettings";
 
 class SpSearch extends React.Component<ISpPropertyBagProps, {}> {
+    
+    private componentDidMount() {
+        this.props.actions.getWebUrl();
+    }
+
     public render() {
         return (
             <div className="sp-Search action-container">
@@ -27,6 +32,7 @@ class SpSearch extends React.Component<ISpPropertyBagProps, {}> {
 const mapStateToProps = (state: IMapStateToPropsState, ownProps: any): IMapStateToProps => {
     return {
         results: state.spSearch.results,
+        webUrl: state.spSearch.webUrl,
         totalResults: state.spSearch.totalResults,
         textQuery: state.spSearch.textQuery,
         rowLimit: state.spSearch.rowLimit,

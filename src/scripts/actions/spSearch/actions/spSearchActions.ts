@@ -15,6 +15,7 @@ import { ActionsId as actions, constants } from "./../constants/constants";
 const api = new SpSearchApi();
 
 const setQueryText = ActionFactory<string>(actions.SET_QUERY_TEXT);
+const setWebUrl = ActionFactory<string>(actions.SET_WEB_URL);
 const setTrimDuplicates = ActionFactory<boolean>(actions.SET_TRIM_DUPLICATES);
 const setRowLimit = ActionFactory<number>(actions.SET_ROW_LIMIT);
 const setSkip = ActionFactory<number>(actions.SET_SKIP);
@@ -29,6 +30,23 @@ const setFetchingData = ActionFactory<boolean>(actions.SET_FETCHING_DATA);
 const setCollapsed = ActionFactory<IResult>(actions.SET_COLLAPSED);
 const setMessageData = ActionFactory<IMessageData>(actions.SET_MESSAGE_DATA);
 const setErrorMessageData = ActionFactory<IMessageData>(actions.SET_ERROR_MESSAGE_DATA);
+
+
+const getWebUrl = () => {
+    return (dispatch: Dispatch<IAction<string>>) => {
+        dispatch(setFetchingData(true));
+        return api.getWebUrl().then((url: string) => {
+            dispatch(setWebUrl(url));
+        }).catch((reason: any) => {
+            let errorMessage: string = "Error While retrieving the Web URL.";
+            dispatch(setErrorMessageData({
+                message: errorMessage,
+                showMessage: true,
+                type: MessageBarType.error
+            }));
+        });
+    };
+};
 
 const getResults = (state: IInitialState) => {
     return (dispatch: Dispatch<IAction<IResultAndTotal>>) => {
@@ -92,6 +110,7 @@ const getAllProperties = (item: IResult) => {
 
 const spSearchActionsCreatorMap: ISpSearchActionCreatorsMapObject = {
     setQueryText,
+    setWebUrl,
     setTrimDuplicates,
     setRowLimit,
     setSkip,
@@ -102,6 +121,7 @@ const spSearchActionsCreatorMap: ISpSearchActionCreatorsMapObject = {
     setCollapsed,
     setResultSource,
     setSearchResults,
+    getWebUrl,
     getResults,
     getAllProperties
 };
