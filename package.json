@@ -15,7 +15,7 @@
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
     "react-router": "^3.0.2",
-    "redux-thunk": "^2.1.0",
+    "redux-thunk": "2.1.1",
     "sp-pnp-js": "^3.0.1"
   },
   "devDependencies": {
@@ -28,7 +28,7 @@
     "@types/react-redux": "^4.4.35",
     "@types/react-router": "2.0.29",
     "@types/redux-immutable-state-invariant": "^1.2.29",
-    "@types/redux-thunk": "^2.1.32",
+    "@types/redux-thunk": "2.1.32",
     "@types/sharepoint": "^2013.1.2",
     "awesome-typescript-loader": "^3.0.0-beta.18",
     "css-loader": "^0.26.1",
