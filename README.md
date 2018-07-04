@@ -45,7 +45,7 @@ From a google chrome window
 
 3. Click **Load unpacked extension…** to pop up a file-selection dialog.
 
-4. Navigate to the directory where the **dist** folder is, and select it.
+4. Navigate to the directory where the **dist** folder is, and with in **chromeExtension**, select the **dev** folder.
 
 <br>
 
