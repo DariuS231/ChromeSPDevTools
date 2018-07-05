@@ -32,6 +32,7 @@ class SpSearch extends React.Component<ISpPropertyBagProps, {}> {
 const mapStateToProps = (state: IMapStateToPropsState, ownProps: any): IMapStateToProps => {
     return {
         results: state.spSearch.results,
+        resultsColumns: state.spSearch.resultsColumns,
         webUrl: state.spSearch.webUrl,
         totalResults: state.spSearch.totalResults,
         textQuery: state.spSearch.textQuery,

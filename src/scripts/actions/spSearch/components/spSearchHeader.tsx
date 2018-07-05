@@ -42,7 +42,7 @@ const SpSearchHeader: React.StatelessComponent<ISpPropertyBagProps> = (props: IS
                         {reqUrl}
                     </div>
                     <Button value="Copy" title="Copy" icon="Copy" description="Copy" disabled={disableBtn} onClick={_onCopyClick}
-                        className="spSearch-header-copy-btn"/>
+                        className="spSearch-header-copy-btn" />
                     <div className="spSearch-header-copy-input">
                         <TextField value={reqUrl} id={copyTextId} />
                     </div>
@@ -50,7 +50,7 @@ const SpSearchHeader: React.StatelessComponent<ISpPropertyBagProps> = (props: IS
             </div>
             <div className="ms-Grid-row" >
 
-                <div className="ms-Grid-col ms-u-sm10 ms-u-md10 ms-u-lg10">
+                <div className="ms-Grid-col ms-u-sm11 ms-u-md11 ms-u-lg11">
                     <TextField
                         multiline={true}
                         resizable={false}
@@ -59,14 +59,15 @@ const SpSearchHeader: React.StatelessComponent<ISpPropertyBagProps> = (props: IS
                         onGetErrorMessage={_validateSearchText}
                         onKeyPress={onKeyPress} />
                 </div>
-                <div className="ms-Grid-col ms-u-sm2 ms-u-md2 ms-u-lg2">
+                <div className="ms-Grid-col ms-u-sm1 ms-u-md1 ms-u-lg1">
                     <Button
                         value="Search"
                         title="Search"
                         icon="Search"
                         description="Search"
                         disabled={disableBtn}
-                        onClick={_onSearchClick} />
+                        onClick={_onSearchClick}
+                        style={{ paddingLeft: 0, margin: 0 }} />
                 </div>
             </div>
         </div>

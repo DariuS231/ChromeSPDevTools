@@ -19,6 +19,7 @@ export type ISearchResult = Array<IResult>
 
 export interface IResultAndTotal {
     results: ISearchResult;
+    resultsColumns: string[];
     total: number;
 }
 export interface ISpSearchActionCreatorsMapObject extends ActionCreatorsMapObject {
@@ -49,6 +50,7 @@ export interface IMapStateToPropsState {
 
 export interface IInitialState {
     results: ISearchResult;
+    resultsColumns: string[];
     totalResults: number;
     webUrl: string;
     textQuery: string;

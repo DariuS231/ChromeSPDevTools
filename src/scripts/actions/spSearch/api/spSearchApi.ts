@@ -40,7 +40,8 @@ export default class SpSearchApi extends ApiBase {
             const results: ISearchResult = resultRows.map((item: any, index: number) => {
                 return this.parseCellValue(item.Cells as ISearchResultKeyValue[], false, true);
             });
-            return { total, results };
+            const columns: string[] = results.length > 0 ? results.map((i) => i.props.map((p) => p.Key))[0] : [];
+            return { total, results, resultsColumns: columns };
         } catch (ex) {
             throw ex;
         }
