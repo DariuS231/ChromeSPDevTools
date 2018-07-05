@@ -472,4 +472,27 @@ $dividerColor: $ms-color-neutralLight;
         border-color: #c8c8c8;
         color: #333333;
     }
+    .spSearch-header-copy{
+        margin-bottom: 10px;
+        font-size: 12px;
+        .spSearch-header-copy-btn, .spSearch-header-copy-url{
+            display: inline-block;
+            border: 0.1px solid rgb(200, 200, 200);
+        }
+        .spSearch-header-copy-url{
+            background-color: rgb(244, 244, 244);
+            width: 83%;
+            word-break: break-all;
+            padding: 10px;
+        }
+        .spSearch-header-copy-btn{
+            margin: 0px;
+            height: 100%;
+            position: absolute;
+        }
+        .spSearch-header-copy-input{
+            position: absolute;
+            top: -200px;
+        }
+    }
 }

@@ -37,13 +37,13 @@ const SpSearchHeader: React.StatelessComponent<ISpPropertyBagProps> = (props: IS
     return (
         <div>
             <div className="ms-Grid-row" >
-                <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
-                    <div style={{ backgroundColor: "#f4f4f4", display:"inline-block", width:"83%", borderColor: "#f4f4f4", pointerEvents: "none", cursor: "default", marginBottom: "10px", wordBreak: "break-all", padding: "10px" }}>
-                        {reqUrl} 
+                <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12 spSearch-header-copy">
+                    <div className="spSearch-header-copy-url">
+                        {reqUrl}
                     </div>
-                    <Button value="Copy" title="Copy" icon="Copy" description="Copy"
-                        disabled={disableBtn} onClick={_onCopyClick} style={{display:"inline-block", marginLeft:"0"}} />
-                    <div style={{ position: "absolute", top: "-200px" }}>
+                    <Button value="Copy" title="Copy" icon="Copy" description="Copy" disabled={disableBtn} onClick={_onCopyClick}
+                        className="spSearch-header-copy-btn"/>
+                    <div className="spSearch-header-copy-input">
                         <TextField value={reqUrl} id={copyTextId} />
                     </div>
                 </div>
