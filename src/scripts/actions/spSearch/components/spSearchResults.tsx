@@ -63,13 +63,13 @@ const SpSearchResults: React.StatelessComponent<ISpPropertyBagProps> = (props: I
     } else if (props.results.length > 0) {
         _resultsComponent = (
             <div>
-                <div>
-                    <div style={{ display: "inline-block" }}>
+                <div className="spSearch-results-header">
+                    <div className="spSearch-results-header-total">
                         Showing {props.results.length} out of {props.totalResults}
                     </div>
-                    <div style={{ display: "inline-block", position: "absolute", right: "0px" }}>{downloadButton(props)}</div>
+                    <div className="spSearch-results-header-button">{downloadButton(props)}</div>
                 </div>
-                <div>
+                <div className="spSearch-results-list">
                     <List items={props.results} onRenderCell={renderListItem} />
                 </div>
             </div>

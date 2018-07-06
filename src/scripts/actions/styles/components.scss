@@ -2,7 +2,6 @@
 $focusedBorderColor: $ms-color-neutralSecondary;
 $bodyBackgroundColor: $ms-color-white;
 $bodyForegroundColor: $ms-color-neutralPrimary;
-
 /* Primary item colors, used for Nav, DetailsList headers, Pivots */
 
 $unselectedBackgroundColor: $bodyBackgroundColor;
@@ -27,8 +26,7 @@ $dividerColor: $ms-color-neutralLight;
     }
     & {
         // Clear browser specific focus styles and use transparent as placeholder for focus style
-        outline: transparent;
-        // It is MUST because the pseudo-element is absolute position.
+        outline: transparent; // It is MUST because the pseudo-element is absolute position.
         position: relative;
     }
     .ms-Fabric.is-focusVisible &:focus:after {
@@ -38,10 +36,8 @@ $dividerColor: $ms-color-neutralLight;
         top: $padding;
         right: $padding;
         bottom: $padding;
-        left: $padding;
-        // Make the content not respond to mouse/touch event. Reference: https://css-tricks.com/almanac/properties/p/pointer-events/
-        pointer-events: none;
-        // Add focus border with $color
+        left: $padding; // Make the content not respond to mouse/touch event. Reference: https://css-tricks.com/almanac/properties/p/pointer-events/
+        pointer-events: none; // Add focus border with $color
         border: 1px solid $color;
     }
 }
@@ -99,7 +95,6 @@ $dividerColor: $ms-color-neutralLight;
         font-size: 20px;
     }
 }
-
 
 /***   Common ***/
 
@@ -184,7 +179,6 @@ $dividerColor: $ms-color-neutralLight;
     }
 }
 
-
 /***   Working on it ***/
 
 .working-on-it-wrapper {
@@ -200,7 +194,6 @@ $dividerColor: $ms-color-neutralLight;
         border-width: 10px;
     }
 }
-
 
 /***   Property Bags ***/
 
@@ -235,7 +228,6 @@ $dividerColor: $ms-color-neutralLight;
         }
     }
 }
-
 
 /***   Site lists and Libraries ***/
 
@@ -282,7 +274,6 @@ $dividerColor: $ms-color-neutralLight;
     }
 }
 
-
 /***   Custom Actions ***/
 
 .sp-customActions {
@@ -324,13 +315,13 @@ $dividerColor: $ms-color-neutralLight;
     .edit-form-title {
         margin: 10px;
     }
-    #ContextualMenuButtonDiv{
+    #ContextualMenuButtonDiv {
         #ContextualMenuButton {
             color: white;
             text-decoration: none;
             width: 100%;
             height: 25px;
-            font-size: 14px!important;
+            font-size: 14px !important;
             padding-top: 5px;
             i {
                 vertical-align: middle;
@@ -399,8 +390,32 @@ $dividerColor: $ms-color-neutralLight;
         }
         &.results {
             width: 70%;
-            overflow-x: hidden;
-            overflow-y: auto;
+            >div {
+                height: 90%;
+                .spSearch-results-header {
+                    height: 50px;
+                    >div {
+                        display: inline-block;
+                    }
+                    .spSearch-results-header-total {
+                        margin-top: 15px;
+                        margin-left: 15px;
+                    }
+                    .spSearch-results-header-button {
+                        position: absolute;
+                        right: 0px;
+                        >a {
+                            margin-right: 0;
+                        }
+                    }
+                }
+                .spSearch-results-list {
+                    top: 50px;
+                    overflow-x: hidden;
+                    overflow-y: auto;
+                    height: 100%;
+                }
+            }
         }
         &.settings {
             width: 30%
@@ -457,7 +472,7 @@ $dividerColor: $ms-color-neutralLight;
             background: transparent,
         }
     }
-     ::-webkit-input-placeholder {
+    ::-webkit-input-placeholder {
         /* Chrome */
         color: lightgrey !important;
     }
@@ -472,25 +487,26 @@ $dividerColor: $ms-color-neutralLight;
         border-color: #c8c8c8;
         color: #333333;
     }
-    .spSearch-header-copy{
+    .spSearch-header-copy {
         margin-bottom: 10px;
         font-size: 12px;
-        .spSearch-header-copy-btn, .spSearch-header-copy-url{
+        .spSearch-header-copy-btn,
+        .spSearch-header-copy-url {
             display: inline-block;
             border: 0.1px solid rgb(200, 200, 200);
         }
-        .spSearch-header-copy-url{
+        .spSearch-header-copy-url {
             background-color: rgb(244, 244, 244);
             width: 90%;
             word-break: break-all;
             padding: 10px;
         }
-        .spSearch-header-copy-btn{
+        .spSearch-header-copy-btn {
             margin: 0px;
             height: 100%;
             position: absolute;
         }
-        .spSearch-header-copy-input{
+        .spSearch-header-copy-input {
             position: absolute;
             top: -200px;
         }
