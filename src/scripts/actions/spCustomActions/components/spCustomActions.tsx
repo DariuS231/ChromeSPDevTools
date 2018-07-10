@@ -3,7 +3,7 @@ import { MessageBarType } from "office-ui-fabric-react/lib/MessageBar";
 import * as React from "react";
 import { connect } from "react-redux";
 import { bindActionCreators, Dispatch } from "redux";
-import propertyActionsCreatorsMap from "../actions/SpCustomActionsActions";
+import propertyActionsCreatorsMap from "../actions/spCustomActionsActions";
 import {
     IMapStateToProps,
     IMapStateToPropsState,

@@ -2,7 +2,7 @@ import { Button, ButtonType } from "office-ui-fabric-react/lib/Button";
 import * as React from "react";
 import { connect } from "react-redux";
 import { bindActionCreators, Dispatch } from "redux";
-import propertyActionsCreatorsMap from "../actions/SpCustomActionsActions";
+import propertyActionsCreatorsMap from "../actions/spCustomActionsActions";
 import { customActionLocationHelper, ILocationItem } from "../helpers/customActionLocation";
 import { ICustomAction, IMapStateToPropsState } from "../interfaces/spCustomActionsInterfaces";
 import { spCustomActionsHistory } from "../router/spCustomActionsHistory";
