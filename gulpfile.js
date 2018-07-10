@@ -4,7 +4,6 @@ const gutil = require("gulp-util");
 const zip = require('gulp-zip');
 const config = require("./gulpconfig.json");
 const webpack = require("webpack");
-const argv = require('yargs').argv
 var replace = require('gulp-replace');
 const readlineSync = require('readline-sync');
 
