@@ -11,8 +11,8 @@ import {
     ISpFeaturesProps
 } from "../interfaces/spFeaturesInterfaces";
 import FilterTextBox from "./../../common/components/filterTextBox";
-import MessageBar from "./../../common/components/MessageBar";
-import { WorkingOnIt } from "./../../common/components/WorkingOnIt";
+import MessageBar from "./../../common/components/messageBar";
+import { WorkingOnIt } from "./../../common/components/workingOnIt";
 import SpFeaturesList from "./spFeaturesList";
 
 class SpFeatures extends React.Component<ISpFeaturesProps, {}> {

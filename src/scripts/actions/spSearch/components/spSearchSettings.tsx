@@ -8,8 +8,8 @@ import utils from "../../common/utils";
 import { ISpPropertyBagProps } from "../interfaces/spSearchInterfaces";
 import SpSearchSettingsCheckBox from "./spSearchSettingsCheckBox";
 import SpSearchSettingsInputNumber from "./spSearchSettingsInputNumber";
-import SpSearchSettingsInputString from "./SpSearchSettingsInputString";
-import SpSearchSettingsInputStringArray from "./SpSearchSettingsInputStringArray";
+import SpSearchSettingsInputString from "./spSearchSettingsInputString";
+import SpSearchSettingsInputStringArray from "./spSearchSettingsInputStringArray";
 
 const SpSearchSettings: React.StatelessComponent<ISpPropertyBagProps> = (props: ISpPropertyBagProps) => {
 

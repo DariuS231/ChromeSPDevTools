@@ -8,7 +8,7 @@ import { ICustomAction, IMapStateToPropsState } from "../interfaces/spCustomActi
 import { spCustomActionsHistory } from "../router/spCustomActionsHistory";
 import { IconButton } from "./../../common/components/iconButton";
 import { IconRouteLink } from "./../../common/components/iconRouteLink";
-import { WorkingOnIt } from "./../../common/components/WorkingOnIt";
+import { WorkingOnIt } from "./../../common/components/workingOnIt";
 import { CustomActionType } from "./../constants/enums";
 
 interface IMapStateToPropsSpCustomActionsItemEdit {

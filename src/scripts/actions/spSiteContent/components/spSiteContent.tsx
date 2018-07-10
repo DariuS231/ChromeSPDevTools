@@ -10,8 +10,8 @@ import {
     ISpSiteContentProps
 } from "../interfaces/spSiteContentInterfaces";
 import FilterTextBox from "./../../common/components/filterTextBox";
-import MessageBar from "./../../common/components/MessageBar";
-import { WorkingOnIt } from "./../../common/components/WorkingOnIt";
+import MessageBar from "./../../common/components/messageBar";
+import { WorkingOnIt } from "./../../common/components/workingOnIt";
 import { SpSiteContentCheckBox } from "./spSiteContentCheckBox";
 import { SpSiteContentList } from "./spSiteContentList";
 

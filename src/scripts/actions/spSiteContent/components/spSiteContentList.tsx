@@ -3,7 +3,7 @@ import * as React from "react";
 import { StatelessComponent } from "react";
 import { ISiteContent } from "../interfaces/spSiteContentInterfaces";
 import { IAction } from "./../../common/interfaces";
-import { SpSiteContentItem } from "./SpSiteContentItem";
+import { SpSiteContentItem } from "./spSiteContentItem";
 
 interface ISpSiteContentListProps {
     items: ISiteContent[];
