@@ -28,6 +28,12 @@ export const constants  = {
     URL_SLASH: "/",
     URL_SP: "sp.js",
     URL_SP_RUNTIME: "SP.Runtime.js",
+    URL_INIT: "init.js",
+    URL_SP_MS_AJAX: "MicrosoftAjax.js",
+    GLOBAL_NAME_SP: "SP.Utilities",
+    GLOBAL_NAME_SP_RUNTIME: "SP.SOD",
+    GLOBAL_NAME_INIT: "$_global_init",
+    GLOBAL_NAME_SP_MS_AJAX: "Sys",
     WORKING_ON_IT_TEXT: "Working on it...",
     GUID_REGEX: /^[0-9aA-fF]{8}-([0-9aA-fF]{4}-){3}[0-9aA-fF]{12}$/
 };
