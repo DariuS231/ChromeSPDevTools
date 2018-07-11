@@ -20,21 +20,15 @@ export const DialogConfirm: React.StatelessComponent<IDialogConfirmProps> = (pro
         }
     }
 
-    return  <Dialog
-        isOpen={true}
-        type={DialogType.normal}
-        title={props.dialogTitle}
-        subText={props.dialogText}
-        isBlocking={true}
-    >
-        <DialogFooter>
-            <Button
-                buttonType={ButtonType.primary}
-                onClick={props.onOk}
-            >
-                {props.okBtnText || constants.BUTTON_TEX_OK}
-            </Button>
-            <Button onClick={_cancelBtnClick}>{props.cancelBtnText || constants.BUTTON_TEX_CANCEL}</Button>
-        </DialogFooter>
-    </Dialog>;
+    return (
+        <Dialog isOpen={true} type={DialogType.normal} title={props.dialogTitle}
+            subText={props.dialogText} isBlocking={true} >
+            <DialogFooter>
+                <Button buttonType={ButtonType.primary} onClick={props.onOk}>
+                    {props.okBtnText || constants.BUTTON_TEX_OK}
+                </Button>
+                <Button onClick={_cancelBtnClick}>{props.cancelBtnText || constants.BUTTON_TEX_CANCEL}</Button>
+            </DialogFooter>
+        </Dialog>
+    );
 };

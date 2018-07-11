@@ -21,7 +21,7 @@ class Cache {
         if (this.isSupportedStorage) {
             const cachedDataStr = this.CacheObject.getItem(completeKey);
 
-            if (typeof cachedDataStr ===  constants.TYPE_OF_STRING) {
+            if (typeof cachedDataStr === constants.TYPE_OF_STRING) {
                 const cacheDataObj = JSON.parse(cachedDataStr);
                 if (cacheDataObj.expiryTime > (new Date())) {
                     return cacheDataObj.data;
@@ -57,8 +57,7 @@ class Cache {
     }
     private checkIfStorageIsSupported() {
         const cacheObj = this.CacheObject;
-        const supportsStorage = cacheObj && JSON
-            && typeof JSON.parse === constants.TYPE_OF_FUNCTION
+        const supportsStorage = cacheObj && JSON && typeof JSON.parse === constants.TYPE_OF_FUNCTION
             && typeof JSON.stringify === constants.TYPE_OF_FUNCTION;
         if (supportsStorage) {
             try {
@@ -67,6 +66,7 @@ class Cache {
                 cacheObj.removeItem(testKey);
                 return true;
             } catch (ex) {
+                // tslint:disable-next-line:no-console
                 console.log("Local Storage not supported by the browser.");
             }
         }

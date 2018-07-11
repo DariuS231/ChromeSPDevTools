@@ -22,17 +22,17 @@ export default class MessageBar extends React.Component<IMessageBarProps, IMessa
         if (!this.state.showMessage) {
             return null;
         } else {
-            return <MsBar
-                messageBarType={this.props.messageType}
-                onDismiss={this.onDismissClick}
-            >{Utils.capitalize(MessageBarType[this.props.messageType])} - {this.props.message}
-            </MsBar>;
+            return (
+                <MsBar messageBarType={this.props.messageType} onDismiss={this.onDismissClick}>
+                    {Utils.capitalize(MessageBarType[this.props.messageType])} - {this.props.message}
+                </MsBar>
+            );
         }
     }
-    protected componentDidMount() {
+    public componentDidMount() {
         this.setState({ showMessage: this.props.showMessage });
     }
-    protected componentWillReceiveProps(nextProps: any) {
+    public componentWillReceiveProps(nextProps: any) {
         this.setState({
             showMessage: nextProps.showMessage
         });

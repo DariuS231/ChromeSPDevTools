@@ -11,11 +11,31 @@ export default class Utils {
         return (srt.length <= 0) ? "" : srt[0].replace(/{(\d+)}/g, (match: any, number: number) => {
             return typeof args[number] !== constants.TYPE_OF_UNDEFINED
                 ? args[number]
-                : match
-                ;
+                : match;
         });
     }
-    public static loadScript(url: string, globalName: string): Promise<any> {
+
+    public static ensureSPObject(): Promise<any> {
+        return new Promise((resolve, reject) => {
+            if (typeof SP === constants.TYPE_OF_UNDEFINED || typeof SP.SOD === constants.TYPE_OF_UNDEFINED
+                || typeof SP.SOD.executeFunc === constants.TYPE_OF_UNDEFINED) {
+                this.loadSPScripts().then(() => resolve());
+            } else {
+                SP.SOD.executeFunc(constants.URL_SP, constants.SP_TYPE_CLIENTCONTEXT, () => resolve());
+            }
+        });
+    }
+    public static isGuidValid(guid: string, omitEmpty: boolean = true): boolean {
+        return ((omitEmpty && !guid) || (!omitEmpty && !!guid)) || constants.GUID_REGEX.test(guid);
+    }
+    private static async loadSPScripts(): Promise<any> {
+        const scriptBase: string = `${location.origin}${constants.URL_LAYOUTS}`;
+        await this.loadScript(scriptBase + constants.URL_INIT, constants.GLOBAL_NAME_INIT);
+        await this.loadScript(scriptBase + constants.URL_SP_MS_AJAX, constants.GLOBAL_NAME_SP_MS_AJAX);
+        await this.loadScript(scriptBase + constants.URL_SP_RUNTIME, constants.GLOBAL_NAME_SP_RUNTIME);
+        await this.loadScript(scriptBase + constants.URL_SP, constants.GLOBAL_NAME_SP);
+    }
+    private static loadScript(url: string, globalName: string): Promise<any> {
         return new Promise((resolve, reject) => {
             if (!!window[globalName]) {
                 resolve();
@@ -31,31 +51,4 @@ export default class Utils {
             head.appendChild(script);
         });
     }
-    public static ensureSPObject(): Promise<any> {
-        return new Promise((resolve, reject) => {
-            if (typeof SP === constants.TYPE_OF_UNDEFINED || typeof SP.SOD === constants.TYPE_OF_UNDEFINED
-                || typeof SP.SOD.executeFunc === constants.TYPE_OF_UNDEFINED) {
-                const scriptBase: string = location.origin + constants.URL_LAYOUTS;
-
-                this.loadScript(scriptBase + constants.URL_INIT, constants.GLOBAL_NAME_INIT).then(() => {
-                    this.loadScript(scriptBase + constants.URL_SP_MS_AJAX, constants.GLOBAL_NAME_SP_MS_AJAX).then(() => {
-                        this.loadScript(scriptBase + constants.URL_SP_RUNTIME, constants.GLOBAL_NAME_SP_RUNTIME).then(() => {
-                            this.loadScript(scriptBase + constants.URL_SP, constants.GLOBAL_NAME_SP).then(() => {
-                                resolve();
-                            });
-                        });
-                    });
-                });
-
-            } else {
-                SP.SOD.executeFunc(constants.URL_SP, constants.SP_TYPE_CLIENTCONTEXT, () => {
-                    resolve();
-                });
-            }
-        });
-    }
-    public static isGuidValid(guid: string, omitEmpty: boolean = true): boolean {
-        return ((omitEmpty && !guid) || (!omitEmpty && !!guid)) || constants.GUID_REGEX.test(guid);
-    }
-
 }

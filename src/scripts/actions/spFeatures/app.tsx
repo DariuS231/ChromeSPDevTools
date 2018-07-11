@@ -1,3 +1,6 @@
+// tslint:disable-next-line:no-reference
+/// <reference path="../../../../typings/index.d.ts" />
+
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { Provider } from "react-redux";

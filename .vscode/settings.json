@@ -2,5 +2,9 @@
     "typescript.check.workspaceVersion": false,
     "typescript.tsdk": "./node_modules/typescript/lib",
     "vsicons.presets.angular": false,
-    "tslint.enable": true
+    "tslint.enable": true,
+    "cSpell.words": [
+        "Guid",
+        "unmount"
+    ]
 }
