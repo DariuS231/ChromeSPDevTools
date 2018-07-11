@@ -4,7 +4,7 @@ import { Provider } from "react-redux";
 import { AppBase } from "./../common/AppBase";
 import SpCustomModalWrapper from "./../common/components/spCustomModalWrapper";
 import Utils from "./../common/utils";
-import SpFeatures from "./components/SpFeatures";
+import SpFeatures from "./components/spFeatures";
 import { constants } from "./constants/constants";
 import { configureStore } from "./store/configureStore-dev";
 

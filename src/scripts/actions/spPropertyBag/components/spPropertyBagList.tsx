@@ -2,7 +2,7 @@ import { List } from "office-ui-fabric-react/lib/List";
 import * as React from "react";
 import { IProperty } from "../interfaces/spPropertyBagInterfaces";
 import { constants } from "./../constants/constants";
-import SpPropertyBagItem from "./SpPropertyBagItem";
+import SpPropertyBagItem from "./spPropertyBagItem";
 
 interface ISpPropertyBagListProps {
     items: IProperty[];

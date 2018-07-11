@@ -4,7 +4,7 @@ import { TextField } from "office-ui-fabric-react/lib/TextField";
 import * as React from "react";
 import { connect } from "react-redux";
 import { bindActionCreators, Dispatch } from "redux";
-import propertyActionsCreatorsMap from "../actions/SpCustomActionsActions";
+import propertyActionsCreatorsMap from "../actions/spCustomActionsActions";
 import { ICustomAction, IMapStateToPropsState } from "../interfaces/spCustomActionsInterfaces";
 import { IconButton } from "./../../common/components/iconButton";
 import { IconRouteLink } from "./../../common/components/iconRouteLink";

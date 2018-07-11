@@ -7,10 +7,10 @@ import { bindActionCreators, Dispatch } from "redux";
 import propertyActionsCreatorsMap from "../actions/spPropertyBagActions";
 import { IMapStateToProps, IMapStateToPropsState, ISpPropertyBagActionCreatorsMapObject, ISpPropertyBagProps } from "../interfaces/spPropertyBagInterfaces";
 import FilterTextBox from "./../../common/components/filterTextBox";
-import MessageBar from "./../../common/components/MessageBar";
-import { WorkingOnIt } from "./../../common/components/WorkingOnIt";
+import MessageBar from "./../../common/components/messageBar";
+import { WorkingOnIt } from "./../../common/components/workingOnIt";
 import { SpPropertyBagList } from "./spPropertyBagList";
-import SpPropertyBagNewItem from "./SpPropertyBagNewItem";
+import SpPropertyBagNewItem from "./spPropertyBagNewItem";
 
 interface IMapDispatchToISpPropertyBagProps {
     actions: ISpPropertyBagActionCreatorsMapObject;

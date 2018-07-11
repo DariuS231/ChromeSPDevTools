@@ -1,4 +1,5 @@
 node_modules
+dist
 typings/globals/
 !typings/globals/sharepoint/
 *.pem

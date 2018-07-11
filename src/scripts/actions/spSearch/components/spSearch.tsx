@@ -8,7 +8,7 @@ import {
     IMapStateToPropsState,
     ISpPropertyBagProps
 } from "../interfaces/spSearchInterfaces";
-import SpSearchHeader from "./SpSearchHeader";
+import SpSearchHeader from "./spSearchHeader";
 import SpSearchResults from "./spSearchResults";
 import SpSearchSettings from "./spSearchSettings";
 
