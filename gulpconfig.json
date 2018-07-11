@@ -29,7 +29,9 @@
             },
             "data": {
                 "src": "src/data/*.json",
-                "dist": "dist/chromeExtension/dev/data"
+                "dist": "dist/chromeExtension/dev/data",
+                "developmentCdn": "https://localhost:8080/dist/actions",
+                "productionCdn": "https://serene-saha-ee2827.netlify.com"
             }
         }
     }

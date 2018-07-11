@@ -5,7 +5,6 @@ const zip = require('gulp-zip');
 const config = require("./gulpconfig.json");
 const webpack = require("webpack");
 var replace = require('gulp-replace');
-const readlineSync = require('readline-sync');
 
 /****//****//****//****/
 //      Google Extension
@@ -15,14 +14,13 @@ gulp.task("copy-images", function () {
         .pipe(gulp.dest(config.paths.chromeExt.images.dist));
 });
 gulp.task("copy-data", function () {
-    let cdnUrl = 'https://localhost:8080/dist/actions';
+    let cdnUrl = process.env.NODE_ENV.trim().toLocaleLowerCase() === 'production' ?
+        config.paths.chromeExt.data.productionCdn :
+        config.paths.chromeExt.data.developmentCdn;
 
-    if (process.env.NODE_ENV.trim().toLocaleLowerCase() === 'production') {
-        cdnUrl = readlineSync.question("Please provide the Base URL of the CDN for production: ");
-    } 
     return gulp.src(config.paths.chromeExt.data.src)
-            .pipe(replace('__%__CDN_URL__%__', cdnUrl))
-            .pipe(gulp.dest(config.paths.chromeExt.data.dist));
+        .pipe(replace('__%__CDN_URL__%__', cdnUrl))
+        .pipe(gulp.dest(config.paths.chromeExt.data.dist));
 });
 gulp.task("copy-rootFolderFiles", function () {
     return gulp.src(config.paths.chromeExt.rootFolderFiles)

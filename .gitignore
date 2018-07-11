@@ -1,4 +1,5 @@
 node_modules
+dist
 typings/globals/
 !typings/globals/sharepoint/
 *.pem
@@ -9,7 +10,6 @@ app/bower_components
 test/bower_components
 package
 app/scripts
-dist/chromeExtension
 **/*.map
 chromePackage*
 *.DS_Store

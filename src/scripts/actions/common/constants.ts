@@ -1,6 +1,6 @@
 /* tslint:disable:max-line-length */
 export const constants  = {
-    AXIOS_HEADER_ACCEPT: "application/json;odata=verbose",
+    AXIOS_HEADER_ACCEPT: "application/json;odata=nometadata",
     BUTTON_TEX_CANCEL: "Cancel",
     BUTTON_TEX_OK: "Ok",
     HTML_ATTR_ID: "id",

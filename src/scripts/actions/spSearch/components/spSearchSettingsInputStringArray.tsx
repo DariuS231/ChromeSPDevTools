@@ -12,8 +12,8 @@ const SpSearchSettingsInputStringArray: React.StatelessComponent<ISpSearchSettin
     = (props: ISpSearchSettingsInputStringArrayProps) => {
 
         const oninputChange = (newValue: string) => {
-
-            props.action(newValue.split(","));
+            const array: string[] = !!newValue ? newValue.split(",") : [];
+            props.action(array);
         }
         return (
             <TextField

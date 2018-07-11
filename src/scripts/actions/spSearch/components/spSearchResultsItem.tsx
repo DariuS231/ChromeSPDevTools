@@ -1,14 +1,10 @@
 import {
-    DetailsList,
-    DetailsListLayoutMode,
-    DetailsRow,
-    IColumn,
-    Selection,
-    SelectionMode,
+    DetailsList, DetailsListLayoutMode,
+    IColumn, SelectionMode,
 } from "office-ui-fabric-react/lib/DetailsList";
-import { List } from "office-ui-fabric-react/lib/List";
+import { Icon } from "office-ui-fabric-react/lib/Icon";
 import * as React from "react";
-import { IResult, ISearchResult, ISearchResultKeyValue } from "../interfaces/spSearchInterfaces";
+import { IResult } from "../interfaces/spSearchInterfaces";
 
 interface ISpSearchResultsItemProps {
     item: IResult;
@@ -53,9 +49,7 @@ const SpSearchResultsItem: React.StatelessComponent<ISpSearchResultsItemProps> =
             <div className="ms-ListBasicSpChromeDevTool-itemContent">
                 <div className="ms-ListBasicSpChromeDevTool-itemName">
                     <a onClick={props.onCollapse} href="#"> {props.item.title}
-                        <i
-                            className={"ms-Icon ms-Icon--Chevron" + props.item.collapsed ? "DownSmall" : "UpSmall"}
-                            aria-hidden="true" />
+                        <Icon iconName={props.item.collapsed ? "ChevronDownSmall" : "ChevronUpSmall"} />
                     </a>
                 </div>
                 {properties()}

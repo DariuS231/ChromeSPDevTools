@@ -1,10 +1,12 @@
 import { MessageBarType } from "office-ui-fabric-react/lib/MessageBar";
-import { IInitialState, IResult, IResultAndTotal, ISearchResult } from "../interfaces/spSearchInterfaces";
+import { IInitialState, IResult, IResultAndTotal, ISearchResult, ISearchResultKeyValue } from "../interfaces/spSearchInterfaces";
 import { IAction, IMessageData } from "./../../common/interfaces";
 import { ActionsId as actions, constants } from "./../constants/constants";
 
 const initialState: IInitialState = {
     results: new Array(),
+    resultsColumns: new Array(),
+    webUrl: '',
     totalResults: 0,
     textQuery: "*",
     rowLimit: 10,
@@ -24,11 +26,31 @@ const initialState: IInitialState = {
 };
 
 export const spSearchReducer = (state: IInitialState = initialState, action: IAction<any>): IInitialState => {
+    const mergeItemData = (oldItem: IResult, newItem: IResult): IResult => {
+        const mergedProps: ISearchResultKeyValue[] = [];
+        const arr: ISearchResultKeyValue[] = oldItem.props.concat(newItem.props);
+        let len: number = arr.length;
+        const assoc: any = {};
+
+        while (len--) {
+            const item: ISearchResultKeyValue = arr[len];
+
+            if (!assoc[item.Key]) {
+                mergedProps.unshift(item);
+                assoc[item.Key] = true;
+            }
+        }
+
+        return { ...newItem, props: mergedProps };
+    }
 
     switch (action.type) {
         case actions.SET_QUERY_TEXT:
             const queryStr: string = action.payload;
             return { ...state, textQuery: queryStr };
+        case actions.SET_WEB_URL:
+            const webUrl: string = action.payload;
+            return { ...state, webUrl, showFetching: false };
         case actions.SET_TRIM_DUPLICATES:
             const trimDuplicates: boolean = action.payload;
             return { ...state, trimDuplicates };
@@ -86,12 +108,13 @@ export const spSearchReducer = (state: IInitialState = initialState, action: IAc
                 results: res.results,
                 totalResults: res.total,
                 showFetching: false,
+                resultsColumns: res.resultsColumns,
                 messageData: msgData
             };
         case actions.SET_SEARCH_RESULT:
             const item: IResult = action.payload;
             const newList = state.results.map((result: IResult) => {
-                return (result.key === item.key) ? item : result;
+                return (result.key === item.key) ? mergeItemData(item, result) : result;
             });
             return {
                 ...state,
