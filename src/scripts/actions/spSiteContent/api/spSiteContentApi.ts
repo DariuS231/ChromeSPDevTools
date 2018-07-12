@@ -113,8 +113,8 @@ export default class SpSiteContentApi extends ApiBase {
         let parentUrl = oList.get_parentWebUrl();
         if (parentUrl === "/") { parentUrl = location.origin; }
 
-        const permissionPageUrl = `${parentUrl}${constants.permissionsPageUrlOpen}${listId}
-        ${constants.permissionsPageUrlMiddle}${listId}${constants.permissionsPageUrlClose}`;
+        // tslint:disable-next-line:max-line-length
+        const permissionPageUrl = `${parentUrl}${constants.permissionsPageUrlOpen}${listId}${constants.permissionsPageUrlMiddle}${listId}${constants.permissionsPageUrlClose}`;
 
         return {
             baseTemplate: oList.get_baseTemplate(),
