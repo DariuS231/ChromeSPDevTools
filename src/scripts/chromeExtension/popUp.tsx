@@ -4,7 +4,6 @@ import * as React from "react";
 import ActionItem from "./ActionItem";
 import "./styles/chromeExtePopUp.scss";
 
-
 interface IActionData {
     title: string;
     description: string;
@@ -39,7 +38,7 @@ export default class PopUp extends React.Component<IPopUpProps, IPopUpState> {
         }
     }
 
-    protected componentDidMount() {
+    public componentDidMount() {
         this.checkIfSharePoint().then((isSp: boolean) => {
             if (isSp) {
                 this.getActions();
@@ -60,7 +59,6 @@ export default class PopUp extends React.Component<IPopUpProps, IPopUpState> {
             </div>
         );
     }
-
     private loading() {
         return (
             <div className="container">
@@ -68,21 +66,24 @@ export default class PopUp extends React.Component<IPopUpProps, IPopUpState> {
             </div>
         );
     }
-
     private notSpSite() {
         return (
             <div className="container">
-                <span className="ms-font-xl ms-fontColor-themePrimary ms-fontWeight-semibold">Not a SharePoint site</span>
+                <span className="ms-font-xl ms-fontColor-themePrimary ms-fontWeight-semibold">
+                    Not a SharePoint site
+                </span>
                 <hr />
                 <div className="ms-font-m ms-fontWeight-light tool-version" >
-                    <span>Try opening the tool on a SharePoint Tab</span>
+                    <span>
+                        Try opening the tool on a SharePoint Tab
+                    </span>
                 </div>
             </div>
         );
     }
     private getActions() {
         const that: any = this;
-        const xobj = new XMLHttpRequest();
+        const xobj: XMLHttpRequest = new XMLHttpRequest();
         xobj.overrideMimeType("application/json");
         xobj.open("GET", "data/actions.json", true);
         xobj.onreadystatechange = () => {

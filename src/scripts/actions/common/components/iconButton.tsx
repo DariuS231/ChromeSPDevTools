@@ -8,13 +8,8 @@ interface IIconButtonProps {
     disabled?: boolean;
 }
 export const IconButton: React.StatelessComponent<IIconButtonProps> = (props: IIconButtonProps) => (
-    <a
-        title={props.title}
-        aria-label={props.title}
-        className="ms-Button ms-Button--icon"
-        onClick={props.onClick}
-        disabled={typeof props.disabled === "undefined" ? false : props.disabled}
-    >
+    <a title={props.title} aria-label={props.title} className="ms-Button ms-Button--icon"
+        onClick={props.onClick} disabled={typeof props.disabled === "undefined" ? false : props.disabled}>
         <span className="ms-Button-icon">
             <i className={"ms-Icon ms-Icon--" + props.icon} />
         </span>

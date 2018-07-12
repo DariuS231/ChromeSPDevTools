@@ -36,20 +36,13 @@ const CustomActionItem: React.StatelessComponent<ICustomActionItemProps> = (prop
             break;
         case "ScriptLink":
             if (props.item.scriptSrc) {
-                valueInput = (<TextField
-                    resizable={false}
-                    label="Script Src"
-                    value={props.item.scriptSrc}
-                    disabled={true}
-                />);
+                valueInput = (
+                    <TextField resizable={false} label="Script Src" value={props.item.scriptSrc} disabled={true} />);
             } else {
-                valueInput = (<TextField
-                    resizable={false}
-                    label="Script Block"
-                    value={props.item.scriptBlock}
-                    disabled={true}
-                    multiline={true}
-                />);
+                valueInput = (
+                    <TextField resizable={false} label="Script Block" value={props.item.scriptBlock} disabled={true}
+                        multiline={true} />
+                );
             }
             break;
         default:
@@ -57,18 +50,19 @@ const CustomActionItem: React.StatelessComponent<ICustomActionItemProps> = (prop
             break;
     }
 
-    return <div className="ms-ListBasicSpChromeDevTool-itemCell  ms-Grid-row" data-is-focusable={true}>
-        <div className="ms-ListBasicSpChromeDevTool-itemContent ms-Grid-col ms-u-sm11 ms-u-md11 ms-u-lg11">
-            <TextField resizable={false} label="Name" value={props.item.name} disabled={true} />
-            <TextField resizable={false} label="Sequence" value={props.item.sequence.toString()} disabled={true} />
-            <TextField resizable={false} label="Location" value={props.item.location} disabled={true} />
-            {valueInput}
-        </div>
-        <div className="ms-ListItem-actions ms-Grid-col ms-u-sm1 ms-u-md1 ms-u-lg1">
-            <IconButton icon="Delete" onClick={deleteCustomAction} title="Delete" />
-            <IconRouteLink icon="Edit" route={"item/" + props.item.id} title="Edit" />
-        </div>
-    </div>;
+    return (
+        <div className="ms-ListBasicSpChromeDevTool-itemCell  ms-Grid-row" data-is-focusable={true}>
+            <div className="ms-ListBasicSpChromeDevTool-itemContent ms-Grid-col ms-u-sm11 ms-u-md11 ms-u-lg11">
+                <TextField resizable={false} label="Name" value={props.item.name} disabled={true} />
+                <TextField resizable={false} label="Sequence" value={props.item.sequence.toString()} disabled={true} />
+                <TextField resizable={false} label="Location" value={props.item.location} disabled={true} />
+                {valueInput}
+            </div>
+            <div className="ms-ListItem-actions ms-Grid-col ms-u-sm1 ms-u-md1 ms-u-lg1">
+                <IconButton icon="Delete" onClick={deleteCustomAction} title="Delete" />
+                <IconRouteLink icon="Edit" route={"item/" + props.item.id} title="Edit" />
+            </div>
+        </div>);
 
 };
 

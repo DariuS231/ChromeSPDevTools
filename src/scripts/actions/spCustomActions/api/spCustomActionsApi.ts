@@ -6,54 +6,48 @@ import { CustomActionType } from "./../constants/enums";
 
 export default class SpCustomActionsApi extends ApiBase {
 
-    public getCustomActions(caType: CustomActionType): Promise<ICustomAction[]> {
-        return new Promise((resolve, reject) => {
-            this.getWebUrl().then(webUrl => {
+    public async getCustomActions(caType: CustomActionType): Promise<ICustomAction[]> {
+        const webUrl: string = await this.getWebUrl();
 
-                // tslint:disable-next-line:max-line-length
-                const reqUrl = `${webUrl}/_api/${CustomActionType[caType]}${constants.CUSTOM_ACTION_REST_REQUEST_URL}`;
-                this.getRequest(reqUrl).then((response: any) => {
-                    let customActions: ICustomAction[] = [];
-                    const filters = customActionLocationHelper.supportedCustomActionsFilter;
-                    const filtersCt = filters.length;
-                    const caArray = response.data.value.filter((item: any) => {
-                        let locAllowed: boolean = false;
-                        let loopCt = 0;
-                        while (!locAllowed && loopCt < filtersCt) {
-                            locAllowed = filters[loopCt](item);
-                            loopCt++;
-                        }
-                        return locAllowed;
-                    });
-
-                    const caArrayLength = caArray.length;
-                    for (let i = 0; i < caArrayLength; i++) {
-                        const ca: any = caArray[i];
-                        const scriptSrc: string = ca.ScriptSrc;
-                        const scriptBlock: string = ca.ScriptBlock;
-                        const url: string = ca.Url;
-
-                        customActions = customActions.concat({
-                            description: ca.Description,
-                            group: ca.Group,
-                            id: ca.Id,
-                            imageUrl: ca.ImageUrl,
-                            location: ca.Location,
-                            name: ca.Name,
-                            registrationType: ca.RegistrationType,
-                            sequence: ca.Sequence,
-                            scriptBlock,
-                            scriptSrc,
-                            title: ca.Title,
-                            url
-                        });
-                    }
-                    resolve(customActions);
-                }).catch((error: any) => {
-                    reject(error);
-                });
-            });
+        const reqUrl = `${webUrl}/_api/${CustomActionType[caType]}${constants.CUSTOM_ACTION_REST_REQUEST_URL}`;
+        const response: any = await this.getRequest(reqUrl);
+        let customActions: ICustomAction[] = [];
+        const filters = customActionLocationHelper.supportedCustomActionsFilter;
+        const filtersCt = filters.length;
+        const caArray = response.data.value.filter((item: any) => {
+            let locAllowed: boolean = false;
+            let loopCt = 0;
+            while (!locAllowed && loopCt < filtersCt) {
+                locAllowed = filters[loopCt](item);
+                loopCt++;
+            }
+            return locAllowed;
         });
+
+        const caArrayLength = caArray.length;
+        for (let i = 0; i < caArrayLength; i++) {
+            const ca: any = caArray[i];
+            const scriptSrc: string = ca.ScriptSrc;
+            const scriptBlock: string = ca.ScriptBlock;
+            const url: string = ca.Url;
+
+            customActions = customActions.concat({
+                description: ca.Description,
+                group: ca.Group,
+                id: ca.Id,
+                imageUrl: ca.ImageUrl,
+                location: ca.Location,
+                name: ca.Name,
+                registrationType: ca.RegistrationType,
+                sequence: ca.Sequence,
+                scriptBlock,
+                scriptSrc,
+                title: ca.Title,
+                url
+            });
+        }
+        return customActions;
+
     }
 
     public deleteCustomAction(caObj: ICustomAction, caType: CustomActionType): Promise<ICustomAction> {

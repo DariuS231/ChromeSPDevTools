@@ -16,19 +16,14 @@ const SpFeaturesItem: React.StatelessComponent<ISpFeaturesItemProps> = (props: I
     };
     // tslint:disable-next-line:max-line-length
     const itemClassName = "ms-ListBasicSpChromeDevTool-itemContent ms-ListBasicSpChromeDevTool-featureName ms-font-m ms-fontColor-themePrimary ms-fontWeight-semibold";
-    return <div className="ms-ListBasicSpChromeDevTool-itemCell" data-is-focusable={true} title={props.item.description}>
-        <Image className="ms-ListBasicSpChromeDevTool-itemImage" src={props.item.logo} width={31} height={22} />
-        <div className={itemClassName}>
-            {props.item.name}
-        </div>
-        <Toggle
-            checked={props.item.activated}
-            label=""
-            onText="On"
-            offText="Off"
-            onChanged={toggleCLick}
-        />
-    </div>;
+    return (
+        <div className="ms-ListBasicSpChromeDevTool-itemCell" data-is-focusable={true} title={props.item.description}>
+            <Image className="ms-ListBasicSpChromeDevTool-itemImage" src={props.item.logo} width={31} height={22} />
+            <div className={itemClassName}>
+                {props.item.name}
+            </div>
+            <Toggle checked={props.item.activated} label="" onText="On" offText="Off" onChanged={toggleCLick} />
+        </div>);
 
 };
 

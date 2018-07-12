@@ -31,27 +31,27 @@ export class App extends AppBase {
         const that = this;
         Utils.ensureSPObject().then(() => {
             const store = configureStore(this._customActionType);
-
             const wrapper: React.StatelessComponent<{ children?: any }> = (props: { children?: any }) => {
-                return <SpCustomModalWrapper
-                    onCloseClick={this.onCloseWrapperClick}
-                    modalDialogTitle={this.baseDivId}
-                ><div className="action-container sp-customActions">
-                        {props.children}
-                    </div>
-                </SpCustomModalWrapper>;
+                return (
+                    <SpCustomModalWrapper onCloseClick={this.onCloseWrapperClick} modalDialogTitle={this.baseDivId}>
+                        <div className="action-container sp-customActions">
+                            {props.children}
+                        </div>
+                    </SpCustomModalWrapper>
+                );
             };
-            ReactDOM.render(<Provider store={store}>
-
-                <Router history={spCustomActionsHistory.History}>
-                    <Route path="/" component={wrapper} >
-                        <IndexRoute component={SpCustomActions} />
-                        <Route path="newItem/:type" component={SpCustomActionItemEdit} />
-                        <Route path="item/:guid" component={SpCustomActionItemEdit} />
-                    </Route>
-                    <Redirect from="*" to="/" />
-                </Router>
-            </Provider>, document.getElementById(that.baseDivId));
+            ReactDOM.render(
+                <Provider store={store}>
+                    <Router history={spCustomActionsHistory.History}>
+                        <Route path="/" component={wrapper} >
+                            <IndexRoute component={SpCustomActions} />
+                            <Route path="newItem/:type" component={SpCustomActionItemEdit} />
+                            <Route path="item/:guid" component={SpCustomActionItemEdit} />
+                        </Route>
+                        <Redirect from="*" to="/" />
+                    </Router>
+                </Provider>
+                , document.getElementById(that.baseDivId));
         });
     }
 }

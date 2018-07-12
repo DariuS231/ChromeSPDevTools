@@ -26,12 +26,15 @@ const SpFeaturesList: React.StatelessComponent<ISpFeaturesListProps> = (props: I
     const renderItem = (item: IFeature, index: number) => {
         return <SpFeaturesItem item={item} key={index} onToggleClick={props.onToggleClick} />;
     };
-    return <div className={props.tablesClassName} >
-        <div className="ms-font-l ms-fontWeight-semibold">{props.listTitle}</div>
-        <FocusZone direction={FocusZoneDirection.vertical} >
-            <List items={items} onRenderCell={renderItem} />
-        </FocusZone>
-    </div>;
+    return (
+        <div className={props.tablesClassName} >
+            <div className="ms-font-l ms-fontWeight-semibold">
+                {props.listTitle}
+            </div>
+            <FocusZone direction={FocusZoneDirection.vertical} >
+                <List items={items} onRenderCell={renderItem} />
+            </FocusZone>
+        </div>);
 };
 
 export default SpFeaturesList;

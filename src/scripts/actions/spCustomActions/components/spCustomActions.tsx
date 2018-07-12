@@ -28,26 +28,17 @@ class SpCustomActions extends React.Component<ISpCustomActionsProps, {}> {
         if (this.props.isWorkingOnIt) {
             return <WorkingOnIt />;
         } else {
-            return (<div>
-                <MessageBar
-                    onCloseMessageClick={this.onMessageClose}
-                    message={this.props.messageData.message}
-                    messageType={this.props.messageData.type}
-                    showMessage={this.props.messageData.showMessage}
-                />
-                <FilterTextBox
-                    setFilterText={this.props.actions.setFilterText}
-                    filterStr={this.props.filterText}
-                    parentOverrideClass="ms-Grid-col ms-u-sm4 ms-u-md4 ms-u-lg4 ms-u-smPush2 buttonContainer"
-                ><SpCustomActionsButtom />
-                </FilterTextBox>
-                <SpCustomActionList
-                    customActions={this.props.customActions}
-                    caType={this.props.customActionType}
-                    filtertText={this.props.filterText}
-                    deleteCustomAction={this.props.actions.deleteCustomAction}
-                />
-            </div>);
+            return (
+                <div>
+                    <MessageBar onCloseMessageClick={this.onMessageClose} message={this.props.messageData.message}
+                        messageType={this.props.messageData.type} showMessage={this.props.messageData.showMessage} />
+                    <FilterTextBox setFilterText={this.props.actions.setFilterText} filterStr={this.props.filterText}
+                        parentOverrideClass="ms-Grid-col ms-u-sm4 ms-u-md4 ms-u-lg4 ms-u-smPush2 buttonContainer" >
+                        <SpCustomActionsButtom />
+                    </FilterTextBox>
+                    <SpCustomActionList customActions={this.props.customActions} caType={this.props.customActionType}
+                        filterText={this.props.filterText} deleteCustomAction={this.props.actions.deleteCustomAction} />
+                </div>);
         }
     }
 

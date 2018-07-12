@@ -1,3 +1,6 @@
+// tslint:disable-next-line:no-reference
+/// <reference path="../../../../typings/index.d.ts" />
+
 import { App } from "./app";
 import { constants } from "./constants/constants";
 import { CustomActionType } from "./constants/enums";

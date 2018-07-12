@@ -1,16 +1,12 @@
 import { MessageBarType } from "office-ui-fabric-react/lib/MessageBar";
-import { ActionCreator, ActionCreatorsMapObject, Dispatch } from "redux";
+import { Dispatch } from "redux";
 import SpSearchApi from "../api/spSearchApi";
 import {
-    IInitialState,
-    IResult,
-    IResultAndTotal,
-    ISearchResult,
-    ISpSearchActionCreatorsMapObject
+    IInitialState, IResult, IResultAndTotal, ISpSearchActionCreatorsMapObject
 } from "../interfaces/spSearchInterfaces";
 import { ActionFactory } from "./../../common/actionFactory";
 import { IAction, IMessageData } from "./../../common/interfaces";
-import { ActionsId as actions, constants } from "./../constants/constants";
+import { ActionsId as actions } from "./../constants/constants";
 
 const api = new SpSearchApi();
 
@@ -28,42 +24,38 @@ const setSearchResults = ActionFactory<IResultAndTotal>(actions.SET_SEARCH_RESUL
 const setSearchResult = ActionFactory<IResult>(actions.SET_SEARCH_RESULT);
 const setFetchingData = ActionFactory<boolean>(actions.SET_FETCHING_DATA);
 const setCollapsed = ActionFactory<IResult>(actions.SET_COLLAPSED);
-const setMessageData = ActionFactory<IMessageData>(actions.SET_MESSAGE_DATA);
+// const setMessageData = ActionFactory<IMessageData>(actions.SET_MESSAGE_DATA);
 const setErrorMessageData = ActionFactory<IMessageData>(actions.SET_ERROR_MESSAGE_DATA);
 
-
 const getWebUrl = () => {
-    return (dispatch: Dispatch<IAction<string>>) => {
-        dispatch(setFetchingData(true));
-        return api.getWebUrl().then((url: string) => {
+    return async (dispatch: Dispatch<IAction<string>>) => {
+        try {
+            dispatch(setFetchingData(true));
+            const url: string = await api.getWebUrl();
             dispatch(setWebUrl(url));
-        }).catch((reason: any) => {
-            let errorMessage: string = "Error While retrieving the Web URL.";
+        } catch (error) {
             dispatch(setErrorMessageData({
-                message: errorMessage,
+                message: "Error While retrieving the Web URL.",
                 showMessage: true,
                 type: MessageBarType.error
             }));
-        });
+        }
     };
 };
 
 const getResults = (state: IInitialState) => {
-    return (dispatch: Dispatch<IAction<IResultAndTotal>>) => {
-        dispatch(setFetchingData(true));
-        return api.getResults(state).then((results: IResultAndTotal) => {
+    return async (dispatch: Dispatch<IAction<IResultAndTotal>>) => {
+        try {
+            dispatch(setFetchingData(true));
+            const results: IResultAndTotal = await api.getResults(state);
             dispatch(setSearchResults(results));
-        }).catch((reason: any) => {
+        } catch (reason) {
             let errorMessage: string = reason.message || reason;
-            if (!!reason.response
-                && !!reason.response.data
-                && !!reason.response.data["odata.error"]
+            if (!!reason.response && !!reason.response.data && !!reason.response.data["odata.error"]
                 && !!reason.response.data["odata.error"].code) {
                 errorMessage += ` | ${reason.response.data["odata.error"].code}`;
             }
-            if (!!reason.response
-                && !!reason.response.data
-                && !!reason.response.data["odata.error"]
+            if (!!reason.response && !!reason.response.data && !!reason.response.data["odata.error"]
                 && !!reason.response.data["odata.error"].message
                 && !!reason.response.data["odata.error"].message.value) {
                 errorMessage += ` | ${reason.response.data["odata.error"].message.value}`;
@@ -74,16 +66,17 @@ const getResults = (state: IInitialState) => {
                 showMessage: true,
                 type: MessageBarType.error
             }));
-        });
+        }
     };
 };
 
 const getAllProperties = (item: IResult) => {
-    return (dispatch: Dispatch<IAction<IResultAndTotal>>) => {
-        dispatch(setFetchingData(true));
-        return api.getAllProperties(item).then((result: IResult) => {
+    return async (dispatch: Dispatch<IAction<IResultAndTotal>>) => {
+        try {
+            dispatch(setFetchingData(true));
+            const result: IResult = await api.getAllProperties(item);
             dispatch(setSearchResult(result));
-        }).catch((reason: any) => {
+        } catch (reason) {
             let errorMessage: string = reason.message || reason;
             if (!!reason.response
                 && !!reason.response.data
@@ -104,7 +97,7 @@ const getAllProperties = (item: IResult) => {
                 showMessage: true,
                 type: MessageBarType.error
             }));
-        });
+        }
     };
 };
 

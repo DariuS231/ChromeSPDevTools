@@ -1,3 +1,6 @@
+// tslint:disable-next-line:no-reference
+/// <reference path="../../../../typings/index.d.ts" />
+
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { Provider } from "react-redux";
@@ -18,11 +21,9 @@ class App extends AppBase {
             const store = configureStore({});
             ReactDOM.render(
                 <Provider store={store}>
-                    <SpCustomModalWrapper
-                        onCloseClick={that.remove}
-                        modalDialogTitle={constants.MODAL_DIALOG_TITLE}
-                        modalWidth={constants.MODAL_DIALOG_WIDTH}
-                    ><SpFeatures />
+                    <SpCustomModalWrapper onCloseClick={that.remove}
+                        modalDialogTitle={constants.MODAL_DIALOG_TITLE} modalWidth={constants.MODAL_DIALOG_WIDTH}>
+                        <SpFeatures />
                     </SpCustomModalWrapper>
                 </Provider>, document.getElementById(that.baseDivId)
             );

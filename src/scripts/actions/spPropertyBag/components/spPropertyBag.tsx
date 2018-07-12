@@ -27,17 +27,15 @@ class SpPropertyBag extends React.Component<ISpPropertyBagProps, {}> {
             return <WorkingOnIt />;
         } else {
             const hasPermissions: boolean = this.props.currentUserHasPermissions;
-            return <div className="action-container sp-peropertyBags">
-                <MessageBar
-                    onCloseMessageClick={this.onMessageClose}
-                    message={this.props.messageData.message}
-                    messageType={this.props.messageData.type}
-                    showMessage={this.props.messageData.showMessage}
-                />
-                {hasPermissions && <FilterTextBox referenceCallBack={this.filterRef} filterStr={this.props.filterText} setFilterText={this.props.actions.setFilterText} />}
-                {hasPermissions && <SpPropertyBagList items={this.props.webProperties} filterString={this.props.filterText} />}
-                {hasPermissions && <SpPropertyBagNewItem addProperty={this.props.actions.createProperty} />}
-            </div>;
+            return (
+                <div className="action-container sp-peropertyBags">
+                    <MessageBar onCloseMessageClick={this.onMessageClose} message={this.props.messageData.message}
+                        messageType={this.props.messageData.type} showMessage={this.props.messageData.showMessage} />
+                    {hasPermissions && <FilterTextBox referenceCallBack={this.filterRef} filterStr={this.props.filterText} setFilterText={this.props.actions.setFilterText} />}
+                    {hasPermissions && <SpPropertyBagList items={this.props.webProperties} filterString={this.props.filterText} />}
+                    {hasPermissions && <SpPropertyBagNewItem addProperty={this.props.actions.createProperty} />}
+                </div>
+            );
         }
     }
 

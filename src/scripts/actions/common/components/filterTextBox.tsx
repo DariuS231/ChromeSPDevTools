@@ -24,16 +24,18 @@ class FilterTextBox extends React.Component<IFilterTextBoxProps, {}> {
     }
     public render() {
 
-        return <div className="ms-Grid filters-container">
-            <div className="ms-Grid-row">
-                <div className="ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6" ref={this._divRefCallBack}>
-                    <SearchBox value={this.props.filterStr} onChange={this.props.setFilterText} />
-                </div>
-                <div className={this.props.parentOverrideClass || "ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6"}>
-                    {this.props.children}
+        return (
+            <div className="ms-Grid filters-container">
+                <div className="ms-Grid-row">
+                    <div className="ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6" ref={this._divRefCallBack}>
+                        <SearchBox value={this.props.filterStr} onChange={this.props.setFilterText} />
+                    </div>
+                    <div className={this.props.parentOverrideClass || "ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6"}>
+                        {this.props.children}
+                    </div>
                 </div>
             </div>
-        </div>;
+        );
     }
 
     private _divRefCallBack(element: HTMLElement): void {

@@ -38,15 +38,10 @@ export class SpCustomActionsButtom extends React.Component<{}, ISpCustomActionsB
         }
     }
     private _contextualMenu(): JSX.Element {
-        return this.state.isContextMenuVisible && <ContextualMenu
-            target={this.input}
-            isBeakVisible={true}
-            beakWidth={10}
-            shouldFocusOnMount={false}
-            onDismiss={this._onDismiss}
-            directionalHint={DirectionalHint.bottomRightEdge}
-            items={customActionLocationHelper.contextMenuItems}
-        />;
+        return this.state.isContextMenuVisible && (
+            <ContextualMenu target={this.input} isBeakVisible={true} beakWidth={10} shouldFocusOnMount={false}
+                onDismiss={this._onDismiss} directionalHint={DirectionalHint.bottomRightEdge}
+                items={customActionLocationHelper.contextMenuItems} />);
     }
 
     private _onClick(event: any) {
