@@ -38,7 +38,6 @@ const getAllFeaturesSuccess: ActionCreator<IAction<IAllFeaturesSuccess>> =
         };
     };
 
-
 const getWebFeaturesSuccess: ActionCreator<IAction<IFeatureUpdateSuccess>> =
     (features: IFeature[], feature: IFeature): IAction<IFeatureUpdateSuccess> => {
         return {
@@ -115,7 +114,7 @@ const checkUserPermissions = (permissionKing: SP.PermissionKind) => {
             if (hasPermissions) {
                 const siteFeatures = await api.getFeatures(FeatureScope.Site);
                 const webFeatures = await api.getFeatures(FeatureScope.Web);
-                dispatch(getAllFeaturesSuccess(siteFeatures, webFeatures));
+                dispatch(getAllFeaturesSuccess(webFeatures, siteFeatures));
 
             } else {
                 dispatch(setNoPermissions());

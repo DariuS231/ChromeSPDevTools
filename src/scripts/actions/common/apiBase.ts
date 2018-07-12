@@ -26,7 +26,10 @@ export default class ApiBase {
     }
     public getRequest(url: string) {
         return axios.get(url, {
-            headers: { accept: constants.AXIOS_HEADER_ACCEPT }
+            headers: {
+                "accept": constants.AXIOS_HEADER_ACCEPT,
+                "Cache-Control": "no-cache"
+            }
         });
     }
 

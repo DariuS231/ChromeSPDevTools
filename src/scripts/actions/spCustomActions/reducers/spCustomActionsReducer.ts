@@ -8,9 +8,12 @@ export const spCustomActionsReducer = (state: IInitialState = initialState, acti
     switch (action.type) {
         case actions.CREATE_CUSTOM_ACTION:
             const newCustomAction: ICustomAction = action.payload;
+            const newArray = state.customActions.slice();
+            newArray.splice(0, 0, newCustomAction);
+
             return {
                 ...state,
-                customActions: [...state.customActions, newCustomAction],
+                customActions: newArray,
                 isWorkingOnIt: false,
                 messageData: {
                     message: constants.MESSAGE_CUSTOM_ACTION_CREATED,
