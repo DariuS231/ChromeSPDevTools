@@ -1,4 +1,7 @@
 
+// tslint:disable-next-line:no-reference
+/// <reference path="../../../../../typings/index.d.ts" />
+
 import { applyMiddleware, compose, createStore } from "redux";
 import * as inmmutable from "redux-immutable-state-invariant";
 import thunk from "redux-thunk";

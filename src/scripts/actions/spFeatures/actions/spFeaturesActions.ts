@@ -3,6 +3,7 @@ import { ActionCreator, ActionCreatorsMapObject, Dispatch } from "redux";
 import SpFeaturesApi from "../api/spFeaturesApi";
 import { FeatureScope } from "../constants/enums";
 import { IFeature, ISpFeaturesActionCreatorsMapObject } from "../interfaces/spFeaturesInterfaces";
+import { ActionFactory } from "./../../common/actionFactory";
 import { IAction, IMessageData } from "./../../common/interfaces";
 import { ActionsId as actions, constants } from "./../constants/constants";
 
@@ -18,28 +19,15 @@ interface IFeatureUpdateSuccess {
 
 const api = new SpFeaturesApi();
 
-const setFilterText: ActionCreator<IAction<string>> = (filterText: string): IAction<string> => {
-    return {
-        payload: filterText,
-        type: actions.SET_FILTER_TEXT
-    };
-};
-const setWorkingOnIt: ActionCreator<IAction<boolean>> = (isWorkingOnIt: boolean): IAction<boolean> => {
-    return {
-        payload: isWorkingOnIt,
-        type: actions.SET_WORKING_ON_IT
-    };
-};
+const setFilterText = ActionFactory<string>(actions.SET_FILTER_TEXT);
+const setWorkingOnIt = ActionFactory<boolean>(actions.SET_WORKING_ON_IT);
+const setMessageData = ActionFactory<IMessageData>(actions.SET_MESSAGE_DATA);
+// const setFeature = ActionFactory<IFeature>(actions.SET_FEATURE);
+
 const setNoPermissions: ActionCreator<IAction<boolean>> = (): IAction<boolean> => {
     return {
         payload: true,
         type: actions.SET_NO_PERMISSIONS
-    };
-};
-const setMessageData: ActionCreator<IAction<IMessageData>> = (messageData: IMessageData): IAction<IMessageData> => {
-    return {
-        payload: messageData,
-        type: actions.SET_MESSAGE_DATA
     };
 };
 const getAllFeaturesSuccess: ActionCreator<IAction<IAllFeaturesSuccess>> =
@@ -49,12 +37,7 @@ const getAllFeaturesSuccess: ActionCreator<IAction<IAllFeaturesSuccess>> =
             type: actions.SET_ALL_FEATURES
         };
     };
-const setFeature: ActionCreator<IAction<IFeature>> = (feature: IFeature): IAction<IFeature> => {
-    return {
-        payload: feature,
-        type: actions.SET_FEATURE
-    };
-};
+
 
 const getWebFeaturesSuccess: ActionCreator<IAction<IFeatureUpdateSuccess>> =
     (features: IFeature[], feature: IFeature): IAction<IFeatureUpdateSuccess> => {
@@ -84,56 +67,63 @@ const handleAsyncError: ActionCreator<IAction<IMessageData>> =
             type: actions.HANDLE_ASYNC_ERROR
         };
     };
+
 const getFeatures = (feature: IFeature) => {
-    return (dispatch: Dispatch<IAction<IFeature[]>>) => {
-        return api.getFeatures(feature.scope).then((features: IFeature[]) => {
-            return (feature.scope === FeatureScope.Web
-                ? dispatch(getWebFeaturesSuccess(features, feature))
-                : dispatch(getSiteFeaturesSuccess(features, feature)));
-        }).catch((reason: any) => {
-            dispatch(handleAsyncError(constants.ERROR_MESSAGE_GETTING_FEATURES, reason));
-        });
+    return async (dispatch: Dispatch<IAction<IFeature[]>>) => {
+        try {
+            const features: IFeature[] = await api.getFeatures(feature.scope)
+            if (feature.scope === FeatureScope.Web) {
+                dispatch(getWebFeaturesSuccess(features, feature));
+            } else {
+                dispatch(getSiteFeaturesSuccess(features, feature));
+            }
+        } catch (error) {
+            dispatch(handleAsyncError(constants.ERROR_MESSAGE_GETTING_FEATURES, error));
+        }
     };
 };
 
 const activateFeature = (feature: IFeature) => {
-    return (dispatch: Dispatch<IAction<IFeature>>) => {
-        dispatch(setWorkingOnIt(true));
-        return api.activateFeature(feature).then((featureUpdt: IFeature) => {
+    return async (dispatch: Dispatch<IAction<IFeature>>) => {
+        try {
+            dispatch(setWorkingOnIt(true));
+            await api.activateFeature(feature);
             dispatch(getFeatures(feature));
-        }).catch((reason: any) => {
-            dispatch(handleAsyncError(constants.ERROR_MESSAGE_ACTIVATING_FEATURE, reason));
-        });
+        } catch (error) {
+            dispatch(handleAsyncError(constants.ERROR_MESSAGE_ACTIVATING_FEATURE, error));
+        }
     };
 };
 
 const deActivateFeature = (feature: IFeature) => {
-    return (dispatch: Dispatch<IAction<IFeature>>) => {
-        dispatch(setWorkingOnIt(true));
-        return api.deActivateFeature(feature).then((featureUpdt: IFeature) => {
+    return async (dispatch: Dispatch<IAction<IFeature>>) => {
+        try {
+            dispatch(setWorkingOnIt(true));
+            await api.deActivateFeature(feature);
             dispatch(getFeatures(feature));
-        }).catch((reason: any) => {
-            dispatch(handleAsyncError(constants.ERROR_MESSAGE_DEACTIVATING_FEATURE, reason));
-        });
+        } catch (error) {
+            dispatch(handleAsyncError(constants.ERROR_MESSAGE_DEACTIVATING_FEATURE, error));
+        }
     };
 };
 
 const checkUserPermissions = (permissionKing: SP.PermissionKind) => {
-    return (dispatch: Dispatch<IAction<void>>) => {
-        return api.checkUserPermissions(permissionKing).then((hasPermissions: boolean) => {
+    return async (dispatch: Dispatch<IAction<void>>) => {
+        try {
+            dispatch(setWorkingOnIt(true));
+            const hasPermissions: boolean = await api.checkUserPermissions(permissionKing);
             if (hasPermissions) {
-                const getSiteFeatures = api.getFeatures(FeatureScope.Site);
-                const getWebFeatures = api.getFeatures(FeatureScope.Web);
-                return Promise.all([getSiteFeatures, getWebFeatures]).then((values: any) => {
-                    dispatch(getAllFeaturesSuccess(values[1], values[0]));
-                });
+                const siteFeatures = await api.getFeatures(FeatureScope.Site);
+                const webFeatures = await api.getFeatures(FeatureScope.Web);
+                dispatch(getAllFeaturesSuccess(siteFeatures, webFeatures));
 
             } else {
                 dispatch(setNoPermissions());
             }
-        }).catch((reason: any) => {
-            dispatch(handleAsyncError(constants.ERROR_MESSAGE_CHECK_USER_PERMISSIONS, reason));
-        });
+        } catch (error) {
+            dispatch(handleAsyncError(constants.ERROR_MESSAGE_CHECK_USER_PERMISSIONS, error));
+        }
+
     };
 };
 

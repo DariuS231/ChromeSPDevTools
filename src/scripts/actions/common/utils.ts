@@ -4,17 +4,6 @@ export default class Utils {
     public static capitalize(srt: string): string {
         return srt.charAt(0).toUpperCase() + srt.slice(1);
     }
-    public static formatString(...objs: string[]): string {
-        const args: string = Array.prototype.slice.call(arguments, 1);
-        const srt: string = Array.prototype.slice.call(arguments, 0, 1);
-
-        return (srt.length <= 0) ? "" : srt[0].replace(/{(\d+)}/g, (match: any, number: number) => {
-            return typeof args[number] !== constants.TYPE_OF_UNDEFINED
-                ? args[number]
-                : match;
-        });
-    }
-
     public static ensureSPObject(): Promise<any> {
         return new Promise((resolve, reject) => {
             if (typeof SP === constants.TYPE_OF_UNDEFINED || typeof SP.SOD === constants.TYPE_OF_UNDEFINED

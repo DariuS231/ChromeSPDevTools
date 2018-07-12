@@ -1,7 +1,7 @@
 import { MessageBarType } from "office-ui-fabric-react/lib/MessageBar";
 import { IAllContentAndMessage, IInitialState, ISiteContent } from "../interfaces/spSiteContentInterfaces";
 import { IAction, IMessageData } from "./../../common/interfaces";
-import { ActionsId as actions, SpSiteContentConstants as constants } from "./../constants/spSiteContentConstants";
+import { ActionsId as actions } from "./../constants/spSiteContentConstants";
 
 const initialState: IInitialState = {
     filterText: "",

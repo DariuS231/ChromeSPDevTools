@@ -17,49 +17,14 @@ export default class SpSiteContentApi extends ApiBase {
                 let items: ISiteContent[] = [];
                 const listEnumerator: any = siteContent.getEnumerator();
                 while (listEnumerator.moveNext()) {
-                    const oList: SP.List = listEnumerator.get_current();
-                    const listId: any = oList.get_id().toString();
-                    let parentUrl = oList.get_parentWebUrl();
-                    if (parentUrl === "/") {
-                        parentUrl = location.origin;
-                    }
-                    const reindexUrl = parentUrl + "/_layouts/15/ReindexListDialog.aspx?List={" + listId  + "}";
-                    const permissionPageUrl = parentUrl +
-                        constants.permissionsPageUrlOpen +
-                        listId +
-                        constants.permissionsPageUrlMiddle +
-                        listId +
-                        constants.permissionsPageUrlClose;
-                    const listItem: ISiteContent = {
-                        baseTemplate: oList.get_baseTemplate(),
-                        baseType: oList.get_baseType(),
-                        created: oList.get_created(),
-                        description: oList.get_description(),
-                        enableAttachments: oList.get_enableAttachments(),
-                        hidden: oList.get_hidden(),
-                        id: listId,
-                        imageUrl: oList.get_imageUrl(),
-                        isFavourite: Favourites.Favourites.indexOf(listId) >= 0,
-                        itemCount: oList.get_itemCount(),
-                        lastModified: oList.get_lastItemModifiedDate(),
-                        listUrl: oList.get_rootFolder().get_serverRelativeUrl(),
-                        newFormUrl: oList.get_defaultNewFormUrl(),
-                        noCrawl: oList.get_noCrawl(),
-                        permissionsPageUrl: permissionPageUrl,
-                        reIndexUrl: reindexUrl,
-                        settingsUrl: parentUrl + constants.settingsRelativeUrl + listId,
-                        title: oList.get_title(),
-                        userCanAddItems: oList.get_effectiveBasePermissions().has(SP.PermissionKind.addListItems),
-                        userCanManageList: oList.get_effectiveBasePermissions().has(SP.PermissionKind.manageLists)
-                    };
+                    const listItem: ISiteContent = this.parseListItem(listEnumerator.get_current());
                     items = items.concat(listItem);
                 }
-                items.sort((a, b) => {
-                    return a.title.localeCompare(b.title);
-                });
+                items.sort((a, b) => a.title.localeCompare(b.title));
                 resolve(items);
             };
-            ctx.executeQueryAsync(onSuccess, this.getErrorResolver(reject, constants.ERROR_MESSAGE_RESOLVER_GETTING_LISTS));
+            const onError = this.getErrorResolver(reject, constants.ERROR_MESSAGE_RESOLVER_GETTING_LISTS);
+            ctx.executeQueryAsync(onSuccess, onError);
         });
     }
     public setListVisibility(item: ISiteContent): Promise<boolean> {
@@ -75,10 +40,9 @@ export default class SpSiteContentApi extends ApiBase {
             ctx.load(list);
             ctx.load(web);
 
-            const onSuccess = (sender: any, args: SP.ClientRequestSucceededEventArgs) => {
-                resolve(true);
-            };
-            ctx.executeQueryAsync(onSuccess, this.getErrorResolver(reject, constants.ERROR_MESSAGE_RESOLVER_SETTING_VISIBILITY));
+            const onSuccess = (sender: any, args: SP.ClientRequestSucceededEventArgs) => { resolve(true); };
+            const onError = this.getErrorResolver(reject, constants.ERROR_MESSAGE_RESOLVER_SETTING_VISIBILITY);
+            ctx.executeQueryAsync(onSuccess, onError);
         });
     }
 
@@ -95,10 +59,9 @@ export default class SpSiteContentApi extends ApiBase {
             ctx.load(list);
             ctx.load(web);
 
-            const onSuccess = (sender: any, args: SP.ClientRequestSucceededEventArgs) => {
-                resolve(true);
-            };
-            ctx.executeQueryAsync(onSuccess, this.getErrorResolver(reject, constants.ERROR_MESSAGE_RESOLVER_SETTING_ATTACHMENTS));
+            const onSuccess = (sender: any, args: SP.ClientRequestSucceededEventArgs) => { resolve(true); };
+            const onError = this.getErrorResolver(reject, constants.ERROR_MESSAGE_RESOLVER_SETTING_ATTACHMENTS);
+            ctx.executeQueryAsync(onSuccess, onError);
         });
     }
 
@@ -115,10 +78,9 @@ export default class SpSiteContentApi extends ApiBase {
             ctx.load(list);
             ctx.load(web);
 
-            const onSuccess = (sender: any, args: SP.ClientRequestSucceededEventArgs) => {
-                resolve(true);
-            };
-            ctx.executeQueryAsync(onSuccess, this.getErrorResolver(reject, constants.ERROR_MESSAGE_RESOLVER_SETTING_NO_CRAWL));
+            const onSuccess = (sender: any, args: SP.ClientRequestSucceededEventArgs) => { resolve(true); };
+            const onError = this.getErrorResolver(reject, constants.ERROR_MESSAGE_RESOLVER_SETTING_NO_CRAWL);
+            ctx.executeQueryAsync(onSuccess, onError);
         });
     }
 
@@ -130,10 +92,9 @@ export default class SpSiteContentApi extends ApiBase {
 
             list.recycle();
 
-            const onSuccess = (sender: any, args: SP.ClientRequestSucceededEventArgs) => {
-                resolve(true);
-            };
-            ctx.executeQueryAsync(onSuccess, this.getErrorResolver(reject, constants.ERROR_MESSAGE_RESOLVER_DELETING_LIST));
+            const onSuccess = (sender: any, args: SP.ClientRequestSucceededEventArgs) => { resolve(true); };
+            const onError = this.getErrorResolver(reject, constants.ERROR_MESSAGE_RESOLVER_DELETING_LIST);
+            ctx.executeQueryAsync(onSuccess, onError);
         });
     }
     public reIndex(item: ISiteContent): Promise<SP.UI.DialogResult> {
@@ -147,4 +108,36 @@ export default class SpSiteContentApi extends ApiBase {
             });
         });
     }
+    private parseListItem(oList: SP.List) {
+        const listId: string = oList.get_id().toString();
+        let parentUrl = oList.get_parentWebUrl();
+        if (parentUrl === "/") { parentUrl = location.origin; }
+
+        const permissionPageUrl = `${parentUrl}${constants.permissionsPageUrlOpen}${listId}
+        ${constants.permissionsPageUrlMiddle}${listId}${constants.permissionsPageUrlClose}`;
+
+        return {
+            baseTemplate: oList.get_baseTemplate(),
+            baseType: oList.get_baseType(),
+            created: oList.get_created(),
+            description: oList.get_description(),
+            enableAttachments: oList.get_enableAttachments(),
+            hidden: oList.get_hidden(),
+            id: listId,
+            imageUrl: oList.get_imageUrl(),
+            isFavourite: Favourites.Favourites.indexOf(listId) >= 0,
+            itemCount: oList.get_itemCount(),
+            lastModified: oList.get_lastItemModifiedDate(),
+            listUrl: oList.get_rootFolder().get_serverRelativeUrl(),
+            newFormUrl: oList.get_defaultNewFormUrl(),
+            noCrawl: oList.get_noCrawl(),
+            permissionsPageUrl: permissionPageUrl,
+            reIndexUrl: `${parentUrl}/_layouts/15/ReindexListDialog.aspx?List={${listId}}`,
+            settingsUrl: `${parentUrl}${constants.settingsRelativeUrl}${listId}`,
+            title: oList.get_title(),
+            userCanAddItems: oList.get_effectiveBasePermissions().has(SP.PermissionKind.addListItems),
+            userCanManageList: oList.get_effectiveBasePermissions().has(SP.PermissionKind.manageLists)
+        };
+    }
+
 }

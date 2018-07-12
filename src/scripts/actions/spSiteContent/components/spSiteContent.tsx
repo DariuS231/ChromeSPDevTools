@@ -29,42 +29,25 @@ class SpSiteContent extends React.Component<ISpSiteContentProps, {}> {
         } else {
             return (
                 <div className="action-container sp-siteContent">
-                    <MessageBar
-                        onCloseMessageClick={this.onMessageClose}
-                        message={this.props.messageData.message}
-                        messageType={this.props.messageData.type}
-                        showMessage={this.props.messageData.showMessage}
-                    />
-                    <FilterTextBox
-                        setFilterText={this.props.actions.setFilter}
-                        filterStr={this.props.filterText}
-                        parentOverrideClass="ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6"
-                    >
+                    <MessageBar onCloseMessageClick={this.onMessageClose} message={this.props.messageData.message}
+                        messageType={this.props.messageData.type} showMessage={this.props.messageData.showMessage} />
+                    <FilterTextBox setFilterText={this.props.actions.setFilter} filterStr={this.props.filterText}
+                        parentOverrideClass="ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6" >
                         <div className="ms-Grid-row">
-                            <SpSiteContentCheckBox
-                                checkLabel="Show All"
-                                isChecked={this.props.showAll}
-                                onCheckBoxChange={this.props.actions.setShowAll}
-                            />
-                            <SpSiteContentCheckBox
-                                checkLabel="Open in new tab"
-                                isChecked={this.props.openInNewTab}
-                                onCheckBoxChange={this.props.actions.setOpenInNewWindow}
-                            />
+                            <SpSiteContentCheckBox checkLabel="Show All" isChecked={this.props.showAll}
+                                onCheckBoxChange={this.props.actions.setShowAll} />
+                            <SpSiteContentCheckBox checkLabel="Open in new tab" isChecked={this.props.openInNewTab}
+                                onCheckBoxChange={this.props.actions.setOpenInNewWindow} />
                         </div>
                     </FilterTextBox>
-                    <SpSiteContentList
-                        items={this.props.siteLists}
+                    <SpSiteContentList items={this.props.siteLists} showAll={this.props.showAll}
                         linkTarget={this.props.openInNewTab ? "_blank" : "_self"}
-                        filterString={this.props.filterText}
-                        showAll={this.props.showAll}
-                        setFavourite={this.props.actions.setFavourite}
-                    />
+                        filterString={this.props.filterText} setFavourite={this.props.actions.setFavourite} />
                 </div>);
 
         }
     }
-    private componentDidMount() {
+    public componentDidMount() {
         this.props.actions.getAllSiteContent();
     }
     private onMessageClose() {

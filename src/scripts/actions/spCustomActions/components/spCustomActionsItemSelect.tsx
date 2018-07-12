@@ -20,15 +20,11 @@ export const SpCustomActionsItemSelect: React.StatelessComponent<ISpCustomAction
         };
         const isValid: boolean = !props.required || props.value !== "";
         const errorMessage: string = "The value can not be empty";
-        return <div>
-            <Dropdown
-                label={props.label}
-                selectedKey={props.value || ""}
-                disabled={props.disabled}
-                onChanged={onTextBoxValueChange}
-                options={props.options}
-            />
-            {isValid || <div className="ms-u-screenReaderOnly">{errorMessage}</div>}
-            {isValid || <span><p className="ms-TextField-errorMessage ms-u-slideDownIn20">{errorMessage}</p></span>}
-        </div>;
+        return (
+            <div>
+                <Dropdown label={props.label} selectedKey={props.value || ""} disabled={props.disabled}
+                    onChanged={onTextBoxValueChange} options={props.options} />
+                {isValid || <div className="ms-u-screenReaderOnly">{errorMessage}</div>}
+                {isValid || <span><p className="ms-TextField-errorMessage ms-u-slideDownIn20">{errorMessage}</p></span>}
+            </div>);
     };

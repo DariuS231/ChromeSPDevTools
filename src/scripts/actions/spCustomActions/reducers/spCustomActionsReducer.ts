@@ -1,10 +1,8 @@
 import { MessageBarType } from "office-ui-fabric-react/lib/MessageBar";
 import { ICustomAction, IInitialState } from "../interfaces/spCustomActionsInterfaces";
 import { initialState } from "../store/initialState";
-import { ViewMode } from "./../../common/enums";
 import { IAction, IMessageData } from "./../../common/interfaces";
 import { ActionsId as actions, constants } from "./../constants/constants";
-import { CustomActionType } from "./../constants/enums";
 
 export const spCustomActionsReducer = (state: IInitialState = initialState, action: IAction<any>): IInitialState => {
     switch (action.type) {

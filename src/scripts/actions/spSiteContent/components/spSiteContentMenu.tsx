@@ -1,9 +1,8 @@
 import { IconButton } from "office-ui-fabric-react/lib/Button";
 import { ContextualMenu, DirectionalHint } from "office-ui-fabric-react/lib/ContextualMenu";
 import * as React from "react";
-import * as ReactDOM from "react-dom";
 import { connect } from "react-redux";
-import { bindActionCreators, Dispatch } from "redux";
+import { Dispatch } from "redux";
 import { DialogConfirm } from "../../common/components/dialogConfirm"
 import spSiteContentActionsCreatorMap from "../actions/spSiteContentActions";
 import { IActionOption, spSiteContentMenuHelper } from "../helpers/spSiteContentMenuOptions";
@@ -37,9 +36,7 @@ class SpSiteContentMenu extends React.Component<ISpSiteContentMenuProps, ISpSite
     constructor() {
         super();
         this.state = {
-            dialogData: {
-                isDialogConfirmVisible: false,
-            } as IDialogData,
+            dialogData: { isDialogConfirmVisible: false } as IDialogData,
             isContextMenuVisible: false
         };
         this.refs = { menuButtonContainer: null };
@@ -54,21 +51,15 @@ class SpSiteContentMenu extends React.Component<ISpSiteContentMenuProps, ISpSite
     }
 
     public render() {
-        return (<div className="sp-siteContent-contextMenu" ref={this._divRefCallBack}>
-            <IconButton
-                onClick={this._onClick}
-                icon="More"
-                title="More"
-                ariaLabel="More"
-            />
-            {this._contextualMenu()}
-            {this._confirmDialog()}
-        </div>);
+        return (
+            <div className="sp-siteContent-contextMenu" ref={this._divRefCallBack}>
+                <IconButton onClick={this._onClick} icon="More" title="More" ariaLabel="More" />
+                {this._contextualMenu()}
+                {this._confirmDialog()}
+            </div>);
     }
     private _getDialogOnClickCallBack(actionName: string): () => void {
-        return () => {
-            this.props[actionName](this.props.item);
-        }
+        return () => { this.props[actionName](this.props.item); }
     }
     private _onActionItemCliuck(ev?: React.MouseEvent<HTMLElement>, item?: IActionOption) {
         const runAction = this._getDialogOnClickCallBack(item.actionName);
@@ -86,37 +77,25 @@ class SpSiteContentMenu extends React.Component<ISpSiteContentMenuProps, ISpSite
         }
     }
     private _divRefCallBack(element: HTMLElement): void {
-        if (element) {
-            this.input = element;
-        }
+        if (element) { this.input = element; }
     }
     private _contextualMenu(): JSX.Element {
         const linkTarget: string = this.props.openInNewTab ? "_blank" : "_self";
-        return this.state.isContextMenuVisible && <ContextualMenu
-            target={this.input}
-            isBeakVisible={true}
-            beakWidth={10}
-            shouldFocusOnMount={false}
-            onDismiss={this._onDismiss}
-            directionalHint={DirectionalHint.bottomRightEdge}
-            items={spSiteContentMenuHelper.getMenuOptions(linkTarget, this.props.item, this._onActionItemCliuck)}
-        />;
+        return this.state.isContextMenuVisible && (
+            <ContextualMenu target={this.input} isBeakVisible={true} beakWidth={10}
+                shouldFocusOnMount={false} onDismiss={this._onDismiss} directionalHint={DirectionalHint.bottomRightEdge}
+                items={spSiteContentMenuHelper.getMenuOptions(linkTarget, this.props.item, this._onActionItemCliuck)} />
+        );
     }
     private _confirmDialog(): JSX.Element {
-        return this.state.dialogData.isDialogConfirmVisible && <DialogConfirm
-            dialogText={this.state.dialogData.dialogText}
-            dialogTitle={this.state.dialogData.dialogTitle}
-            onOk={this.state.dialogData.onOk}
-            onCancel={this._onConfirmDialogClose}
-        />;
+        return this.state.dialogData.isDialogConfirmVisible && (
+            <DialogConfirm dialogText={this.state.dialogData.dialogText} dialogTitle={this.state.dialogData.dialogTitle}
+                onOk={this.state.dialogData.onOk} onCancel={this._onConfirmDialogClose} />
+        );
     }
 
     private _onConfirmDialogClose() {
-        this.setState({
-            dialogData: {
-                isDialogConfirmVisible: false,
-            } as IDialogData
-        } as ISpSiteContentMenuState);
+        this.setState({ dialogData: { isDialogConfirmVisible: false } as IDialogData } as ISpSiteContentMenuState);
     }
 
     private _onClick(event: React.MouseEvent<HTMLButtonElement>) {

@@ -56,20 +56,23 @@ class SpCustomActionsItemEdit extends React.Component<ISpCustomActionsItemEditPr
         if (this.props.isWorkingOnIt) {
             return <WorkingOnIt />;
         } else {
-            return (<div>
-                <div className="ms-Grid-row">
-                    <div className="ms-ListItem-actions ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
-                        <h2 className="ms-font-xl ms-fontSize-xl ms-u-textAlignCenter edit-form-title">{titleStr}</h2>
+            return (
+                <div>
+                    <div className="ms-Grid-row">
+                        <div className="ms-ListItem-actions ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
+                            <h2 className="ms-font-xl ms-fontSize-xl ms-u-textAlignCenter edit-form-title">
+                                {titleStr}
+                            </h2>
+                        </div>
                     </div>
-                </div>
-                <div className="ms-ListBasicSpChromeDevTool-itemCell  ms-Grid-row" data-is-focusable={true}>
-                    {this.props.locationItem.renderForm(this.state.item, this.onInputChange)}
-                    <div className="ms-ListItem-actions ms-Grid-col ms-u-sm1 ms-u-md1 ms-u-lg1">
-                        <IconButton icon="Save" onClick={this.saveItem} title="Save" disabled={disableSaveBtn} />
-                        <IconRouteLink icon="Cancel" route="/" title="Cancel" />
+                    <div className="ms-ListBasicSpChromeDevTool-itemCell  ms-Grid-row" data-is-focusable={true}>
+                        {this.props.locationItem.renderForm(this.state.item, this.onInputChange)}
+                        <div className="ms-ListItem-actions ms-Grid-col ms-u-sm1 ms-u-md1 ms-u-lg1">
+                            <IconButton icon="Save" onClick={this.saveItem} title="Save" disabled={disableSaveBtn} />
+                            <IconRouteLink icon="Cancel" route="/" title="Cancel" />
+                        </div>
                     </div>
-                </div>
-            </div>);
+                </div>);
         }
     }
     private updateOrCreateSuccess() {

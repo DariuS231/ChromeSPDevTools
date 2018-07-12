@@ -4,11 +4,8 @@ import { connect } from "react-redux";
 import { bindActionCreators, Dispatch } from "redux";
 import spFeaturesActionsCreatorMap from "../actions/spFeaturesActions";
 import {
-    IFeature,
-    IMapDispatchToProps,
-    IMapStateToProps,
-    IMapStateToPropsState,
-    ISpFeaturesProps
+    IFeature, IMapDispatchToProps, IMapStateToProps,
+    IMapStateToPropsState, ISpFeaturesProps
 } from "../interfaces/spFeaturesInterfaces";
 import FilterTextBox from "./../../common/components/filterTextBox";
 import MessageBar from "./../../common/components/messageBar";
@@ -28,21 +25,18 @@ class SpFeatures extends React.Component<ISpFeaturesProps, {}> {
             const hasPermissions: boolean = this.props.currentUserHasPermissions;
             /* tslint:disable:max-line-length */
 
-            return (<div className="sp-features action-container">
-                <MessageBar
-                    onCloseMessageClick={this.onMessageClose}
-                    message={this.props.messageData.message}
-                    messageType={this.props.messageData.type}
-                    showMessage={this.props.messageData.showMessage}
-                />
-                {hasPermissions && <FilterTextBox filterStr={this.props.filterText} setFilterText={this.props.actions.setFilterText} />}
-                {hasPermissions && <SpFeaturesList onToggleClick={this.onToggleClick} items={this.props.webFeatures} filterString={this.props.filterText} listTitle="Web Features" tablesClassName="web-feature-table" />}
-                {hasPermissions && <SpFeaturesList onToggleClick={this.onToggleClick} items={this.props.siteFeatures} filterString={this.props.filterText} listTitle="Site Features" tablesClassName="site-feature-table" />}
-            </div>);
+            return (
+                <div className="sp-features action-container">
+                    <MessageBar onCloseMessageClick={this.onMessageClose} message={this.props.messageData.message}
+                        messageType={this.props.messageData.type} showMessage={this.props.messageData.showMessage} />
+                    {hasPermissions && <FilterTextBox filterStr={this.props.filterText} setFilterText={this.props.actions.setFilterText} />}
+                    {hasPermissions && <SpFeaturesList onToggleClick={this.onToggleClick} items={this.props.webFeatures} filterString={this.props.filterText} listTitle="Web Features" tablesClassName="web-feature-table" />}
+                    {hasPermissions && <SpFeaturesList onToggleClick={this.onToggleClick} items={this.props.siteFeatures} filterString={this.props.filterText} listTitle="Site Features" tablesClassName="site-feature-table" />}
+                </div>);
             /* tslint:enable:max-line-length */
         }
     }
-    private componentDidMount() {
+    public componentDidMount() {
         this.props.actions.checkUserPermissions(SP.PermissionKind.manageWeb);
     }
     private onMessageClose() {

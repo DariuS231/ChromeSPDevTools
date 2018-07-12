@@ -9,7 +9,7 @@ interface IActionItemProps {
 const ActionItem: React.StatelessComponent<IActionItemProps> = (props: IActionItemProps) => {
     const onItemClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
-        const codeStr = `
+        const codeStr: string = `
             (function(cdnUrl, stylesUrl) {
                 var head = document.head || document.getElementsByTagName("${constants.HTML_TAG_HEAD}")[0];
                 var style = document.createElement("${constants.HTML_TAG_LINK}");
@@ -34,13 +34,18 @@ const ActionItem: React.StatelessComponent<IActionItemProps> = (props: IActionIt
 
         return false;
     };
-    return <button className="ms-Button ms-Button--compound action-btn" onClick={onItemClick}>
-        <img src={props.item.image} />
-        <div>
-            <span className="ms-font-m ms-fontColor-themePrimary ms-fontWeight-regular">{props.item.title}</span>
-            <span className="ms-Button-description">{props.item.description}</span>
-        </div>
-    </button>;
+    return (
+        <button className="ms-Button ms-Button--compound action-btn" onClick={onItemClick}>
+            <img src={props.item.image} />
+            <div>
+                <span className="ms-font-m ms-fontColor-themePrimary ms-fontWeight-regular">
+                    {props.item.title}
+                </span>
+                <span className="ms-Button-description">
+                    {props.item.description}
+                </span>
+            </div>
+        </button>);
 };
 
 export default ActionItem;

@@ -1,6 +1,5 @@
 
 import { ActionCreator, ActionCreatorsMapObject, Dispatch } from "redux";
-import { ViewMode } from "./../../common/enums";
 import { IAction, IMessageData } from "./../../common/interfaces";
 import { CustomActionType } from "./../constants/enums";
 

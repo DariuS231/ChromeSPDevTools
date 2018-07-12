@@ -4,7 +4,11 @@
     "vsicons.presets.angular": false,
     "tslint.enable": true,
     "cSpell.words": [
+        "DEVTOOLS",
         "Guid",
-        "unmount"
+        "inmmutable",
+        "unmount",
+        "updtd",
+        "xobj"
     ]
 }
