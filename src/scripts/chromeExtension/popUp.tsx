@@ -101,8 +101,10 @@ export default class PopUp extends React.Component<IPopUpProps, IPopUpState> {
     private checkIfSharePoint(): Promise<boolean> {
         return new Promise((resolve, reject) => {
             const codeStr: string = `(function () {
+                var requestUrl = window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1);
+                requestUrl += '_api/contextinfo';
                 var request = new XMLHttpRequest();
-                request.open("GET", "/_api/web", false);
+                request.open("POST", requestUrl, false);
                 request.setRequestHeader("Accept", "application/json, text/javascript");
                 request.send(null);
                 var response;
@@ -112,7 +114,11 @@ export default class PopUp extends React.Component<IPopUpProps, IPopUpState> {
                 }
                 try{
                     var data  = JSON.parse(response);
-                    return !!data.Title && !!data.Id && !!data.Created;
+                    if(data.FormDigestValue && data.WebFullUrl && data.SiteFullUrl){
+                        return { formDigestValue: data.FormDigestValue, webFullUrl: data.WebFullUrl,siteFullUrl: data.SiteFullUrl};
+                    }else{
+                        return false;
+                    }
                 } catch(a){
                     return false;
                 }
