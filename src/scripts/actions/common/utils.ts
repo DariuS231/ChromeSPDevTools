@@ -1,4 +1,7 @@
+import { ISharePointSiteInfo } from "./../common/interfaces";
 import { constants } from "./constants";
+
+declare var spInfo: ISharePointSiteInfo;
 
 export default class Utils {
     public static capitalize(srt: string): string {
@@ -18,7 +21,7 @@ export default class Utils {
         return ((omitEmpty && !guid) || (!omitEmpty && !!guid)) || constants.GUID_REGEX.test(guid);
     }
     private static async loadSPScripts(): Promise<any> {
-        const scriptBase: string = `${location.origin}${constants.URL_LAYOUTS}`;
+        const scriptBase: string = `${spInfo.webFullUrl}${constants.URL_LAYOUTS}`;
         await this.loadScript(scriptBase + constants.URL_INIT, constants.GLOBAL_NAME_INIT);
         await this.loadScript(scriptBase + constants.URL_SP_MS_AJAX, constants.GLOBAL_NAME_SP_MS_AJAX);
         await this.loadScript(scriptBase + constants.URL_SP_RUNTIME, constants.GLOBAL_NAME_SP_RUNTIME);

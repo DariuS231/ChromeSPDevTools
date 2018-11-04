@@ -1,7 +1,10 @@
+import { ISharePointSiteInfo } from "../../common/interfaces";
 import { Favourites } from "../helpers/favourites";
 import { ISiteContent } from "../interfaces/spSiteContentInterfaces";
 import ApiBase from "./../../common/apiBase";
 import { SpSiteContentConstants as constants } from "./../constants/spSiteContentConstants";
+
+declare var spInfo: ISharePointSiteInfo;
 
 export default class SpSiteContentApi extends ApiBase {
     public getLists(): Promise<ISiteContent[]> {
@@ -111,7 +114,7 @@ export default class SpSiteContentApi extends ApiBase {
     private parseListItem(oList: SP.List) {
         const listId: string = oList.get_id().toString();
         let parentUrl = oList.get_parentWebUrl();
-        if (parentUrl === "/") { parentUrl = location.origin; }
+        if (parentUrl === "/") { parentUrl = spInfo.webFullUrl; }
 
         // tslint:disable-next-line:max-line-length
         const permissionPageUrl = `${parentUrl}${constants.permissionsPageUrlOpen}${listId}${constants.permissionsPageUrlMiddle}${listId}${constants.permissionsPageUrlClose}`;

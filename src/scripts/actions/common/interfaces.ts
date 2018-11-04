@@ -10,3 +10,9 @@ export interface IAction<T> {
     readonly type: string;
     readonly payload: T;
 }
+
+export interface ISharePointSiteInfo {
+    formDigestValue: string;
+    webFullUrl: string;
+    siteFullUrl: string;
+}
