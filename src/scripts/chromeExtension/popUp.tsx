@@ -3,6 +3,7 @@ import { Spinner, SpinnerType } from "office-ui-fabric-react/lib/Spinner";
 import * as React from "react";
 import ActionItem from "./ActionItem";
 import "./styles/chromeExtePopUp.scss";
+import { ISharePointSiteInfo } from "../actions/common/interfaces";
 
 interface IActionData {
     title: string;
@@ -19,12 +20,19 @@ interface IPopUpState {
     stylesUrl: string;
     isSp: boolean;
     loading: boolean;
+    sharePointInfo: ISharePointSiteInfo;
 }
 
 export default class PopUp extends React.Component<IPopUpProps, IPopUpState> {
     constructor() {
         super();
-        this.state = { actions: [], stylesUrl: "", loading: true, isSp: false };
+        this.state = {
+            actions: [],
+            stylesUrl: "",
+            loading: true,
+            isSp: false,
+            sharePointInfo: null
+        };
         this.renderItem = this.renderItem.bind(this);
         this.actions = this.actions.bind(this);
     }
@@ -39,9 +47,9 @@ export default class PopUp extends React.Component<IPopUpProps, IPopUpState> {
     }
 
     public componentDidMount() {
-        this.checkIfSharePoint().then((isSp: boolean) => {
-            if (isSp) {
-                this.getActions();
+        this.checkIfSharePoint().then((isSpResponse: (boolean | ISharePointSiteInfo)) => {
+            if (isSpResponse) {
+                this.getActions(isSpResponse as ISharePointSiteInfo);
             } else {
                 this.setState({ isSp: false, loading: false } as IPopUpState);
             }
@@ -81,7 +89,7 @@ export default class PopUp extends React.Component<IPopUpProps, IPopUpState> {
             </div>
         );
     }
-    private getActions() {
+    private getActions(spInfo: ISharePointSiteInfo) {
         const that: any = this;
         const xobj: XMLHttpRequest = new XMLHttpRequest();
         xobj.overrideMimeType("application/json");
@@ -89,19 +97,37 @@ export default class PopUp extends React.Component<IPopUpProps, IPopUpState> {
         xobj.onreadystatechange = () => {
             if (xobj.readyState === 4 && xobj.status === 200) {
                 const data = JSON.parse(xobj.responseText);
-                that.setState({ actions: data.actions, stylesUrl: data.stylesUrl, isSp: true, loading: false });
+                that.setState({
+                    actions: data.actions,
+                    stylesUrl: data.stylesUrl,
+                    isSp: true,
+                    loading: false,
+                    sharePointInfo: spInfo
+                });
             }
         };
         xobj.send(null);
 
     }
     private renderItem(item: IActionData, index: number) {
-        return <ActionItem item={item} key={index} stylesUrl={this.state.stylesUrl} />;
+        return <ActionItem item={item} key={index} stylesUrl={this.state.stylesUrl} spInfo={this.state.sharePointInfo} />;
     }
     private checkIfSharePoint(): Promise<boolean> {
         return new Promise((resolve, reject) => {
             const codeStr: string = `(function () {
-                var requestUrl = window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1);
+                var href = window.location.href;
+                var lastIndex = href.lastIndexOf('/_layouts');
+                if (lastIndex === -1){
+                    lastIndex = href.lastIndexOf('/');
+                    var lastPath = href.substring(lastIndex);
+                    if(lastPath.lastIndexOf('.') === -1){
+                        lastIndex = href.length;
+                    }
+                }
+                var requestUrl = href.substring(0, lastIndex + 1);
+                if(!requestUrl.endsWith("/")){
+                    requestUrl += '/';
+                }
                 requestUrl += '_api/contextinfo';
                 var request = new XMLHttpRequest();
                 request.open("POST", requestUrl, false);

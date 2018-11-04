@@ -21,6 +21,7 @@ export const constants  = {
     STYLE_TAG_ATTR_REL: "stylesheet",
     STYLE_TAG_ATTR_TYPE: "text/css",
     STYLE_TAG_ID: "spChromeDevToolStyles",
+    SP_INFO_TAG_ID: "spChromeDevToolSpInfo",
     TYPE_OF_FUNCTION: "function",
     TYPE_OF_UNDEFINED: "undefined",
     TYPE_OF_STRING: "string",

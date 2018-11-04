@@ -1,27 +1,15 @@
 import * as axios from "axios";
-import { AppCache } from "./cache";
+import { ISharePointSiteInfo } from "./../common/interfaces";
 import { constants } from "./constants";
+
+declare var spInfo: ISharePointSiteInfo;
 
 export default class ApiBase {
 
     public getWebUrl(): Promise<string> {
         return new Promise((resolve: (value?: string | PromiseLike<string>)
             => void, reject: (reason?: any) => void) => {
-            const cacheKey: string = `${window.location.href}_ChromeSPDevTools_url`;
-            let url: string = AppCache.get<string>(cacheKey);
-            if (!!url) {
-                resolve(url);
-            } else {
-                const ctx: SP.ClientContext = SP.ClientContext.get_current();
-                const web: SP.Web = ctx.get_web();
-                ctx.load(web);
-
-                ctx.executeQueryAsync(() => {
-                    url = web.get_url();
-                    AppCache.set(cacheKey, url);
-                    resolve(url);
-                }, this.getErrorResolver(reject, constants.MESSAGE_GETTING_WEB_URL));
-            }
+                resolve(spInfo.webFullUrl);
         });
     }
     public getRequest(url: string) {

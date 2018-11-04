@@ -1,5 +1,9 @@
 
+
+import { ISharePointSiteInfo } from "./../common/interfaces";
 import { constants } from "./constants";
+
+declare var spInfo: ISharePointSiteInfo;
 
 class Cache {
     private _keyPrefix: string = "spChromeDevTool_";
@@ -49,7 +53,7 @@ class Cache {
     }
 
     private addKeyPrefix(key: string): string {
-        return this._keyPrefix + window.location.href.replace(/:\/\/|\/|\./g, "_") + "_" + key;
+        return this._keyPrefix + spInfo.webFullUrl.replace(/:\/\/|\/|\./g, "_") + "_" + key;
     }
 
     private get CacheObject(): Storage {
